@@ -5,7 +5,7 @@ build-backend = "hatchling.build"
 [project]
 name = "checkwash-corpus"
 version = "0.1.0"
-description = "Real-world measurement corpus for checkwash/greenwash."
+description = "Real-world measurement corpus for checkwash."
 readme = "README.md"
 license = "Apache-2.0"
 requires-python = ">=3.11"
@@ -20,7 +20,7 @@ corpus = "corpus.cli:main"
 
 [project.urls]
 Homepage = "https://github.com/taipei49314/checkwash-corpus"
-Engine = "https://github.com/taipei49314/greenwash"
+Engine = "https://github.com/taipei49314/checkwash"
 
 [tool.hatch.build.targets.wheel]
 packages = ["src/corpus"]

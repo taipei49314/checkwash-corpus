@@ -8,7 +8,7 @@ Schema version: 1
 
 ## 1. What this repository is
 
-A **ledger and harvest pipeline** for real-world checkwash/greenwash
+A **ledger and harvest pipeline** for real-world checkwash
 measurements. It is not the engine. It does not judge diffs. Verdicts come
 from a checkwash/greenwash checkout pointed at a clone this repo fetched.
 

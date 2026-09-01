@@ -1,6 +1,6 @@
 # Contributing
 
-This repository collects **real** measurements for checkwash/greenwash. A
+This repository collects **real** measurements for checkwash. A
 row that cannot be reproduced is not a contribution.
 
 ## Send a cheat

@@ -1,8 +1,8 @@
 # checkwash-corpus
 
-Real-world measurement corpus for [checkwash / greenwash](https://github.com/taipei49314/greenwash).
+Real-world measurement corpus for [checkwash](https://github.com/taipei49314/checkwash).
 
-greenwash catches diffs that tamper with the verification layer. Every number
+checkwash catches diffs that tamper with the verification layer. Every number
 it publishes is only as good as the history it was pointed at. The six-repo
 false-positive corpus cannot see mocking, unittest dialect, or JS/TS oracles.
 This repository is the place those measurements get collected.
@@ -25,8 +25,8 @@ wave2-js-oracle      3 planned (fetch with --include-planned)
 
 | wave | sources | question it can answer |
 |------|---------|------------------------|
-| **wave0-published-fp** | attrs, click, flask, httpx, rich, starlette | Reproduce the published 1800-commit human FP numbers. Point `greenwash bench --corpus clones` at it. |
-| **wave1-mock-power** | 20 permissive Python repos from [corpus-expansion.md](https://github.com/taipei49314/greenwash/blob/main/benchmarks/corpus-expansion.md) | Is "once in 1800" a property of test-tampering or of six libraries that rarely stub anything? |
+| **wave0-published-fp** | attrs, click, flask, httpx, rich, starlette | Reproduce the published 1800-commit human FP numbers. Point `checkwash bench --corpus clones` at it. |
+| **wave1-mock-power** | 20 permissive Python repos from [corpus-expansion.md](https://github.com/taipei49314/checkwash/blob/main/benchmarks/corpus-expansion.md) | Is "once in 1800" a property of test-tampering or of six libraries that rarely stub anything? |
 | **wave2-js-oracle** | axios, express, vitest (planned) | T3.1 JS/TS matcher weakenings. Not fetched until that round. |
 
 Plus, without any clone:
@@ -48,7 +48,7 @@ python -m pip install -e .          # provides the `corpus` command
 ## Collect
 
 ```bash
-# 1. Clone wave 0 (small) so greenwash bench can see the published pins.
+# 1. Clone wave 0 (small) so checkwash bench can see the published pins.
 python -m corpus fetch --wave wave0-published-fp
 
 # 2. Measure whether the clone has the power the rule needs.
@@ -70,11 +70,12 @@ Point the engine at this cache:
 
 ```bash
 export GREENWASH_CORPUS=/path/to/checkwash-corpus/clones
-greenwash bench --corpus "$GREENWASH_CORPUS"
+checkwash bench --corpus "$GREENWASH_CORPUS"
 ```
 
-Or clone this repository as a sibling named `greenwash-corpus` and put the
-wave-0 checkouts at that root (the layout `greenwash bench` already looks for).
+The env var is still `GREENWASH_CORPUS` (compatibility). Or clone this
+repository as a sibling named `greenwash-corpus` and put the wave-0
+checkouts at that root (the layout `checkwash bench` still looks for).
 `python -m corpus fetch --wave wave0-published-fp --layout bench` does that
 when the repo itself is checked out as `greenwash-corpus`.
 
@@ -89,7 +90,7 @@ when the repo itself is checked out as `greenwash-corpus`.
 
 ```
 catalog/CATALOG.json     inclusion list (frozen probes, waves, pins)
-records/sweeps/          greenwash sweep JSON, one file per source
+records/sweeps/          checkwash sweep JSON, one file per source
 records/census/          power counts at a named revision
 records/prs/<id>/        harvested test-file patches from GitHub
 records/incoming/        agent-diff drop-box

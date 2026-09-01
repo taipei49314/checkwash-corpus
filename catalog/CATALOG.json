@@ -1,7 +1,7 @@
 {
-  "engine_repo": "https://github.com/taipei49314/greenwash",
+  "engine_repo": "https://github.com/taipei49314/checkwash",
   "schema_version": 1,
-  "purpose": "Real-world measurement corpus for checkwash/greenwash. Catalog and records are the evidence. Clones are a local cache and are never vendored.",
+  "purpose": "Real-world measurement corpus for checkwash. Catalog and records are the evidence. Clones are a local cache and are never vendored.",
   "power_probes": {
     "approx": "pytest\\.approx|assertAlmostEqual",
     "js_test_globs": [
