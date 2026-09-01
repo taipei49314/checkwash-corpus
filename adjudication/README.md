@@ -10,4 +10,8 @@ enforces.
 
 Do not start an adjudication file until the matching sweep record exists.
 
-Template: [TEMPLATE.json](TEMPLATE.json)
+Template: [TEMPLATE.json](TEMPLATE.json). It is the same per-commit method
+used to reconcile wave 0 against the published 42 blocks (`false_positive` /
+`spec_correct` / `unclear`, reason against the real diff, blocked set must
+match the sweep exactly). Wave 1 sweeps reuse this file; do not invent a
+second schema.

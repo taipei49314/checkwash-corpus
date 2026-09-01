@@ -22,7 +22,10 @@ Do not vendor the tree.
 
 ## Record a sweep
 
-`python -m corpus sweep --id <id> --engine /path/to/greenwash`
+`python -m corpus sweep --id <id> --engine checkwash.pyz`
+
+Use the current Release zipapp (`checkwash.pyz`). `greenwash.pyz` is the
+pre-rename asset and only exists on tags ≤v0.1.49.
 
 Do not hand-edit numbers. Adjudication comes after the sweep, and must
 cover exactly the blocked set.

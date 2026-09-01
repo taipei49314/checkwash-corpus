@@ -216,7 +216,11 @@ def build_parser() -> argparse.ArgumentParser:
 
     sw = sub.add_parser("sweep", help="run greenwash/checkwash sweep; record JSON")
     add_select(sw)
-    sw.add_argument("--engine", default=None, help="greenwash checkout, pyz, or executable")
+    sw.add_argument(
+        "--engine",
+        default=None,
+        help="checkwash.pyz (current Release asset), a checkout, or an executable; greenwash.pyz is ≤v0.1.49 only",
+    )
     sw.add_argument("--replace", action="store_true")
     sw.set_defaults(func=cmd_sweep)
     return p

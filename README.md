@@ -61,8 +61,9 @@ python -m corpus harvest-prs --wave wave0-published-fp --per-repo 15
 python -m corpus fetch --wave wave1-mock-power
 python -m corpus census --wave wave1-mock-power
 
-# 5. Sweep — needs a greenwash/checkwash install on PATH.
-python -m corpus sweep --wave wave0-published-fp --engine /path/to/greenwash
+# 5. Sweep — pin a Release zipapp, not an editable checkout.
+# Latest asset is checkwash.pyz (greenwash.pyz exists only on ≤v0.1.49).
+python -m corpus sweep --wave wave0-published-fp --engine checkwash.pyz
 ```
 
 Point the engine at this cache:

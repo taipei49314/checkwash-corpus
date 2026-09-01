@@ -48,7 +48,7 @@ CLI 開跑時印的是 `checkwash 0.1.49`。各 sweep 檔自己記下的 `corpus
 | flask、httpx | 0.2.0 |
 | rich、starlette | 0.2.1 |
 
-原因：CLI 是 editable install，指向正在改名的 `feat/checkwash-identity-v0.2.0` 工作樹。**判決集合仍然與 0.1.46 發表視窗一致**；版本字串不能當成凍結 pin。下一輪 sweep 應改用 GitHub Release 的 `greenwash.pyz`，不要再吃這棵髒工作樹。
+原因：CLI 是 editable install，指向正在改名的 `feat/checkwash-identity-v0.2.0` 工作樹。**判決集合仍然與 0.1.46 發表視窗一致**；版本字串不能當成凍結 pin。下一輪 sweep 應改用 GitHub Release 的 **`checkwash.pyz`**（最新資產名；`greenwash.pyz` 只存在於 ≤v0.1.49 的舊 release），不要再吃這棵髒工作樹。
 
 ---
 
@@ -122,7 +122,7 @@ Census 掃的是 clone 裡所有可讀的 `.py`（跳過 `node_modules` / `__pyc
 
 1. **第一次 wave 1 fetch**：ray 連線被重設，隨後一批 `Could not resolve host: github.com`，typer 在 Windows 上 `tmp.rename(dest)` 權限錯誤，整個 fetch 以未捕捉的 `PermissionError` 炸掉。
 2. **重試**：15 個缺的來源裡 14 個一次成功（含 ray、transformers、django、azure-cli）。`great_expectations` 留下半成品 `.git/objects`，Windows 鎖住目錄，rename / rmdir / 工具內 `_rmtree` 都拿不掉。**19/20 clone，不宣稱 20/20。**
-3. **fetch 已改**：clone 改成直接寫入 `dest`（不再 rename）、網路錯誤重試 3 次、`OSError` 當成來源失敗而不是整個行程崩潰。`great_expectations` 那把鎖仍在，下一輪要先手動刪 `clones/great_expectations`。
+3. **fetch 已改**：clone 改成直接寫入 `dest`（不再 rename）、網路錯誤重試 3 次、`OSError` 當成來源失敗而不是整個行程崩潰。`clones/great_expectations` 那把 Windows 鎖仍在：重開機後刪最省事；`Remove-Item -Force -Recurse` 若仍失敗，用 `handle.exe` 查佔用再刪。
 4. **沒有 wave 1 sweep**。有 clone 還不夠；sweep 300 commit × 19 庫會是自己的一輪，而且 django / transformers 的 unittest 密度會讓引擎第一次真正碰到 86b。
 5. **版本字串不可當作 pin**（§2）。
 
@@ -142,15 +142,15 @@ Census 掃的是 clone 裡所有可讀的 `.py`（跳過 `node_modules` / `__pyc
 
 ## 7. 建議的下一輪（仍不動 greenwash 源碼）
 
-1. 手動刪掉 `clones/great_expectations` 後 `python -m corpus fetch --id great_expectations`。
-2. Sweep 用 **Release pyz**，不要再用 editable 髒樹：  
-   `python -m corpus sweep --id django --engine greenwash.pyz`
+1. 清掉 `clones/great_expectations` 後 `python -m corpus fetch --id great_expectations`。重開機再刪最省事；`Remove-Item -Force -Recurse` 失敗時用 `handle.exe` 查誰佔著 `.git`。
+2. Sweep 用 **最新 Release 的 `checkwash.pyz`**，不要再用 editable 髒樹，也不要下載舊名 `greenwash.pyz`（那只在 ≤v0.1.49）：
+   `python -m corpus sweep --id django --engine checkwash.pyz`
 3. 第一個有功率的 sweep 建議順序（小 → 貴）：
    1. `typer` / `boto3`（煙霧）
    2. `pytest`（collection）
    3. `salt` 或 `django`（unittest）
    4. `airflow`（mock，最大）
-4. 每個新 sweep 單獨 adjudication，禁止跟 wave 0 的 42 筆混成一個headline。
+4. 每個新 sweep 單獨 adjudication，禁止跟 wave 0 的 42 筆混成一個 headline。`adjudication/TEMPLATE.json` 已經是鷹架：`(catalog_id, commit)` 必須與 sweep 的 `blocked_commits` 對齊、逐案對真實 diff 寫 `false_positive` / `spec_correct` / `unclear`，跟本輪 wave 0 對帳用的裁決法同一套。wave 1 sweep 落地時直接沿用，不必另起格式。
 
 ---
 
@@ -162,6 +162,7 @@ Census 掃的是 clone 裡所有可讀的 `.py`（跳過 `node_modules` / `__pyc
 | `records/sweeps/*.json` | wave 0 六份，本輪引擎重跑 |
 | `records/census/*.json` | wave 0 六份 + wave 1 十九份 |
 | `records/prs/` | 114 個真實 PR 測試檔摘錄 |
+| `adjudication/TEMPLATE.json` | 逐案裁決鷹架；wave 1 sweep 沿用 |
 | `SPEC.md` | 什麼算測量 |
 | `clones/` | 本機快取，不進 git |
 
