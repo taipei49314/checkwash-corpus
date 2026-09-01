@@ -49,9 +49,10 @@ def cmd_status(args: argparse.Namespace) -> int:
     for wave_id, row in waves.items():
         planned = row["catalogued"] - row["included"]
         extra = f", {planned} planned" if planned else ""
+        broken = f"; {row['broken']} broken" if row.get("broken") else ""
         print(
             f"{wave_id:24} {row['included']}/{row['catalogued']} catalogued{extra}; "
-            f"{row['cloned']} cloned; {row['census']} census; "
+            f"{row['cloned']} cloned{broken}; {row['census']} census; "
             f"{row['sweeps']} sweeps; {row['prs']} harvested PRs"
         )
     if args.verbose:
@@ -60,7 +61,7 @@ def cmd_status(args: argparse.Namespace) -> int:
             st = source_status(root, catalog, src.id)
             flag = " " if st["include"] else "*"
             print(
-                f"  {flag}{st['id']:22} clone={int(st['cloned'])} "
+                f"  {flag}{st['id']:22} clone={st['clone_state']:7} "
                 f"pin={int(st['pin_present'])} census={int(st['census'])} "
                 f"sweep={int(st['sweep'])} prs={st['prs']}"
             )
@@ -95,7 +96,9 @@ def cmd_fetch(args: argparse.Namespace) -> int:
         else:
             print(msg)
 
-    results = fetch_many(root, catalog, sources, on_progress=progress)
+    results = fetch_many(
+        root, catalog, sources, layout=args.layout, on_progress=progress
+    )
     failed = [sid for sid, err in results if err]
     if failed:
         print(f"{len(failed)} source(s) failed: {', '.join(failed)}", file=sys.stderr)
@@ -164,7 +167,12 @@ def cmd_sweep(args: argparse.Namespace) -> int:
     for src in sources:
         try:
             dest = run_sweep(
-                root, catalog, src, engine=args.engine, replace=args.replace
+                root,
+                catalog,
+                src,
+                engine=args.engine,
+                replace=args.replace,
+                allow_dirty=args.allow_dirty_engine,
             )
             print(f"wrote {dest.relative_to(root)}")
         except SweepError as exc:
@@ -203,6 +211,12 @@ def build_parser() -> argparse.ArgumentParser:
 
     fe = sub.add_parser("fetch", help="clone or update catalogued sources into clones/")
     add_select(fe)
+    fe.add_argument(
+        "--layout",
+        choices=("cache", "bench"),
+        default="cache",
+        help="cache: clones/<id>. bench: wave0 at repo root so `greenwash bench --corpus .` works when this checkout is named greenwash-corpus",
+    )
     fe.set_defaults(func=cmd_fetch)
 
     ce = sub.add_parser("census", help="count patch/unittest/JS/runner power at the pin")
@@ -222,6 +236,11 @@ def build_parser() -> argparse.ArgumentParser:
         help="checkwash.pyz (current Release asset), a checkout, or an executable; greenwash.pyz is ≤v0.1.49 only",
     )
     sw.add_argument("--replace", action="store_true")
+    sw.add_argument(
+        "--allow-dirty-engine",
+        action="store_true",
+        help="allow PATH/checkout engines; wave1 records still fail validate",
+    )
     sw.set_defaults(func=cmd_sweep)
     return p
 

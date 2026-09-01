@@ -125,6 +125,11 @@
     "newest_commit": "36e4a824f340fdee7ed50937ba8e7f6bc7d17f81",
     "oldest_commit": "345f18442ceb29f9e365af99fc85bdc5986323d2"
   },
+  "engine": {
+    "asset": "editable-unrecorded",
+    "note": "2026-09-01 wave0 reproduction; editable install; version string drifted 0.1.49-0.2.1; not a pyz pin",
+    "sha256": null
+  },
   "engine_errors": 0,
   "findings_by_rule": {
     "ASSERT_REMOVED": {

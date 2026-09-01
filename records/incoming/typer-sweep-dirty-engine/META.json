@@ -1,0 +1,8 @@
+{
+  "slug": "typer-sweep-dirty-engine",
+  "submitted": "2026-09-01",
+  "engine_version": "0.2.1",
+  "source": "local editable checkwash during P0; not a Release pyz",
+  "production_changed": false,
+  "notes": "300-commit typer sweep written while the engine was an editable 0.2.1 checkout. Moved out of records/sweeps/ so it cannot be published: wave 1 requires checkwash.pyz + sha256. Re-run with --engine checkwash.pyz before adjudication."
+}

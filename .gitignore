@@ -1,4 +1,10 @@
 clones/
+/attrs/
+/click/
+/flask/
+/httpx/
+/rich/
+/starlette/
 __pycache__/
 .pytest_cache/
 *.pyc

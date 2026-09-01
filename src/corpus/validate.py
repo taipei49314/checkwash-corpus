@@ -3,8 +3,9 @@ from __future__ import annotations
 from pathlib import Path
 
 from corpus.catalog import load_catalog, validate_raw
+from corpus.engine import PYZ_ASSETS
 from corpus.jsonio import load
-from corpus.paths import catalog_path, repo_root
+from corpus.paths import catalog_path, census_path, repo_root
 
 SWEEP_REQUIRED = (
     "catalog_id",
@@ -15,6 +16,29 @@ SWEEP_REQUIRED = (
 )
 CENSUS_REQUIRED = ("catalog_id", "wave", "revision", "probes", "counts")
 ADJ_CATEGORIES = {"false_positive", "spec_correct", "unclear"}
+GRANDFATHER_DIRTY = "editable-unrecorded"
+
+
+def _engine_errors(path_name: str, wave: str, engine: object) -> list[str]:
+    if not isinstance(engine, dict):
+        return [f"{path_name}: missing engine asset record"]
+    asset = engine.get("asset")
+    sha = engine.get("sha256")
+    if asset in PYZ_ASSETS:
+        if not (isinstance(sha, str) and len(sha) == 64 and all(c in "0123456789abcdef" for c in sha)):
+            return [f"{path_name}: {asset} requires a 64-hex sha256"]
+        return []
+    if asset == GRANDFATHER_DIRTY:
+        if wave != "wave0-published-fp":
+            return [
+                f"{path_name}: editable-unrecorded is only allowed on the "
+                "2026-09-01 wave0 reproduction"
+            ]
+        return []
+    return [
+        f"{path_name}: engine asset {asset!r} cannot be published "
+        "(need checkwash.pyz / greenwash.pyz, or the wave0 grandfather)"
+    ]
 
 
 def validate(root: Path | None = None) -> list[str]:
@@ -27,7 +51,7 @@ def validate(root: Path | None = None) -> list[str]:
     except ValueError as exc:
         return errors + [str(exc)]
 
-    ids = {s.id for s in catalog.sources}
+    ids = {s.id: s for s in catalog.sources}
     for path in sorted((root / "records" / "sweeps").glob("*.json")):
         data = load(path)
         for key in SWEEP_REQUIRED:
@@ -39,10 +63,18 @@ def validate(root: Path | None = None) -> list[str]:
         if not (corpus.get("greenwash_version") or corpus.get("checkwash_version")):
             errors.append(f"{path.name}: engine version missing")
         cid = data.get("catalog_id")
+        wave = data.get("wave") or ""
         if cid and cid not in ids:
             errors.append(f"{path.name}: catalog_id {cid!r} is not in the catalog")
         if cid and path.stem != cid:
             errors.append(f"{path.name}: filename stem != catalog_id {cid!r}")
+        errors.extend(_engine_errors(path.name, str(wave), data.get("engine")))
+        if wave == "wave1-mock-power" and cid:
+            if not census_path(root, str(cid)).is_file():
+                errors.append(
+                    f"{path.name}: wave1 sweep has no records/census/{cid}.json "
+                    "(SPEC: power before precision)"
+                )
 
     for path in sorted((root / "records" / "census").glob("*.json")):
         data = load(path)

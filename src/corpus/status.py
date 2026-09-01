@@ -3,16 +3,17 @@ from __future__ import annotations
 from pathlib import Path
 
 from corpus.catalog import Catalog
-from corpus.gitutil import has_commit, is_git_repo
-from corpus.paths import census_path, clone_path, prs_dir, sweep_path
+from corpus.gitutil import has_commit
+from corpus.paths import census_path, inspect_clone, prs_dir, resolve_clone, sweep_path
 
 
 def source_status(root: Path, catalog: Catalog, source_id: str) -> dict[str, object]:
     src = catalog.source(source_id)
-    clone = clone_path(root, source_id)
-    cloned = is_git_repo(clone)
+    state, path = inspect_clone(root, source_id)
+    cloned = state == "ok"
     pin = (src.published_pin or {}).get("newest_commit") or ""
-    pin_ok = bool(cloned and pin and has_commit(clone, pin)) if pin else cloned
+    repo = resolve_clone(root, source_id)
+    pin_ok = bool(cloned and pin and repo is not None and has_commit(repo, pin)) if pin else cloned
     pr_count = 0
     pdir = prs_dir(root, source_id)
     if pdir.is_dir():
@@ -21,6 +22,8 @@ def source_status(root: Path, catalog: Catalog, source_id: str) -> dict[str, obj
         "id": src.id,
         "wave": src.wave,
         "include": src.include,
+        "clone_state": state,
+        "clone_path": str(path),
         "cloned": cloned,
         "pin_present": pin_ok,
         "census": census_path(root, source_id).is_file(),
@@ -36,6 +39,7 @@ def wave_status(root: Path, catalog: Catalog) -> dict[str, dict[str, int]]:
             "catalogued": 0,
             "included": 0,
             "cloned": 0,
+            "broken": 0,
             "census": 0,
             "sweeps": 0,
             "prs": 0,
@@ -48,6 +52,8 @@ def wave_status(root: Path, catalog: Catalog) -> dict[str, dict[str, int]]:
         st = source_status(root, catalog, src.id)
         if st["cloned"]:
             row["cloned"] += 1
+        if st["clone_state"] == "broken":
+            row["broken"] += 1
         if st["census"]:
             row["census"] += 1
         if st["sweep"]:

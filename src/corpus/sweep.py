@@ -2,40 +2,19 @@ from __future__ import annotations
 
 import json
 import os
-import shutil
 import subprocess
 import sys
 from pathlib import Path
 
 from corpus.catalog import Catalog, Source
-from corpus.gitutil import GitError, has_commit, is_git_repo
+from corpus.engine import EngineError, resolve_engine
+from corpus.gitutil import has_commit
 from corpus.jsonio import dump
-from corpus.paths import clone_path, sweep_path
+from corpus.paths import inspect_clone, resolve_clone, sweep_path
 
 
 class SweepError(RuntimeError):
     pass
-
-
-def find_engine(explicit: str | None) -> list[str]:
-    if explicit:
-        path = Path(explicit)
-        if path.is_dir():
-            return [sys.executable, "-m", "checkwash"]
-        if path.is_file():
-            return [sys.executable, str(path)]
-        exe = shutil.which(explicit)
-        if exe:
-            return [exe]
-        raise SweepError(f"engine not found: {explicit}")
-    for name in ("greenwash", "checkwash"):
-        exe = shutil.which(name)
-        if exe:
-            return [exe]
-    raise SweepError(
-        "no greenwash/checkwash on PATH; pass --engine PATH "
-        "(a checkout, a pyz, or an executable)"
-    )
 
 
 def run_sweep(
@@ -45,10 +24,16 @@ def run_sweep(
     *,
     engine: str | None,
     replace: bool = False,
+    allow_dirty: bool = False,
 ) -> Path:
-    repo = clone_path(root, source.id)
-    if not is_git_repo(repo):
-        raise SweepError(f"{source.id}: clone missing at {repo}")
+    repo = resolve_clone(root, source.id)
+    if repo is None:
+        state, path = inspect_clone(root, source.id)
+        if state == "broken":
+            raise SweepError(
+                f"{source.id}: {path} is a broken leftover, not a clone"
+            )
+        raise SweepError(f"{source.id}: clone missing at {path}")
     wave = catalog.waves[source.wave]
     dest = sweep_path(root, source.id)
     if dest.exists() and not replace:
@@ -58,18 +43,17 @@ def run_sweep(
     pin = (source.published_pin or {}).get("newest_commit")
     if pin and not has_commit(repo, pin):
         raise SweepError(f"{source.id}: clone does not contain pin {pin}")
-    cmd = find_engine(engine)
-    # If --engine is a checkout, run with PYTHONPATH=src so -m checkwash / greenwash resolves.
+    try:
+        cmd, engine_record = resolve_engine(engine, allow_dirty=allow_dirty)
+    except EngineError as exc:
+        raise SweepError(str(exc)) from exc
     env = os.environ.copy()
     if engine and Path(engine).is_dir():
         src = Path(engine) / "src"
         if src.is_dir():
             env["PYTHONPATH"] = str(src) + os.pathsep + env.get("PYTHONPATH", "")
-            # Prefer the package that actually exists in that checkout.
-            if (src / "checkwash").is_dir():
-                cmd = [sys.executable, "-m", "checkwash"]
-            elif (src / "greenwash").is_dir():
-                cmd = [sys.executable, "-m", "greenwash"]
+            if cmd[-1] in {"checkwash", "greenwash"} and cmd[0] == sys.executable:
+                pass
     rev = pin or "HEAD"
     argv = cmd + ["sweep", rev, "--limit", str(wave.commit_limit), "--repo", str(repo)]
     proc = subprocess.run(argv, capture_output=True, env=env)
@@ -86,6 +70,7 @@ def run_sweep(
         raise SweepError(f"{source.id}: engine JSON is not an object")
     payload["catalog_id"] = source.id
     payload["wave"] = source.wave
+    payload["engine"] = engine_record
     corpus = payload.get("corpus")
     if not isinstance(corpus, dict) or not corpus.get("newest_commit") or not corpus.get("oldest_commit"):
         raise SweepError(f"{source.id}: engine JSON missing corpus pins")

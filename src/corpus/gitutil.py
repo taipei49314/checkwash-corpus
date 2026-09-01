@@ -31,6 +31,47 @@ def is_git_repo(path: Path) -> bool:
     return path.is_dir() and ((path / ".git").exists() or (path / ".git").is_file())
 
 
+def is_usable_clone(path: Path, corpus_root: Path | None = None) -> bool:
+    """A real third-party checkout, not this corpus and not a half-written .git.
+
+    `git -C <broken>` walks up to the parent repo, which is how
+    clones/great_expectations looked cloned while HEAD was checkwash-corpus.
+    """
+    if not path.is_dir():
+        return False
+    git_dir = path / ".git"
+    if not git_dir.exists():
+        return False
+    if git_dir.is_dir() and not (git_dir / "HEAD").is_file():
+        return False
+    proc = subprocess.run(
+        ["git", "-C", str(path), "rev-parse", "--show-toplevel"],
+        capture_output=True,
+    )
+    if proc.returncode != 0:
+        return False
+    top = Path(proc.stdout.decode("utf-8", "replace").strip()).resolve()
+    here = path.resolve()
+    if top != here:
+        return False
+    if corpus_root is not None and top == Path(corpus_root).resolve():
+        return False
+    proc = subprocess.run(
+        ["git", "-C", str(path), "rev-parse", "HEAD"],
+        capture_output=True,
+    )
+    return proc.returncode == 0
+
+
+def clone_state(path: Path, corpus_root: Path | None = None) -> str:
+    """missing | broken | ok"""
+    if is_usable_clone(path, corpus_root):
+        return "ok"
+    if (path / ".git").exists():
+        return "broken"
+    return "missing"
+
+
 def has_commit(repo: Path, sha: str) -> bool:
     if not sha:
         return False

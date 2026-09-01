@@ -14,8 +14,10 @@ from a checkwash/greenwash checkout pointed at a clone this repo fetched.
 
 greenwash already knows this shape: `greenwash bench --corpus DIR` (or
 `GREENWASH_CORPUS`, or a sibling named `greenwash-corpus`) expects one git
-clone per published sweep stem. Wave 0 of this catalog *is* that directory
-once fetched: `clones/flask`, `clones/httpx`, …
+clone per published sweep stem. Default fetch layout (`cache`) writes
+`clones/<id>`. `--layout bench` writes wave-0 clones at the repo root
+(`./flask`, `./httpx`, …) so a checkout named `greenwash-corpus` is the
+directory bench already looks for. Wave 1 always stays under `clones/`.
 
 ## 2. Evidence vs cache
 
@@ -51,12 +53,26 @@ Every sweep record must carry:
 - `corpus.newest_commit`, `corpus.oldest_commit`
 - `corpus.greenwash_version` (or `checkwash_version`)
 - `commits_analysed`, `commits_blocked`, `engine_errors`
+- `engine.asset` + `engine.sha256`:
+  - current Release zipapp: `checkwash.pyz` and a 64-hex sha256
+  - tags ≤v0.1.49: `greenwash.pyz` and a 64-hex sha256
+  - the 2026-09-01 wave-0 reproduction only: `editable-unrecorded` / `sha256: null`
+    (version string drifted; not a pin). New wave-1 records may not use this.
+
+A PATH executable or editable checkout is a dirty engine. `sweep` refuses it
+unless `--allow-dirty-engine`. Dirty records fail `validate` on wave 1.
 
 Every census record must carry:
 
 - `catalog_id`, `wave`, `revision`
 - `probes` (the frozen regex set from the catalog, copied not implied)
 - per-probe counts
+
+New census writes also record `clone_depth` and `bytes_on_disk`. Older
+census files without those keys stay valid.
+
+A wave-1 sweep file with no matching `records/census/<id>.json` is invalid
+(power before precision).
 
 `python -m corpus validate` refuses a record that is missing any of these.
 Missing is a hard fail, not a skipped row.
@@ -66,6 +82,9 @@ Missing is a hard fail, not a skipped row.
 - Fetch of a catalogued, `include: true` source that cannot be cloned exits
   non-zero and names the source. It does not continue and print a partial
   table as if it were complete.
+- A directory whose `.git` is incomplete, or whose `rev-parse --show-toplevel`
+  is this corpus rather than itself, is **broken**, not cloned (`status`
+  says `broken`; fetch/census/sweep refuse it).
 - Sweep of a clone that does not contain the requested pin exits non-zero.
 - Census of a missing clone exits non-zero for that source.
 - `include: false` sources are invisible to fetch/census/sweep unless

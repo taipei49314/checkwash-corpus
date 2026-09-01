@@ -5,9 +5,9 @@ from pathlib import Path
 from typing import Any
 
 from corpus.catalog import Catalog, Source
-from corpus.gitutil import GitError, git, has_commit, head_sha, is_git_repo
+from corpus.gitutil import GitError, git, has_commit, head_sha
 from corpus.jsonio import dump
-from corpus.paths import census_path, clone_path
+from corpus.paths import census_path, inspect_clone, resolve_clone
 
 # Binary / generated paths we do not open. Segment-anchored, like greenwash.
 _SKIP_PARTS = frozenset(
@@ -68,6 +68,18 @@ def _js_suffixes(globs: list[str]) -> tuple[str, ...]:
     return tuple(out)
 
 
+def _dir_bytes(root: Path) -> int:
+    total = 0
+    for path in root.rglob("*"):
+        if not path.is_file():
+            continue
+        try:
+            total += path.stat().st_size
+        except OSError:
+            continue
+    return total
+
+
 def census_clone(repo: Path, source: Source, catalog: Catalog, revision: str) -> dict[str, Any]:
     probes = catalog.power_probes
     patch_re = probes["patch"]
@@ -107,11 +119,14 @@ def census_clone(repo: Path, source: Source, catalog: Catalog, revision: str) ->
             approx_sites += _count_regex(text, approx_re)
             skip_sites += _count_regex(text, skip_re)
 
+    wave = catalog.waves[source.wave]
     return {
         "catalog_id": source.id,
         "wave": source.wave,
         "owner_repo": source.owner_repo,
         "revision": revision,
+        "clone_depth": wave.clone_depth,
+        "bytes_on_disk": _dir_bytes(repo),
         "probes": {
             "patch": patch_re,
             "unittest_assert": unittest_re,
@@ -134,9 +149,14 @@ def census_clone(repo: Path, source: Source, catalog: Catalog, revision: str) ->
 
 
 def run_census(root: Path, catalog: Catalog, source: Source) -> Path:
-    repo = clone_path(root, source.id)
-    if not is_git_repo(repo):
-        raise GitError(f"{source.id}: clone missing at {repo}")
+    repo = resolve_clone(root, source.id)
+    if repo is None:
+        state, path = inspect_clone(root, source.id)
+        if state == "broken":
+            raise GitError(
+                f"{source.id}: {path} is a broken leftover, not a clone"
+            )
+        raise GitError(f"{source.id}: clone missing at {path}")
     revision = head_sha(repo)
     if source.published_pin:
         pin = source.published_pin["newest_commit"]
