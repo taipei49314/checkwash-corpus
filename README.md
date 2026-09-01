@@ -1,15 +1,13 @@
 # checkwash-corpus
 
-Real-world measurement corpus for [checkwash](https://github.com/taipei49314/checkwash).
+The pile of real git history we point [checkwash](https://github.com/taipei49314/checkwash) at.
 
-checkwash catches diffs that tamper with the verification layer. Every number
-it publishes is only as good as the history it was pointed at. The six-repo
-false-positive corpus cannot see mocking, unittest dialect, or JS/TS oracles.
-This repository is the place those measurements get collected.
+This is not the engine. It is the ledger of catalogs, recorded sweeps, and
+harvested PRs. Third-party source trees live in `clones/` on disk and are
+never committed. See [SPEC.md](SPEC.md).
 
-**This clone is a ledger, not a mirror.** Catalog, recorded sweeps, censuses,
-and harvested PR patches live in git. Third-party source trees live in
-`clones/` on disk and are never committed. See [SPEC.md](SPEC.md).
+The six-repo false-positive set cannot see mocking, unittest dialect, or
+JS/TS oracles. Later waves exist to close those holes.
 
 Latest round (2026-09-01): [REPORT.md](REPORT.md) — wave 0 sweep reproduced
 42/1800 against the published pins; wave 1 census is 19/20 clones.
