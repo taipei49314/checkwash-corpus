@@ -1,0 +1,37 @@
+{
+  "catalog_id": "sqlalchemy",
+  "counts": {
+    "approx_sites": 0,
+    "files_scanned": 672,
+    "js_test_files": 0,
+    "patch_sites": 160,
+    "py_files": 672,
+    "runner_files": 0,
+    "skip_sites": 0,
+    "unittest_asserts": 24
+  },
+  "owner_repo": "sqlalchemy/sqlalchemy",
+  "prior_power": {
+    "as_of": "2026-08-13",
+    "commits_at_count": 18214,
+    "patch_sites": 152
+  },
+  "probes": {
+    "approx": "pytest\\.approx|assertAlmostEqual",
+    "js_test_globs": [
+      "**/*.test.js",
+      "**/*.test.jsx",
+      "**/*.test.ts",
+      "**/*.test.tsx",
+      "**/*.spec.js",
+      "**/*.spec.jsx",
+      "**/*.spec.ts",
+      "**/*.spec.tsx"
+    ],
+    "patch": "monkeypatch\\.set|mock\\.patch|patch\\.object|mocker\\.patch|respx|responses\\.|freeze_time",
+    "skip": "pytest\\.mark\\.skip|pytest\\.mark\\.xfail|unittest\\.skip|self\\.skipTest",
+    "unittest_assert": "\\bself\\.assert[A-Z]"
+  },
+  "revision": "934c55201b9dce67cef6ad805b2fe833f7415abd",
+  "wave": "wave1-mock-power"
+}

@@ -1,0 +1,37 @@
+{
+  "catalog_id": "salt",
+  "counts": {
+    "approx_sites": 0,
+    "files_scanned": 3031,
+    "js_test_files": 0,
+    "patch_sites": 3079,
+    "py_files": 3022,
+    "runner_files": 2,
+    "skip_sites": 1954,
+    "unittest_asserts": 4912
+  },
+  "owner_repo": "saltstack/salt",
+  "prior_power": {
+    "as_of": "2026-08-13",
+    "commits_at_count": 125585,
+    "patch_sites": 2741
+  },
+  "probes": {
+    "approx": "pytest\\.approx|assertAlmostEqual",
+    "js_test_globs": [
+      "**/*.test.js",
+      "**/*.test.jsx",
+      "**/*.test.ts",
+      "**/*.test.tsx",
+      "**/*.spec.js",
+      "**/*.spec.jsx",
+      "**/*.spec.ts",
+      "**/*.spec.tsx"
+    ],
+    "patch": "monkeypatch\\.set|mock\\.patch|patch\\.object|mocker\\.patch|respx|responses\\.|freeze_time",
+    "skip": "pytest\\.mark\\.skip|pytest\\.mark\\.xfail|unittest\\.skip|self\\.skipTest",
+    "unittest_assert": "\\bself\\.assert[A-Z]"
+  },
+  "revision": "621251a7376f114e8a67eea323c637a94cefc917",
+  "wave": "wave1-mock-power"
+}

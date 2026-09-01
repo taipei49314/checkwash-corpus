@@ -1,0 +1,37 @@
+{
+  "catalog_id": "pandas",
+  "counts": {
+    "approx_sites": 4,
+    "files_scanned": 1560,
+    "js_test_files": 0,
+    "patch_sites": 126,
+    "py_files": 1519,
+    "runner_files": 0,
+    "skip_sites": 495,
+    "unittest_asserts": 0
+  },
+  "owner_repo": "pandas-dev/pandas",
+  "prior_power": {
+    "as_of": "2026-08-13",
+    "commits_at_count": 38623,
+    "patch_sites": 109
+  },
+  "probes": {
+    "approx": "pytest\\.approx|assertAlmostEqual",
+    "js_test_globs": [
+      "**/*.test.js",
+      "**/*.test.jsx",
+      "**/*.test.ts",
+      "**/*.test.tsx",
+      "**/*.spec.js",
+      "**/*.spec.jsx",
+      "**/*.spec.ts",
+      "**/*.spec.tsx"
+    ],
+    "patch": "monkeypatch\\.set|mock\\.patch|patch\\.object|mocker\\.patch|respx|responses\\.|freeze_time",
+    "skip": "pytest\\.mark\\.skip|pytest\\.mark\\.xfail|unittest\\.skip|self\\.skipTest",
+    "unittest_assert": "\\bself\\.assert[A-Z]"
+  },
+  "revision": "6de181b1211fa91a22bb61e5822a61c3fc953c13",
+  "wave": "wave1-mock-power"
+}

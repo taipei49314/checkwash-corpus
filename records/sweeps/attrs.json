@@ -1,0 +1,74 @@
+{
+  "block_rate": 0.0067,
+  "blocked_commits": [
+    {
+      "commit": "ce89f5d11feb0805da9ed10bb165238cc959f1bb",
+      "findings": [
+        {
+          "message": "TestFunctional.test_frozen_instance: assertion strength EXACT_VALUE(90) -> PATTERN(60)",
+          "path": "tests/test_functional.py",
+          "rule": "ASSERT_WEAKENED",
+          "severity": "high",
+          "unit": "TestFunctional.test_frozen_instance"
+        }
+      ]
+    },
+    {
+      "commit": "f520d9a89f1fde6fdc5310ffe6c5d4c7467fb10b",
+      "findings": [
+        {
+          "message": "test_hash_is_deprecated: test unit disappeared",
+          "path": "tests/test_make.py",
+          "rule": "TEST_DISABLED",
+          "severity": "high",
+          "unit": "test_hash_is_deprecated"
+        }
+      ]
+    }
+  ],
+  "catalog_id": "attrs",
+  "commits_analysed": 300,
+  "commits_blocked": 2,
+  "commits_skipped_no_parent": 0,
+  "commits_touching_tests": 65,
+  "commits_with_opaque_prod_change": 2,
+  "corpus": {
+    "checkwash_version": "0.1.49",
+    "newest_commit": "92e12eae712ef88c1a7e322cc51b7cd9e271aa3c",
+    "oldest_commit": "0a09c1aa2cde5816f4a9f5558fdd1ce792e7076e"
+  },
+  "engine_errors": 0,
+  "findings_by_rule": {
+    "ASSERT_REMOVED": {
+      "warn": 3
+    },
+    "ASSERT_SUBSTITUTED": {
+      "warn": 1
+    },
+    "ASSERT_WEAKENED": {
+      "high": 1
+    },
+    "CI_WORKFLOW_TOUCHED": {
+      "warn": 297
+    },
+    "EXPECTATION_DEFINITION_CHANGED": {
+      "warn": 4
+    },
+    "EXPECTED_VALUE_CHANGED": {
+      "warn": 12
+    },
+    "IMPORT_UNRESOLVED": {
+      "warn": 1
+    },
+    "SUPPRESSION_ADDED": {
+      "warn": 3
+    },
+    "TEST_DISABLED": {
+      "high": 1,
+      "info": 1,
+      "warn": 8
+    }
+  },
+  "merge_commits": "excluded (rev-list --no-merges); a merge gate sees them too",
+  "wave": "wave0-published-fp"
+}

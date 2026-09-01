@@ -1,0 +1,37 @@
+{
+  "catalog_id": "mlflow",
+  "counts": {
+    "approx_sites": 137,
+    "files_scanned": 6509,
+    "js_test_files": 0,
+    "patch_sites": 6316,
+    "py_files": 2665,
+    "runner_files": 1,
+    "skip_sites": 263,
+    "unittest_asserts": 0
+  },
+  "owner_repo": "mlflow/mlflow",
+  "prior_power": {
+    "as_of": "2026-08-13",
+    "commits_at_count": 12985,
+    "patch_sites": 6060
+  },
+  "probes": {
+    "approx": "pytest\\.approx|assertAlmostEqual",
+    "js_test_globs": [
+      "**/*.test.js",
+      "**/*.test.jsx",
+      "**/*.test.ts",
+      "**/*.test.tsx",
+      "**/*.spec.js",
+      "**/*.spec.jsx",
+      "**/*.spec.ts",
+      "**/*.spec.tsx"
+    ],
+    "patch": "monkeypatch\\.set|mock\\.patch|patch\\.object|mocker\\.patch|respx|responses\\.|freeze_time",
+    "skip": "pytest\\.mark\\.skip|pytest\\.mark\\.xfail|unittest\\.skip|self\\.skipTest",
+    "unittest_assert": "\\bself\\.assert[A-Z]"
+  },
+  "revision": "89a0b7efc7f0fa31b76acb0a157930277ec3716f",
+  "wave": "wave1-mock-power"
+}
