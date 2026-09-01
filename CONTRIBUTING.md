@@ -29,3 +29,39 @@ pre-rename asset and only exists on tags ≤v0.1.49.
 
 Do not hand-edit numbers. Adjudication comes after the sweep, and must
 cover exactly the blocked set.
+
+## Division of labor (two agent sessions, one human)
+
+As of 2026-09-01 two agent sessions work these repos concurrently. The
+split, so records stop eating each other:
+
+**Engine side — Claude Code session `desktop-dd`, repo
+`taipei49314/checkwash`:**
+
+- Detector rounds and releases. Next: issue #53 (phantom unit-identity
+  family) → v0.2.2. Every checkwash Release triggers this repo's watcher
+  ledger sweep; every main push triggers a smoke — releases are the
+  hand-off signal, cut them deliberately.
+- **All adjudication verdicts** (`adjudication/*.json`). One rater across
+  every dataset — the 74-block external run, wave-0 reconciliation,
+  wave-1 blocks — so labels stay comparable.
+
+**Corpus side — the session that built this repo:**
+
+- Harness, ledger, `validate`/`status`/`fetch`, `tools/`, the clone
+  estate (great_expectations repair, wave 2), census, PR harvest.
+- Sweep execution, including watcher-triggered re-sweeps on new
+  Releases.
+- Quarantine curation (`records/incoming/`) — always with a META, as
+  done for the 2026-09-01 typer record.
+
+**Both sides:**
+
+- A sweep record must carry `engine.asset` + `engine.sha256` (the
+  harness bakes it in now); `validate` gates the sweep + adjudication
+  pair.
+- Never `git clean` or delete untracked files while the other session
+  may be mid-write; quarantine only records that fail `validate`, and
+  leave a META saying why.
+- Coordination lives in commits and these docs; anything urgent routes
+  through the human.

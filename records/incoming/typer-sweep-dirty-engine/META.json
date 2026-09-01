@@ -4,5 +4,5 @@
   "engine_version": "0.2.1",
   "source": "local editable checkwash during P0; not a Release pyz",
   "production_changed": false,
-  "notes": "300-commit typer sweep written while the engine was an editable 0.2.1 checkout. Moved out of records/sweeps/ so it cannot be published: wave 1 requires checkwash.pyz + sha256. Re-run with --engine checkwash.pyz before adjudication."
+  "notes": "300-commit typer sweep written while the engine was an editable 0.2.1 checkout. Moved out of records/sweeps/ so it cannot be published: wave 1 requires checkwash.pyz + sha256. Re-run with --engine checkwash.pyz before adjudication. Correction (rater 2, same day): the run actually used the Release checkwash.pyz — its file hashes to sha256 8e32dde6ab7768863ebf5181dc580018111293ca569630d888e0d6ed03f0638d, matching the v0.2.1 asset digest. The record still carries no engine stanza, so it remains unpublishable and the quarantine stands; only the stated source ('editable') was a misdiagnosis. The clean re-run reproduced the identical blocked set."
 }

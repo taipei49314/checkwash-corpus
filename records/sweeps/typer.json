@@ -1,0 +1,60 @@
+{
+  "block_rate": 0.0033,
+  "blocked_commits": [
+    {
+      "commit": "917248604affe32caf899cc8faddfa23f81cb1ef",
+      "findings": [
+        {
+          "message": "test_hidden_option_no_rich: test unit disappeared",
+          "path": "tests/test_corner_cases.py",
+          "rule": "TEST_DISABLED",
+          "severity": "high",
+          "unit": "test_hidden_option_no_rich"
+        }
+      ]
+    }
+  ],
+  "catalog_id": "typer",
+  "commits_analysed": 300,
+  "commits_blocked": 1,
+  "commits_skipped_no_parent": 0,
+  "commits_touching_tests": 17,
+  "commits_with_opaque_prod_change": 3,
+  "corpus": {
+    "checkwash_version": "0.2.1",
+    "newest_commit": "99eb220df7c69a0f14a0b69214042677e0760b9d",
+    "oldest_commit": "2046219b71319e2808ace277a4663c8850bcee1c"
+  },
+  "engine": {
+    "asset": "checkwash.pyz",
+    "sha256": "8e32dde6ab7768863ebf5181dc580018111293ca569630d888e0d6ed03f0638d"
+  },
+  "engine_errors": 0,
+  "findings_by_rule": {
+    "BROAD_EXCEPT_ADDED": {
+      "warn": 19
+    },
+    "CI_WORKFLOW_TOUCHED": {
+      "warn": 140
+    },
+    "EXPECTED_VALUE_CHANGED": {
+      "warn": 113
+    },
+    "EXPECTED_VALUE_HARDCODED": {
+      "warn": 14
+    },
+    "IMPORT_UNRESOLVED": {
+      "warn": 2
+    },
+    "SUPPRESSION_ADDED": {
+      "warn": 54
+    },
+    "TEST_DISABLED": {
+      "high": 1,
+      "info": 2,
+      "warn": 4
+    }
+  },
+  "merge_commits": "excluded (rev-list --no-merges); a merge gate sees them too",
+  "wave": "wave1-mock-power"
+}

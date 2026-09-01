@@ -1,0 +1,33 @@
+{
+  "block_rate": 0.0,
+  "blocked_commits": [],
+  "catalog_id": "boto3",
+  "commits_analysed": 300,
+  "commits_blocked": 0,
+  "commits_skipped_no_parent": 0,
+  "commits_touching_tests": 5,
+  "commits_with_opaque_prod_change": 2,
+  "corpus": {
+    "checkwash_version": "0.2.1",
+    "newest_commit": "359c9b73be0ff585805e71af8ecf0602262aa4ad",
+    "oldest_commit": "40331c7cc776213d253f63149ea0654f48d4b5a7"
+  },
+  "engine": {
+    "asset": "checkwash.pyz",
+    "sha256": "8e32dde6ab7768863ebf5181dc580018111293ca569630d888e0d6ed03f0638d"
+  },
+  "engine_errors": 0,
+  "findings_by_rule": {
+    "CI_WORKFLOW_TOUCHED": {
+      "warn": 170
+    },
+    "IMPORT_UNRESOLVED": {
+      "warn": 1
+    },
+    "SUPPRESSION_ADDED": {
+      "warn": 1
+    }
+  },
+  "merge_commits": "excluded (rev-list --no-merges); a merge gate sees them too",
+  "wave": "wave1-mock-power"
+}

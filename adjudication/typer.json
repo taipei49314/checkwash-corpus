@@ -1,0 +1,13 @@
+{
+  "catalog_id": "typer",
+  "wave": "wave1-mock-power",
+  "sweep_file": "records/sweeps/typer.json",
+  "method": "Single second-rater adjudication (same rater and rubric as checkwash benchmarks/external/2026-09-01/ADJUDICATION.md, whose labels the owner adopted as final on 2026-09-01). Judged against the real diff in clones/typer, unit presence verified on both sides with git show. Engine: Release checkwash.pyz v0.2.1, sha256 8e32dde6ab7768863ebf5181dc580018111293ca569630d888e0d6ed03f0638d.",
+  "verdicts": [
+    {
+      "commit": "917248604affe32caf899cc8faddfa23f81cb1ef",
+      "category": "false_positive",
+      "reason": "Move plus parametrize consolidation, verified assertion-by-assertion. The parent's tests/test_corner_cases.py had test_hidden_option and test_hidden_option_no_rich; the commit moves them into a new tests/test_hidden.py as one test_hidden_option parametrized over use_rich in {False, True(needs_rich)}, and the use_rich=False leg carries the exact five assertions of the deleted unit verbatim (Say hello present, --name absent, /lastname, TEST_LASTNAME, (dynamic)) with the same HAS_RICH monkeypatch. The asset module is a pure git rename (corner_cases.py -> hidden_option.py, 0 changes) and the diff adds test_hidden_commands covering the 2-line typer/core.py bug actually being fixed, so oracle coverage strictly increased. The unit name genuinely disappears from the repo, which defeats name-based move detection: this is the move-credit family compounded by a name-erasing parametrize merge. Reporting defect worth a ticket: the finding's file field is an empty string."
+    }
+  ]
+}

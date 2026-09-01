@@ -1,0 +1,7 @@
+{
+  "catalog_id": "boto3",
+  "wave": "wave1-mock-power",
+  "sweep_file": "records/sweeps/boto3.json",
+  "method": "Single second-rater adjudication (same rater and rubric as checkwash benchmarks/external/2026-09-01/ADJUDICATION.md). Engine: Release checkwash.pyz v0.2.1, sha256 8e32dde6ab7768863ebf5181dc580018111293ca569630d888e0d6ed03f0638d. Zero blocked commits over 300 analysed; the empty verdict set below matches the sweep's empty blocked_commits exactly. Context, not verdicts: only 5 of 300 commits touch tests at all (boto3 is API-generated), and the 170 CI_WORKFLOW_TOUCHED warns are non-blocking warn-severity from routine automated workflow-touching commits.",
+  "verdicts": []
+}
