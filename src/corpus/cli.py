@@ -42,7 +42,7 @@ def _select(catalog, args):
 
 
 def cmd_status(args: argparse.Namespace) -> int:
-    from corpus.status import source_status, wave_status
+    from corpus.status import field_run_status, source_status, wave_status
 
     root, catalog = _load(args)
     waves = wave_status(root, catalog)
@@ -54,6 +54,12 @@ def cmd_status(args: argparse.Namespace) -> int:
             f"{wave_id:24} {row['included']}/{row['catalogued']} catalogued{extra}; "
             f"{row['cloned']} cloned{broken}; {row['census']} census; "
             f"{row['sweeps']} sweeps; {row['prs']} harvested PRs"
+        )
+    for run in field_run_status(root):
+        print(
+            f"{run['id']:24} field-run {run['sweeps']} sweeps, "
+            f"{run['adjudicated']} adjudicated; "
+            f"{run['commits_blocked']}/{run['commits_analysed']} blocked"
         )
     if args.verbose:
         print()

@@ -1,0 +1,18 @@
+{
+  "catalog_id": "celery",
+  "method": "Copied from checkwash/benchmarks/external/2026-09-01/ADJUDICATION.md. Owner adopted rater-2 labels as final on 2026-09-01. TP-policy in that file is spec_correct here. Reasons are not rewritten.",
+  "sweep_file": "records/field-runs/2026-09-01/celery.json",
+  "verdicts": [
+    {
+      "category": "false_positive",
+      "commit": "bf1cf69e24e3ede7d7053c17d47e381be959880e",
+      "reason": "expected value tracks the intended behavior change in the same diff"
+    },
+    {
+      "category": "false_positive",
+      "commit": "c7018110173e8cfa3b2cc507608250c69a81132a",
+      "reason": "move credit — 6 units relocated to the smoke-test tier, not deleted"
+    }
+  ],
+  "wave": "external-2026-09-01"
+}

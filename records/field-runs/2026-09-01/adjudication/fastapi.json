@@ -1,0 +1,18 @@
+{
+  "catalog_id": "fastapi",
+  "method": "Copied from checkwash/benchmarks/external/2026-09-01/ADJUDICATION.md. Owner adopted rater-2 labels as final on 2026-09-01. TP-policy in that file is spec_correct here. Reasons are not rewritten.",
+  "sweep_file": "records/field-runs/2026-09-01/fastapi.json",
+  "verdicts": [
+    {
+      "category": "false_positive",
+      "commit": "7d123d9537e2e7991a79586b355d210ff94897bd",
+      "reason": "`set +e` is the exit-code capture idiom inside a **new** regression-proof CI job (required in `alls-green`) — a verification gate added, not weakened"
+    },
+    {
+      "category": "false_positive",
+      "commit": "65ef53ae6ac110ae7d56f81a7723e58ab319f339",
+      "reason": "expected 4096 tracks the in-diff constant, and a new test asserts the large-app semantics the constant exists for"
+    }
+  ],
+  "wave": "external-2026-09-01"
+}

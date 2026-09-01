@@ -1,0 +1,28 @@
+{
+  "catalog_id": "rich",
+  "method": "Copied from checkwash/benchmarks/external/2026-09-01/ADJUDICATION.md. Owner adopted rater-2 labels as final on 2026-09-01. TP-policy in that file is spec_correct here. Reasons are not rewritten.",
+  "sweep_file": "records/field-runs/2026-09-01/rich.json",
+  "verdicts": [
+    {
+      "category": "false_positive",
+      "commit": "48293cde887c4f25a7bca022131b56495f370a88",
+      "reason": "expected render output updated alongside the in-diff renderer change"
+    },
+    {
+      "category": "false_positive",
+      "commit": "823de916d9fa5ee5dec985a94c2ff37f24e9c052",
+      "reason": "same family — expectation definitions track the rendering change"
+    },
+    {
+      "category": "false_positive",
+      "commit": "9303d77e8d41c6f43c090420f921dd3fc66ebfd1",
+      "reason": "expectation tracks in-diff markdown rendering change"
+    },
+    {
+      "category": "false_positive",
+      "commit": "1c5e03eb32020011f5b13174e186c588d09d749c",
+      "reason": "expected output tracks the padding fix in the same diff"
+    }
+  ],
+  "wave": "external-2026-09-01"
+}

@@ -1,0 +1,88 @@
+{
+  "catalog_id": "black",
+  "method": "Copied from checkwash/benchmarks/external/2026-09-01/ADJUDICATION.md. Owner adopted rater-2 labels as final on 2026-09-01. TP-policy in that file is spec_correct here. Reasons are not rewritten.",
+  "sweep_file": "records/field-runs/2026-09-01/black.json",
+  "verdicts": [
+    {
+      "category": "false_positive",
+      "commit": "74371e2041a3120a049ced8f1cab0e7a6bc8ecd3",
+      "reason": "All 16 blocks share one mechanism, verified by reproduction: the three units `test_check_diff_use_together`, `test_python315`, `test_python37` in `tests/test_black.py` receive phantom `ASSERT_REMOVED` findings on **any** edit to the file, including pure insertions and unrelated one-line changes. This is a frontend def-use binding artifact, not a property of the commits. Two commits (9e969ddc, 69973fd6) carry additional findings beyond the trio; those components are legitimate test adaptation (runner unification; blackd hardening with a constant pinned by a new test) and do not change the verdict."
+    },
+    {
+      "category": "false_positive",
+      "commit": "d7587ce9f52f36eb41bc505e529540fd8cbdcd3e",
+      "reason": "All 16 blocks share one mechanism, verified by reproduction: the three units `test_check_diff_use_together`, `test_python315`, `test_python37` in `tests/test_black.py` receive phantom `ASSERT_REMOVED` findings on **any** edit to the file, including pure insertions and unrelated one-line changes. This is a frontend def-use binding artifact, not a property of the commits. Two commits (9e969ddc, 69973fd6) carry additional findings beyond the trio; those components are legitimate test adaptation (runner unification; blackd hardening with a constant pinned by a new test) and do not change the verdict."
+    },
+    {
+      "category": "false_positive",
+      "commit": "56ba38a484dae93f9793e70c4a136331284bdcc5",
+      "reason": "All 16 blocks share one mechanism, verified by reproduction: the three units `test_check_diff_use_together`, `test_python315`, `test_python37` in `tests/test_black.py` receive phantom `ASSERT_REMOVED` findings on **any** edit to the file, including pure insertions and unrelated one-line changes. This is a frontend def-use binding artifact, not a property of the commits. Two commits (9e969ddc, 69973fd6) carry additional findings beyond the trio; those components are legitimate test adaptation (runner unification; blackd hardening with a constant pinned by a new test) and do not change the verdict."
+    },
+    {
+      "category": "false_positive",
+      "commit": "2d174df7cb16f5dbdbb188da15fdb2059adb30d6",
+      "reason": "All 16 blocks share one mechanism, verified by reproduction: the three units `test_check_diff_use_together`, `test_python315`, `test_python37` in `tests/test_black.py` receive phantom `ASSERT_REMOVED` findings on **any** edit to the file, including pure insertions and unrelated one-line changes. This is a frontend def-use binding artifact, not a property of the commits. Two commits (9e969ddc, 69973fd6) carry additional findings beyond the trio; those components are legitimate test adaptation (runner unification; blackd hardening with a constant pinned by a new test) and do not change the verdict."
+    },
+    {
+      "category": "false_positive",
+      "commit": "6c136f979c14956eeddb4a20c3f2653bce7e9505",
+      "reason": "All 16 blocks share one mechanism, verified by reproduction: the three units `test_check_diff_use_together`, `test_python315`, `test_python37` in `tests/test_black.py` receive phantom `ASSERT_REMOVED` findings on **any** edit to the file, including pure insertions and unrelated one-line changes. This is a frontend def-use binding artifact, not a property of the commits. Two commits (9e969ddc, 69973fd6) carry additional findings beyond the trio; those components are legitimate test adaptation (runner unification; blackd hardening with a constant pinned by a new test) and do not change the verdict."
+    },
+    {
+      "category": "false_positive",
+      "commit": "650983f7b32b15feeb0fa30c0ed1a8b6e2a9b28f",
+      "reason": "All 16 blocks share one mechanism, verified by reproduction: the three units `test_check_diff_use_together`, `test_python315`, `test_python37` in `tests/test_black.py` receive phantom `ASSERT_REMOVED` findings on **any** edit to the file, including pure insertions and unrelated one-line changes. This is a frontend def-use binding artifact, not a property of the commits. Two commits (9e969ddc, 69973fd6) carry additional findings beyond the trio; those components are legitimate test adaptation (runner unification; blackd hardening with a constant pinned by a new test) and do not change the verdict."
+    },
+    {
+      "category": "false_positive",
+      "commit": "70e0956f1f23308d8bb69f2ca35259c34129c870",
+      "reason": "All 16 blocks share one mechanism, verified by reproduction: the three units `test_check_diff_use_together`, `test_python315`, `test_python37` in `tests/test_black.py` receive phantom `ASSERT_REMOVED` findings on **any** edit to the file, including pure insertions and unrelated one-line changes. This is a frontend def-use binding artifact, not a property of the commits. Two commits (9e969ddc, 69973fd6) carry additional findings beyond the trio; those components are legitimate test adaptation (runner unification; blackd hardening with a constant pinned by a new test) and do not change the verdict."
+    },
+    {
+      "category": "false_positive",
+      "commit": "ebe6018e3254629788376e619207719fbe34a849",
+      "reason": "All 16 blocks share one mechanism, verified by reproduction: the three units `test_check_diff_use_together`, `test_python315`, `test_python37` in `tests/test_black.py` receive phantom `ASSERT_REMOVED` findings on **any** edit to the file, including pure insertions and unrelated one-line changes. This is a frontend def-use binding artifact, not a property of the commits. Two commits (9e969ddc, 69973fd6) carry additional findings beyond the trio; those components are legitimate test adaptation (runner unification; blackd hardening with a constant pinned by a new test) and do not change the verdict."
+    },
+    {
+      "category": "false_positive",
+      "commit": "9fd9ea2835973981e3f5dc5b8eb76f2ded46aa61",
+      "reason": "All 16 blocks share one mechanism, verified by reproduction: the three units `test_check_diff_use_together`, `test_python315`, `test_python37` in `tests/test_black.py` receive phantom `ASSERT_REMOVED` findings on **any** edit to the file, including pure insertions and unrelated one-line changes. This is a frontend def-use binding artifact, not a property of the commits. Two commits (9e969ddc, 69973fd6) carry additional findings beyond the trio; those components are legitimate test adaptation (runner unification; blackd hardening with a constant pinned by a new test) and do not change the verdict."
+    },
+    {
+      "category": "false_positive",
+      "commit": "c7fc2438cbd8ef66f2b9899e6b5094a8c89af63c",
+      "reason": "All 16 blocks share one mechanism, verified by reproduction: the three units `test_check_diff_use_together`, `test_python315`, `test_python37` in `tests/test_black.py` receive phantom `ASSERT_REMOVED` findings on **any** edit to the file, including pure insertions and unrelated one-line changes. This is a frontend def-use binding artifact, not a property of the commits. Two commits (9e969ddc, 69973fd6) carry additional findings beyond the trio; those components are legitimate test adaptation (runner unification; blackd hardening with a constant pinned by a new test) and do not change the verdict."
+    },
+    {
+      "category": "false_positive",
+      "commit": "9e969ddc31863a5c353b3f4e8f69d2aca05e36ae",
+      "reason": "All 16 blocks share one mechanism, verified by reproduction: the three units `test_check_diff_use_together`, `test_python315`, `test_python37` in `tests/test_black.py` receive phantom `ASSERT_REMOVED` findings on **any** edit to the file, including pure insertions and unrelated one-line changes. This is a frontend def-use binding artifact, not a property of the commits. Two commits (9e969ddc, 69973fd6) carry additional findings beyond the trio; those components are legitimate test adaptation (runner unification; blackd hardening with a constant pinned by a new test) and do not change the verdict."
+    },
+    {
+      "category": "false_positive",
+      "commit": "69973fd6950985fbeb1090d96da717dc4d8380b0",
+      "reason": "All 16 blocks share one mechanism, verified by reproduction: the three units `test_check_diff_use_together`, `test_python315`, `test_python37` in `tests/test_black.py` receive phantom `ASSERT_REMOVED` findings on **any** edit to the file, including pure insertions and unrelated one-line changes. This is a frontend def-use binding artifact, not a property of the commits. Two commits (9e969ddc, 69973fd6) carry additional findings beyond the trio; those components are legitimate test adaptation (runner unification; blackd hardening with a constant pinned by a new test) and do not change the verdict."
+    },
+    {
+      "category": "false_positive",
+      "commit": "4937fe6cf241139ddbfc16b0bdbb5b422798909d",
+      "reason": "All 16 blocks share one mechanism, verified by reproduction: the three units `test_check_diff_use_together`, `test_python315`, `test_python37` in `tests/test_black.py` receive phantom `ASSERT_REMOVED` findings on **any** edit to the file, including pure insertions and unrelated one-line changes. This is a frontend def-use binding artifact, not a property of the commits. Two commits (9e969ddc, 69973fd6) carry additional findings beyond the trio; those components are legitimate test adaptation (runner unification; blackd hardening with a constant pinned by a new test) and do not change the verdict."
+    },
+    {
+      "category": "false_positive",
+      "commit": "148efe4056f4a0b1531aa53206d8763f9deed6f0",
+      "reason": "All 16 blocks share one mechanism, verified by reproduction: the three units `test_check_diff_use_together`, `test_python315`, `test_python37` in `tests/test_black.py` receive phantom `ASSERT_REMOVED` findings on **any** edit to the file, including pure insertions and unrelated one-line changes. This is a frontend def-use binding artifact, not a property of the commits. Two commits (9e969ddc, 69973fd6) carry additional findings beyond the trio; those components are legitimate test adaptation (runner unification; blackd hardening with a constant pinned by a new test) and do not change the verdict."
+    },
+    {
+      "category": "false_positive",
+      "commit": "fe875c0ed3415f564d0e0e04f007db1658a9934f",
+      "reason": "All 16 blocks share one mechanism, verified by reproduction: the three units `test_check_diff_use_together`, `test_python315`, `test_python37` in `tests/test_black.py` receive phantom `ASSERT_REMOVED` findings on **any** edit to the file, including pure insertions and unrelated one-line changes. This is a frontend def-use binding artifact, not a property of the commits. Two commits (9e969ddc, 69973fd6) carry additional findings beyond the trio; those components are legitimate test adaptation (runner unification; blackd hardening with a constant pinned by a new test) and do not change the verdict."
+    },
+    {
+      "category": "false_positive",
+      "commit": "6305bf1ae645ab7541be4f5028a86239316178eb",
+      "reason": "All 16 blocks share one mechanism, verified by reproduction: the three units `test_check_diff_use_together`, `test_python315`, `test_python37` in `tests/test_black.py` receive phantom `ASSERT_REMOVED` findings on **any** edit to the file, including pure insertions and unrelated one-line changes. This is a frontend def-use binding artifact, not a property of the commits. Two commits (9e969ddc, 69973fd6) carry additional findings beyond the trio; those components are legitimate test adaptation (runner unification; blackd hardening with a constant pinned by a new test) and do not change the verdict."
+    }
+  ],
+  "wave": "external-2026-09-01"
+}

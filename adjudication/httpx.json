@@ -1,0 +1,68 @@
+{
+  "catalog_id": "httpx",
+  "method": "Moved verbatim from checkwash/benchmarks/adjudication-2026-08-26b.json. the D-051 module-constants arm adds exactly one block to the sweep (41 -> 42, click 5989375dc3, gone 0). The 41 prior verdicts are carried verbatim from adjudication-2026-08-26.json; the one new block was adjudicated by the maintainer single-pass against the real diff - weaker independence than the promotion round's two blind raters, noted per the 2026-08-03 precedent for its five maintainer-judged verdicts. Pre-registration (P1-P4, scratchpad preregister-module-constants) held on every line: zero departures, one new block inside the five-of-1800 budget, arms case-for-case unmoved.",
+  "sweep_file": "records/sweeps/httpx.json",
+  "verdicts": [
+    {
+      "category": "spec_correct",
+      "commit": "4f6edf36e93fd9f83ff95b065718fd6bd0c4d3c5",
+      "reason": "\"test `parse_header_links` via public api (#3061)\" changes `assert parse_header_links(value) == expected` to `assert all(link in all_links for link in expected)` — exact equality becomes a subset check, so extra/incorrect links go undetected and the `(\"\", [])` parameter case becomes vacuously true. The production edit is a behavior-preserving rewrite of `Response.links` into a dict comprehension and the added `test_parse_header_links_no_link` only covers the missing-header case, so nothing in this diff restores the lost exactness."
+    },
+    {
+      "category": "false_positive",
+      "commit": "71a1589928e4d75a5d0d8201e32b5bc7963fb5f8",
+      "reason": "\"Use httpx public API for 'test_content' tests\" swaps every `encode_request(...)` call for `httpx.Request(method, url, ...)` in the same hunks; the Host header appears in the expectations because a real Request populates it, which is why `{'Transfer-Encoding': 'chunked'}` becomes `{'Host': 'www.example.com', 'Transfer-Encoding': 'chunked'}`. The assertions stay full-dict equality (test_empty_content even gains `Content-Length: 0`), so the rewrites are compensated in-diff by the visible change of subject under test."
+    },
+    {
+      "category": "spec_correct",
+      "commit": "7488b15226263dbd06565d4e577fc6e339c1ef64",
+      "reason": "\"Drop private imports from test_exceptions.py (#2571)\" deletes test_httpx_exceptions_exposed, whose oracle was that every Exception subclass in the private httpx._exceptions module is re-exported on httpx; the surviving test_httpcore_all_exceptions_mapped only checks that httpcore exception *names* appear in httpx, so an httpx-defined exception left unexported is no longer caught, and nothing in this diff restores that check."
+    },
+    {
+      "category": "false_positive",
+      "commit": "7947b56076db933079ec0c33d1f81406e33008e7",
+      "reason": "\"Drop private import of 'encode_request' in test_multipart\" rewrites the test to use the public `httpx.Request` API with a fixed BOUNDARY. Both oracles survive in the same hunk: the exact dict equality `request.headers == {Host, Content-Type, Transfer-Encoding: chunked}` (now stricter, it also pins Host) and the exact byte equality on `request.content`. Only the incidental `assert isinstance(stream, typing.Iterable)` scaffolding for the removed private API is gone."
+    },
+    {
+      "category": "false_positive",
+      "commit": "9fd6f0ca6616d0310a3ee0b0c6ef509a97995797",
+      "reason": "\"Ensure JSON representation is compact\" changes encode_json to `json_dumps(json, ensure_ascii=False, separators=(\",\", \":\"), allow_nan=False)` in httpx/_content.py in the same diff, which directly explains Content-Length 18 -> 17. The flagged edit `response.json() == {\"hello\": \"world\"}` -> `str(response.json()) == \"{'hello': 'world'}\"` is at least as strict (string repr also pins key order), so no coverage was lost."
+    },
+    {
+      "category": "spec_correct",
+      "commit": "b5addb64f0161ff6bfe94c124ef76f6a1fba5254",
+      "reason": "\"Adapt test_response_decode_text_using_autodetect for chardet 6.0\" turns `assert response.encoding == \"ISO-8859-1\"` into `assert response.encoding in (\"ISO-8859-1\", \"WINDOWS-1252\")`. The expectation is genuinely widened to accept two values and nothing in this diff (no production change, only a comment) replaces the lost precision — the justification lives in an external dependency's version bump, exactly the case a reviewer would allowlist."
+    },
+    {
+      "category": "false_positive",
+      "commit": "bddd774ce065f3442c1f46af1db5b85b1bfb7613",
+      "reason": "\"Revert \\\"Raise `TypeError` on invalid query params. (#2523)\\\"\" deletes the `raise TypeError(f\"Expected str, int, float, bool, or None...\")` from primitive_value_to_str in httpx/_utils.py in the same diff, so test_invalid_query_params (a `pytest.raises(TypeError, match=...)` on exactly that message) is asserting behavior that no longer exists. The production change explaining the deletion is right there in the diff; greenwash failed to connect them."
+    },
+    {
+      "category": "false_positive",
+      "commit": "cca62060cb958e89078279e625a752aa0d02c40c",
+      "reason": "\"Drop private imports from test_decoders.py (#2570)\" rewrites the decoder tests onto the public API, and the same diff compensates: test_byte_chunker/test_text_chunker are replaced by new chunk_size=7 cases in tests/models/test_responses.py (test_iter_raw_with_chunksize, test_iter_text_with_chunk_size). The line-decoder 'rewrites' are just the merge of the old decode()+flush() split into one iter_lines() list — e.g. ['a','','b'] + ['c'] becomes ['a','','b','c'] — same expected output."
+    },
+    {
+      "category": "false_positive",
+      "commit": "db9072f998b53ff66d50778bf5edee8e2cc8ede1",
+      "reason": "\"Add URL parsing tests from WHATWG (#3188)\" rewrites `validate_path` in httpx/_urlparse.py — the `//` and `:` checks are re-guarded under `not has_scheme and not has_authority` and both messages are reworded to \"Relative URLs cannot have a path starting with ...\" — so the expectation edit tracks a visible production change in the same diff; the assertions keep identical strength (still `pytest.raises(httpx.InvalidURL)` plus exact message equality), and the diff adds tests/models/test_whatwg.py with a 9.7k-line WHATWG conformance corpus."
+    },
+    {
+      "category": "spec_correct",
+      "commit": "eeb5e3c2a3ff2403ec47b5926715ecd61143d92d",
+      "reason": "\"Cleanup unneccessary test case (#3375)\" is a test-only diff (23 deletions, no production change) that removes test_netrc_auth_nopassword. Its asserts duplicated test_netrc_auth_credentials_do_not_exist, but it was the only test constructing httpx.NetRCAuth against the passwordless .netrc-nopassword fixture on Python 3.11+, and nothing in this diff replaces that; a reviewer would allowlist it rather than call it a tool bug."
+    },
+    {
+      "category": "spec_correct",
+      "commit": "fc84f7f6eb77fe5d4428261c837ac8016ec77a28",
+      "reason": "\"test `same_origin` via public api (#3062)\" replaces `assert not same_origin(o1, o2)` with an assertion about redirect headers — a different subject entirely, in a test-only diff. THREATMODEL \"what greenwash cannot catch\" #7 states that a private-API check rewritten against the public API blocks deliberately, because the de-escalation that would excuse it would also excuse swapping an exact comparison for a wide approx()."
+    },
+    {
+      "category": "false_positive",
+      "commit": "e4241c6155c8a85789566b8fe10fa2291eea20f4",
+      "reason": "\"Drop private imports from test_proxies.py (#2850)\" replaces `pattern = URLPattern(proxy_key); assert pattern in client._mounts` with `assert proxy_key in client_patterns`, where client_patterns is derived from client._mounts in the same unit. Same membership check, same strength, expressed without the private import; no oracle coverage is lost. Newly blocked in v0.1.15 by ASSERT_SUBSTITUTED, which cannot tell this re-expression from a replacement because both the subject and the expectation move. It belongs to the same rewrite-onto-the-public-API cluster as the already-adjudicated false positives cca62060cb, 7947b56076 and 71a1589928."
+    }
+  ],
+  "wave": "wave0-published-fp"
+}

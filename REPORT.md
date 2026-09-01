@@ -1,10 +1,16 @@
 # checkwash-corpus 總結報告
 
 日期：2026-09-01  
-引擎：本機已安裝的 `checkwash` CLI（editable → `Desktop/greenwash`，**未改 greenwash 任何檔**）  
 本 repo：https://github.com/taipei49314/checkwash-corpus
 
-一句話：**wave 0 在發表過的 1800-commit 視窗上，0.1.49 家族引擎重跑出與 0.1.46 完全相同的 42 個 block；wave 1 的功率普查證明那六個庫幾乎量不到 mock 與 unittest，不是規則沒開火。**
+這一筆入帳把兩件已完成、且**不可混波**的紀錄寫進 ledger：
+
+1. **Field-run `external-2026-09-01`**（複製，不是重掃）：13 庫、2300 analysed、74 blocked、engine_errors 0。引擎 pin 是 v0.1.49 `greenwash.pyz`（sha256 `ac6a6ea0…`）。裁決 67 false_positive / 7 spec_correct / 0 unclear；0/74 是 verification-layer tampering。這不是 v0.2.8 的數字。v0.2.2 修了這批最大 phantom 家族；2300 視窗還沒用 0.2.8 重掃。
+2. **Wave 0 發表 pin** 改釘 Release `checkwash.pyz` v0.2.8（sha256 `83878db5…`）：attrs 2, click 13, flask 7, httpx 12, rich 6, starlette 2 = **42/1800**，blocked set 與 0.1.46 發表視窗 case-for-case 相同。typer / boto3 仍是 v0.2.1 pyz，未動。
+
+74/2300 不進 `records/sweeps/`，也不進 wave0/wave1 headline。rich 已在 wave0；aiohttp/pandas/sqlalchemy 已在 wave1。
+
+---
 
 ---
 

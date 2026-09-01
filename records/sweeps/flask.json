@@ -121,14 +121,13 @@
   "commits_touching_tests": 37,
   "commits_with_opaque_prod_change": 8,
   "corpus": {
-    "checkwash_version": "0.2.0",
+    "checkwash_version": "0.2.8",
     "newest_commit": "36e4a824f340fdee7ed50937ba8e7f6bc7d17f81",
     "oldest_commit": "345f18442ceb29f9e365af99fc85bdc5986323d2"
   },
   "engine": {
-    "asset": "editable-unrecorded",
-    "note": "2026-09-01 wave0 reproduction; editable install; version string drifted 0.1.49-0.2.1; not a pyz pin",
-    "sha256": null
+    "asset": "checkwash.pyz",
+    "sha256": "83878db57a243386a10fa49b3f4a2d4d2863c808f7b2f77a516e35c99b3338ea"
   },
   "engine_errors": 0,
   "findings_by_rule": {

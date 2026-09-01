@@ -25,6 +25,7 @@ directory bench already looks for. Wave 1 always stays under `clones/`.
 |------|---------|------|
 | `catalog/CATALOG.json` | yes | inclusion list, waves, frozen power probes |
 | `records/sweeps/*.json` | yes | recorded `greenwash sweep` output |
+| `records/field-runs/<date>/` | yes | copied external field-run JSON/MD; not a wave |
 | `records/census/*.json` | yes | power measurement at a named revision |
 | `records/prs/**` | yes | harvested GitHub PR test-file patches |
 | `records/incoming/**` | yes | drop-box for agent diffs (see that README) |
@@ -56,11 +57,15 @@ Every sweep record must carry:
 - `engine.asset` + `engine.sha256`:
   - current Release zipapp: `checkwash.pyz` and a 64-hex sha256
   - tags ≤v0.1.49: `greenwash.pyz` and a 64-hex sha256
-  - the 2026-09-01 wave-0 reproduction only: `editable-unrecorded` / `sha256: null`
-    (version string drifted; not a pin). New wave-1 records may not use this.
 
 A PATH executable or editable checkout is a dirty engine. `sweep` refuses it
-unless `--allow-dirty-engine`. Dirty records fail `validate` on wave 1.
+unless `--allow-dirty-engine`. Dirty records fail `validate`. The 2026-09-01
+`editable-unrecorded` grandfather is closed; wave0 is pinned to a Release pyz.
+
+Field-run directories under `records/field-runs/` carry the same pin/sha256
+pairing and the same blocked-set adjudication gate. They are not catalog
+members and must not be folded into a wave headline. Their MANIFEST totals
+must equal the copied sweep JSON, not a hand-typed number.
 
 Every census record must carry:
 

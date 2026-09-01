@@ -28,7 +28,8 @@ Use the current Release zipapp (`checkwash.pyz`). `greenwash.pyz` is the
 pre-rename asset and only exists on tags ≤v0.1.49.
 
 Do not hand-edit numbers. Adjudication comes after the sweep, and must
-cover exactly the blocked set.
+cover exactly the blocked set. External field-runs are copied with
+`tools/post_hanging_records.py`; they stay out of `records/sweeps/`.
 
 ## Division of labor (two agent sessions, one human)
 

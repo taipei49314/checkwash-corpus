@@ -1,0 +1,7 @@
+{
+  "catalog_id": "requests",
+  "method": "Copied from checkwash/benchmarks/external/2026-09-01/ADJUDICATION.md. Owner adopted rater-2 labels as final on 2026-09-01. TP-policy in that file is spec_correct here. Reasons are not rewritten. Zero blocked commits; empty verdict set matches the sweep.",
+  "sweep_file": "records/field-runs/2026-09-01/requests.json",
+  "verdicts": [],
+  "wave": "external-2026-09-01"
+}

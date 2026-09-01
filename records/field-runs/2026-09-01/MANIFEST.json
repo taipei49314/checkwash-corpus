@@ -1,0 +1,29 @@
+{
+  "commits_analysed": 2300,
+  "commits_blocked": 74,
+  "date": "2026-09-01",
+  "engine": {
+    "asset": "greenwash.pyz",
+    "sha256": "ac6a6ea0481d49db7a35735bff0bfea2ee32957d4ebdee0aef232bb9a4a89e40",
+    "tag": "v0.1.49"
+  },
+  "engine_errors": 0,
+  "id": "external-2026-09-01",
+  "projects": 13,
+  "source": "checkwash/benchmarks/external/2026-09-01/",
+  "sources": [
+    "aiohttp",
+    "black",
+    "celery",
+    "fastapi",
+    "httpie",
+    "pandas",
+    "pydantic",
+    "requests",
+    "rich",
+    "sqlalchemy",
+    "sympy",
+    "tornado",
+    "twisted"
+  ]
+}

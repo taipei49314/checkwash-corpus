@@ -1,0 +1,18 @@
+{
+  "catalog_id": "attrs",
+  "method": "Moved verbatim from checkwash/benchmarks/adjudication-2026-08-26b.json. the D-051 module-constants arm adds exactly one block to the sweep (41 -> 42, click 5989375dc3, gone 0). The 41 prior verdicts are carried verbatim from adjudication-2026-08-26.json; the one new block was adjudicated by the maintainer single-pass against the real diff - weaker independence than the promotion round's two blind raters, noted per the 2026-08-03 precedent for its five maintainer-judged verdicts. Pre-registration (P1-P4, scratchpad preregister-module-constants) held on every line: zero departures, one new block inside the five-of-1800 budget, arms case-for-case unmoved.",
+  "sweep_file": "records/sweeps/attrs.json",
+  "verdicts": [
+    {
+      "category": "false_positive",
+      "commit": "ce89f5d11feb0805da9ed10bb165238cc959f1bb",
+      "reason": "\"Fix message passing in frozen errors\" makes FrozenError set its message via __init__/super().__init__(msg); the test adds `match=\"can't set attribute\"` to both pytest.raises blocks AND keeps/duplicates the exact-value check as `assert e.value.msg == e.value.args[0] == \"can't set attribute\"` in both blocks. The oracle got strictly stronger; greenwash only saw the new `match=` pattern and scored it as a downgrade."
+    },
+    {
+      "category": "false_positive",
+      "commit": "f520d9a89f1fde6fdc5310ffe6c5d4c7467fb10b",
+      "reason": "\"Only soft-deprecate hash (#1330)\" removes the `warnings.warn(DeprecationWarning(...))` calls from both `attrs()` and `make_class()` in src/attr/_make.py in the same diff, so the two `test_hash_is_deprecated` tests (which assert `pytest.deprecated_call()`) test behavior that no longer exists. Production genuinely changed in a way that explains the deletion; greenwash failed to connect the src and tests hunks."
+    }
+  ],
+  "wave": "wave0-published-fp"
+}

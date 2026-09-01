@@ -1,0 +1,68 @@
+{
+  "catalog_id": "pandas",
+  "method": "Copied from checkwash/benchmarks/external/2026-09-01/ADJUDICATION.md. Owner adopted rater-2 labels as final on 2026-09-01. TP-policy in that file is spec_correct here. Reasons are not rewritten.",
+  "sweep_file": "records/field-runs/2026-09-01/pandas.json",
+  "verdicts": [
+    {
+      "category": "false_positive",
+      "commit": "b18bbeec78325cb83ac332e26c9b4497eb234649",
+      "reason": "`pytest.raises(AssertionError)` known-bug wrappers removed **with the bug fixed in-diff** — oracle strengthened; new groupby test added"
+    },
+    {
+      "category": "false_positive",
+      "commit": "5fef3b9e11eb857d6e4f49e1de1cbab7c7775e10",
+      "reason": "loose local helper (dtype check off) replaced by canonical `tm.assert_index_equal` on fully-constructed expecteds + non-mutation checks — stronger"
+    },
+    {
+      "category": "false_positive",
+      "commit": "75f24bb2304b12cb64c16b67fcfde192a71bc629",
+      "reason": "duplicate unit pairs consolidated; every surviving warning assertion gains a `match` pattern — stronger"
+    },
+    {
+      "category": "false_positive",
+      "commit": "f08f1cc72df6aaff3bc057ae2f6eed21816d6424",
+      "reason": "deleted units are xfail-**overrides**; base-class tests reactivate via inheritance once the bug is fixed in-diff — coverage up"
+    },
+    {
+      "category": "false_positive",
+      "commit": "eb5466f1be4e6374c0dc512ba3ae8c8f9b47b7d7",
+      "reason": "dropped parametrize axis (`pd.Timedelta` vs stdlib `timedelta`) fed byte-identical values to the serializer once ns-scaffolding was removed — redundant leg"
+    },
+    {
+      "category": "false_positive",
+      "commit": "b117da974745d364e9d07fb6a95fd098d8dbc063",
+      "reason": "unconditional xfail narrowed to `xfail(pa_version_under26p0)` — test now must pass on new pyarrow"
+    },
+    {
+      "category": "false_positive",
+      "commit": "9f9b3dfbc0e721569bf80963786281e0ed0bb8e1",
+      "reason": "`NotImplementedError` guards upgraded to exact-value oracles after the feature was implemented; substantial new coverage"
+    },
+    {
+      "category": "false_positive",
+      "commit": "f9204c7f720ae2ac6b235c4ac959db285decda69",
+      "reason": "commit *adds* spy assertions making previously-vacuous tests real; `skipif(WASM)` replaces a vacuous pass with an honest skip"
+    },
+    {
+      "category": "spec_correct",
+      "commit": "518f2a3cb9504555b40c1d5aaab4690245a7d265",
+      "reason": "`GUARDRAIL_TOUCHED` on AGENTS.md is categorical by design — any agent-constraint edit stops for human review regardless of direction (here the human was strengthening them)"
+    },
+    {
+      "category": "false_positive",
+      "commit": "8dc5f4793241b0b2fb10ddc34b835542a29f0b43",
+      "reason": "`default_axes=True` helper-parameter tuning; assertion set unchanged"
+    },
+    {
+      "category": "false_positive",
+      "commit": "b3573cd8e9b5f0c09972f16d47f6473caf6d2640",
+      "reason": "all 14 findings are dead version-fork cleanup under raised floors (numpy<2 / mpl<3.10 / fastparquet branches); several assertions became unconditional (stronger)"
+    },
+    {
+      "category": "false_positive",
+      "commit": "6faf2dcd0c55fa7f41caaf5bed887890122d455a",
+      "reason": "xfail-override deletion after in-diff fix — inherited tests reactivate; 8-dtype regression test + unit test added"
+    }
+  ],
+  "wave": "external-2026-09-01"
+}

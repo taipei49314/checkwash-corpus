@@ -1,0 +1,18 @@
+{
+  "catalog_id": "starlette",
+  "method": "Moved verbatim from checkwash/benchmarks/adjudication-2026-08-26b.json. the D-051 module-constants arm adds exactly one block to the sweep (41 -> 42, click 5989375dc3, gone 0). The 41 prior verdicts are carried verbatim from adjudication-2026-08-26.json; the one new block was adjudicated by the maintainer single-pass against the real diff - weaker independence than the promotion round's two blind raters, noted per the 2026-08-03 precedent for its five maintainer-judged verdicts. Pre-registration (P1-P4, scratchpad preregister-module-constants) held on every line: zero departures, one new block inside the five-of-1800 budget, arms case-for-case unmoved.",
+  "sweep_file": "records/sweeps/starlette.json",
+  "verdicts": [
+    {
+      "category": "false_positive",
+      "commit": "02b6ed7b18c741c00795010e9d716b58006af2c3",
+      "reason": "\"Return explicit origin in CORS response when credentials are allowed (#3137)\" replaces the `has_cookie` condition in starlette/middleware/cors.py with `self.allow_credentials`, so the cookie-triggered behavior the flagged tests asserted no longer exists; test_cors_allowed_origin_does_not_leak_between_credentialed_requests is renamed to ..._between_requests and keeps its three-request leak check, and test_cors_credentialed_requests_return_specific_origin's oracle moves into test_cors_allow_all (allow_credentials=True), which the same diff changes to assert access-control-allow-origin == \"https://example.org\" instead of \"*\"."
+    },
+    {
+      "category": "false_positive",
+      "commit": "90b805fda70db2316d79aa577f4c3eb670f9a8a1",
+      "reason": "\"Set `Content-Type` instead of `Content-Range` on multi-range responses (#3142)\" changes starlette/responses.py to write the multipart boundary into content-type rather than content-range, so the flagged assert in test_file_response_multi_small_chunk_size necessarily changes; the same hunk adds `assert \"content-range\" not in headers` and `assert headers[\"content-type\"].startswith(\"multipart/byteranges; boundary=\")`, and the sibling range tests gain the same pair — coverage goes up, not down."
+    }
+  ],
+  "wave": "wave0-published-fp"
+}

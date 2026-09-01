@@ -1,0 +1,38 @@
+{
+  "catalog_id": "httpie",
+  "method": "Copied from checkwash/benchmarks/external/2026-09-01/ADJUDICATION.md. Owner adopted rater-2 labels as final on 2026-09-01. TP-policy in that file is spec_correct here. Reasons are not rewritten.",
+  "sweep_file": "records/field-runs/2026-09-01/httpie.json",
+  "verdicts": [
+    {
+      "category": "false_positive",
+      "commit": "3de7c82077ab773ca957c851e94c4b375721feb6",
+      "reason": "all 112 findings are one uniform mechanical rewrite `httpbin.url + x` → `httpbin + x` (fixture compensated in the same diff, conftest/utils)"
+    },
+    {
+      "category": "spec_correct",
+      "commit": "18bb49b268eb73b379bd3d01b1e70b9c54b21119",
+      "reason": "bare `@pytest.mark.skip('Doesn't work in CI')` + TODO; feature intact, zero compensation — the canonical stop"
+    },
+    {
+      "category": "false_positive",
+      "commit": "8e56e9fc6449a1cdfd90596e3ccbb1a5b71950d1",
+      "reason": "order-sensitive string containment → set **equality** (stronger), and an always-true `assert name, value in ...` footgun replaced by a real equality check"
+    },
+    {
+      "category": "false_positive",
+      "commit": "419cc2c34ab54cb0cf81e966a49bd5262e44a806",
+      "reason": "reasoned `skipif(IS_PYOPENSSL)` on an alternate-backend leg with a different message format; primary-backend coverage intact"
+    },
+    {
+      "category": "spec_correct",
+      "commit": "ff6f1887b0c316b43a8ab4f040f99d1ea862268b",
+      "reason": "2 of 3 findings are old-UI residue (`'[K'`, `'Done'` asserts on a renderer replaced in-diff; real oracle `body == r` kept) = FP; the third — an **unconditional** `@pytest.mark.xfail` with the reason only in a comment — justifies the stop"
+    },
+    {
+      "category": "false_positive",
+      "commit": "c15794853188d56af7a1d53473e1ad821f3ec861",
+      "reason": "helper parametrized over both CLI namespaces; same assertions now run twice"
+    }
+  ],
+  "wave": "external-2026-09-01"
+}

@@ -1,0 +1,38 @@
+{
+  "catalog_id": "aiohttp",
+  "method": "Copied from checkwash/benchmarks/external/2026-09-01/ADJUDICATION.md. Owner adopted rater-2 labels as final on 2026-09-01. TP-policy in that file is spec_correct here. Reasons are not rewritten.",
+  "sweep_file": "records/field-runs/2026-09-01/aiohttp.json",
+  "verdicts": [
+    {
+      "category": "false_positive",
+      "commit": "c52fe79c745d9a429c91b07796f86fb1b2122e2b",
+      "reason": "asserts removed with in-diff compensation (flake fixed, oracle reshaped) — *disagreement: rater 1 called this a plausible policy block*"
+    },
+    {
+      "category": "false_positive",
+      "commit": "4602990f60241f759f861a3a4c1243ba2294ab53",
+      "reason": "flake fix with compensation in-diff"
+    },
+    {
+      "category": "false_positive",
+      "commit": "069e9cfc913a937da353baaf8244ec8023d91eb3",
+      "reason": "CI infra unsticking; no test-command weakening"
+    },
+    {
+      "category": "false_positive",
+      "commit": "79b5f5fa5bec861477b758d8d97d0975d5de256c",
+      "reason": "timing bounds loosened to kill flake, oracle retained — *disagreement: rater 1 called this a plausible policy block*"
+    },
+    {
+      "category": "false_positive",
+      "commit": "b2b7b50c1797b272a343dcd3567d24cb67cfebbe",
+      "reason": "move credit — test relocated to the benchmark suite"
+    },
+    {
+      "category": "spec_correct",
+      "commit": "cd0556b23ade56c51b1214cddcf5b5e6661a9796",
+      "reason": "test disabled for flakiness, feature intact, no in-diff compensation — stop-and-review is correct"
+    }
+  ],
+  "wave": "external-2026-09-01"
+}

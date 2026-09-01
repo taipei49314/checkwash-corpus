@@ -1,0 +1,18 @@
+{
+  "catalog_id": "sqlalchemy",
+  "method": "Copied from checkwash/benchmarks/external/2026-09-01/ADJUDICATION.md. Owner adopted rater-2 labels as final on 2026-09-01. TP-policy in that file is spec_correct here. Reasons are not rewritten.",
+  "sweep_file": "records/field-runs/2026-09-01/sqlalchemy.json",
+  "verdicts": [
+    {
+      "category": "false_positive",
+      "commit": "aaed3ad2c9913be9ee568d44969d734862d03e65",
+      "reason": "release-asset upload retry idempotency; no test command touched"
+    },
+    {
+      "category": "false_positive",
+      "commit": "7776cfbf469dbe88edbc2b9a8abc1b32b382f916",
+      "reason": "FP *for this thesis* + **flag**: a real supply-chain weakening (attestation `continue-on-error` + unattested-publish fallback). Outside the oracle-tampering scope `CI_WORKFLOW_TOUCHED` is specified for — raised to the owner as a candidate new family (SPEC decision)"
+    }
+  ],
+  "wave": "external-2026-09-01"
+}

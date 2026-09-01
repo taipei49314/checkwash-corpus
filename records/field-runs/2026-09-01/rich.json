@@ -1,5 +1,5 @@
 {
-  "block_rate": 0.02,
+  "block_rate": 0.04,
   "blocked_commits": [
     {
       "commit": "48293cde887c4f25a7bca022131b56495f370a88",
@@ -62,75 +62,38 @@
           "unit": "test_render"
         }
       ]
-    },
-    {
-      "commit": "82afcb4ff58db4d7628062a8a695de3bc64febab",
-      "findings": [
-        {
-          "message": "test_no_nested_live: test unit disappeared",
-          "path": "tests/test_console.py",
-          "rule": "TEST_DISABLED",
-          "severity": "high",
-          "unit": "test_no_nested_live"
-        }
-      ]
-    },
-    {
-      "commit": "7022e202245b6bdeb39e8025d2b5dab793841ec8",
-      "findings": [
-        {
-          "message": "test_columns: the assertion is unchanged but its expectation is not — expected is defined differently now, so the test compares against a different value than it did",
-          "path": "tests/test_progress.py",
-          "rule": "EXPECTATION_DEFINITION_CHANGED",
-          "severity": "high",
-          "unit": "test_columns"
-        }
-      ]
     }
   ],
-  "catalog_id": "rich",
-  "commits_analysed": 300,
-  "commits_blocked": 6,
+  "commits_analysed": 100,
+  "commits_blocked": 4,
   "commits_skipped_no_parent": 0,
-  "commits_touching_tests": 71,
-  "commits_with_opaque_prod_change": 1,
+  "commits_touching_tests": 31,
+  "commits_with_opaque_prod_change": 0,
   "corpus": {
-    "checkwash_version": "0.2.8",
+    "greenwash_version": "0.1.49",
     "newest_commit": "ce51a2f8bf326878a94a382cb7102c85824f7e04",
-    "oldest_commit": "65fcf281283244b8ee4ded75a4b60c7eb316da6e"
+    "oldest_commit": "786e9de79413ff57ddccf382729ff4f14796db36"
   },
   "engine": {
-    "asset": "checkwash.pyz",
-    "sha256": "83878db57a243386a10fa49b3f4a2d4d2863c808f7b2f77a516e35c99b3338ea"
+    "asset": "greenwash.pyz",
+    "sha256": "ac6a6ea0481d49db7a35735bff0bfea2ee32957d4ebdee0aef232bb9a4a89e40",
+    "tag": "v0.1.49"
   },
   "engine_errors": 0,
+  "field_run": "external-2026-09-01",
   "findings_by_rule": {
-    "ASSERT_SUBSTITUTED": {
-      "warn": 1
-    },
-    "BROAD_EXCEPT_ADDED": {
-      "warn": 1
-    },
     "CI_WORKFLOW_TOUCHED": {
-      "warn": 34
+      "warn": 8
     },
     "EXPECTATION_DEFINITION_CHANGED": {
-      "high": 6,
-      "warn": 11
+      "high": 5,
+      "warn": 6
     },
     "EXPECTED_VALUE_CHANGED": {
       "high": 1,
-      "warn": 2
-    },
-    "SUPPRESSION_ADDED": {
-      "warn": 9
-    },
-    "TEST_DISABLED": {
-      "high": 1,
-      "info": 1,
       "warn": 1
     }
   },
   "merge_commits": "excluded (rev-list --no-merges); a merge gate sees them too",
-  "wave": "wave0-published-fp"
+  "source_id": "rich"
 }

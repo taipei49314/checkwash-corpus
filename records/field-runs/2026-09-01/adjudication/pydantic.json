@@ -1,0 +1,18 @@
+{
+  "catalog_id": "pydantic",
+  "method": "Copied from checkwash/benchmarks/external/2026-09-01/ADJUDICATION.md. Owner adopted rater-2 labels as final on 2026-09-01. TP-policy in that file is spec_correct here. Reasons are not rewritten.",
+  "sweep_file": "records/field-runs/2026-09-01/pydantic.json",
+  "verdicts": [
+    {
+      "category": "false_positive",
+      "commit": "69fd688e2d2d8e6fa25f2b2ec30781b52553a388",
+      "reason": "**move credit**: 131 `TEST_DISABLED` on units relocated to 34 new per-type files (spot-checked `test_constrained_bytes_*`, `test_decimal*` present at the new paths); single-file frontend cannot see the destination"
+    },
+    {
+      "category": "spec_correct",
+      "commit": "800f2f9089f432bc9274ab584d1dbd95ec35388f",
+      "reason": "deletes a regression test that was merged *before* its fix (red on main by construction); green-restoring deletion of a red test is exactly what the gate stops. Fix + equivalent 38-line test landed 5 days later (17e2dda)"
+    }
+  ],
+  "wave": "external-2026-09-01"
+}

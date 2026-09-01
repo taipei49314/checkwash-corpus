@@ -3,6 +3,7 @@ from __future__ import annotations
 from pathlib import Path
 
 from corpus.catalog import Catalog
+from corpus.field_run import field_run_row, iter_field_run_dirs
 from corpus.gitutil import has_commit
 from corpus.paths import census_path, inspect_clone, prs_dir, resolve_clone, sweep_path
 
@@ -60,3 +61,7 @@ def wave_status(root: Path, catalog: Catalog) -> dict[str, dict[str, int]]:
             row["sweeps"] += 1
         row["prs"] += int(st["prs"])
     return waves
+
+
+def field_run_status(root: Path) -> list[dict[str, object]]:
+    return [field_run_row(path) for path in iter_field_run_dirs(root)]
