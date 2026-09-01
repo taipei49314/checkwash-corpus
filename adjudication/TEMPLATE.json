@@ -1,0 +1,13 @@
+{
+  "catalog_id": "flask",
+  "wave": "wave0-published-fp",
+  "sweep_file": "records/sweeps/flask.json",
+  "method": "Replace this string with how the round was judged (raters, blindness, majority rule).",
+  "verdicts": [
+    {
+      "commit": "replace-with-40-char-sha",
+      "category": "false_positive",
+      "reason": "one paragraph, against the real diff, not the finding message"
+    }
+  ]
+}

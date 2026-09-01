@@ -1,0 +1,396 @@
+{
+  "engine_repo": "https://github.com/taipei49314/greenwash",
+  "schema_version": 1,
+  "purpose": "Real-world measurement corpus for checkwash/greenwash. Catalog and records are the evidence. Clones are a local cache and are never vendored.",
+  "power_probes": {
+    "approx": "pytest\\.approx|assertAlmostEqual",
+    "js_test_globs": [
+      "**/*.test.js",
+      "**/*.test.jsx",
+      "**/*.test.ts",
+      "**/*.test.tsx",
+      "**/*.spec.js",
+      "**/*.spec.jsx",
+      "**/*.spec.ts",
+      "**/*.spec.tsx"
+    ],
+    "patch": "monkeypatch\\.set|mock\\.patch|patch\\.object|mocker\\.patch|respx|responses\\.|freeze_time",
+    "runner_names": [
+      "Makefile",
+      "makefile",
+      "GNUmakefile",
+      "justfile",
+      "Justfile"
+    ],
+    "skip": "pytest\\.mark\\.skip|pytest\\.mark\\.xfail|unittest\\.skip|self\\.skipTest",
+    "unittest_assert": "\\bself\\.assert[A-Z]"
+  },
+  "waves": {
+    "wave0-published-fp": {
+      "clone_depth": 0,
+      "commit_limit": 300,
+      "id": "wave0-published-fp",
+      "purpose": "The six-repo human-commit false-positive corpus greenwash already publishes. Needed for `greenwash bench --corpus`. Low mock power — that is why wave1 exists."
+    },
+    "wave1-mock-power": {
+      "clone_depth": 400,
+      "commit_limit": 300,
+      "id": "wave1-mock-power",
+      "purpose": "TEST_PATCHES_SUBJECT and related mock-power. Twenty permissive Python repos counted 2026-08-13 in greenwash/benchmarks/corpus-expansion.md. Median 373 patch sites vs ~21 in wave0. A full clone of all twenty is tens of GB; depth 400 is enough for a 300-commit sweep."
+    },
+    "wave2-js-oracle": {
+      "clone_depth": 400,
+      "commit_limit": 300,
+      "id": "wave2-js-oracle",
+      "purpose": "JS/TS oracle front (T3.1). The six-repo Python corpus cannot measure this. Planned — fetch only with --include-planned."
+    }
+  },
+  "sources": [
+    {
+      "id": "attrs",
+      "wave": "wave0-published-fp",
+      "remote": "https://github.com/python-attrs/attrs",
+      "owner_repo": "python-attrs/attrs",
+      "license": "MIT",
+      "test_paths": ["tests/"],
+      "include": true,
+      "why": "Published FP corpus. Library, attrs.",
+      "published_pin": {
+        "newest_commit": "92e12eae712ef88c1a7e322cc51b7cd9e271aa3c",
+        "oldest_commit": "0a09c1aa2cde5816f4a9f5558fdd1ce792e7076e",
+        "engine": "0.1.46",
+        "source": "greenwash/benchmarks/sweeps/attrs.json"
+      }
+    },
+    {
+      "id": "click",
+      "wave": "wave0-published-fp",
+      "remote": "https://github.com/pallets/click",
+      "owner_repo": "pallets/click",
+      "license": "BSD-3-Clause",
+      "test_paths": ["tests/"],
+      "include": true,
+      "why": "Published FP corpus. CLI framework, pallets.",
+      "published_pin": {
+        "newest_commit": "0f4738df88e3ea47c40a4a442103596a61cfee79",
+        "oldest_commit": "bd9d4f8db2744d95f75ae171c7aacc4b66558945",
+        "engine": "0.1.46",
+        "source": "greenwash/benchmarks/sweeps/click.json"
+      }
+    },
+    {
+      "id": "flask",
+      "wave": "wave0-published-fp",
+      "remote": "https://github.com/pallets/flask",
+      "owner_repo": "pallets/flask",
+      "license": "BSD-3-Clause",
+      "test_paths": ["tests/"],
+      "include": true,
+      "why": "Published FP corpus. Web framework, pallets.",
+      "published_pin": {
+        "newest_commit": "36e4a824f340fdee7ed50937ba8e7f6bc7d17f81",
+        "oldest_commit": "345f18442ceb29f9e365af99fc85bdc5986323d2",
+        "engine": "0.1.46",
+        "source": "greenwash/benchmarks/sweeps/flask.json"
+      }
+    },
+    {
+      "id": "httpx",
+      "wave": "wave0-published-fp",
+      "remote": "https://github.com/encode/httpx",
+      "owner_repo": "encode/httpx",
+      "license": "BSD-3-Clause",
+      "test_paths": ["tests/"],
+      "include": true,
+      "why": "Published FP corpus. HTTP client, encode.",
+      "published_pin": {
+        "newest_commit": "b5addb64f0161ff6bfe94c124ef76f6a1fba5254",
+        "oldest_commit": "69e13cbc393ee13624d0e4aa4b6f861a95e3f91c",
+        "engine": "0.1.46",
+        "source": "greenwash/benchmarks/sweeps/httpx.json"
+      }
+    },
+    {
+      "id": "rich",
+      "wave": "wave0-published-fp",
+      "remote": "https://github.com/Textualize/rich",
+      "owner_repo": "Textualize/rich",
+      "license": "MIT",
+      "test_paths": ["tests/"],
+      "include": true,
+      "why": "Published FP corpus. Terminal rendering.",
+      "published_pin": {
+        "newest_commit": "ce51a2f8bf326878a94a382cb7102c85824f7e04",
+        "oldest_commit": "65fcf281283244b8ee4ded75a4b60c7eb316da6e",
+        "engine": "0.1.46",
+        "source": "greenwash/benchmarks/sweeps/rich.json"
+      }
+    },
+    {
+      "id": "starlette",
+      "wave": "wave0-published-fp",
+      "remote": "https://github.com/encode/starlette",
+      "owner_repo": "encode/starlette",
+      "license": "BSD-3-Clause",
+      "test_paths": ["tests/"],
+      "include": true,
+      "why": "Published FP corpus. ASGI framework, encode. Holds scripts/test — the runner-script surface wave0 otherwise barely exercises.",
+      "published_pin": {
+        "newest_commit": "5174d4c8358a6f06aa8056bafd14c2272dab8dd1",
+        "oldest_commit": "c78c9aac17a4d68e0647252310044502f1b7da71",
+        "engine": "0.1.46",
+        "source": "greenwash/benchmarks/sweeps/starlette.json"
+      }
+    },
+    {
+      "id": "airflow",
+      "wave": "wave1-mock-power",
+      "remote": "https://github.com/apache/airflow",
+      "owner_repo": "apache/airflow",
+      "license": "Apache-2.0",
+      "test_paths": ["airflow-core/tests/", "tests/"],
+      "include": true,
+      "why": "Highest patch-site count in the 2026-08-13 expansion census (15,784). Workflow orchestration.",
+      "prior_power": {"as_of": "2026-08-13", "patch_sites": 15784, "commits_at_count": 40395}
+    },
+    {
+      "id": "mlflow",
+      "wave": "wave1-mock-power",
+      "remote": "https://github.com/mlflow/mlflow",
+      "owner_repo": "mlflow/mlflow",
+      "license": "Apache-2.0",
+      "test_paths": ["tests/"],
+      "include": true,
+      "why": "ML lifecycle. 6,060 patch sites in the expansion census.",
+      "prior_power": {"as_of": "2026-08-13", "patch_sites": 6060, "commits_at_count": 12985}
+    },
+    {
+      "id": "salt",
+      "wave": "wave1-mock-power",
+      "remote": "https://github.com/saltstack/salt",
+      "owner_repo": "saltstack/salt",
+      "license": "Apache-2.0",
+      "test_paths": ["tests/"],
+      "include": true,
+      "why": "Devops configuration. 2,741 patch sites. Long history (125k commits) — always fetch at documented depth, never full.",
+      "prior_power": {"as_of": "2026-08-13", "patch_sites": 2741, "commits_at_count": 125585}
+    },
+    {
+      "id": "ray",
+      "wave": "wave1-mock-power",
+      "remote": "https://github.com/ray-project/ray",
+      "owner_repo": "ray-project/ray",
+      "license": "Apache-2.0",
+      "test_paths": ["python/ray/tests/", "python/ray/data/tests/"],
+      "include": true,
+      "why": "Distributed computing. 1,174 patch sites. Python tests only; native code is opaque production for the engine.",
+      "prior_power": {"as_of": "2026-08-13", "patch_sites": 1174, "commits_at_count": 31370}
+    },
+    {
+      "id": "sentry-python",
+      "wave": "wave1-mock-power",
+      "remote": "https://github.com/getsentry/sentry-python",
+      "owner_repo": "getsentry/sentry-python",
+      "license": "MIT",
+      "test_paths": ["tests/"],
+      "include": true,
+      "why": "Error-monitoring SDK. 830 patch sites.",
+      "prior_power": {"as_of": "2026-08-13", "patch_sites": 830, "commits_at_count": 4402}
+    },
+    {
+      "id": "django",
+      "wave": "wave1-mock-power",
+      "remote": "https://github.com/django/django",
+      "owner_repo": "django/django",
+      "license": "BSD-3-Clause",
+      "test_paths": ["tests/"],
+      "include": true,
+      "why": "Web framework. 649 patch sites. unittest.TestCase dialect — the published six-repo corpus has 0 self.assert* of 140,509 assertions (THREATMODEL 86b).",
+      "prior_power": {"as_of": "2026-08-13", "patch_sites": 649, "commits_at_count": 34865}
+    },
+    {
+      "id": "moto",
+      "wave": "wave1-mock-power",
+      "remote": "https://github.com/getmoto/moto",
+      "owner_repo": "getmoto/moto",
+      "license": "Apache-2.0",
+      "test_paths": ["tests/"],
+      "include": true,
+      "why": "AWS mock SDK. 481 patch sites. The corpus is itself a mocking library.",
+      "prior_power": {"as_of": "2026-08-13", "patch_sites": 481, "commits_at_count": 10790}
+    },
+    {
+      "id": "poetry",
+      "wave": "wave1-mock-power",
+      "remote": "https://github.com/python-poetry/poetry",
+      "owner_repo": "python-poetry/poetry",
+      "license": "MIT",
+      "test_paths": ["tests/"],
+      "include": true,
+      "why": "CLI package manager. 469 patch sites.",
+      "prior_power": {"as_of": "2026-08-13", "patch_sites": 469, "commits_at_count": 3835}
+    },
+    {
+      "id": "aiohttp",
+      "wave": "wave1-mock-power",
+      "remote": "https://github.com/aio-libs/aiohttp",
+      "owner_repo": "aio-libs/aiohttp",
+      "license": "Apache-2.0",
+      "test_paths": ["tests/"],
+      "include": true,
+      "why": "Async HTTP. 457 patch sites.",
+      "prior_power": {"as_of": "2026-08-13", "patch_sites": 457, "commits_at_count": 14009}
+    },
+    {
+      "id": "great_expectations",
+      "wave": "wave1-mock-power",
+      "remote": "https://github.com/great-expectations/great_expectations",
+      "owner_repo": "great-expectations/great_expectations",
+      "license": "Apache-2.0",
+      "test_paths": ["tests/"],
+      "include": true,
+      "why": "Data quality. 374 patch sites — the expansion-census median.",
+      "prior_power": {"as_of": "2026-08-13", "patch_sites": 374, "commits_at_count": 13734}
+    },
+    {
+      "id": "azure-cli",
+      "wave": "wave1-mock-power",
+      "remote": "https://github.com/Azure/azure-cli",
+      "owner_repo": "Azure/azure-cli",
+      "license": "MIT",
+      "test_paths": ["src/azure-cli-core/", "src/azure-cli/azure/cli/command_modules/"],
+      "include": true,
+      "why": "Cloud CLI. 372 patch sites. Tests live under src/, not tests/.",
+      "prior_power": {"as_of": "2026-08-13", "patch_sites": 372, "commits_at_count": 13715}
+    },
+    {
+      "id": "transformers",
+      "wave": "wave1-mock-power",
+      "remote": "https://github.com/huggingface/transformers",
+      "owner_repo": "huggingface/transformers",
+      "license": "Apache-2.0",
+      "test_paths": ["tests/"],
+      "include": true,
+      "why": "NLP / deep learning. 310 patch sites. Fetch at documented depth only.",
+      "prior_power": {"as_of": "2026-08-13", "patch_sites": 310, "commits_at_count": 23630}
+    },
+    {
+      "id": "localstack",
+      "wave": "wave1-mock-power",
+      "remote": "https://github.com/localstack/localstack",
+      "owner_repo": "localstack/localstack",
+      "license": "Apache-2.0",
+      "test_paths": ["tests/"],
+      "include": true,
+      "why": "Cloud testing. 272 patch sites.",
+      "prior_power": {"as_of": "2026-08-13", "patch_sites": 272, "commits_at_count": 7855}
+    },
+    {
+      "id": "pytest",
+      "wave": "wave1-mock-power",
+      "remote": "https://github.com/pytest-dev/pytest",
+      "owner_repo": "pytest-dev/pytest",
+      "license": "MIT",
+      "test_paths": ["testing/"],
+      "include": true,
+      "why": "The test runner greenwash models. 271 patch sites. Collection-control surface.",
+      "prior_power": {"as_of": "2026-08-13", "patch_sites": 271, "commits_at_count": 17612}
+    },
+    {
+      "id": "bokeh",
+      "wave": "wave1-mock-power",
+      "remote": "https://github.com/bokeh/bokeh",
+      "owner_repo": "bokeh/bokeh",
+      "license": "BSD-3-Clause",
+      "test_paths": ["tests/"],
+      "include": true,
+      "why": "Visualization. 169 patch sites.",
+      "prior_power": {"as_of": "2026-08-13", "patch_sites": 169, "commits_at_count": 21118}
+    },
+    {
+      "id": "scrapy",
+      "wave": "wave1-mock-power",
+      "remote": "https://github.com/scrapy/scrapy",
+      "owner_repo": "scrapy/scrapy",
+      "license": "BSD-3-Clause",
+      "test_paths": ["tests/"],
+      "include": true,
+      "why": "Web scraping. 167 patch sites.",
+      "prior_power": {"as_of": "2026-08-13", "patch_sites": 167, "commits_at_count": 11338}
+    },
+    {
+      "id": "sqlalchemy",
+      "wave": "wave1-mock-power",
+      "remote": "https://github.com/sqlalchemy/sqlalchemy",
+      "owner_repo": "sqlalchemy/sqlalchemy",
+      "license": "MIT",
+      "test_paths": ["test/"],
+      "include": true,
+      "why": "ORM. 152 patch sites. Test dir is test/, not tests/.",
+      "prior_power": {"as_of": "2026-08-13", "patch_sites": 152, "commits_at_count": 18214}
+    },
+    {
+      "id": "pandas",
+      "wave": "wave1-mock-power",
+      "remote": "https://github.com/pandas-dev/pandas",
+      "owner_repo": "pandas-dev/pandas",
+      "license": "BSD-3-Clause",
+      "test_paths": ["pandas/tests/"],
+      "include": true,
+      "why": "Data manipulation. 109 patch sites. Fetch at documented depth only.",
+      "prior_power": {"as_of": "2026-08-13", "patch_sites": 109, "commits_at_count": 38623}
+    },
+    {
+      "id": "typer",
+      "wave": "wave1-mock-power",
+      "remote": "https://github.com/fastapi/typer",
+      "owner_repo": "fastapi/typer",
+      "license": "MIT",
+      "test_paths": ["tests/"],
+      "include": true,
+      "why": "CLI framework. 104 patch sites. Smaller window, useful as a cheap sweep.",
+      "prior_power": {"as_of": "2026-08-13", "patch_sites": 104, "commits_at_count": 1747}
+    },
+    {
+      "id": "boto3",
+      "wave": "wave1-mock-power",
+      "remote": "https://github.com/boto/boto3",
+      "owner_repo": "boto/boto3",
+      "license": "Apache-2.0",
+      "test_paths": ["tests/"],
+      "include": true,
+      "why": "AWS SDK. 75 patch sites. Floor of the expansion set that still beat wave0's per-repo median.",
+      "prior_power": {"as_of": "2026-08-13", "patch_sites": 75, "commits_at_count": 7811}
+    },
+    {
+      "id": "axios",
+      "wave": "wave2-js-oracle",
+      "remote": "https://github.com/axios/axios",
+      "owner_repo": "axios/axios",
+      "license": "MIT",
+      "test_paths": ["test/", "test/unit/"],
+      "include": false,
+      "why": "JS HTTP client. Planned T3.1 oracle-front measurement. Not fetched until the JS wave is a round of its own."
+    },
+    {
+      "id": "express",
+      "wave": "wave2-js-oracle",
+      "remote": "https://github.com/expressjs/express",
+      "owner_repo": "expressjs/express",
+      "license": "MIT",
+      "test_paths": ["test/"],
+      "include": false,
+      "why": "JS HTTP framework. Planned T3.1. Not fetched until the JS wave is a round of its own."
+    },
+    {
+      "id": "vitest",
+      "wave": "wave2-js-oracle",
+      "remote": "https://github.com/vitest-dev/vitest",
+      "owner_repo": "vitest-dev/vitest",
+      "license": "MIT",
+      "test_paths": ["test/", "packages/vitest/"],
+      "include": false,
+      "why": "JS test runner — the analog of including pytest itself. Planned T3.1."
+    }
+  ]
+}
