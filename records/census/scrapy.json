@@ -1,0 +1,37 @@
+{
+  "catalog_id": "scrapy",
+  "counts": {
+    "approx_sites": 1,
+    "files_scanned": 485,
+    "js_test_files": 0,
+    "patch_sites": 152,
+    "py_files": 485,
+    "runner_files": 1,
+    "skip_sites": 49,
+    "unittest_asserts": 156
+  },
+  "owner_repo": "scrapy/scrapy",
+  "prior_power": {
+    "as_of": "2026-08-13",
+    "commits_at_count": 11338,
+    "patch_sites": 167
+  },
+  "probes": {
+    "approx": "pytest\\.approx|assertAlmostEqual",
+    "js_test_globs": [
+      "**/*.test.js",
+      "**/*.test.jsx",
+      "**/*.test.ts",
+      "**/*.test.tsx",
+      "**/*.spec.js",
+      "**/*.spec.jsx",
+      "**/*.spec.ts",
+      "**/*.spec.tsx"
+    ],
+    "patch": "monkeypatch\\.set|mock\\.patch|patch\\.object|mocker\\.patch|respx|responses\\.|freeze_time",
+    "skip": "pytest\\.mark\\.skip|pytest\\.mark\\.xfail|unittest\\.skip|self\\.skipTest",
+    "unittest_assert": "\\bself\\.assert[A-Z]"
+  },
+  "revision": "53eb8d60bcd0160633f6513478f958ed5a457363",
+  "wave": "wave1-mock-power"
+}

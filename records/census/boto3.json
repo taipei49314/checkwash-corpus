@@ -1,0 +1,37 @@
+{
+  "catalog_id": "boto3",
+  "counts": {
+    "approx_sites": 0,
+    "files_scanned": 105,
+    "js_test_files": 0,
+    "patch_sites": 76,
+    "py_files": 104,
+    "runner_files": 1,
+    "skip_sites": 1,
+    "unittest_asserts": 74
+  },
+  "owner_repo": "boto/boto3",
+  "prior_power": {
+    "as_of": "2026-08-13",
+    "commits_at_count": 7811,
+    "patch_sites": 75
+  },
+  "probes": {
+    "approx": "pytest\\.approx|assertAlmostEqual",
+    "js_test_globs": [
+      "**/*.test.js",
+      "**/*.test.jsx",
+      "**/*.test.ts",
+      "**/*.test.tsx",
+      "**/*.spec.js",
+      "**/*.spec.jsx",
+      "**/*.spec.ts",
+      "**/*.spec.tsx"
+    ],
+    "patch": "monkeypatch\\.set|mock\\.patch|patch\\.object|mocker\\.patch|respx|responses\\.|freeze_time",
+    "skip": "pytest\\.mark\\.skip|pytest\\.mark\\.xfail|unittest\\.skip|self\\.skipTest",
+    "unittest_assert": "\\bself\\.assert[A-Z]"
+  },
+  "revision": "11ef970f9b3525d0505500fc8c99f2463c45da19",
+  "wave": "wave1-mock-power"
+}

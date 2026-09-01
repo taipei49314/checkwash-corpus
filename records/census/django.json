@@ -1,0 +1,37 @@
+{
+  "catalog_id": "django",
+  "counts": {
+    "approx_sites": 252,
+    "files_scanned": 3041,
+    "js_test_files": 0,
+    "patch_sites": 687,
+    "py_files": 2930,
+    "runner_files": 1,
+    "skip_sites": 250,
+    "unittest_asserts": 40314
+  },
+  "owner_repo": "django/django",
+  "prior_power": {
+    "as_of": "2026-08-13",
+    "commits_at_count": 34865,
+    "patch_sites": 649
+  },
+  "probes": {
+    "approx": "pytest\\.approx|assertAlmostEqual",
+    "js_test_globs": [
+      "**/*.test.js",
+      "**/*.test.jsx",
+      "**/*.test.ts",
+      "**/*.test.tsx",
+      "**/*.spec.js",
+      "**/*.spec.jsx",
+      "**/*.spec.ts",
+      "**/*.spec.tsx"
+    ],
+    "patch": "monkeypatch\\.set|mock\\.patch|patch\\.object|mocker\\.patch|respx|responses\\.|freeze_time",
+    "skip": "pytest\\.mark\\.skip|pytest\\.mark\\.xfail|unittest\\.skip|self\\.skipTest",
+    "unittest_assert": "\\bself\\.assert[A-Z]"
+  },
+  "revision": "5babd2e21ac0877d66c5452da17b97608b337fba",
+  "wave": "wave1-mock-power"
+}

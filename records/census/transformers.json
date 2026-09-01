@@ -1,0 +1,37 @@
+{
+  "catalog_id": "transformers",
+  "counts": {
+    "approx_sites": 221,
+    "files_scanned": 4819,
+    "js_test_files": 0,
+    "patch_sites": 301,
+    "py_files": 4819,
+    "runner_files": 1,
+    "skip_sites": 4073,
+    "unittest_asserts": 24127
+  },
+  "owner_repo": "huggingface/transformers",
+  "prior_power": {
+    "as_of": "2026-08-13",
+    "commits_at_count": 23630,
+    "patch_sites": 310
+  },
+  "probes": {
+    "approx": "pytest\\.approx|assertAlmostEqual",
+    "js_test_globs": [
+      "**/*.test.js",
+      "**/*.test.jsx",
+      "**/*.test.ts",
+      "**/*.test.tsx",
+      "**/*.spec.js",
+      "**/*.spec.jsx",
+      "**/*.spec.ts",
+      "**/*.spec.tsx"
+    ],
+    "patch": "monkeypatch\\.set|mock\\.patch|patch\\.object|mocker\\.patch|respx|responses\\.|freeze_time",
+    "skip": "pytest\\.mark\\.skip|pytest\\.mark\\.xfail|unittest\\.skip|self\\.skipTest",
+    "unittest_assert": "\\bself\\.assert[A-Z]"
+  },
+  "revision": "eed9b89292ce05ec68ed539db59b8e8d868cbf0c",
+  "wave": "wave1-mock-power"
+}

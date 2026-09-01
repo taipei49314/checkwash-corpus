@@ -1,0 +1,37 @@
+{
+  "catalog_id": "ray",
+  "counts": {
+    "approx_sites": 217,
+    "files_scanned": 5027,
+    "js_test_files": 0,
+    "patch_sites": 1688,
+    "py_files": 4800,
+    "runner_files": 1,
+    "skip_sites": 1197,
+    "unittest_asserts": 3177
+  },
+  "owner_repo": "ray-project/ray",
+  "prior_power": {
+    "as_of": "2026-08-13",
+    "commits_at_count": 31370,
+    "patch_sites": 1174
+  },
+  "probes": {
+    "approx": "pytest\\.approx|assertAlmostEqual",
+    "js_test_globs": [
+      "**/*.test.js",
+      "**/*.test.jsx",
+      "**/*.test.ts",
+      "**/*.test.tsx",
+      "**/*.spec.js",
+      "**/*.spec.jsx",
+      "**/*.spec.ts",
+      "**/*.spec.tsx"
+    ],
+    "patch": "monkeypatch\\.set|mock\\.patch|patch\\.object|mocker\\.patch|respx|responses\\.|freeze_time",
+    "skip": "pytest\\.mark\\.skip|pytest\\.mark\\.xfail|unittest\\.skip|self\\.skipTest",
+    "unittest_assert": "\\bself\\.assert[A-Z]"
+  },
+  "revision": "167681c2b2485fffc670ddd9edd40ed428854e01",
+  "wave": "wave1-mock-power"
+}

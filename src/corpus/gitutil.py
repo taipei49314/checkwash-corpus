@@ -2,6 +2,7 @@ from __future__ import annotations
 
 import shutil
 import subprocess
+import time
 from pathlib import Path
 
 
@@ -44,34 +45,50 @@ def head_sha(repo: Path) -> str:
     return git(repo, "rev-parse", "HEAD").strip()
 
 
+def _rmtree(path: Path) -> None:
+    if not path.exists():
+        return
+    shutil.rmtree(path, ignore_errors=True)
+    if path.exists():
+        time.sleep(1)
+        shutil.rmtree(path, ignore_errors=True)
+    if path.exists():
+        raise GitError(f"could not remove {path} (Windows file lock)")
+
+
 def clone(
     remote: str,
     dest: Path,
     *,
     depth: int = 0,
     pin: str | None = None,
+    attempts: int = 3,
 ) -> None:
-    """Clone into dest. depth 0 means a full clone (wave 0 pins may be old)."""
+    """Clone into dest. depth 0 means a full clone (wave 0 pins may be old).
+
+    Clones directly into dest (no tmp rename) so Windows cannot fail the
+    last step after a successful fetch. Network errors retry with backoff.
+    """
     dest.parent.mkdir(parents=True, exist_ok=True)
-    tmp = dest.parent / f".tmp-{dest.name}"
-    if tmp.exists():
-        shutil.rmtree(tmp)
+    leftover = dest.parent / f".tmp-{dest.name}"
+    _rmtree(leftover)
     args = ["git", "clone"]
     if depth > 0:
-        args += ["--depth", str(depth), "--no-single-branch"]
-    args += [remote, str(tmp)]
-    proc = subprocess.run(args, capture_output=True)
-    if proc.returncode != 0:
-        err = proc.stderr.decode("utf-8", "replace").strip()
-        if tmp.exists():
-            shutil.rmtree(tmp, ignore_errors=True)
-        raise GitError(f"git clone {remote} failed: {err}")
-    if pin:
-        _ensure_pin(tmp, pin, depth=depth)
-        git(tmp, "checkout", "--detach", pin)
-    if dest.exists():
-        shutil.rmtree(dest)
-    tmp.rename(dest)
+        args += ["--depth", str(depth), "--single-branch"]
+    last_err = ""
+    for attempt in range(1, attempts + 1):
+        _rmtree(dest)
+        proc = subprocess.run([*args, remote, str(dest)], capture_output=True)
+        if proc.returncode == 0:
+            if pin:
+                _ensure_pin(dest, pin, depth=depth)
+                git(dest, "checkout", "--detach", pin)
+            return
+        last_err = proc.stderr.decode("utf-8", "replace").strip()
+        _rmtree(dest)
+        if attempt < attempts:
+            time.sleep(5 * attempt)
+    raise GitError(f"git clone {remote} failed after {attempts} attempts: {last_err}")
 
 
 def _ensure_pin(repo: Path, pin: str, *, depth: int) -> None:

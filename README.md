@@ -11,6 +11,9 @@ This repository is the place those measurements get collected.
 and harvested PR patches live in git. Third-party source trees live in
 `clones/` on disk and are never committed. See [SPEC.md](SPEC.md).
 
+Latest round (2026-09-01): [REPORT.md](REPORT.md) — wave 0 sweep reproduced
+42/1800 against the published pins; wave 1 census is 19/20 clones.
+
 ```
 $ python -m corpus status
 wave0-published-fp   6/6 catalogued, 0 cloned, 0 census, 0 sweeps

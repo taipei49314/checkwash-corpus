@@ -41,7 +41,7 @@ def fetch_many(
             results.append((source.id, None))
             if on_progress:
                 on_progress(source.id, msg, None)
-        except GitError as exc:
+        except (GitError, OSError) as exc:
             results.append((source.id, str(exc)))
             if on_progress:
                 on_progress(source.id, None, str(exc))
