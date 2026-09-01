@@ -1,0 +1,23 @@
+{
+  "catalog_id": "django",
+  "changed_file_count": 3,
+  "harvested_on": "2026-09-01",
+  "head_sha": "152c456e1f3dd204bd4505d0a6f2371ddaa303bc",
+  "merged_at": "2026-08-27T15:29:28Z",
+  "note": "test-file excerpts only; not a checkwash verdict",
+  "owner_repo": "django/django",
+  "pr_number": 21820,
+  "test_file_count": 1,
+  "test_files": [
+    {
+      "additions": 4,
+      "deletions": 1,
+      "filename": "tests/urlpatterns/tests.py",
+      "patch": "@@ -218,7 +218,10 @@ def test_warning_override_converter(self):\n             REGISTERED_CONVERTERS.pop(\"base64\", None)\n \n     def test_invalid_view(self):\n-        msg = \"view must be a callable or a list/tuple in the case of include().\"\n+        msg = (\n+            \"view must be a callable or a list/tuple in the case of include(), \"\n+            \"but got str.\"\n+        )\n         with self.assertRaisesMessage(TypeError, msg):\n             path(\"articles/\", \"invalid_view\")\n ",
+      "status": "modified"
+    }
+  ],
+  "title": "Fixed #37296 -- Included the invalid view type in path()/re_path() error.",
+  "url": "https://github.com/django/django/pull/21820",
+  "wave": "wave1-mock-power"
+}

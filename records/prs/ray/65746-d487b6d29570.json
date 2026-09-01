@@ -1,0 +1,23 @@
+{
+  "catalog_id": "ray",
+  "changed_file_count": 1,
+  "harvested_on": "2026-09-01",
+  "head_sha": "d487b6d295702d06fb47dc028c92e89b027c6e11",
+  "merged_at": "2026-08-29T00:30:42Z",
+  "note": "test-file excerpts only; not a checkwash verdict",
+  "owner_repo": "ray-project/ray",
+  "pr_number": 65746,
+  "test_file_count": 1,
+  "test_files": [
+    {
+      "additions": 1,
+      "deletions": 12,
+      "filename": "python/ray/tests/test_runtime_env_conda_and_pip_5.py",
+      "patch": "@@ -70,18 +70,7 @@ def test_runtime_env_cache_with_pip_check(start_cluster):\n             \"packages\": conflict_packages,\n             \"pip_version\": \"==20.2.3\",\n             \"pip_check\": False,\n-        },\n-        # Resolve from PyPI rather than whatever PIP_INDEX_URL this process\n-        # inherited. The pip versions below are the point of the test, and both\n-        # predate PEP 691 (added in pip 22.2), so they can only read an index page\n-        # served as text/html. CI points pip at a caching mirror that keys entries\n-        # on URL alone while PyPI answers `Vary: Accept`, so an entry warmed by a\n-        # JSON-speaking client is then handed to these, and the resolve fails with\n-        # \"from versions: none\" rather than the conflict this asserts on.\n-        # runtime_env env_vars win over the inherited environment (pip.py\n-        # _pip_env), and do not feed the pip hash, so the cache behaviour under\n-        # test is unchanged.\n-        \"env_vars\": {\"PIP_INDEX_URL\": \"https://pypi.org/simple\"},\n+        }\n     }\n \n     @ray.remote",
+      "status": "modified"
+    }
+  ],
+  "title": "Revert \"[ci] Pin test_runtime_env_cache_with_pip_check to PyPI\"",
+  "url": "https://github.com/ray-project/ray/pull/65746",
+  "wave": "wave1-mock-power"
+}

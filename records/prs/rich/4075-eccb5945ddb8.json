@@ -1,0 +1,23 @@
+{
+  "catalog_id": "rich",
+  "changed_file_count": 5,
+  "harvested_on": "2026-09-01",
+  "head_sha": "eccb5945ddb8487d655d2ab54f3443d072ef4247",
+  "merged_at": "2026-04-11T09:34:48Z",
+  "note": "test-file excerpts only; not a checkwash verdict",
+  "owner_repo": "Textualize/rich",
+  "pr_number": 4075,
+  "test_file_count": 1,
+  "test_files": [
+    {
+      "additions": 6,
+      "deletions": 0,
+      "filename": "tests/test_console.py",
+      "patch": "@@ -192,6 +192,12 @@ def test_print() -> None:\n     assert console.file.getvalue() == \"foo\\n\"\n \n \n+def test_print_empty_with_end() -> None:\n+    console = Console(file=io.StringIO(), color_system=\"truecolor\")\n+    console.print(end=\"!\")\n+    assert console.file.getvalue() == \"!\"\n+\n+\n def test_print_multiple() -> None:\n     console = Console(file=io.StringIO(), color_system=\"truecolor\")\n     console.print(\"foo\", \"bar\")",
+      "status": "modified"
+    }
+  ],
+  "title": "empty with end",
+  "url": "https://github.com/Textualize/rich/pull/4075",
+  "wave": "wave0-published-fp"
+}

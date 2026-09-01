@@ -1,0 +1,23 @@
+{
+  "catalog_id": "httpx",
+  "changed_file_count": 8,
+  "harvested_on": "2026-09-01",
+  "head_sha": "a711667febc881914bd117d6e86dfbf0b91c9f47",
+  "merged_at": "2025-09-20T17:09:09Z",
+  "note": "test-file excerpts only; not a checkwash verdict",
+  "owner_repo": "encode/httpx",
+  "pr_number": 3673,
+  "test_file_count": 1,
+  "test_files": [
+    {
+      "additions": 5,
+      "deletions": 5,
+      "filename": "tests/test_parsers.py",
+      "patch": "@@ -67,7 +67,7 @@ def test_parser():\n     assert terminator == b''\n \n     assert not p.is_idle()\n-    p.complete()\n+    p.reset()\n     assert p.is_idle()\n \n \n@@ -113,7 +113,7 @@ def test_parser_server():\n     )\n \n     assert not p.is_idle()\n-    p.complete()\n+    p.reset()\n     assert p.is_idle()\n \n \n@@ -315,7 +315,7 @@ def test_parser_repr():\n     p.recv_body()\n     assert repr(p) == \"<HTTPParser [client DONE, server DONE]>\"\n \n-    p.complete()\n+    p.reset()\n     assert repr(p) == \"<HTTPParser [client SEND_METHOD_LINE, server WAIT]>\"\n \n \n@@ -554,7 +554,7 @@ def test_client_connection_close():\n \n     assert repr(p) == \"<HTTPParser [client DONE, server DONE]>\"\n \n-    p.complete()\n+    p.reset()\n     assert repr(p) == \"<HTTPParser [client CLOSED, server CLOSED]>\"\n     assert p.is_closed()\n \n@@ -591,7 +591,7 @@ def test_server_connection_close():\n     assert terminator == b\"\"\n \n     assert repr(p) == \"<HTTPParser [client DONE, server DONE]>\"\n-    p.complete()\n+    p.reset()\n     assert repr(p) == \"<HTTPParser [client CLOSED, server CLOSED]>\"\n \n ",
+      "status": "modified"
+    }
+  ],
+  "title": "Connection resets",
+  "url": "https://github.com/encode/httpx/pull/3673",
+  "wave": "wave0-published-fp"
+}

@@ -1,0 +1,23 @@
+{
+  "catalog_id": "aiohttp",
+  "changed_file_count": 1,
+  "harvested_on": "2026-09-01",
+  "head_sha": "9193c54831eee97544588731f27b6eb9b4ebfe81",
+  "merged_at": "2026-09-01T00:54:59Z",
+  "note": "test-file excerpts only; not a checkwash verdict",
+  "owner_repo": "aio-libs/aiohttp",
+  "pr_number": 13613,
+  "test_file_count": 1,
+  "test_files": [
+    {
+      "additions": 35,
+      "deletions": 8,
+      "filename": "tests/test_benchmarks_http_websocket.py",
+      "patch": "@@ -22,14 +22,27 @@\n # would engage read backpressure and silently stop the parser mid-benchmark.\n READ_QUEUE_LIMIT = 2**24\n MASK = b\"\\x9a\\x3c\\x71\\xe5\"\n+TEXT_MESSAGE_FRAME = (\n+    b'\\x81~\\x01!{\"id\":1,\"src\":\"shellyplugus-c049ef8c30e4\",\"dst\":\"aios-1453812500'\n+    b'8\",\"result\":{\"name\":null,\"id\":\"shellyplugus-c049ef8c30e4\",\"mac\":\"C049EF8C30E'\n+    b'4\",\"slot\":1,\"model\":\"SNPL-00116US\",\"gen\":2,\"fw_id\":\"20231219-133953/1.1.0-g3'\n+    b'4b5d4f\",\"ver\":\"1.1.0\",\"app\":\"PlugUS\",\"auth_en\":false,\"auth_domain\":null}}'\n+)\n \n \n-def _make_reader(event_loop: asyncio.AbstractEventLoop) -> WebSocketReader:\n+def _make_queue(event_loop: asyncio.AbstractEventLoop) -> WebSocketDataQueue:\n     protocol = BaseProtocol(event_loop)\n     # A WebSocket connection is always upgraded; without this, backpressure\n     # would hit ``assert self._parser is not None`` in pause_reading().\n     protocol._upgraded = True\n-    queue = WebSocketDataQueue(protocol, READ_QUEUE_LIMIT, loop=event_loop)\n+    return WebSocketDataQueue(protocol, READ_QUEUE_LIMIT, loop=event_loop)\n+\n+\n+def _make_reader(\n+    event_loop: asyncio.AbstractEventLoop, queue: WebSocketDataQueue | None = None\n+) -> WebSocketReader:\n+    if queue is None:\n+        queue = _make_queue(event_loop)\n     return WebSocketReader(\n         queue, max_msg_size=DEFAULT_CHUNK_SIZE, compress=True, decode_text=True\n     )\n@@ -71,12 +84,7 @@ def test_read_one_hundred_websocket_text_messages(\n     event_loop: asyncio.AbstractEventLoop, benchmark: BenchmarkFixture\n ) -> None:\n     \"\"\"Benchmark reading 100 WebSocket text messages.\"\"\"\n-    raw_message = (\n-        b'\\x81~\\x01!{\"id\":1,\"src\":\"shellyplugus-c049ef8c30e4\",\"dst\":\"aios-1453812500'\n-        b'8\",\"result\":{\"name\":null,\"id\":\"shellyplugus-c049ef8c30e4\",\"mac\":\"C049EF8C30E'\n-        b'4\",\"slot\":1,\"model\":\"SNPL-00116US\",\"gen\":2,\"fw_id\":\"20231219-133953/1.1.0-g3'\n-        b'4b5d4f\",\"ver\":\"1.1.0\",\"app\":\"PlugUS\",\"auth_en\":false,\"auth_domain\":null}}'\n-    )\n+    raw_message = TEXT_MESSAGE_FRAME\n \n     @benchmark\n     def _run() -> None:\n@@ -111,6 +119,25 @@ def _run() -> None:\n             feed_data(raw_message)\n \n \n+def test_read_and_drain_one_hundred_websocket_text_messages(\n+    event_loop: asyncio.AbstractEventLoop, benchmark: BenchmarkFixture\n+) -> None:\n+    \"\"\"Feed 100 text messages and drain them through WebSocketDataQueue.read().\"\"\"\n+\n+    async def _feed_and_drain() -> None:\n+        queue = _make_queue(event_loop)\n+        feed_data = _make_reader(event_loop, queue).feed_data\n+        read = queue.read\n+        for _ in range(100):\n+            feed_data(TEXT_MESSAGE_FRAME)\n+        for _ in range(100):\n+            await read()\n+\n+    @benchmark\n+    def _run() -> None:\n+        event_loop.run_until_complete(_feed_and_drain())\n+\n+\n class MockTransport(asyncio.Transport):\n     \"\"\"Mock transport for testing that do no real I/O.\"\"\"\n ",
+      "status": "modified"
+    }
+  ],
+  "title": "Benchmark drain",
+  "url": "https://github.com/aio-libs/aiohttp/pull/13613",
+  "wave": "wave1-mock-power"
+}

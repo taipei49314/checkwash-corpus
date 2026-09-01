@@ -1,0 +1,23 @@
+{
+  "catalog_id": "rich",
+  "changed_file_count": 3,
+  "harvested_on": "2026-09-01",
+  "head_sha": "494b795031782c694297d2db78bd04fb8c82f590",
+  "merged_at": "2026-04-12T04:11:19Z",
+  "note": "test-file excerpts only; not a checkwash verdict",
+  "owner_repo": "Textualize/rich",
+  "pr_number": 4077,
+  "test_file_count": 1,
+  "test_files": [
+    {
+      "additions": 17,
+      "deletions": 0,
+      "filename": "tests/test_file_proxy.py",
+      "patch": "@@ -35,3 +35,20 @@ def test_new_lines():\n     assert file.getvalue() == \"-\\n\"\n     file_proxy.flush()\n     assert file.getvalue() == \"-\\n-\\n\"\n+\n+\n+def test_isatty():\n+    \"\"\"Check isatty is proxied\n+\n+    Regression test for https://github.com/Textualize/rich/issues/4041\n+\n+    \"\"\"\n+\n+    class TTYFile:\n+        def isatty(self) -> bool:\n+            return True\n+\n+    file = TTYFile()\n+    console = Console()\n+    file_proxy = FileProxy(console, file)\n+    assert file_proxy.isatty()",
+      "status": "modified"
+    }
+  ],
+  "title": "proxy isatty",
+  "url": "https://github.com/Textualize/rich/pull/4077",
+  "wave": "wave0-published-fp"
+}

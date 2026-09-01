@@ -1,0 +1,23 @@
+{
+  "catalog_id": "pandas",
+  "changed_file_count": 5,
+  "harvested_on": "2026-09-01",
+  "head_sha": "fdf06c775bdde517ace1a8b5e9b2cc6c93133d77",
+  "merged_at": "2026-08-30T20:43:22Z",
+  "note": "test-file excerpts only; not a checkwash verdict",
+  "owner_repo": "pandas-dev/pandas",
+  "pr_number": 67421,
+  "test_file_count": 1,
+  "test_files": [
+    {
+      "additions": 3,
+      "deletions": 1,
+      "filename": "pandas/tests/dtypes/cast/test_box_unbox.py",
+      "patch": "@@ -109,5 +109,7 @@ def test_maybe_unbox_numpy_scalar_object_dtype():\n     # GH#64266\n     value = np.float32(1.5)\n     with option_context(\"future.python_scalars\", True):\n-        result = maybe_unbox_numpy_scalar(value, dtype=np.dtype(object))\n+        result = maybe_unbox_numpy_scalar(\n+            value, object_with_dtype=np.array([], dtype=object)\n+        )\n     assert result is value",
+      "status": "modified"
+    }
+  ],
+  "title": "PERF: Defer access of dtype in maybe_unbox_numpy_scalar",
+  "url": "https://github.com/pandas-dev/pandas/pull/67421",
+  "wave": "wave1-mock-power"
+}

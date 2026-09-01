@@ -1,0 +1,23 @@
+{
+  "catalog_id": "rich",
+  "changed_file_count": 3,
+  "harvested_on": "2026-09-01",
+  "head_sha": "cf3b5a16f7a76b2e8c4921d3314021bb72a6c5c1",
+  "merged_at": "2026-04-12T07:45:03Z",
+  "note": "test-file excerpts only; not a checkwash verdict",
+  "owner_repo": "Textualize/rich",
+  "pr_number": 4079,
+  "test_file_count": 1,
+  "test_files": [
+    {
+      "additions": 16,
+      "deletions": 0,
+      "filename": "tests/test_markdown.py",
+      "patch": "@@ -199,6 +199,22 @@ def test_table_with_empty_cells() -> None:\n     assert result == expected\n \n \n+def test_inline_code_in_table_cells() -> None:\n+    \"\"\"Test inline code in table cells.\n+\n+    Regression test for https://github.com/Textualize/rich/issues/4038\n+\n+    \"\"\"\n+    markdown = Markdown(\n+        \"| Col |\\n|---|\\n| `print('hello');` |\\n\",\n+        inline_code_theme=\"monokai\",\n+        inline_code_lexer=\"python\",\n+    )\n+    result = render(markdown)\n+    expected = \"\\n\\x1b[36m                 \\x1b[0m\\n\\x1b[36m \\x1b[0m\\x1b[36mCol\\x1b[0m\\x1b[1m            \\x1b[0m\\x1b[36m \\x1b[0m\\n\\x1b[36m ─────────────── \\x1b[0m\\n\\x1b[36m \\x1b[0m\\x1b[38;2;248;248;242;48;2;39;40;34mprint\\x1b[0m\\x1b[38;2;248;248;242;48;2;39;40;34m(\\x1b[0m\\x1b[38;2;230;219;116;48;2;39;40;34m'\\x1b[0m\\x1b[38;2;230;219;116;48;2;39;40;34mhello\\x1b[0m\\x1b[38;2;230;219;116;48;2;39;40;34m'\\x1b[0m\\x1b[38;2;248;248;242;48;2;39;40;34m)\\x1b[0m\\x1b[38;2;248;248;242;48;2;39;40;34m;\\x1b[0m\\x1b[36m \\x1b[0m\\n\\x1b[36m                 \\x1b[0m\\n\"\n+    assert result == expected\n+\n+\n if __name__ == \"__main__\":\n     markdown = Markdown(MARKDOWN)\n     rendered = render(markdown)",
+      "status": "modified"
+    }
+  ],
+  "title": "Inline table code",
+  "url": "https://github.com/Textualize/rich/pull/4079",
+  "wave": "wave0-published-fp"
+}

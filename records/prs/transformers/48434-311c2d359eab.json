@@ -1,0 +1,23 @@
+{
+  "catalog_id": "transformers",
+  "changed_file_count": 2,
+  "harvested_on": "2026-09-01",
+  "head_sha": "311c2d359eabcaeb9a9c22c78521b6ee47d93bae",
+  "merged_at": "2026-08-31T12:09:29Z",
+  "note": "test-file excerpts only; not a checkwash verdict",
+  "owner_repo": "huggingface/transformers",
+  "pr_number": 48434,
+  "test_file_count": 1,
+  "test_files": [
+    {
+      "additions": 2,
+      "deletions": 1,
+      "filename": "tests/utils/test_auto_docstring.py",
+      "patch": "@@ -431,6 +431,8 @@ def test_dummy_model_complete_docstring(self):\n         \"\"\"Test complete class and forward method docstrings for PreTrainedModel with ModelArgs and custom parameters.\"\"\"\n         actual_class_docstring = DummyForTestModel.__doc__\n         expected_class_docstring = \"\"\"\n+The bare None Model outputting raw hidden-states without any specific head on top.\n+\n This model inherits from [`PreTrainedModel`]. Check the superclass documentation for the generic methods the\n library implements for all its model (such as downloading or saving, resizing the input embeddings, pruning heads\n etc.)\n@@ -701,7 +703,6 @@ def test_dummy_image_processor_complete_docstring(self):\n \n         expected_class_docstring = \"\"\"\n Constructs a fast DummyForTest image processor.\n-\n Args:\n     do_convert_rgb (`bool`, *kwargs*, *optional*):\n         Whether to convert the image to RGB.",
+      "status": "modified"
+    }
+  ],
+  "title": "Re-order a bit for easier navigation",
+  "url": "https://github.com/huggingface/transformers/pull/48434",
+  "wave": "wave1-mock-power"
+}

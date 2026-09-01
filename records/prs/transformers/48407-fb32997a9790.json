@@ -1,0 +1,30 @@
+{
+  "catalog_id": "transformers",
+  "changed_file_count": 5,
+  "harvested_on": "2026-09-01",
+  "head_sha": "fb32997a97909b7c15c9683dc1580ec179406d93",
+  "merged_at": "2026-08-31T14:18:28Z",
+  "note": "test-file excerpts only; not a checkwash verdict",
+  "owner_repo": "huggingface/transformers",
+  "pr_number": 48407,
+  "test_file_count": 2,
+  "test_files": [
+    {
+      "additions": 15,
+      "deletions": 0,
+      "filename": "tests/models/jina_embeddings_v3/test_modeling_jina_embeddings_v3.py",
+      "patch": "@@ -191,6 +191,17 @@ def create_and_check_for_token_classification(\n         result = model(input_ids, attention_mask=input_mask, token_type_ids=token_type_ids, labels=token_labels)\n         self.parent.assertEqual(result.logits.shape, (self.batch_size, self.seq_length, self.num_labels))\n \n+    def create_and_check_forward_beyond_max_position_embeddings(self, config, input_ids, *args):\n+        # This model is rope-only, so `max_position_embeddings` does not bound the input length.\n+        # See https://github.com/huggingface/transformers/pull/48407\n+        model = JinaEmbeddingsV3Model(config=config)\n+        model.to(torch_device)\n+        model.eval()\n+        seq_length = config.max_position_embeddings + 8\n+        long_input_ids = ids_tensor([1, seq_length], config.vocab_size).to(torch_device)\n+        result = model(long_input_ids)\n+        self.parent.assertEqual(result.last_hidden_state.shape, (1, seq_length, self.hidden_size))\n+\n     def prepare_config_and_inputs_for_common(self):\n         config_and_inputs = self.prepare_config_and_inputs()\n         (\n@@ -262,6 +273,10 @@ def test_for_token_classification(self):\n         config_and_inputs = self.model_tester.prepare_config_and_inputs()\n         self.model_tester.create_and_check_for_token_classification(*config_and_inputs)\n \n+    def test_forward_beyond_max_position_embeddings(self):\n+        config_and_inputs = self.model_tester.prepare_config_and_inputs()\n+        self.model_tester.create_and_check_forward_beyond_max_position_embeddings(*config_and_inputs)\n+\n     @unittest.skip(\"Model doesn't support scaling - due to non-RoPE related reasons\")\n     @parameterized.expand([(\"linear\",), (\"dynamic\",), (\"yarn\",)])\n     def test_model_rope_scaling_from_config(self, scaling_type):",
+      "status": "modified"
+    },
+    {
+      "additions": 14,
+      "deletions": 6,
+      "filename": "tests/models/nomic_bert/test_modeling_nomic_bert.py",
+      "patch": "@@ -13,8 +13,6 @@\n # limitations under the License.\n import unittest\n \n-from parameterized import parameterized\n-\n from transformers import AutoModel, AutoTokenizer, NomicBertConfig, is_torch_available\n from transformers.testing_utils import (\n     Expectations,\n@@ -216,6 +214,17 @@ def create_and_check_for_token_classification(\n         result = model(input_ids, attention_mask=input_mask, token_type_ids=token_type_ids, labels=token_labels)\n         self.parent.assertEqual(result.logits.shape, (self.batch_size, self.seq_length, self.num_labels))\n \n+    def create_and_check_forward_beyond_max_position_embeddings(self, config, input_ids, *args):\n+        # This model is rope-only, so `max_position_embeddings` does not bound the input length.\n+        # See https://github.com/huggingface/transformers/pull/48407\n+        model = NomicBertModel(config=config)\n+        model.to(torch_device)\n+        model.eval()\n+        seq_length = config.max_position_embeddings + 8\n+        long_input_ids = ids_tensor([1, seq_length], config.vocab_size).to(torch_device)\n+        result = model(long_input_ids)\n+        self.parent.assertEqual(result.last_hidden_state.shape, (1, seq_length, self.hidden_size))\n+\n     def prepare_config_and_inputs_for_common(self):\n         config_and_inputs = self.prepare_config_and_inputs()\n         (\n@@ -280,10 +289,9 @@ def test_for_token_classification(self):\n         config_and_inputs = self.model_tester.prepare_config_and_inputs()\n         self.model_tester.create_and_check_for_token_classification(*config_and_inputs)\n \n-    @parameterized.expand([(\"linear\",), (\"dynamic\",), (\"yarn\",)])\n-    @unittest.skip(\"Model doesn't support scaling rope and raises shape mismatch errors with token types!\")\n-    def test_model_rope_scaling_from_config(self, scaling_type):\n-        pass\n+    def test_forward_beyond_max_position_embeddings(self):\n+        config_and_inputs = self.model_tester.prepare_config_and_inputs()\n+        self.model_tester.create_and_check_forward_beyond_max_position_embeddings(*config_and_inputs)\n \n \n @require_torch",
+      "status": "modified"
+    }
+  ],
+  "title": "fix(models): Drop the position-indexed token type lookup in RoPE encoders",
+  "url": "https://github.com/huggingface/transformers/pull/48407",
+  "wave": "wave1-mock-power"
+}

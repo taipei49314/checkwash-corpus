@@ -1,0 +1,23 @@
+{
+  "catalog_id": "rich",
+  "changed_file_count": 4,
+  "harvested_on": "2026-09-01",
+  "head_sha": "48293cde887c4f25a7bca022131b56495f370a88",
+  "merged_at": "2026-04-12T03:59:42Z",
+  "note": "test-file excerpts only; not a checkwash verdict",
+  "owner_repo": "Textualize/rich",
+  "pr_number": 4076,
+  "test_file_count": 1,
+  "test_files": [
+    {
+      "additions": 23,
+      "deletions": 3,
+      "filename": "tests/test_ansi.py",
+      "patch": "@@ -20,13 +20,14 @@ def test_decode():\n \n     decoder = AnsiDecoder()\n     lines = list(decoder.decode(terminal_codes))\n-\n+    print(repr(lines))\n     expected = [\n         Text(\"Hello\"),\n         Text(\"foo\", spans=[Span(0, 3, Style.parse(\"bold\"))]),\n         Text(\"bar\", spans=[Span(0, 3, Style.parse(\"link http://example.org\"))]),\n         Text(\"red\", spans=[Span(0, 3, Style.parse(\"#ff0000 on color(200)\"))]),\n         Text(\"red\", spans=[Span(0, 3, Style.parse(\"color(200) on #ff0000\"))]),\n+        Text(\"\"),\n     ]\n \n     assert lines == expected\n@@ -45,7 +46,8 @@ def test_decode_example():\n         console.print(text)\n     result = capture.get()\n     print(repr(result))\n-    expected = \"\\x1b[1mC:\\\\Users\\\\stefa\\\\AppData\\\\Local\\\\Temp\\\\tmp3ydingba:\\x1b[0m In function '\\x1b[1mmain\\x1b[0m':\\n\\x1b[1mC:\\\\Users\\\\stefa\\\\AppData\\\\Local\\\\Temp\\\\tmp3ydingba:3:5:\\x1b[0m \\x1b[1;35mwarning: \\x1b[0munused variable '\\x1b[1ma\\x1b[0m' \\n[\\x1b[1;35m-Wunused-variable\\x1b[0m]\\n    3 | int \\x1b[1;35ma\\x1b[0m=1;\\n      |     \\x1b[1;35m^\\x1b[0m\\n\"\n+    print(result)\n+    expected = \"\\x1b[1mC:\\\\Users\\\\stefa\\\\AppData\\\\Local\\\\Temp\\\\tmp3ydingba:\\x1b[0m In function '\\x1b[1mmain\\x1b[0m':\\n\\x1b[1mC:\\\\Users\\\\stefa\\\\AppData\\\\Local\\\\Temp\\\\tmp3ydingba:3:5:\\x1b[0m \\x1b[1;35mwarning: \\x1b[0munused variable '\\x1b[1ma\\x1b[0m' \\n[\\x1b[1;35m-Wunused-variable\\x1b[0m]\\n    3 | int \\x1b[1;35ma\\x1b[0m=1;\\n      |     \\x1b[1;35m^\\x1b[0m\\n\\n\"\n     assert result == expected\n \n \n@@ -55,7 +57,7 @@ def test_decode_example():\n         # https://github.com/Textualize/rich/issues/2688\n         (\n             b\"\\x1b[31mFound 4 errors in 2 files (checked 18 source files)\\x1b(B\\x1b[m\\n\",\n-            \"Found 4 errors in 2 files (checked 18 source files)\",\n+            \"Found 4 errors in 2 files (checked 18 source files)\\n\",\n         ),\n         # https://mail.python.org/pipermail/python-list/2007-December/424756.html\n         (b\"Hallo\", \"Hallo\"),\n@@ -82,3 +84,21 @@ def test_strip_private_escape_sequences(code):\n     expected = \"x\\n\"\n \n     assert capture.get() == expected\n+\n+\n+def test_decode_newlines():\n+    \"\"\"Test newlines are preserved.\n+    Regression test for https://github.com/Textualize/rich/issues/3577\n+    \"\"\"\n+    assert Text.from_ansi(\"\").plain == \"\"\n+    assert Text.from_ansi(\"\\n\").plain == \"\\n\"\n+    assert Text.from_ansi(\"\\n\\n\").plain == \"\\n\\n\"\n+    assert Text.from_ansi(\"Hello\").plain == \"Hello\"\n+    assert Text.from_ansi(\"\\nHello\").plain == \"\\nHello\"\n+    assert Text.from_ansi(\"Hello\\n\").plain == \"Hello\\n\"\n+    assert Text.from_ansi(\"Hello\\n\\n\").plain == \"Hello\\n\\n\"\n+    assert Text.from_ansi(\"Hello\\nWorld\").plain == \"Hello\\nWorld\"\n+    assert Text.from_ansi(\"Hello\\n\\nWorld\").plain == \"Hello\\n\\nWorld\"\n+    assert Text.from_ansi(\"Hello\\nWorld\\n\").plain == \"Hello\\nWorld\\n\"\n+    assert Text.from_ansi(\"Hello\\nWorld\\n\\n\").plain == \"Hello\\nWorld\\n\\n\"\n+    assert Text.from_ansi(\"\\nHello\\nWorld\\n\\n\").plain == \"\\nHello\\nWorld\\n\\n\"",
+      "status": "modified"
+    }
+  ],
+  "title": "preserve newlines",
+  "url": "https://github.com/Textualize/rich/pull/4076",
+  "wave": "wave0-published-fp"
+}

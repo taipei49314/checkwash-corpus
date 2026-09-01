@@ -1,0 +1,37 @@
+{
+  "catalog_id": "localstack",
+  "changed_file_count": 5,
+  "harvested_on": "2026-09-01",
+  "head_sha": "28fcab93cbed593783a3581e2e4cfbc9c1ae5c60",
+  "merged_at": "2026-03-06T06:37:40Z",
+  "note": "test-file excerpts only; not a checkwash verdict",
+  "owner_repo": "localstack/localstack",
+  "pr_number": 13880,
+  "test_file_count": 3,
+  "test_files": [
+    {
+      "additions": 76,
+      "deletions": 0,
+      "filename": "tests/aws/services/firehose/test_firehose.py",
+      "patch": "@@ -10,6 +10,7 @@\n from localstack.testing.aws.util import is_aws_cloud\n from localstack.testing.pytest import markers\n from localstack.utils.aws import arns\n+from localstack.utils.aws.arns import iam_role_arn, s3_bucket_arn\n from localstack.utils.strings import short_uid, to_bytes, to_str\n from localstack.utils.sync import poll_condition, retry\n from tests.aws.services.firehose.helper_functions import get_firehose_iam_documents\n@@ -589,3 +590,78 @@ def assert_s3_contents():\n             retry_options[\"sleep_before\"] = 10\n \n         retry(assert_s3_contents, **retry_options)\n+\n+\n+class TestFirehoseResourceTagging:\n+    @pytest.fixture\n+    def delivery_stream(\n+        self,\n+        aws_client,\n+        s3_bucket,\n+        create_iam_role_and_attach_policy,\n+        account_id,\n+        region_name,\n+        firehose_create_delivery_stream,\n+    ):\n+        \"\"\"Factory fixture to create a sample delivery stream with required pre-reqs.\"\"\"\n+\n+        def _delivery_stream(tags: list[dict[str, str]] = None):\n+            document = {\n+                \"Version\": \"2012-10-17\",\n+                \"Statement\": [\n+                    {\n+                        \"Effect\": \"Allow\",\n+                        \"Principal\": {\"Service\": \"firehose.amazonaws.com\"},\n+                        \"Action\": \"sts:AssumeRole\",\n+                    }\n+                ],\n+            }\n+            role_name = f\"role-{short_uid()}\"\n+            create_iam_role_and_attach_policy(\n+                RoleName=role_name,\n+                RoleDefinition=document,\n+                PolicyArn=\"arn:aws:iam::aws:policy/AmazonS3FullAccess\",\n+            )\n+\n+            stream_name = f\"stream-{short_uid()}\"\n+\n+            kwargs = {\n+                \"DeliveryStreamName\": stream_name,\n+                \"DeliveryStreamType\": \"DirectPut\",\n+                \"S3DestinationConfiguration\": {\n+                    \"RoleARN\": iam_role_arn(role_name, account_id, region_name),\n+                    \"BucketARN\": s3_bucket_arn(s3_bucket, region_name),\n+                },\n+            }\n+\n+            if tags is not None:\n+                kwargs[\"Tags\"] = tags\n+\n+            firehose_create_delivery_stream(**kwargs)\n+\n+            return stream_name\n+\n+        yield _delivery_stream\n+\n+    @markers.aws.validated\n+    def test_resource_tagging(self, aws_client, snapshot, delivery_stream):\n+        stream_name = delivery_stream(tags=[{\"Key\": \"subject\", \"Value\": \"taboo\"}])\n+\n+        response = aws_client.firehose.list_tags_for_delivery_stream(DeliveryStreamName=stream_name)\n+        snapshot.match(\"list-tags-1\", response)\n+\n+        response = aws_client.firehose.untag_delivery_stream(\n+            DeliveryStreamName=stream_name, TagKeys=[\"subject\", \"moment\"]\n+        )\n+        snapshot.match(\"remove-tags\", response)\n+\n+        response = aws_client.firehose.list_tags_for_delivery_stream(DeliveryStreamName=stream_name)\n+        snapshot.match(\"list-tags-2\", response)\n+\n+        response = aws_client.firehose.tag_delivery_stream(\n+            DeliveryStreamName=stream_name, Tags=[{\"Key\": \"feeling\", \"Value\": \"uncomfortable\"}]\n+        )\n+        snapshot.match(\"add-tags\", response)\n+\n+        response = aws_client.firehose.list_tags_for_delivery_stream(DeliveryStreamName=stream_name)\n+        snapshot.match(\"list-tags-3\", response)",
+      "status": "modified"
+    },
+    {
+      "additions": 51,
+      "deletions": 0,
+      "filename": "tests/aws/services/firehose/test_firehose.snapshot.json",
+      "patch": "@@ -11,5 +11,56 @@\n         }\n       }\n     }\n+  },\n+  \"tests/aws/services/firehose/test_firehose.py::TestFirehoseResourceTagging::test_resource_tagging\": {\n+    \"recorded-date\": \"05-03-2026, 08:34:26\",\n+    \"recorded-content\": {\n+      \"list-tags-1\": {\n+        \"HasMoreTags\": false,\n+        \"Tags\": [\n+          {\n+            \"Key\": \"subject\",\n+            \"Value\": \"taboo\"\n+          }\n+        ],\n+        \"ResponseMetadata\": {\n+          \"HTTPHeaders\": {},\n+          \"HTTPStatusCode\": 200\n+        }\n+      },\n+      \"remove-tags\": {\n+        \"ResponseMetadata\": {\n+          \"HTTPHeaders\": {},\n+          \"HTTPStatusCode\": 200\n+        }\n+      },\n+      \"list-tags-2\": {\n+        \"HasMoreTags\": false,\n+        \"Tags\": [],\n+        \"ResponseMetadata\": {\n+          \"HTTPHeaders\": {},\n+          \"HTTPStatusCode\": 200\n+        }\n+      },\n+      \"add-tags\": {\n+        \"ResponseMetadata\": {\n+          \"HTTPHeaders\": {},\n+          \"HTTPStatusCode\": 200\n+        }\n+      },\n+      \"list-tags-3\": {\n+        \"HasMoreTags\": false,\n+        \"Tags\": [\n+          {\n+            \"Key\": \"feeling\",\n+            \"Value\": \"uncomfortable\"\n+          }\n+        ],\n+        \"ResponseMetadata\": {\n+          \"HTTPHeaders\": {},\n+          \"HTTPStatusCode\": 200\n+        }\n+      }\n+    }\n   }\n }",
+      "status": "modified"
+    },
+    {
+      "additions": 9,
+      "deletions": 0,
+      "filename": "tests/aws/services/firehose/test_firehose.validation.json",
+      "patch": "@@ -4,5 +4,14 @@\n   },\n   \"tests/aws/services/firehose/test_firehose.py::TestFirehoseIntegration::test_multiple_delivery_streams_with_kinesis_as_source\": {\n     \"last_validated_date\": \"2024-01-25T10:54:39+00:00\"\n+  },\n+  \"tests/aws/services/firehose/test_firehose.py::TestFirehoseResourceTagging::test_resource_tagging\": {\n+    \"last_validated_date\": \"2026-03-02T13:20:05+00:00\",\n+    \"durations_in_seconds\": {\n+      \"setup\": 2.44,\n+      \"call\": 23.89,\n+      \"teardown\": 23.4,\n+      \"total\": 49.73\n+    }\n   }\n }",
+      "status": "modified"
+    }
+  ],
+  "title": "Firehose: Replace TaggingService",
+  "url": "https://github.com/localstack/localstack/pull/13880",
+  "wave": "wave1-mock-power"
+}

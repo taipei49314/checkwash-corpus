@@ -1,0 +1,464 @@
+{
+  "catalog_id": "airflow",
+  "changed_file_count": 555,
+  "harvested_on": "2026-09-01",
+  "head_sha": "2956325faf534803f6cae138391940f9019699ff",
+  "merged_at": "2026-08-31T21:07:07Z",
+  "note": "test-file excerpts only; not a checkwash verdict",
+  "owner_repo": "apache/airflow",
+  "pr_number": 72349,
+  "test_file_count": 64,
+  "test_files": [
+    {
+      "additions": 1,
+      "deletions": 0,
+      "filename": "airflow-core/src/airflow/ui/src/components/Assets/AssetEvent.test.tsx",
+      "patch": "@@ -21,6 +21,7 @@ import { render, screen } from \"@testing-library/react\";\n import { describe, expect, it } from \"vitest\";\n \n import type { AssetEventResponse } from \"openapi/requests/types.gen\";\n+\n import { Wrapper } from \"src/utils/Wrapper\";\n \n import { AssetEvent } from \"./AssetEvent\";",
+      "status": "modified"
+    },
+    {
+      "additions": 1,
+      "deletions": 0,
+      "filename": "airflow-core/src/airflow/ui/src/components/Assets/TriggeredRuns.test.tsx",
+      "patch": "@@ -21,6 +21,7 @@ import { render, screen } from \"@testing-library/react\";\n import { describe, expect, it } from \"vitest\";\n \n import type { DagRunAssetReference } from \"openapi/requests/types.gen\";\n+\n import { Wrapper } from \"src/utils/Wrapper\";\n \n import { TriggeredRuns } from \"./TriggeredRuns\";",
+      "status": "modified"
+    },
+    {
+      "additions": 1,
+      "deletions": 0,
+      "filename": "airflow-core/src/airflow/ui/src/components/Banner/BackfillBanner.test.tsx",
+      "patch": "@@ -21,6 +21,7 @@ import { render, screen } from \"@testing-library/react\";\n import { beforeEach, describe, expect, it, vi } from \"vitest\";\n \n import type { BackfillResponse } from \"openapi/requests/types.gen\";\n+\n import type * as Utils from \"src/utils\";\n import { Wrapper } from \"src/utils/Wrapper\";\n ",
+      "status": "modified"
+    },
+    {
+      "additions": 2,
+      "deletions": 1,
+      "filename": "airflow-core/src/airflow/ui/src/components/DagActions/RunBackfillForm.test.tsx",
+      "patch": "@@ -16,9 +16,10 @@\n  * specific language governing permissions and limitations\n  * under the License.\n  */\n+import type { ChangeEventHandler } from \"react\";\n+\n import \"@testing-library/jest-dom\";\n import { fireEvent, render, screen } from \"@testing-library/react\";\n-import type { ChangeEventHandler } from \"react\";\n import { describe, expect, it, vi } from \"vitest\";\n \n import { Wrapper } from \"src/utils/Wrapper\";",
+      "status": "modified"
+    },
+    {
+      "additions": 2,
+      "deletions": 1,
+      "filename": "airflow-core/src/airflow/ui/src/components/DagActions/inlineMessage.test.tsx",
+      "patch": "@@ -16,10 +16,11 @@\n  * specific language governing permissions and limitations\n  * under the License.\n  */\n+import type { ReactNode } from \"react\";\n+\n import \"@testing-library/jest-dom\";\n import { fireEvent, render, screen, waitFor } from \"@testing-library/react\";\n import type { TFunction } from \"i18next\";\n-import type { ReactNode } from \"react\";\n import { describe, expect, it } from \"vitest\";\n \n import { Wrapper } from \"src/utils/Wrapper\";",
+      "status": "modified"
+    },
+    {
+      "additions": 2,
+      "deletions": 1,
+      "filename": "airflow-core/src/airflow/ui/src/components/DateTimeInput.test.tsx",
+      "patch": "@@ -16,11 +16,12 @@\n  * specific language governing permissions and limitations\n  * under the License.\n  */\n+import type { ChangeEvent } from \"react\";\n+\n import { fireEvent, render, screen } from \"@testing-library/react\";\n import dayjs from \"dayjs\";\n import timezone from \"dayjs/plugin/timezone\";\n import utc from \"dayjs/plugin/utc\";\n-import type { ChangeEvent } from \"react\";\n import type { Mock } from \"vitest\";\n import { describe, it, expect, vi } from \"vitest\";\n ",
+      "status": "modified"
+    },
+    {
+      "additions": 1,
+      "deletions": 0,
+      "filename": "airflow-core/src/airflow/ui/src/components/DurationChart.test.tsx",
+      "patch": "@@ -21,6 +21,7 @@ import { Bar } from \"react-chartjs-2\";\n import { describe, expect, it, vi } from \"vitest\";\n \n import type { GridRunsResponse } from \"openapi/requests/types.gen\";\n+\n import { TimezoneContext } from \"src/context/timezone\";\n import { Wrapper } from \"src/utils/Wrapper\";\n ",
+      "status": "modified"
+    },
+    {
+      "additions": 2,
+      "deletions": 1,
+      "filename": "airflow-core/src/airflow/ui/src/components/FilterBar/FilterBar.test.tsx",
+      "patch": "@@ -16,9 +16,10 @@\n  * specific language governing permissions and limitations\n  * under the License.\n  */\n+import type { PropsWithChildren } from \"react\";\n+\n import \"@testing-library/jest-dom\";\n import { cleanup, fireEvent, render, screen, waitFor } from \"@testing-library/react\";\n-import type { PropsWithChildren } from \"react\";\n import { MemoryRouter } from \"react-router-dom\";\n import { afterEach, describe, expect, it, vi } from \"vitest\";\n ",
+      "status": "modified"
+    },
+    {
+      "additions": 2,
+      "deletions": 1,
+      "filename": "airflow-core/src/airflow/ui/src/components/FilterBar/filters/DateRangeFilter.test.tsx",
+      "patch": "@@ -16,12 +16,13 @@\n  * specific language governing permissions and limitations\n  * under the License.\n  */\n+import type { ReactNode } from \"react\";\n+\n import \"@testing-library/jest-dom\";\n import { render, screen, fireEvent, waitFor, cleanup } from \"@testing-library/react\";\n import dayjs from \"dayjs\";\n import timezone from \"dayjs/plugin/timezone\";\n import utc from \"dayjs/plugin/utc\";\n-import type { ReactNode } from \"react\";\n import { describe, it, expect, vi, beforeEach, afterEach } from \"vitest\";\n \n import { TimezoneContext } from \"src/context/timezone\";",
+      "status": "modified"
+    },
+    {
+      "additions": 3,
+      "deletions": 1,
+      "filename": "airflow-core/src/airflow/ui/src/components/Graph/TaskNode.test.tsx",
+      "patch": "@@ -16,13 +16,15 @@\n  * specific language governing permissions and limitations\n  * under the License.\n  */\n+import type { ComponentProps, ReactNode } from \"react\";\n+\n import { render, screen } from \"@testing-library/react\";\n import { ReactFlowProvider } from \"@xyflow/react\";\n-import type { ComponentProps, ReactNode } from \"react\";\n import { MemoryRouter, Route, Routes } from \"react-router-dom\";\n import { describe, expect, it, vi } from \"vitest\";\n \n import type { LightGridTaskInstanceSummary } from \"openapi/requests/types.gen\";\n+\n import { BaseWrapper, Wrapper } from \"src/utils/Wrapper\";\n \n import { TaskNode } from \"./TaskNode\";",
+      "status": "modified"
+    },
+    {
+      "additions": 1,
+      "deletions": 0,
+      "filename": "airflow-core/src/airflow/ui/src/components/HITLReview/HITLReviewModal.test.tsx",
+      "patch": "@@ -21,6 +21,7 @@ import { fireEvent, render, screen } from \"@testing-library/react\";\n import { describe, expect, it, vi } from \"vitest\";\n \n import type { HITLDetail } from \"openapi/requests/types.gen.ts\";\n+\n import { Wrapper } from \"src/utils/Wrapper\";\n \n import { HITLReviewModal } from \"./HITLReviewModal\";",
+      "status": "modified"
+    },
+    {
+      "additions": 2,
+      "deletions": 1,
+      "filename": "airflow-core/src/airflow/ui/src/components/HITLReview/useHITLReviewModalRouteSync.test.tsx",
+      "patch": "@@ -16,8 +16,9 @@\n  * specific language governing permissions and limitations\n  * under the License.\n  */\n-import { act, renderHook } from \"@testing-library/react\";\n import type { PropsWithChildren } from \"react\";\n+\n+import { act, renderHook } from \"@testing-library/react\";\n import type * as ReactRouterDom from \"react-router-dom\";\n import { MemoryRouter } from \"react-router-dom\";\n import { beforeEach, describe, expect, it, vi } from \"vitest\";",
+      "status": "modified"
+    },
+    {
+      "additions": 1,
+      "deletions": 0,
+      "filename": "airflow-core/src/airflow/ui/src/components/MarkAs/TaskInstance/MarkTaskInstanceAsDialog.test.tsx",
+      "patch": "@@ -21,6 +21,7 @@ import { render, screen } from \"@testing-library/react\";\n import { describe, expect, it, vi } from \"vitest\";\n \n import type { TaskInstanceResponse } from \"openapi/requests/types.gen\";\n+\n import { Wrapper } from \"src/utils/Wrapper\";\n \n import MarkTaskInstanceAsDialog from \"./MarkTaskInstanceAsDialog\";",
+      "status": "modified"
+    },
+    {
+      "additions": 2,
+      "deletions": 1,
+      "filename": "airflow-core/src/airflow/ui/src/components/MarkdownModal.test.tsx",
+      "patch": "@@ -16,9 +16,10 @@\n  * specific language governing permissions and limitations\n  * under the License.\n  */\n+import { useState } from \"react\";\n+\n import \"@testing-library/jest-dom\";\n import { fireEvent, render, screen } from \"@testing-library/react\";\n-import { useState } from \"react\";\n import { describe, expect, it, vi } from \"vitest\";\n \n import { Wrapper } from \"src/utils/Wrapper\";",
+      "status": "modified"
+    },
+    {
+      "additions": 1,
+      "deletions": 0,
+      "filename": "airflow-core/src/airflow/ui/src/components/PoolBar.test.tsx",
+      "patch": "@@ -21,6 +21,7 @@ import { render, screen } from \"@testing-library/react\";\n import { describe, expect, it } from \"vitest\";\n \n import type { PoolResponse } from \"openapi/requests/types.gen\";\n+\n import { Wrapper } from \"src/utils/Wrapper\";\n \n import { PoolBar } from \"./PoolBar\";",
+      "status": "modified"
+    },
+    {
+      "additions": 2,
+      "deletions": 1,
+      "filename": "airflow-core/src/airflow/ui/src/components/PresetFiltersMenu.test.tsx",
+      "patch": "@@ -16,9 +16,10 @@\n  * specific language governing permissions and limitations\n  * under the License.\n  */\n+import type { PropsWithChildren } from \"react\";\n+\n import \"@testing-library/jest-dom\";\n import { cleanup, fireEvent, render, screen, waitFor } from \"@testing-library/react\";\n-import type { PropsWithChildren } from \"react\";\n import { MemoryRouter, useLocation } from \"react-router-dom\";\n import { afterEach, describe, expect, it } from \"vitest\";\n ",
+      "status": "modified"
+    },
+    {
+      "additions": 1,
+      "deletions": 0,
+      "filename": "airflow-core/src/airflow/ui/src/components/SearchDags/SearchDags.test.tsx",
+      "patch": "@@ -22,6 +22,7 @@ import { afterEach, beforeEach, describe, expect, it, vi } from \"vitest\";\n \n import { DagService } from \"openapi/requests/services.gen\";\n import type { DAGWithLatestDagRunsCollectionResponse } from \"openapi/requests/types.gen\";\n+\n import { TabEntity, TabName } from \"src/constants/tab\";\n import { BaseWrapper } from \"src/utils/Wrapper\";\n import type { DagSearchOption } from \"src/utils/option\";",
+      "status": "modified"
+    },
+    {
+      "additions": 1,
+      "deletions": 0,
+      "filename": "airflow-core/src/airflow/ui/src/components/TaskInstanceTooltip.test.tsx",
+      "patch": "@@ -21,6 +21,7 @@ import { render, screen } from \"@testing-library/react\";\n import { describe, expect, it } from \"vitest\";\n \n import type { LightGridTaskInstanceSummary, TaskInstanceResponse } from \"openapi/requests/types.gen\";\n+\n import { Wrapper } from \"src/utils/Wrapper\";\n \n import TaskInstanceTooltip from \"./TaskInstanceTooltip\";",
+      "status": "modified"
+    },
+    {
+      "additions": 2,
+      "deletions": 1,
+      "filename": "airflow-core/src/airflow/ui/src/components/TaskTrySelect.test.tsx",
+      "patch": "@@ -16,10 +16,11 @@\n  * specific language governing permissions and limitations\n  * under the License.\n  */\n+import type { PropsWithChildren, ReactNode } from \"react\";\n+\n import { ChakraProvider, defaultSystem } from \"@chakra-ui/react\";\n import { QueryClient, QueryClientProvider } from \"@tanstack/react-query\";\n import { fireEvent, render, screen, waitFor } from \"@testing-library/react\";\n-import type { PropsWithChildren, ReactNode } from \"react\";\n import { MemoryRouter } from \"react-router-dom\";\n import { afterEach, describe, expect, it, vi } from \"vitest\";\n ",
+      "status": "modified"
+    },
+    {
+      "additions": 1,
+      "deletions": 0,
+      "filename": "airflow-core/src/airflow/ui/src/hooks/usePluginTabs.test.tsx",
+      "patch": "@@ -21,6 +21,7 @@ import { beforeEach, describe, expect, it, vi } from \"vitest\";\n \n import { usePluginServiceGetPlugins } from \"openapi/queries\";\n import type { ExternalViewResponse, PluginAppliesToResponse } from \"openapi/requests/types.gen\";\n+\n import { usePluginAppliesToContext } from \"src/hooks/usePluginAppliesToContext\";\n \n import { usePluginTabs } from \"./usePluginTabs\";",
+      "status": "modified"
+    },
+    {
+      "additions": 2,
+      "deletions": 1,
+      "filename": "airflow-core/src/airflow/ui/src/hooks/useShortcut.test.tsx",
+      "patch": "@@ -16,8 +16,9 @@\n  * specific language governing permissions and limitations\n  * under the License.\n  */\n-import { renderHook } from \"@testing-library/react\";\n import type { PropsWithChildren } from \"react\";\n+\n+import { renderHook } from \"@testing-library/react\";\n import { describe, expect, it, vi } from \"vitest\";\n \n import {",
+      "status": "modified"
+    },
+    {
+      "additions": 2,
+      "deletions": 1,
+      "filename": "airflow-core/src/airflow/ui/src/layouts/Details/DagBreadcrumb.test.tsx",
+      "patch": "@@ -16,9 +16,10 @@\n  * specific language governing permissions and limitations\n  * under the License.\n  */\n+import type { PropsWithChildren } from \"react\";\n+\n import \"@testing-library/jest-dom\";\n import { cleanup, fireEvent, render, screen, waitFor } from \"@testing-library/react\";\n-import type { PropsWithChildren } from \"react\";\n import { MemoryRouter, Route, Routes, useLocation, useMatches } from \"react-router-dom\";\n import { afterEach, beforeEach, describe, expect, it, vi } from \"vitest\";\n ",
+      "status": "modified"
+    },
+    {
+      "additions": 3,
+      "deletions": 1,
+      "filename": "airflow-core/src/airflow/ui/src/layouts/Details/Gantt/GanttTimeline.test.tsx",
+      "patch": "@@ -16,13 +16,15 @@\n  * specific language governing permissions and limitations\n  * under the License.\n  */\n-import { act, render, screen } from \"@testing-library/react\";\n import type { PropsWithChildren, RefObject } from \"react\";\n import { createRef } from \"react\";\n+\n+import { act, render, screen } from \"@testing-library/react\";\n import { afterEach, describe, expect, it, vi } from \"vitest\";\n \n import { ROW_HEIGHT } from \"src/layouts/Details/Grid/constants\";\n import type { GridTask } from \"src/layouts/Details/Grid/utils\";\n+\n import { Wrapper } from \"src/utils/Wrapper\";\n \n import { GanttTimeline } from \"./GanttTimeline\";",
+      "status": "modified"
+    },
+    {
+      "additions": 1,
+      "deletions": 0,
+      "filename": "airflow-core/src/airflow/ui/src/layouts/Details/Gantt/utils.test.ts",
+      "patch": "@@ -20,6 +20,7 @@ import dayjs from \"dayjs\";\n import { describe, expect, it, vi } from \"vitest\";\n \n import type { LightGridTaskInstanceSummary } from \"openapi/requests/types.gen\";\n+\n import type { GridTask } from \"src/layouts/Details/Grid/utils\";\n \n import {",
+      "status": "modified"
+    },
+    {
+      "additions": 1,
+      "deletions": 0,
+      "filename": "airflow-core/src/airflow/ui/src/layouts/Details/Graph/Graph.test.tsx",
+      "patch": "@@ -20,6 +20,7 @@ import { render } from \"@testing-library/react\";\n import { describe, expect, it, vi } from \"vitest\";\n \n import { useDagRunServiceGetDagRun } from \"openapi/queries\";\n+\n import { useGridTiSummariesStream } from \"src/queries/useGridTISummaries.ts\";\n import { Wrapper } from \"src/utils/Wrapper\";\n ",
+      "status": "modified"
+    },
+    {
+      "additions": 1,
+      "deletions": 0,
+      "filename": "airflow-core/src/airflow/ui/src/layouts/Details/Grid/GridTI.test.tsx",
+      "patch": "@@ -22,6 +22,7 @@ import { MemoryRouter, Route, Routes } from \"react-router-dom\";\n import { beforeEach, describe, expect, it, vi } from \"vitest\";\n \n import type { LightGridTaskInstanceSummary } from \"openapi/requests/types.gen\";\n+\n import { TimezoneProvider } from \"src/context/timezone\";\n import { BaseWrapper } from \"src/utils/Wrapper\";\n ",
+      "status": "modified"
+    },
+    {
+      "additions": 2,
+      "deletions": 1,
+      "filename": "airflow-core/src/airflow/ui/src/layouts/Nav/Nav.test.tsx",
+      "patch": "@@ -16,9 +16,10 @@\n  * specific language governing permissions and limitations\n  * under the License.\n  */\n+import type { PropsWithChildren } from \"react\";\n+\n import \"@testing-library/jest-dom\";\n import { render, screen } from \"@testing-library/react\";\n-import type { PropsWithChildren } from \"react\";\n import { MemoryRouter } from \"react-router-dom\";\n import { describe, expect, it, vi } from \"vitest\";\n ",
+      "status": "modified"
+    },
+    {
+      "additions": 2,
+      "deletions": 1,
+      "filename": "airflow-core/src/airflow/ui/src/layouts/Nav/NavButton.test.tsx",
+      "patch": "@@ -16,9 +16,10 @@\n  * specific language governing permissions and limitations\n  * under the License.\n  */\n+import type { PropsWithChildren } from \"react\";\n+\n import \"@testing-library/jest-dom\";\n import { render, screen } from \"@testing-library/react\";\n-import type { PropsWithChildren } from \"react\";\n import { FiHome } from \"react-icons/fi\";\n import { MemoryRouter } from \"react-router-dom\";\n import { describe, expect, it } from \"vitest\";",
+      "status": "modified"
+    },
+    {
+      "additions": 1,
+      "deletions": 0,
+      "filename": "airflow-core/src/airflow/ui/src/layouts/Nav/PluginMenus.test.tsx",
+      "patch": "@@ -21,6 +21,7 @@ import { render, screen } from \"@testing-library/react\";\n import { describe, expect, it } from \"vitest\";\n \n import type { ExternalViewResponse } from \"openapi/requests/types.gen\";\n+\n import { Wrapper } from \"src/utils/Wrapper\";\n \n import { PluginMenus } from \"./PluginMenus\";",
+      "status": "modified"
+    },
+    {
+      "additions": 1,
+      "deletions": 0,
+      "filename": "airflow-core/src/airflow/ui/src/layouts/Nav/UserSettingsButton.test.tsx",
+      "patch": "@@ -21,6 +21,7 @@ import { fireEvent, render, screen } from \"@testing-library/react\";\n import { afterEach, describe, expect, it, vi } from \"vitest\";\n \n import type * as OpenapiQueries from \"openapi/queries\";\n+\n import { Wrapper } from \"src/utils/Wrapper\";\n \n import { UserSettingsButton } from \"./UserSettingsButton\";",
+      "status": "modified"
+    },
+    {
+      "additions": 7,
+      "deletions": 3,
+      "filename": "airflow-core/src/airflow/ui/src/pages/Asset/CreateAssetEventModal.test.tsx",
+      "patch": "@@ -16,16 +16,20 @@\n  * specific language governing permissions and limitations\n  * under the License.\n  */\n+import type { ReactNode } from \"react\";\n+\n import { QueryClient } from \"@tanstack/react-query\";\n import \"@testing-library/jest-dom\";\n import { fireEvent, render, screen } from \"@testing-library/react\";\n-import type { ReactNode } from \"react\";\n import { beforeEach, describe, expect, it, vi } from \"vitest\";\n \n import type * as OpenapiQueries from \"openapi/queries\";\n import type { AssetEventResponse, AssetResponse, DAGDetailsResponse } from \"openapi/requests/types.gen\";\n+\n+import type * as Ui from \"src/system-components\";\n+\n import type { DagRunTriggerParams } from \"src/components/TriggerDag/types\";\n-import type * as Ui from \"src/components/ui\";\n+\n import { Wrapper } from \"src/utils/Wrapper\";\n \n import { CreateAssetEventModal } from \"./CreateAssetEventModal\";\n@@ -41,7 +45,7 @@ const materializeSubmitParams = vi.hoisted<DagRunTriggerParams>(() => ({\n   partitionKey: undefined,\n }));\n \n-vi.mock(\"src/components/ui\", async (importOriginal) => {\n+vi.mock(\"src/system-components\", async (importOriginal) => {\n   const actual = await importOriginal<typeof Ui>();\n \n   return {",
+      "status": "modified"
+    },
+    {
+      "additions": 1,
+      "deletions": 0,
+      "filename": "airflow-core/src/airflow/ui/src/pages/Dag/Backfills/Backfills.test.tsx",
+      "patch": "@@ -29,6 +29,7 @@ import { MemoryRouter, Route, Routes } from \"react-router-dom\";\n import { beforeEach, describe, expect, it, vi } from \"vitest\";\n \n import type { BackfillDagRunResponse, BackfillResponse } from \"openapi/requests/types.gen\";\n+\n import type * as Utils from \"src/utils\";\n import { BaseWrapper } from \"src/utils/Wrapper\";\n ",
+      "status": "modified"
+    },
+    {
+      "additions": 1,
+      "deletions": 0,
+      "filename": "airflow-core/src/airflow/ui/src/pages/Dag/DagHeader.test.tsx",
+      "patch": "@@ -22,6 +22,7 @@ import { setupServer, type SetupServer } from \"msw/node\";\n import { afterEach, describe, it, expect, beforeAll, afterAll } from \"vitest\";\n \n import type { DAGDetailsResponse } from \"openapi/requests/types.gen\";\n+\n import { handlers } from \"src/mocks/handlers\";\n import { MOCK_DAG } from \"src/mocks/handlers/dag\";\n import { Wrapper } from \"src/utils/Wrapper\";",
+      "status": "modified"
+    },
+    {
+      "additions": 1,
+      "deletions": 0,
+      "filename": "airflow-core/src/airflow/ui/src/pages/Dag/DeadlineAlertsBadge.test.tsx",
+      "patch": "@@ -22,6 +22,7 @@ import { describe, expect, it, vi } from \"vitest\";\n \n import type * as OpenapiQueries from \"openapi/queries\";\n import type { DeadlineAlertResponse } from \"openapi/requests/types.gen\";\n+\n import { Wrapper } from \"src/utils/Wrapper\";\n \n import { DeadlineAlertsBadge } from \"./DeadlineAlertsBadge\";",
+      "status": "modified"
+    },
+    {
+      "additions": 1,
+      "deletions": 0,
+      "filename": "airflow-core/src/airflow/ui/src/pages/Dag/Overview/Overview.test.tsx",
+      "patch": "@@ -21,6 +21,7 @@ import { render, screen } from \"@testing-library/react\";\n import { describe, expect, it, vi } from \"vitest\";\n \n import type { ReactAppResponse } from \"openapi/requests/types.gen\";\n+\n import { Wrapper } from \"src/utils/Wrapper\";\n \n import { Overview } from \"./Overview\";",
+      "status": "modified"
+    },
+    {
+      "additions": 2,
+      "deletions": 1,
+      "filename": "airflow-core/src/airflow/ui/src/pages/DagsList/DagCard.test.tsx",
+      "patch": "@@ -16,11 +16,12 @@\n  * specific language governing permissions and limitations\n  * under the License.\n  */\n+import type { PropsWithChildren } from \"react\";\n+\n import \"@testing-library/jest-dom/vitest\";\n import { act, fireEvent, render, screen } from \"@testing-library/react\";\n import i18n from \"i18next\";\n import type { DagTagResponse, DAGWithLatestDagRunsResponse } from \"openapi-gen/requests/types.gen\";\n-import type { PropsWithChildren } from \"react\";\n import { MemoryRouter } from \"react-router-dom\";\n import { afterEach, describe, it, vi, expect, beforeAll } from \"vitest\";\n ",
+      "status": "modified"
+    },
+    {
+      "additions": 7,
+      "deletions": 3,
+      "filename": "airflow-core/src/airflow/ui/src/pages/DagsList/PartitionScheduleModal.test.tsx",
+      "patch": "@@ -16,15 +16,19 @@\n  * specific language governing permissions and limitations\n  * under the License.\n  */\n+import type { ReactNode } from \"react\";\n+\n import \"@testing-library/jest-dom/vitest\";\n import { fireEvent, render, screen, waitFor } from \"@testing-library/react\";\n-import type { ReactNode } from \"react\";\n import { beforeEach, describe, expect, it, vi } from \"vitest\";\n \n import type * as OpenapiQueries from \"openapi/queries\";\n import type { PartitionedDagRunResponse } from \"openapi/requests/types.gen\";\n+\n+import type * as Ui from \"src/system-components\";\n+\n import type { TableState } from \"src/components/DataTable/types\";\n-import type * as Ui from \"src/components/ui\";\n+\n import { Wrapper } from \"src/utils/Wrapper\";\n \n import { PartitionScheduleModal } from \"./PartitionScheduleModal\";\n@@ -42,7 +46,7 @@ vi.mock(\"src/queries/useConfig\", () => ({\n   useConfig: () => 2,\n }));\n \n-vi.mock(\"src/components/ui\", async (importOriginal) => {\n+vi.mock(\"src/system-components\", async (importOriginal) => {\n   const actual = await importOriginal<typeof Ui>();\n \n   return {",
+      "status": "modified"
+    },
+    {
+      "additions": 1,
+      "deletions": 0,
+      "filename": "airflow-core/src/airflow/ui/src/pages/Dashboard/AlertContent.test.tsx",
+      "patch": "@@ -21,6 +21,7 @@ import { fireEvent, render, screen } from \"@testing-library/react\";\n import { afterEach, beforeEach, describe, expect, it, vi } from \"vitest\";\n \n import type { UIAlert } from \"openapi/requests/types.gen\";\n+\n import { Wrapper } from \"src/utils/Wrapper\";\n \n import { AlertContent } from \"./AlertContent\";",
+      "status": "modified"
+    },
+    {
+      "additions": 1,
+      "deletions": 0,
+      "filename": "airflow-core/src/airflow/ui/src/pages/Dashboard/Dashboard.test.tsx",
+      "patch": "@@ -21,6 +21,7 @@ import { fireEvent, render, screen } from \"@testing-library/react\";\n import { afterEach, beforeEach, describe, expect, it, vi } from \"vitest\";\n \n import type { UIAlert } from \"openapi/requests/types.gen\";\n+\n import { COLLAPSED_UI_ALERTS_KEY } from \"src/constants/localStorage\";\n import { Wrapper } from \"src/utils/Wrapper\";\n ",
+      "status": "modified"
+    },
+    {
+      "additions": 1,
+      "deletions": 0,
+      "filename": "airflow-core/src/airflow/ui/src/pages/Dashboard/PoolSummary/PoolSummary.test.tsx",
+      "patch": "@@ -21,6 +21,7 @@ import { act, fireEvent, render, screen } from \"@testing-library/react\";\n import { beforeEach, describe, expect, it, vi } from \"vitest\";\n \n import type { PoolResponse } from \"openapi/requests/types.gen\";\n+\n import { Wrapper } from \"src/utils/Wrapper\";\n \n import { PoolSummary } from \"./PoolSummary\";",
+      "status": "modified"
+    },
+    {
+      "additions": 1,
+      "deletions": 0,
+      "filename": "airflow-core/src/airflow/ui/src/pages/HITLTaskInstances/HITLResponseForm.test.tsx",
+      "patch": "@@ -22,6 +22,7 @@ import { render, screen } from \"@testing-library/react\";\n import { describe, expect, it, vi } from \"vitest\";\n \n import type { HITLDetailHistory, TaskInstanceHistoryResponse } from \"openapi/requests/types.gen\";\n+\n import { Wrapper } from \"src/utils/Wrapper\";\n \n import { HITLResponseForm } from \"./HITLResponseForm\";",
+      "status": "modified"
+    },
+    {
+      "additions": 1,
+      "deletions": 0,
+      "filename": "airflow-core/src/airflow/ui/src/pages/HITLTaskInstances/HITLTaskInstances.test.tsx",
+      "patch": "@@ -22,6 +22,7 @@ import type * as ReactRouterDom from \"react-router-dom\";\n import { beforeEach, describe, expect, it, vi } from \"vitest\";\n \n import type * as OpenapiQueries from \"openapi/queries\";\n+\n import type * as SrcUtils from \"src/utils\";\n import { Wrapper } from \"src/utils/Wrapper\";\n ",
+      "status": "modified"
+    },
+    {
+      "additions": 1,
+      "deletions": 0,
+      "filename": "airflow-core/src/airflow/ui/src/pages/ReactPlugin.test.tsx",
+      "patch": "@@ -28,6 +28,7 @@ import type {\n   ReactAppResponse,\n   TaskInstanceResponse,\n } from \"openapi/requests/types.gen\";\n+\n import { Wrapper } from \"src/utils/Wrapper\";\n \n import { loadPlugin, ReactPlugin, type PluginProps } from \"./ReactPlugin\";",
+      "status": "modified"
+    },
+    {
+      "additions": 1,
+      "deletions": 0,
+      "filename": "airflow-core/src/airflow/ui/src/pages/Run/Header.test.tsx",
+      "patch": "@@ -22,6 +22,7 @@ import { beforeEach, describe, expect, it, vi } from \"vitest\";\n \n import type * as OpenapiQueries from \"openapi/queries\";\n import type { DAGRunResponse } from \"openapi/requests/types.gen\";\n+\n import i18n from \"src/i18n/config\";\n import { Wrapper } from \"src/utils/Wrapper\";\n ",
+      "status": "modified"
+    },
+    {
+      "additions": 3,
+      "deletions": 1,
+      "filename": "airflow-core/src/airflow/ui/src/pages/Task/Overview/Overview.test.tsx",
+      "patch": "@@ -16,13 +16,15 @@\n  * specific language governing permissions and limitations\n  * under the License.\n  */\n+import type { PropsWithChildren } from \"react\";\n+\n import \"@testing-library/jest-dom\";\n import { render, screen } from \"@testing-library/react\";\n-import type { PropsWithChildren } from \"react\";\n import { MemoryRouter } from \"react-router-dom\";\n import { beforeEach, describe, expect, it, vi } from \"vitest\";\n \n import type { ReactAppResponse } from \"openapi/requests/types.gen\";\n+\n import { BaseWrapper, Wrapper } from \"src/utils/Wrapper\";\n \n import { Overview } from \"./Overview\";",
+      "status": "modified"
+    },
+    {
+      "additions": 1,
+      "deletions": 0,
+      "filename": "airflow-core/src/airflow/ui/src/pages/TaskInstance/ExtraLinks.test.tsx",
+      "patch": "@@ -22,6 +22,7 @@ import { useParams } from \"react-router-dom\";\n import { describe, it, expect, vi, beforeEach, afterEach } from \"vitest\";\n \n import * as queries from \"openapi/queries\";\n+\n import { Wrapper } from \"src/utils/Wrapper\";\n \n import { ExtraLinks } from \"./ExtraLinks\";",
+      "status": "modified"
+    },
+    {
+      "additions": 1,
+      "deletions": 0,
+      "filename": "airflow-core/src/airflow/ui/src/pages/TaskInstance/Header.test.tsx",
+      "patch": "@@ -21,6 +21,7 @@ import { render, screen } from \"@testing-library/react\";\n import { beforeEach, describe, expect, it, vi } from \"vitest\";\n \n import type { TaskInstanceResponse } from \"openapi/requests/types.gen\";\n+\n import i18n from \"src/i18n/config\";\n import { Wrapper } from \"src/utils/Wrapper\";\n ",
+      "status": "modified"
+    },
+    {
+      "additions": 2,
+      "deletions": 0,
+      "filename": "airflow-core/src/airflow/ui/src/pages/TaskInstance/Logs/logDownloadContent.test.ts",
+      "patch": "@@ -20,7 +20,9 @@ import type { TFunction } from \"i18next\";\n import { describe, expect, it } from \"vitest\";\n \n import type { TaskInstancesLogResponse } from \"openapi/requests/types.gen\";\n+\n import { renderStructuredLog } from \"src/components/renderStructuredLog\";\n+\n import { parseStreamingLogContent } from \"src/utils/logs\";\n \n /** Same construction as Logs.tsx getLogString (download path). */",
+      "status": "modified"
+    },
+    {
+      "additions": 1,
+      "deletions": 0,
+      "filename": "airflow-core/src/airflow/ui/src/pages/TaskInstance/Logs/logSelection.test.ts",
+      "patch": "@@ -17,6 +17,7 @@\n  * under the License.\n  */\n import { createElement } from \"react\";\n+\n import { afterEach, describe, expect, it } from \"vitest\";\n \n import {",
+      "status": "modified"
+    },
+    {
+      "additions": 2,
+      "deletions": 1,
+      "filename": "airflow-core/src/airflow/ui/src/pages/TaskInstance/TaskInstance.test.tsx",
+      "patch": "@@ -16,9 +16,10 @@\n  * specific language governing permissions and limitations\n  * under the License.\n  */\n+import type { PropsWithChildren } from \"react\";\n+\n import { QueryClient, QueryClientProvider } from \"@tanstack/react-query\";\n import { fireEvent, render, screen } from \"@testing-library/react\";\n-import type { PropsWithChildren } from \"react\";\n import { Link, MemoryRouter, Route, Routes } from \"react-router-dom\";\n import { afterEach, describe, expect, it, vi } from \"vitest\";\n ",
+      "status": "modified"
+    },
+    {
+      "additions": 3,
+      "deletions": 1,
+      "filename": "airflow-core/src/airflow/ui/src/pages/TaskInstances/TaskInstances.test.tsx",
+      "patch": "@@ -16,14 +16,16 @@\n  * specific language governing permissions and limitations\n  * under the License.\n  */\n-import { render, screen } from \"@testing-library/react\";\n import type { ReactNode } from \"react\";\n+\n+import { render, screen } from \"@testing-library/react\";\n import type * as ReactI18Next from \"react-i18next\";\n import type * as ReactRouterDom from \"react-router-dom\";\n import { beforeEach, describe, expect, it, vi } from \"vitest\";\n \n import type * as OpenapiQueries from \"openapi/queries\";\n import type { TaskInstanceResponse } from \"openapi/requests/types.gen\";\n+\n import { Wrapper } from \"src/utils/Wrapper\";\n \n import { TaskInstances } from \"./TaskInstances\";",
+      "status": "modified"
+    },
+    {
+      "additions": 3,
+      "deletions": 1,
+      "filename": "airflow-core/src/airflow/ui/src/queries/useGridTISummaries.test.tsx",
+      "patch": "@@ -16,9 +16,10 @@\n  * specific language governing permissions and limitations\n  * under the License.\n  */\n+import type { ReactNode } from \"react\";\n+\n import { focusManager, QueryClient, QueryClientProvider } from \"@tanstack/react-query\";\n import { act, renderHook } from \"@testing-library/react\";\n-import type { ReactNode } from \"react\";\n import { afterEach, beforeEach, describe, expect, it, vi, type Mock } from \"vitest\";\n \n import {\n@@ -27,6 +28,7 @@ import {\n   useTaskInstanceServiceGetTaskInstancesKey,\n } from \"openapi/queries\";\n import type { TaskInstanceState } from \"openapi/requests\";\n+\n import { useAutoRefresh } from \"src/utils\";\n \n import { useGridTiSummariesStream } from \"./useGridTISummaries\";",
+      "status": "modified"
+    },
+    {
+      "additions": 3,
+      "deletions": 1,
+      "filename": "airflow-core/src/airflow/ui/src/queries/useTogglePause.test.tsx",
+      "patch": "@@ -16,15 +16,17 @@\n  * specific language governing permissions and limitations\n  * under the License.\n  */\n+import type { ReactNode } from \"react\";\n+\n import { QueryClient, QueryClientProvider } from \"@tanstack/react-query\";\n import { renderHook, waitFor } from \"@testing-library/react\";\n import { http, HttpResponse } from \"msw\";\n import { setupServer } from \"msw/node\";\n-import type { ReactNode } from \"react\";\n import { afterAll, afterEach, beforeAll, describe, expect, it } from \"vitest\";\n \n import { UseDagServiceGetDagsUiKeyFn } from \"openapi/queries\";\n import type { DAGWithLatestDagRunsCollectionResponse } from \"openapi/requests/types.gen\";\n+\n import { useTogglePause } from \"src/queries/useTogglePause\";\n \n const DAG_ID = \"dag_under_test\";",
+      "status": "modified"
+    },
+    {
+      "additions": 0,
+      "deletions": 0,
+      "filename": "airflow-core/src/airflow/ui/src/system-components/ButtonGroupToggle.test.tsx",
+      "patch": "",
+      "status": "renamed"
+    },
+    {
+      "additions": 0,
+      "deletions": 0,
+      "filename": "airflow-core/src/airflow/ui/src/system-components/Modal/Modal.test.tsx",
+      "patch": "",
+      "status": "renamed"
+    },
+    {
+      "additions": 3,
+      "deletions": 1,
+      "filename": "airflow-core/src/airflow/ui/src/utils/useFiltersHandler.test.tsx",
+      "patch": "@@ -16,12 +16,14 @@\n  * specific language governing permissions and limitations\n  * under the License.\n  */\n-import { act, renderHook } from \"@testing-library/react\";\n import type { PropsWithChildren } from \"react\";\n+\n+import { act, renderHook } from \"@testing-library/react\";\n import { MemoryRouter } from \"react-router-dom\";\n import { afterEach, describe, expect, it } from \"vitest\";\n \n import { isValidFilterValue } from \"src/components/FilterBar/utils\";\n+\n import { SearchParamsKeys } from \"src/constants/searchParams\";\n import { BaseWrapper } from \"src/utils/Wrapper\";\n ",
+      "status": "modified"
+    },
+    {
+      "additions": 1,
+      "deletions": 0,
+      "filename": "airflow-core/src/airflow/ui/tests/e2e/specs/asset.spec.ts",
+      "patch": "@@ -17,6 +17,7 @@\n  * under the License.\n  */\n import { testConfig } from \"playwright.config\";\n+\n import { expect } from \"tests/e2e/fixtures\";\n import { test } from \"tests/e2e/fixtures/asset-data\";\n ",
+      "status": "modified"
+    },
+    {
+      "additions": 1,
+      "deletions": 0,
+      "filename": "airflow-core/src/airflow/ui/tests/e2e/specs/backfill.spec.ts",
+      "patch": "@@ -17,6 +17,7 @@\n  * under the License.\n  */\n import { testConfig } from \"playwright.config\";\n+\n import { expect, test } from \"tests/e2e/fixtures\";\n import { REPROCESS_API_TO_UI } from \"tests/e2e/pages/BackfillPage\";\n import type { ReprocessBehaviorApi } from \"tests/e2e/pages/BackfillPage\";",
+      "status": "modified"
+    },
+    {
+      "additions": 1,
+      "deletions": 0,
+      "filename": "airflow-core/src/airflow/ui/tests/e2e/specs/dag-calendar-tab.spec.ts",
+      "patch": "@@ -17,6 +17,7 @@\n  * under the License.\n  */\n import { expect } from \"@playwright/test\";\n+\n import { test } from \"tests/e2e/fixtures/calendar-data\";\n \n test.describe(\"Dag Calendar Tab\", () => {",
+      "status": "modified"
+    },
+    {
+      "additions": 1,
+      "deletions": 0,
+      "filename": "airflow-core/src/airflow/ui/tests/e2e/specs/dag-code-tab.spec.ts",
+      "patch": "@@ -17,6 +17,7 @@\n  * under the License.\n  */\n import { testConfig } from \"playwright.config\";\n+\n import { test } from \"tests/e2e/fixtures\";\n \n test.describe(\"Dag Code Tab\", () => {",
+      "status": "modified"
+    },
+    {
+      "additions": 1,
+      "deletions": 0,
+      "filename": "airflow-core/src/airflow/ui/tests/e2e/specs/dags-list.spec.ts",
+      "patch": "@@ -17,6 +17,7 @@\n  * under the License.\n  */\n import { testConfig } from \"playwright.config\";\n+\n import { expect, test } from \"tests/e2e/fixtures\";\n import { apiDeleteDagRun, waitForDagRunStatus } from \"tests/e2e/utils/api/dag-runs\";\n ",
+      "status": "modified"
+    },
+    {
+      "additions": 1,
+      "deletions": 0,
+      "filename": "airflow-core/src/airflow/ui/tests/e2e/specs/home-dashboard.spec.ts",
+      "patch": "@@ -17,6 +17,7 @@\n  * under the License.\n  */\n import { testConfig } from \"playwright.config\";\n+\n import { expect } from \"tests/e2e/fixtures\";\n import { test } from \"tests/e2e/fixtures/dashboard-data\";\n ",
+      "status": "modified"
+    },
+    {
+      "additions": 1,
+      "deletions": 0,
+      "filename": "airflow-core/src/airflow/ui/tests/e2e/specs/requiredAction.spec.ts",
+      "patch": "@@ -17,6 +17,7 @@\n  * under the License.\n  */\n import { testConfig } from \"playwright.config\";\n+\n import { expect, test } from \"tests/e2e/fixtures\";\n import { apiDeleteDagRun } from \"tests/e2e/utils/api/dag-runs\";\n import { setupHITLFlowViaAPI } from \"tests/e2e/utils/api/hitl\";",
+      "status": "modified"
+    },
+    {
+      "additions": 1,
+      "deletions": 0,
+      "filename": "airflow-core/src/airflow/ui/tests/e2e/specs/task-logs.spec.ts",
+      "patch": "@@ -17,6 +17,7 @@\n  * under the License.\n  */\n import { testConfig } from \"playwright.config\";\n+\n import { expect, test } from \"tests/e2e/fixtures\";\n \n test.describe(\"Verify task logs display\", () => {",
+      "status": "modified"
+    }
+  ],
+  "title": "UI: Rename components/ui to system-components and group imports",
+  "url": "https://github.com/apache/airflow/pull/72349",
+  "wave": "wave1-mock-power"
+}

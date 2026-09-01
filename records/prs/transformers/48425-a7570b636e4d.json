@@ -1,0 +1,23 @@
+{
+  "catalog_id": "transformers",
+  "changed_file_count": 1,
+  "harvested_on": "2026-09-01",
+  "head_sha": "a7570b636e4d1b8028e914b9dcd099ca425a14d5",
+  "merged_at": "2026-08-31T09:23:33Z",
+  "note": "test-file excerpts only; not a checkwash verdict",
+  "owner_repo": "huggingface/transformers",
+  "pr_number": 48425,
+  "test_file_count": 1,
+  "test_files": [
+    {
+      "additions": 2,
+      "deletions": 2,
+      "filename": "tests/models/seamless_m4t_v2/test_modeling_seamless_m4t_v2.py",
+      "patch": "@@ -943,9 +943,9 @@ def input_audio(self):\n         set_seed(42)\n         seq_len = 20000\n         sampling_rate = 16000\n-        input_features = torch.rand((2, seq_len))\n+        audio_array = torch.rand((2, seq_len))\n \n-        return self.processor(audio=[input_features.tolist()], sampling_rate=sampling_rate, return_tensors=\"pt\").to(\n+        return self.processor(audio=audio_array.tolist(), sampling_rate=sampling_rate, return_tensors=\"pt\").to(\n             torch_device\n         )\n ",
+      "status": "modified"
+    }
+  ],
+  "title": "[serge] Fix 6 integration tests for model `seamless_m4t_v2` failing with `other` (other (6))",
+  "url": "https://github.com/huggingface/transformers/pull/48425",
+  "wave": "wave1-mock-power"
+}

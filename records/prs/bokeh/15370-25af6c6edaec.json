@@ -1,0 +1,23 @@
+{
+  "catalog_id": "bokeh",
+  "changed_file_count": 2,
+  "harvested_on": "2026-09-01",
+  "head_sha": "25af6c6edaec4b8608c41a068610795fc1f0f9f1",
+  "merged_at": "2026-08-24T21:43:47Z",
+  "note": "test-file excerpts only; not a checkwash verdict",
+  "owner_repo": "bokeh/bokeh",
+  "pr_number": 15370,
+  "test_file_count": 1,
+  "test_files": [
+    {
+      "additions": 3,
+      "deletions": 0,
+      "filename": "tests/unit/bokeh/test___init__.py",
+      "patch": "@@ -82,6 +82,9 @@ def test___version___defined() -> None:\n     VERSION_PAT = re.compile(r\"^(\\d+\\.\\d+\\.\\d+)((?:\\.dev|\\.rc).*)?\")\n     assert VERSION_PAT.match(b.__version__.strip(\".dirty\"))\n \n+def test_download_removed() -> None:\n+    assert not hasattr(b, \"download\")\n+\n def test_license(capsys: Capture) -> None:\n     b.license()\n     out, _ = capsys.readouterr()",
+      "status": "modified"
+    }
+  ],
+  "title": "Remove deprecated bokeh.download shim",
+  "url": "https://github.com/bokeh/bokeh/pull/15370",
+  "wave": "wave1-mock-power"
+}

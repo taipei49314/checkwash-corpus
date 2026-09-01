@@ -1,0 +1,37 @@
+{
+  "catalog_id": "great_expectations",
+  "changed_file_count": 5,
+  "harvested_on": "2026-09-01",
+  "head_sha": "f19830ef9aa0e37958d96d9d1014dacbb0c0a1f9",
+  "merged_at": "2026-08-28T12:03:57Z",
+  "note": "test-file excerpts only; not a checkwash verdict",
+  "owner_repo": "great-expectations/great_expectations",
+  "pr_number": 12117,
+  "test_file_count": 3,
+  "test_files": [
+    {
+      "additions": 7,
+      "deletions": 3,
+      "filename": "tests/integration/test_definitions/abs/partitioned_on_datetime.py",
+      "patch": "@@ -7,9 +7,13 @@\n \n datasource_name = \"ABS datasource\"\n \n-CREDENTIAL = os.getenv(\"AZURE_CREDENTIAL\", \"\")\n-ACCOUNT_URL = \"superconductivetesting.blob.core.windows.net\"\n-CONTAINER = \"superconductive-public\"\n+# All three come from the environment, and all three raise rather than default:\n+# the account holding this data is not the one these tests were written against,\n+# and a silently empty credential or a stale hardcoded host fails later, in the\n+# datasource, as an authentication error that says nothing about configuration.\n+CREDENTIAL = os.environ[\"AZURE_CREDENTIAL\"]\n+ACCOUNT_URL = os.environ[\"AZURE_STORAGE_ACCOUNT_URL\"]\n+CONTAINER = os.environ[\"AZURE_CONTAINER\"]\n NAME_STARTS_WITH = \"data/taxi_yellow_tripdata_samples/\"\n \n ",
+      "status": "modified"
+    },
+    {
+      "additions": 7,
+      "deletions": 3,
+      "filename": "tests/integration/test_definitions/abs/select_batch_by_path.py",
+      "patch": "@@ -6,9 +6,13 @@\n \n datasource_name = \"ABS datasource\"\n \n-CREDENTIAL = os.getenv(\"AZURE_CREDENTIAL\", \"\")\n-ACCOUNT_URL = \"superconductivetesting.blob.core.windows.net\"\n-CONTAINER = \"superconductive-public\"\n+# All three come from the environment, and all three raise rather than default:\n+# the account holding this data is not the one these tests were written against,\n+# and a silently empty credential or a stale hardcoded host fails later, in the\n+# datasource, as an authentication error that says nothing about configuration.\n+CREDENTIAL = os.environ[\"AZURE_CREDENTIAL\"]\n+ACCOUNT_URL = os.environ[\"AZURE_STORAGE_ACCOUNT_URL\"]\n+CONTAINER = os.environ[\"AZURE_CONTAINER\"]\n NAME_STARTS_WITH = \"data/taxi_yellow_tripdata_samples/\"\n \n ",
+      "status": "modified"
+    },
+    {
+      "additions": 0,
+      "deletions": 5,
+      "filename": "tests/integration/test_script_runner.py",
+      "patch": "@@ -582,11 +582,6 @@ def _check_for_skipped_tests(  # noqa: C901, PLR0912 # FIXME CoP\n     dependencies = integration_test_fixture.backend_dependencies\n     if not dependencies:\n         return\n-    # TEMPORARY: Tests backed by Azure Blob are unconditionally skipped during the CI\n-    # transition -- there is no storage account or live credential to run against yet.\n-    # Remove this block once that infrastructure is restored.\n-    elif BackendDependencies.AZURE in dependencies:\n-        pytest.skip(\"CI TRANSITION\")\n     elif BackendDependencies.POSTGRESQL in dependencies and (\n         not pytest_args.postgresql or pytest_args.no_sqlalchemy\n     ):",
+      "status": "modified"
+    }
+  ],
+  "title": "[MAINTENANCE] Run the Azure Blob docs tests against live storage again",
+  "url": "https://github.com/fivetran/great_expectations/pull/12117",
+  "wave": "wave1-mock-power"
+}

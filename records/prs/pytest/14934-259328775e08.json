@@ -1,0 +1,23 @@
+{
+  "catalog_id": "pytest",
+  "changed_file_count": 4,
+  "harvested_on": "2026-09-01",
+  "head_sha": "259328775e08a3654cf0251e0644af5c37882554",
+  "merged_at": "2026-08-25T07:33:32Z",
+  "note": "test-file excerpts only; not a checkwash verdict",
+  "owner_repo": "pytest-dev/pytest",
+  "pr_number": 14934,
+  "test_file_count": 1,
+  "test_files": [
+    {
+      "additions": 30,
+      "deletions": 0,
+      "filename": "testing/python/approx.py",
+      "patch": "@@ -923,7 +923,14 @@ def test_foo():\n         \"x, name\",\n         [\n             pytest.param([[1]], \"data structures\", id=\"nested-list\"),\n+            pytest.param([(1,)], \"data structures\", id=\"list-of-tuple\"),\n+            pytest.param([{1}], \"data structures\", id=\"list-of-set\"),\n+            pytest.param([{\"key\": 1}], \"data structures\", id=\"list-of-dict\"),\n+            pytest.param(({\"key\": 1},), \"data structures\", id=\"tuple-of-dict\"),\n             pytest.param({\"key\": {\"key\": 1}}, \"dictionaries\", id=\"nested-dict\"),\n+            pytest.param({\"key\": [1]}, \"dictionaries\", id=\"dict-of-list\"),\n+            pytest.param({\"key\": (1,)}, \"dictionaries\", id=\"dict-of-tuple\"),\n+            pytest.param({\"key\": {1}}, \"dictionaries\", id=\"dict-of-set\"),\n         ],\n     )\n     def test_expected_value_type_error(self, x, name):\n@@ -933,13 +940,36 @@ def test_expected_value_type_error(self, x, name):\n         ):\n             approx(x)\n \n+    @pytest.mark.parametrize(\n+        \"expected, actual\",\n+        [\n+            pytest.param([{\"key\": 1.0}], [{\"key\": 1.0 + 1e-9}], id=\"list-of-dict\"),\n+            pytest.param({\"key\": [1.0]}, {\"key\": [1.0 + 1e-9]}, id=\"dict-of-list\"),\n+            pytest.param([(1.0,)], [(1.0 + 1e-9,)], id=\"list-of-tuple\"),\n+            pytest.param(({1.0},), ({1.0 + 1e-9},), id=\"tuple-of-set\"),\n+        ],\n+    )\n+    def test_mixed_nested_containers_raise_instead_of_comparing_unequal(\n+        self, expected, actual\n+    ):\n+        \"\"\"A nested container of a different type used to slip past the check.\n+\n+        It was then compared as a leaf, so these all returned ``False``\n+        despite being well inside the default tolerance, silently ignoring\n+        it rather than reporting that nesting is unsupported (#10210).\n+        \"\"\"\n+        with pytest.raises(TypeError, match=r\"pytest.approx\\(\\) does not support\"):\n+            actual == approx(expected)\n+\n     @pytest.mark.parametrize(\n         \"x\",\n         [\n             pytest.param(None),\n             pytest.param(\"string\"),\n             pytest.param([\"string\"], id=\"nested-str\"),\n             pytest.param({\"key\": \"string\"}, id=\"dict-with-string\"),\n+            pytest.param([b\"bytes\"], id=\"nested-bytes\"),\n+            pytest.param({\"key\": b\"bytes\"}, id=\"dict-with-bytes\"),\n         ],\n     )\n     def test_nonnumeric_okay_if_equal(self, x):",
+      "status": "modified"
+    }
+  ],
+  "title": "fix: raise on any nested container in approx(), not only same-type",
+  "url": "https://github.com/pytest-dev/pytest/pull/14934",
+  "wave": "wave1-mock-power"
+}

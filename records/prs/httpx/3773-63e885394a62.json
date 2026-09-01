@@ -1,0 +1,23 @@
+{
+  "catalog_id": "httpx",
+  "changed_file_count": 1,
+  "harvested_on": "2026-09-01",
+  "head_sha": "63e885394a629d194b0aa867e8fbf475cdec6521",
+  "merged_at": "2026-02-23T10:40:42Z",
+  "note": "test-file excerpts only; not a checkwash verdict",
+  "owner_repo": "encode/httpx",
+  "pr_number": 3773,
+  "test_file_count": 1,
+  "test_files": [
+    {
+      "additions": 4,
+      "deletions": 1,
+      "filename": "tests/models/test_responses.py",
+      "patch": "@@ -1011,7 +1011,10 @@ def test_response_decode_text_using_autodetect():\n \n     assert response.status_code == 200\n     assert response.reason_phrase == \"OK\"\n-    assert response.encoding == \"ISO-8859-1\"\n+    # The encoded byte string is consistent with either ISO-8859-1 or\n+    # WINDOWS-1252. Versions <6.0 of chardet claim the former, while chardet\n+    # 6.0 detects the latter.\n+    assert response.encoding in (\"ISO-8859-1\", \"WINDOWS-1252\")\n     assert response.text == text\n \n ",
+      "status": "modified"
+    }
+  ],
+  "title": "Adapt test_response_decode_text_using_autodetect for chardet 6.0",
+  "url": "https://github.com/encode/httpx/pull/3773",
+  "wave": "wave0-published-fp"
+}

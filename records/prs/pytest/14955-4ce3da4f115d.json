@@ -1,0 +1,23 @@
+{
+  "catalog_id": "pytest",
+  "changed_file_count": 1,
+  "harvested_on": "2026-09-01",
+  "head_sha": "4ce3da4f115dc557b4fc0cdd1df6833786924301",
+  "merged_at": "2026-08-31T05:37:04Z",
+  "note": "test-file excerpts only; not a checkwash verdict",
+  "owner_repo": "pytest-dev/pytest",
+  "pr_number": 14955,
+  "test_file_count": 1,
+  "test_files": [
+    {
+      "additions": 1,
+      "deletions": 1,
+      "filename": "testing/plugins_integration/requirements.txt",
+      "patch": "@@ -7,7 +7,7 @@ pytest-django==4.14.0\n pytest-flakes==4.0.5\n pytest-html==4.2.0\n pytest-mock==3.15.1\n-pytest-rerunfailures==16.5\n+pytest-rerunfailures==16.6\n pytest-sugar==1.1.1\n pytest-trio==0.8.0\n pytest-twisted==1.14.3",
+      "status": "modified"
+    }
+  ],
+  "title": "build(deps): Bump pytest-rerunfailures from 16.5 to 16.6 in /testing/plugins_integration",
+  "url": "https://github.com/pytest-dev/pytest/pull/14955",
+  "wave": "wave1-mock-power"
+}

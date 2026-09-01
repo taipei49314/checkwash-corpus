@@ -1,0 +1,23 @@
+{
+  "catalog_id": "django",
+  "changed_file_count": 1,
+  "harvested_on": "2026-09-01",
+  "head_sha": "8e66bb992f72dfabbd4828d9df7aa7cd0212107c",
+  "merged_at": "2026-08-21T12:34:31Z",
+  "note": "test-file excerpts only; not a checkwash verdict",
+  "owner_repo": "django/django",
+  "pr_number": 21808,
+  "test_file_count": 1,
+  "test_files": [
+    {
+      "additions": 2,
+      "deletions": 2,
+      "filename": "tests/requirements/py3.txt",
+      "patch": "@@ -6,8 +6,8 @@ black >= 26.5.1\n docutils >= 0.22\n geoip2 >= 4.8.0\n jinja2 >= 2.11.0\n-numpy >= 1.26.0; sys.platform != 'win32' or python_version < '3.15'\n-Pillow >= 10.1.0; sys.platform != 'win32' or python_version < '3.15'\n+numpy >= 1.26.0\n+Pillow >= 10.1.0\n # pylibmc/libmemcached can't be built on Windows.\n pylibmc; sys_platform != 'win32'\n pymemcache >= 3.4.0",
+      "status": "modified"
+    }
+  ],
+  "title": "Refs #36664 -- Readded optional requirements on daily builds for Python 3.15.",
+  "url": "https://github.com/django/django/pull/21808",
+  "wave": "wave1-mock-power"
+}

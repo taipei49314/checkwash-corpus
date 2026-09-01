@@ -1,0 +1,30 @@
+{
+  "catalog_id": "poetry",
+  "changed_file_count": 3,
+  "harvested_on": "2026-09-01",
+  "head_sha": "44a80884ad1f6729dd07b311f9cad0df5a6d8989",
+  "merged_at": "2026-08-29T13:50:12Z",
+  "note": "test-file excerpts only; not a checkwash verdict",
+  "owner_repo": "python-poetry/poetry",
+  "pr_number": 11025,
+  "test_file_count": 2,
+  "test_files": [
+    {
+      "additions": 3,
+      "deletions": 3,
+      "filename": "tests/repositories/fixtures/pypi.org/generate.py",
+      "patch": "@@ -306,7 +306,7 @@ def copy_as_is(self, link: Link) -> ReleaseFileMetadata:\n             dst.relative_to(FIXTURE_PATH_REPOSITORIES_PYPI),\n         )\n \n-        with self.pypi._cached_or_downloaded_file(link) as src:\n+        with self.pypi._downloaded_file(link) as src:\n             shutil.copy(src, dst)\n \n         return ReleaseFileMetadata(dst)\n@@ -322,7 +322,7 @@ def process_zipfile(self, link: Link) -> ReleaseFileMetadata:\n         )\n \n         with (\n-            self.pypi._cached_or_downloaded_file(link) as src,\n+            self.pypi._downloaded_file(link) as src,\n             zipfile.ZipFile(\n                 dst, \"w\", compression=zipfile.ZIP_DEFLATED\n             ) as stubbed_sdist,\n@@ -371,7 +371,7 @@ def process_tarfile(self, link: Link) -> ReleaseFileMetadata:\n         )\n \n         with (\n-            self.pypi._cached_or_downloaded_file(link) as src,\n+            self.pypi._downloaded_file(link) as src,\n             GzipFile(dst.as_posix(), mode=\"wb\", mtime=0) as gz,\n             tarfile.TarFile(\n                 dst, mode=\"w\", fileobj=gz, format=tarfile.PAX_FORMAT",
+      "status": "modified"
+    },
+    {
+      "additions": 1,
+      "deletions": 1,
+      "filename": "tests/repositories/test_legacy_repository.py",
+      "patch": "@@ -654,7 +654,7 @@ def test_cached_or_downloaded_file_supports_trailing_slash(\n     legacy_repository: LegacyRepository,\n ) -> None:\n     repo = legacy_repository\n-    with repo._cached_or_downloaded_file(\n+    with repo._downloaded_file(\n         Link(\"https://files.pythonhosted.org/pytest-3.5.0-py2.py3-none-any.whl/\")\n     ) as filepath:\n         assert filepath.name == \"pytest-3.5.0-py2.py3-none-any.whl\"",
+      "status": "modified"
+    }
+  ],
+  "title": "refactor: fix confusing method name",
+  "url": "https://github.com/python-poetry/poetry/pull/11025",
+  "wave": "wave1-mock-power"
+}

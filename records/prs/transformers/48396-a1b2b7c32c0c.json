@@ -1,0 +1,30 @@
+{
+  "catalog_id": "transformers",
+  "changed_file_count": 2,
+  "harvested_on": "2026-09-01",
+  "head_sha": "a1b2b7c32c0cedefb98e1b56e126caa8d6a09cac",
+  "merged_at": "2026-08-28T13:26:37Z",
+  "note": "test-file excerpts only; not a checkwash verdict",
+  "owner_repo": "huggingface/transformers",
+  "pr_number": 48396,
+  "test_file_count": 2,
+  "test_files": [
+    {
+      "additions": 5,
+      "deletions": 0,
+      "filename": "tests/exporters/test_export.py",
+      "patch": "@@ -119,6 +119,11 @@\n             \"exported prefill returns only `logits` while eager surfaces the populated KV cache. \"\n             \"Same shape as Voxtral. TODO: align the generate-decomposition path.\"\n         ),\n+        \"VibeVoiceForConditionalGeneration\": (\n+            \"Generation uses two forward calls with different input shapes (prefill + noise scheduler); \"\n+            \"`decompose_prefill_decode` can't capture the full generate path reliably, causing flaky \"\n+            \"CUDAGraphs / export failures. TODO: handle in a follow-up PR.\"\n+        ),\n     },\n     # Every backend, dynamic-shape only.\n     \"dynamic\": {",
+      "status": "modified"
+    },
+    {
+      "additions": 5,
+      "deletions": 0,
+      "filename": "tests/models/vibevoice/test_modeling_vibevoice.py",
+      "patch": "@@ -211,6 +211,11 @@ def skip_unsupported_generate(self):\n             \"test_generate_methods_with_logits_to_keep\",\n             \"test_model_parallel_beam_search\",\n             \"test_generate_compile_model_forward_fullgraph\",\n+            # VibeVoice uses two forward calls with different input shapes (positive + negative guidance\n+            # pass), which causes flaky CUDAGraphs tensor overwrites and inductor dtype errors under\n+            # static-cache compilation. TODO: fix in a follow-up PR.\n+            \"test_generate_with_static_cache\",\n+            \"test_static_cache_no_recompile_with_smaller_length\",\n         ]\n         for test in skippable_tests:\n             if self._testMethodName.startswith(test):",
+      "status": "modified"
+    }
+  ],
+  "title": "[VibeVoice] Skip generate export tests (flaky)",
+  "url": "https://github.com/huggingface/transformers/pull/48396",
+  "wave": "wave1-mock-power"
+}

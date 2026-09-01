@@ -1,0 +1,51 @@
+{
+  "catalog_id": "azure-cli",
+  "changed_file_count": 11,
+  "harvested_on": "2026-09-01",
+  "head_sha": "5a92ddb0f1e1a5869ed2d2c3014f250939b5899e",
+  "merged_at": "2026-08-25T06:49:54Z",
+  "note": "test-file excerpts only; not a checkwash verdict",
+  "owner_repo": "Azure/azure-cli",
+  "pr_number": 33978,
+  "test_file_count": 5,
+  "test_files": [
+    {
+      "additions": 4,
+      "deletions": 0,
+      "filename": "src/azure-cli-core/HISTORY.rst",
+      "patch": "@@ -3,6 +3,10 @@\n Release History\n ===============\n \n+2.90.0\n+++++++\n+* Minor fixes\n+\n 2.89.1\n ++++++\n * Allow SSH certificate flow in Cloud Shell (#33860)",
+      "status": "modified"
+    },
+    {
+      "additions": 1,
+      "deletions": 1,
+      "filename": "src/azure-cli-core/azure/cli/core/__init__.py",
+      "patch": "@@ -4,7 +4,7 @@\n # --------------------------------------------------------------------------------------------\n # pylint: disable=line-too-long\n \n-__version__ = \"2.89.1\"\n+__version__ = \"2.90.0\"\n \n import os\n import sys",
+      "status": "modified"
+    },
+    {
+      "additions": 1,
+      "deletions": 1,
+      "filename": "src/azure-cli-core/azure/cli/core/commandIndex.latest.json",
+      "patch": "@@ -1,5 +1,5 @@\n {\n-  \"version\": \"2.89.1\",\n+  \"version\": \"2.90.0\",\n   \"cloudProfile\": \"latest\",\n   \"commandIndex\": {\n     \"account\": [",
+      "status": "modified"
+    },
+    {
+      "additions": 1,
+      "deletions": 1,
+      "filename": "src/azure-cli-core/azure/cli/core/helpIndex.latest.json",
+      "patch": "@@ -1,5 +1,5 @@\n {\n-  \"version\": \"2.89.1\",\n+  \"version\": \"2.90.0\",\n   \"cloudProfile\": \"latest\",\n   \"helpIndex\": {\n     \"groups\": {",
+      "status": "modified"
+    },
+    {
+      "additions": 1,
+      "deletions": 1,
+      "filename": "src/azure-cli-core/setup.py",
+      "patch": "@@ -8,7 +8,7 @@\n from codecs import open\n from setuptools import setup, find_packages\n \n-VERSION = \"2.89.1\"\n+VERSION = \"2.90.0\"\n \n # If we have source, validate that our version numbers match\n # This should prevent uploading releases with mismatched versions.",
+      "status": "modified"
+    }
+  ],
+  "title": "{Release} Upgrade to Azure CLI 2.90.0",
+  "url": "https://github.com/Azure/azure-cli/pull/33978",
+  "wave": "wave1-mock-power"
+}

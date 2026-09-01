@@ -1,0 +1,30 @@
+{
+  "catalog_id": "pandas",
+  "changed_file_count": 2,
+  "harvested_on": "2026-09-01",
+  "head_sha": "5a38336e24bb7dfacf30c0ec088b589495c722b3",
+  "merged_at": "2026-08-30T18:09:10Z",
+  "note": "test-file excerpts only; not a checkwash verdict",
+  "owner_repo": "pandas-dev/pandas",
+  "pr_number": 67315,
+  "test_file_count": 2,
+  "test_files": [
+    {
+      "additions": 27,
+      "deletions": 0,
+      "filename": "pandas/tests/extension/base/ops.py",
+      "patch": "@@ -11,6 +11,14 @@\n import pandas._testing as tm\n from pandas.core import ops\n \n+# The axis=0 frame dispatch is the same code path for every op, so checking all of\n+#  them multiplies runtime without adding coverage. The arithmetic and comparison\n+#  flex methods use separate dispatch helpers, so keep one comparison plus the\n+#  non-reflected arithmetic ops; reflected ops reflect before dispatching.\n+_AXIS0_CHECKED_OPS = frozenset(\n+    [\"eq\", \"add\", \"sub\", \"mul\", \"truediv\", \"floordiv\", \"mod\", \"pow\"]\n+)\n+\n \n class BaseOpsUtil:\n     series_scalar_exc: type[Exception] | None = TypeError\n@@ -73,6 +81,22 @@ def _combine(self, obj, other, op):\n             expected = obj.combine(other, op)\n         return expected\n \n+    # see comment on check_opname\n+    @final\n+    def _check_frame_op_axis0(self, ser, other, op_name: str, expected_column) -> None:\n+        # GH#28506 a DataFrame op with axis=0 dispatches column-by-column, so\n+        #  it needs to match the Series result we just checked.\n+        if not (isinstance(ser, pd.Series) and isinstance(other, pd.Series)):\n+            return\n+        flex_name = op_name.strip(\"_\")\n+        if flex_name not in _AXIS0_CHECKED_OPS:\n+            return\n+\n+        df = pd.DataFrame({\"A\": ser, \"B\": ser})\n+        result = getattr(df, flex_name)(other, axis=0)\n+        expected = pd.DataFrame({\"A\": expected_column, \"B\": expected_column})\n+        tm.assert_frame_equal(result, expected)\n+\n     # see comment on check_opname\n     @final\n     def _check_op(\n@@ -87,6 +111,7 @@ def _check_op(\n             expected = self._cast_pointwise_result(op_name, ser, other, expected)\n             assert isinstance(result, type(ser))\n             tm.assert_equal(result, expected)\n+            self._check_frame_op_axis0(ser, other, op_name, result)\n         else:\n             with pytest.raises(exc):\n                 op(ser, other)\n@@ -217,6 +242,7 @@ def _compare_other(self, ser: pd.Series, data, op, other):\n             expected = ser.combine(other, op)\n             expected = self._cast_pointwise_result(op.__name__, ser, other, expected)\n             tm.assert_series_equal(result, expected)\n+            self._check_frame_op_axis0(ser, other, op.__name__, result)\n \n         else:\n             exc = None\n@@ -232,6 +258,7 @@ def _compare_other(self, ser: pd.Series, data, op, other):\n                     op.__name__, ser, other, expected\n                 )\n                 tm.assert_series_equal(result, expected)\n+                self._check_frame_op_axis0(ser, other, op.__name__, result)\n             else:\n                 with pytest.raises(type(exc)):\n                     ser.combine(other, op)",
+      "status": "modified"
+    },
+    {
+      "additions": 28,
+      "deletions": 0,
+      "filename": "pandas/tests/extension/decimal/test_decimal.py",
+      "patch": "@@ -459,3 +459,31 @@ def test_array_copy_on_write():\n         {\"a\": [decimal.Decimal(2), decimal.Decimal(3)]}, dtype=DecimalDtype()\n     )\n     tm.assert_equal(df2.values, expected.values)\n+\n+\n+def test_dataframe_arith_with_numpy_dtype_frame(all_arithmetic_operators):\n+    # GH#28506 the numpy-dtype operand is a single 2D block that has to be\n+    #  split up to be combined with the 1D decimal blocks\n+    op = tm.get_op_from_name(all_arithmetic_operators)\n+    ea_df = pd.DataFrame({\"a\": to_decimal([1, 2, 3]), \"b\": to_decimal([4, 5, 6])})\n+    np_df = pd.DataFrame({\"a\": np.arange(1, 4), \"b\": np.arange(4, 7)})\n+\n+    result = op(ea_df, np_df)\n+    expected = pd.DataFrame({col: op(ea_df[col], np_df[col]) for col in ea_df.columns})\n+    tm.assert_frame_equal(result, expected)\n+\n+\n+@pytest.mark.parametrize(\"ea_frame\", [True, False])\n+def test_dataframe_arith_with_series_axis0(all_arithmetic_operators, ea_frame):\n+    # GH#28506 decimal dtype on either the frame or the series side\n+    op_name = all_arithmetic_operators.strip(\"_\")\n+    if ea_frame:\n+        df = pd.DataFrame({\"a\": to_decimal([1, 2, 3]), \"b\": to_decimal([4, 5, 6])})\n+        ser = pd.Series(np.arange(7, 10))\n+    else:\n+        df = pd.DataFrame({\"a\": np.arange(1, 4), \"b\": np.arange(4, 7)})\n+        ser = pd.Series(to_decimal([7, 8, 9]))\n+\n+    result = getattr(df, op_name)(ser, axis=0)\n+    expected = pd.DataFrame({col: getattr(df[col], op_name)(ser) for col in df.columns})\n+    tm.assert_frame_equal(result, expected)",
+      "status": "modified"
+    }
+  ],
+  "title": "TST: DataFrame operations with ExtensionArrays (GH#28506)",
+  "url": "https://github.com/pandas-dev/pandas/pull/67315",
+  "wave": "wave1-mock-power"
+}

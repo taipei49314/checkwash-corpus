@@ -1,0 +1,23 @@
+{
+  "catalog_id": "airflow",
+  "changed_file_count": 4,
+  "harvested_on": "2026-09-01",
+  "head_sha": "58368a5f00cc425ac45072014ef5d615180635e1",
+  "merged_at": "2026-08-31T19:05:21Z",
+  "note": "test-file excerpts only; not a checkwash verdict",
+  "owner_repo": "apache/airflow",
+  "pr_number": 72334,
+  "test_file_count": 1,
+  "test_files": [
+    {
+      "additions": 86,
+      "deletions": 0,
+      "filename": "airflow-core/src/airflow/ui/src/i18n/dayjsLocale.test.ts",
+      "patch": "@@ -0,0 +1,86 @@\n+/*!\n+ * Licensed to the Apache Software Foundation (ASF) under one\n+ * or more contributor license agreements.  See the NOTICE file\n+ * distributed with this work for additional information\n+ * regarding copyright ownership.  The ASF licenses this file\n+ * to you under the Apache License, Version 2.0 (the\n+ * \"License\"); you may not use this file except in compliance\n+ * with the License.  You may obtain a copy of the License at\n+ *\n+ *   http://www.apache.org/licenses/LICENSE-2.0\n+ *\n+ * Unless required by applicable law or agreed to in writing,\n+ * software distributed under the License is distributed on an\n+ * \"AS IS\" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY\n+ * KIND, either express or implied.  See the License for the\n+ * specific language governing permissions and limitations\n+ * under the License.\n+ */\n+import dayjs from \"dayjs\";\n+import dayjsDuration from \"dayjs/plugin/duration\";\n+import relativeTime from \"dayjs/plugin/relativeTime\";\n+import { createInstance } from \"i18next\";\n+import { afterEach, describe, expect, it } from \"vitest\";\n+\n+import { i18nBaseOptions, supportedLanguages } from \"./config\";\n+import { dayjsLocaleCodes, registerDayjsLocaleSync, syncDayjsLocale } from \"./dayjsLocale\";\n+\n+dayjs.extend(dayjsDuration);\n+dayjs.extend(relativeTime);\n+\n+const humanizeTwoHours = () => dayjs.duration(2, \"hours\").humanize();\n+\n+// dayjs keeps the locale in module-global state, so a test that switched it would\n+// otherwise decide what every later test formats.\n+afterEach(() => {\n+  dayjs.locale(\"en\");\n+});\n+\n+describe(\"dayjs locale\", () => {\n+  it(\"covers exactly the languages the UI offers\", () => {\n+    expect([...dayjsLocaleCodes].sort()).toStrictEqual(\n+      supportedLanguages.map((language) => language.code).sort(),\n+    );\n+  });\n+\n+  it.each(supportedLanguages.filter((language) => language.code !== \"en\"))(\n+    \"humanizes a duration in $code rather than English\",\n+    ({ code }) => {\n+      syncDayjsLocale(code);\n+\n+      expect(humanizeTwoHours()).not.toBe(\"2 hours\");\n+    },\n+  );\n+\n+  it(\"renders the reported Arabic case\", () => {\n+    syncDayjsLocale(\"ar\");\n+\n+    expect(humanizeTwoHours()).toBe(\"2 ساعات\");\n+  });\n+\n+  it(\"falls back to English for a language dayjs does not ship\", () => {\n+    syncDayjsLocale(\"ar\");\n+    syncDayjsLocale(\"cy\");\n+\n+    expect(humanizeTwoHours()).toBe(\"2 hours\");\n+  });\n+\n+  it(\"applies the language i18next resolves during init\", async () => {\n+    const instance = createInstance();\n+\n+    registerDayjsLocaleSync(instance);\n+    await instance.init({ ...i18nBaseOptions, lng: \"ar\", resources: {} });\n+\n+    expect(humanizeTwoHours()).toBe(\"2 ساعات\");\n+  });\n+\n+  it(\"follows a later language switch\", async () => {\n+    const instance = createInstance();\n+\n+    registerDayjsLocaleSync(instance);\n+    await instance.init({ ...i18nBaseOptions, lng: \"ar\", resources: {} });\n+    await instance.changeLanguage(\"zh-CN\");\n+\n+    expect(humanizeTwoHours()).toBe(\"2 小时\");\n+  });\n+});",
+      "status": "added"
+    }
+  ],
+  "title": "[v3-3-test] UI: Translate durations and relative times in the selected language (#72309)",
+  "url": "https://github.com/apache/airflow/pull/72334",
+  "wave": "wave1-mock-power"
+}

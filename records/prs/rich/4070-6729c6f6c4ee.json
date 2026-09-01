@@ -1,0 +1,30 @@
+{
+  "catalog_id": "rich",
+  "changed_file_count": 13,
+  "harvested_on": "2026-09-01",
+  "head_sha": "6729c6f6c4ee24a13a94d825cb7ce66b52206db2",
+  "merged_at": "2026-04-11T02:38:58Z",
+  "note": "test-file excerpts only; not a checkwash verdict",
+  "owner_repo": "Textualize/rich",
+  "pr_number": 4070,
+  "test_file_count": 2,
+  "test_files": [
+    {
+      "additions": 2,
+      "deletions": 2,
+      "filename": "tests/test_console.py",
+      "patch": "@@ -400,9 +400,9 @@ def fake_input(prompt, stream=None):\n         console.file.write(prompt)\n         return \"bar\"\n \n-    import rich.console\n+    import getpass\n \n-    monkeypatch.setattr(rich.console, \"getpass\", fake_input)\n+    monkeypatch.setattr(getpass, \"getpass\", fake_input)\n     console = Console()\n     user_input = console.input(prompt=\"foo:\", password=True)\n     assert capsys.readouterr().out == \"foo:\"",
+      "status": "modified"
+    },
+    {
+      "additions": 1,
+      "deletions": 1,
+      "filename": "tests/test_syntax.py",
+      "patch": "@@ -7,13 +7,13 @@\n import pytest\n from pygments.lexers import PythonLexer\n \n+from rich.console import Console\n from rich.measure import Measurement\n from rich.panel import Panel\n from rich.style import Style\n from rich.syntax import (\n     ANSISyntaxTheme,\n     Color,\n-    Console,\n     PygmentsSyntaxTheme,\n     Syntax,\n     _SyntaxHighlightRange,",
+      "status": "modified"
+    }
+  ],
+  "title": "perf: reduce Console and RichHandler import time by deferring unused imports",
+  "url": "https://github.com/Textualize/rich/pull/4070",
+  "wave": "wave0-published-fp"
+}

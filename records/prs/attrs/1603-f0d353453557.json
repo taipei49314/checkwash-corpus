@@ -1,0 +1,72 @@
+{
+  "catalog_id": "attrs",
+  "changed_file_count": 16,
+  "harvested_on": "2026-09-01",
+  "head_sha": "f0d353453557043b89ecf29630dff6057e893706",
+  "merged_at": "2026-08-02T09:06:07Z",
+  "note": "test-file excerpts only; not a checkwash verdict",
+  "owner_repo": "python-attrs/attrs",
+  "pr_number": 1603,
+  "test_file_count": 8,
+  "test_files": [
+    {
+      "additions": 1,
+      "deletions": 3,
+      "filename": "tests/conftest.py",
+      "patch": "@@ -6,7 +6,7 @@\n \n from hypothesis import HealthCheck, settings\n \n-from attr._compat import PY_3_10_PLUS, PY_3_14_PLUS\n+from attr._compat import PY_3_14_PLUS\n \n \n @pytest.fixture(name=\"slots\", params=(True, False))\n@@ -32,7 +32,5 @@ def pytest_configure(config):\n \n \n collect_ignore = []\n-if not PY_3_10_PLUS:\n-    collect_ignore.extend([\"test_pattern_matching.py\"])\n if not PY_3_14_PLUS:\n     collect_ignore.extend([\"test_forward_references.py\"])",
+      "status": "modified"
+    },
+    {
+      "additions": 4,
+      "deletions": 2,
+      "filename": "tests/strategies.py",
+      "patch": "@@ -68,7 +68,9 @@ def _create_hyp_nested_strategy(draw, simple_class_strategy):\n     ]\n     factory = draw(st.sampled_from(factories))\n     attrs = [*draw(list_of_attrs), attr.ib(default=attr.Factory(factory))]\n-    return make_class(\"HypClass\", dict(zip(gen_attr_names(), attrs)))\n+    return make_class(\n+        \"HypClass\", dict(zip(gen_attr_names(), attrs, strict=False))\n+    )\n \n \n bare_attrs = st.builds(attr.ib, default=st.none())\n@@ -160,7 +162,7 @@ class HypClass:\n     elif private_attrs is False:\n         attr_names = gen_attr_names()\n \n-    cls_dict = dict(zip(attr_names, attrs))\n+    cls_dict = dict(zip(attr_names, attrs, strict=False))\n     pre_init_flag = draw(st.booleans())\n     post_init_flag = draw(st.booleans())\n     init_flag = draw(st.booleans())",
+      "status": "modified"
+    },
+    {
+      "additions": 1,
+      "deletions": 4,
+      "filename": "tests/test_abc.py",
+      "patch": "@@ -7,12 +7,9 @@\n \n import attrs\n \n-from attr._compat import PY_3_10_PLUS, PY_3_12_PLUS\n+from attr._compat import PY_3_12_PLUS\n \n \n-@pytest.mark.skipif(\n-    not PY_3_10_PLUS, reason=\"abc.update_abstractmethods is 3.10+\"\n-)\n class TestUpdateAbstractMethods:\n     def test_abc_implementation(self, slots):\n         \"\"\"",
+      "status": "modified"
+    },
+    {
+      "additions": 25,
+      "deletions": 10,
+      "filename": "tests/test_dunders.py",
+      "patch": "@@ -29,10 +29,10 @@\n from .utils import simple_attr, simple_class\n \n \n-EqC = simple_class(eq=True)\n-EqCSlots = simple_class(eq=True, slots=True)\n-OrderC = simple_class(order=True)\n-OrderCSlots = simple_class(order=True, slots=True)\n+EqC = simple_class(name=\"EqC\", eq=True)\n+EqCSlots = simple_class(name=\"EqCSlots\", eq=True, slots=True)\n+OrderC = simple_class(name=\"OrderC\", order=True)\n+OrderCSlots = simple_class(name=\"OrderCSlots\", order=True, slots=True)\n ReprC = simple_class(repr=True)\n ReprCSlots = simple_class(repr=True, slots=True)\n \n@@ -64,16 +64,29 @@ class OrderCallableCSlots:\n # HashC is hashable by explicit definition while HashCSlots is hashable\n # implicitly.  The \"Cached\" versions are the same, except with hash code\n # caching enabled\n-HashC = simple_class(unsafe_hash=True)\n-HashCSlots = simple_class(unsafe_hash=None, eq=True, frozen=True, slots=True)\n-HashCCached = simple_class(unsafe_hash=True, cache_hash=True)\n+HashC = simple_class(name=\"HashC\", unsafe_hash=True)\n+HashCSlots = simple_class(\n+    name=\"HashCSlots\", unsafe_hash=None, eq=True, frozen=True, slots=True\n+)\n+HashCCached = simple_class(\n+    name=\"HashCCached\", unsafe_hash=True, cache_hash=True\n+)\n HashCSlotsCached = simple_class(\n-    unsafe_hash=None, eq=True, frozen=True, slots=True, cache_hash=True\n+    name=\"HashCSlotsCached\",\n+    unsafe_hash=None,\n+    eq=True,\n+    frozen=True,\n+    slots=True,\n+    cache_hash=True,\n )\n # the cached hash code is stored slightly differently in this case\n # so it needs to be tested separately\n HashCFrozenNotSlotsCached = simple_class(\n-    frozen=True, slots=False, unsafe_hash=True, cache_hash=True\n+    name=\"HashCFrozenNotSlotsCached\",\n+    frozen=True,\n+    slots=False,\n+    unsafe_hash=True,\n+    cache_hash=True,\n )\n \n \n@@ -339,7 +352,9 @@ def test_repr(self, slots):\n \n         assert \"C(b=2)\" == repr(C(1, 2))\n \n-    @pytest.mark.parametrize(\"cls\", [ReprC, ReprCSlots])\n+    @pytest.mark.parametrize(\n+        \"cls\", [ReprC, ReprCSlots], ids=[\"ReprC\", \"ReprCSlots\"]\n+    )\n     def test_repr_works(self, cls):\n         \"\"\"\n         repr returns a sensible value.",
+      "status": "modified"
+    },
+    {
+      "additions": 7,
+      "deletions": 3,
+      "filename": "tests/test_funcs.py",
+      "patch": "@@ -118,7 +118,9 @@ def assert_proper_dict_class(obj, obj_dict):\n                     assert_proper_dict_class(field_val, obj_dict[field.name])\n                 elif isinstance(field_val, Sequence):\n                     dict_val = obj_dict[field.name]\n-                    for item, item_dict in zip(field_val, dict_val):\n+                    for item, item_dict in zip(\n+                        field_val, dict_val, strict=True\n+                    ):\n                         if has(item.__class__):\n                             assert_proper_dict_class(item, item_dict)\n                 elif isinstance(field_val, Mapping):\n@@ -359,15 +361,17 @@ def assert_proper_col_class(obj, obj_tuple):\n                     # This field holds a sequence of something.\n                     expected_type = type(obj_tuple[index])\n                     assert type(field_val) is expected_type\n-                    for obj_e, obj_tuple_e in zip(field_val, obj_tuple[index]):\n+                    for obj_e, obj_tuple_e in zip(\n+                        field_val, obj_tuple[index], strict=True\n+                    ):\n                         if has(obj_e.__class__):\n                             assert_proper_col_class(obj_e, obj_tuple_e)\n                 elif isinstance(field_val, dict):\n                     orig = field_val\n                     tupled = obj_tuple[index]\n                     assert type(orig) is type(tupled)\n                     for obj_e, obj_tuple_e in zip(\n-                        orig.items(), tupled.items()\n+                        orig.items(), tupled.items(), strict=True\n                     ):\n                         if has(obj_e[0].__class__):  # Dict key\n                             assert_proper_col_class(obj_e[0], obj_tuple_e[0])",
+      "status": "modified"
+    },
+    {
+      "additions": 20,
+      "deletions": 24,
+      "filename": "tests/test_make.py",
+      "patch": "@@ -26,7 +26,6 @@\n import attrs\n \n from attr import _config\n-from attr._compat import PY_3_10_PLUS\n from attr._make import (\n     Attribute,\n     ClassProps,\n@@ -118,7 +117,11 @@ def v():\n \n         assert v == a._validator\n \n-    @pytest.mark.parametrize(\"wrap\", [lambda v: v, lambda v: [v], and_])\n+    @pytest.mark.parametrize(\n+        \"wrap\",\n+        [lambda v: v, lambda v: [v], and_],\n+        ids=[\"single\", \"list\", \"and\"],\n+    )\n     def test_validator_decorator(self, wrap):\n         \"\"\"\n         If _CountingAttr.validator is used as a decorator and there is already\n@@ -152,7 +155,9 @@ def v(self, value, field):\n         assert a._converter.takes_field\n \n     @pytest.mark.parametrize(\n-        \"wrap\", [lambda v: v, lambda v: [v], attr.converters.pipe]\n+        \"wrap\",\n+        [lambda v: v, lambda v: [v], attr.converters.pipe],\n+        ids=[\"single\", \"list\", \"pipe\"],\n     )\n     def test_converter_decorator(self, wrap):\n         \"\"\"\n@@ -1950,9 +1955,11 @@ def test_metadata_present(self, list_of_attrs):\n         \"\"\"\n         Assert dictionaries are copied and present.\n         \"\"\"\n-        C = make_class(\"C\", dict(zip(gen_attr_names(), list_of_attrs)))\n+        C = make_class(\n+            \"C\", dict(zip(gen_attr_names(), list_of_attrs, strict=False))\n+        )\n \n-        for hyp_attr, class_attr in zip(list_of_attrs, fields(C)):\n+        for hyp_attr, class_attr in zip(list_of_attrs, fields(C), strict=True):\n             if hyp_attr.metadata is None:\n                 # The default is a singleton empty dict.\n                 assert class_attr.metadata is not None\n@@ -1997,7 +2004,9 @@ def test_empty_metadata_singleton(self, list_of_attrs):\n         \"\"\"\n         All empty metadata attributes share the same empty metadata dict.\n         \"\"\"\n-        C = make_class(\"C\", dict(zip(gen_attr_names(), list_of_attrs)))\n+        C = make_class(\n+            \"C\", dict(zip(gen_attr_names(), list_of_attrs, strict=False))\n+        )\n         for a in fields(C)[1:]:\n             assert a.metadata is fields(C)[0].metadata\n \n@@ -2014,11 +2023,13 @@ def test_not_none_metadata(self, list_of_attrs):\n         \"\"\"\n         Non-empty metadata attributes exist as fields after ``@attr.s``.\n         \"\"\"\n-        C = make_class(\"C\", dict(zip(gen_attr_names(), list_of_attrs)))\n+        C = make_class(\n+            \"C\", dict(zip(gen_attr_names(), list_of_attrs, strict=False))\n+        )\n \n         assert len(fields(C)) > 0\n \n-        for cls_a, raw_a in zip(fields(C), list_of_attrs):\n+        for cls_a, raw_a in zip(fields(C), list_of_attrs, strict=True):\n             assert cls_a.metadata != {}\n             assert cls_a.metadata == raw_a.metadata\n \n@@ -2299,7 +2310,7 @@ def _get_copy_kwargs(include_slots=True):\n \n         out_kwargs = []\n         for args in itertools.product([True, False], repeat=len(options)):\n-            kwargs = dict(zip(options, args))\n+            kwargs = dict(zip(options, args, strict=True))\n \n             kwargs[\"unsafe_hash\"] = kwargs[\"unsafe_hash\"] or None\n \n@@ -3082,22 +3093,7 @@ def __setstate__(self, state):\n             C, \"__getstate__\", None\n         )\n \n-    @pytest.mark.skipif(PY_3_10_PLUS, reason=\"Pre-3.10 only.\")\n-    def test_match_args_pre_310(self):\n-        \"\"\"\n-        __match_args__ is not created on Python versions older than 3.10.\n-        \"\"\"\n-\n-        @attr.s\n-        class C:\n-            a = attr.ib()\n-\n-        assert None is getattr(C, \"__match_args__\", None)\n \n-\n-@pytest.mark.skipif(\n-    not PY_3_10_PLUS, reason=\"Structural pattern matching is 3.10+\"\n-)\n class TestMatchArgs:\n     \"\"\"\n     Tests for match_args and __match_args__ generation.",
+      "status": "modified"
+    },
+    {
+      "additions": 2,
+      "deletions": 0,
+      "filename": "tests/test_next_gen.py",
+      "patch": "@@ -305,6 +305,7 @@ class C(A):\n             attrs.define,\n             attrs.mutable,\n         ],\n+        ids=[\"arg-frozen\", \"attrs.frozen\", \"attrs.define\", \"attrs.mutable\"],\n     )\n     def test_discard_context(self, decorator):\n         \"\"\"\n@@ -334,6 +335,7 @@ class MyException(Exception):\n             attrs.define,\n             attrs.mutable,\n         ],\n+        ids=[\"arg-frozen\", \"attrs.frozen\", \"attrs.define\", \"attrs.mutable\"],\n     )\n     def test_setting_exception_mutable_attributes(self, decorator):\n         \"\"\"",
+      "status": "modified"
+    },
+    {
+      "additions": 2,
+      "deletions": 1,
+      "filename": "tests/utils.py",
+      "patch": "@@ -17,12 +17,13 @@ def simple_class(\n     slots=False,\n     frozen=False,\n     cache_hash=False,\n+    name=\"C\",\n ):\n     \"\"\"\n     Return a new simple class.\n     \"\"\"\n     return make_class(\n-        \"C\",\n+        name,\n         [\"a\", \"b\"],\n         eq=eq or order,\n         order=order,",
+      "status": "modified"
+    }
+  ],
+  "title": "Drop Python 3.9",
+  "url": "https://github.com/python-attrs/attrs/pull/1603",
+  "wave": "wave0-published-fp"
+}

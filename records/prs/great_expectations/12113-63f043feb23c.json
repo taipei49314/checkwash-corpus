@@ -1,0 +1,30 @@
+{
+  "catalog_id": "great_expectations",
+  "changed_file_count": 2,
+  "harvested_on": "2026-09-01",
+  "head_sha": "63f043feb23cef910ae41201bff9126de7fd8294",
+  "merged_at": "2026-08-27T13:37:32Z",
+  "note": "test-file excerpts only; not a checkwash verdict",
+  "owner_repo": "great-expectations/great_expectations",
+  "pr_number": 12113,
+  "test_file_count": 2,
+  "test_files": [
+    {
+      "additions": 0,
+      "deletions": 0,
+      "filename": "tests/integration/docusaurus/tutorials/getting-started/__init__.py",
+      "patch": "",
+      "status": "removed"
+    },
+    {
+      "additions": 47,
+      "deletions": 2,
+      "filename": "tests/integration/test_script_runner.py",
+      "patch": "@@ -11,12 +11,14 @@\n import os\n import pathlib\n import shutil\n+import subprocess\n+import sys\n+import traceback\n from typing import List\n \n import pandas\n import pytest\n import sqlalchemy\n-from assets.scripts.build_gallery import execute_shell_command\n from docs.docusaurus.docs.components.examples_under_test import (\n     docs_tests,\n )\n@@ -396,6 +398,49 @@ def test_integration_tests(\n     )\n \n \n+def _execute_shell_command(command: str) -> int:\n+    \"\"\"Run a command through a shell, with the current working directory on PATH.\n+\n+    :param command: shell command -- as if typed in a terminal window\n+    :return: exit status -- 0 if successful; any other value indicates an error\n+    \"\"\"\n+    cwd: str = os.getcwd()  # noqa: PTH109\n+\n+    path_env_var: str = os.pathsep.join([os.environ.get(\"PATH\", os.defpath), cwd])\n+    env: dict = dict(os.environ, PATH=path_env_var)\n+\n+    status_code: int = 0\n+    try:\n+        res: subprocess.CompletedProcess = subprocess.run(\n+            args=[\"bash\", \"-c\", command],\n+            stdin=None,\n+            input=None,\n+            capture_output=True,\n+            shell=False,\n+            cwd=cwd,\n+            timeout=None,\n+            check=True,\n+            encoding=None,\n+            errors=None,\n+            text=True,\n+            env=env,\n+        )\n+        sh_out: str = res.stdout.strip()\n+        logger.info(sh_out)\n+    except subprocess.CalledProcessError as cpe:\n+        status_code = cpe.returncode\n+        sys.stderr.write(cpe.output)\n+        sys.stderr.flush()\n+        exception_message: str = \"A Sub-Process call Exception occurred.\\n\"\n+        exception_traceback: str = traceback.format_exc()\n+        exception_message += (\n+            f'{type(cpe).__name__}: \"{cpe!s}\".  Traceback: \"{exception_traceback}\".'\n+        )\n+        logger.error(exception_message)  # noqa: TRY400\n+\n+    return status_code\n+\n+\n def _execute_integration_test(  # noqa: C901, PLR0915 # FIXME CoP\n     integration_test_fixture: IntegrationTestFixture,\n     tmp_path: pathlib.Path,\n@@ -416,7 +461,7 @@ def _execute_integration_test(  # noqa: C901, PLR0915 # FIXME CoP\n             dist.metadata[\"name\"].lower() for dist in importlib.metadata.distributions()\n         ]\n         if \"great-expectations\" not in installed_packages:\n-            execute_shell_command(\"pip install .\")\n+            _execute_shell_command(\"pip install .\")\n         os.chdir(tmp_path)\n \n         # Build test state",
+      "status": "modified"
+    }
+  ],
+  "title": "[MAINTENANCE] Remove two structural blockers to type-checking the test tree",
+  "url": "https://github.com/fivetran/great_expectations/pull/12113",
+  "wave": "wave1-mock-power"
+}

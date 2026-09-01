@@ -1,0 +1,23 @@
+{
+  "catalog_id": "salt",
+  "changed_file_count": 1,
+  "harvested_on": "2026-09-01",
+  "head_sha": "f2c2ae4486ebc4f2bd5cfa9de95906d8a3e4bd1c",
+  "merged_at": "2026-08-27T22:22:33Z",
+  "note": "test-file excerpts only; not a checkwash verdict",
+  "owner_repo": "saltstack/salt",
+  "pr_number": 70168,
+  "test_file_count": 1,
+  "test_files": [
+    {
+      "additions": 13,
+      "deletions": 10,
+      "filename": "tests/pytests/unit/test_version.py",
+      "patch": "@@ -446,6 +446,12 @@ def test_current_release_matches_maintenance_branch_67061():\n     built distribution.  Pin ``current_release()`` to the branch's own\n     codename so the default version always matches the branch's calver\n     series.\n+\n+    This asserts the *contract* -- current_release() returns the last\n+    codename with released=True -- rather than a hardcoded codename.\n+    That way the assertion tracks the released-flag state automatically\n+    on every branch and doesn't need editing when new codenames flip\n+    to released=True.\n     \"\"\"\n     # Reset any cached _current_release that an earlier import set so we\n     # exercise the real lookup path.\n@@ -455,18 +461,15 @@ def test_current_release_matches_maintenance_branch_67061():\n         _next_release=None,\n         _current_release=None,\n     ):\n-        # The fix picks the *last* released codename rather than the first\n-        # un-released one.  3008.x is still pre-release (ARGON.released is\n-        # False), so the last released codename on this branch is its\n-        # predecessor (CHLORINE).  Once 3008.x cuts its first release and\n-        # ARGON flips to released=True, this assertion should be bumped.\n+        released = [v for v in SaltVersionsInfo.versions() if v.released]\n+        assert released, \"SaltVersionsInfo table has no released codenames\"\n+        expected = released[-1]\n         current = SaltVersionsInfo.current_release()\n-        assert current == SaltVersionsInfo.CHLORINE, (\n-            f\"On the 3008.x branch the most-recent released codename is \"\n-            f\"Chlorine (3007); current_release() returned \"\n-            f\"{current.name} ({current.info[0]}).\"\n+        assert current == expected, (\n+            f\"current_release() must return the last codename with \"\n+            f\"released=True (expected {expected.name} / {expected.info[0]}), \"\n+            f\"got {current.name} / {current.info[0]}.\"\n         )\n-        assert current.info[0] == 3007\n \n \n @pytest.mark.skip_unless_on_linux",
+      "status": "modified"
+    }
+  ],
+  "title": "test_version: assert current_release() contract, not a hardcoded codename",
+  "url": "https://github.com/saltstack/salt/pull/70168",
+  "wave": "wave1-mock-power"
+}

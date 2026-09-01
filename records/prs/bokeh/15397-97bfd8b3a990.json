@@ -1,0 +1,23 @@
+{
+  "catalog_id": "bokeh",
+  "changed_file_count": 2,
+  "harvested_on": "2026-09-01",
+  "head_sha": "97bfd8b3a990402400721b1ea9bfa2bb14cf5d0a",
+  "merged_at": "2026-08-31T15:54:18Z",
+  "note": "test-file excerpts only; not a checkwash verdict",
+  "owner_repo": "bokeh/bokeh",
+  "pr_number": 15397,
+  "test_file_count": 1,
+  "test_files": [
+    {
+      "additions": 16,
+      "deletions": 0,
+      "filename": "tests/unit/bokeh/test_palettes.py",
+      "patch": "@@ -73,6 +73,22 @@ def test_interp_palette() -> None:\n     with pytest.raises(ValueError):\n         pal.interp_palette((\"black\", \"red\"), -1)\n \n+def test_diverging_palette_returns_n_colors() -> None:\n+    # odd n is the case that regressed: midpoint * n lands on a half-integer, and\n+    # rounding each half separately does not add back up to n\n+    for n in range(19):\n+        assert len(pal.diverging_palette(pal.Blues9, pal.Reds9, n)) == n\n+\n+def test_diverging_palette_returns_n_colors_for_off_center_midpoint() -> None:\n+    for midpoint in (0.1, 0.25, 0.75, 0.9):\n+        for n in range(11):\n+            assert len(pal.diverging_palette(pal.Blues9, pal.Reds9, n, midpoint)) == n\n+\n+def test_diverging_palette_splits_across_both_palettes() -> None:\n+    assert pal.diverging_palette(pal.Reds9, pal.Greys9, 18) == pal.Reds9 + pal.Greys9[::-1]\n+    assert pal.diverging_palette(pal.Reds9, pal.Greys9, 5) == \\\n+        pal.linear_palette(pal.Reds9, 2) + pal.linear_palette(pal.Greys9[::-1], 3)\n+\n def test_varying_alpha_palette() -> None:\n     assert pal.varying_alpha_palette(\"blue\", 3) == (\"#0000ff00\", \"#0000ff80\", \"#0000ff\")\n     assert pal.varying_alpha_palette(\"red\", 3, start_alpha=255, end_alpha=128) == (\"#ff0000\", \"#ff0000c0\", \"#ff000080\")",
+      "status": "modified"
+    }
+  ],
+  "title": "Fix diverging_palette returning the wrong number of colors",
+  "url": "https://github.com/bokeh/bokeh/pull/15397",
+  "wave": "wave1-mock-power"
+}

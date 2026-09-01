@@ -1,0 +1,23 @@
+{
+  "catalog_id": "ray",
+  "changed_file_count": 3,
+  "harvested_on": "2026-09-01",
+  "head_sha": "d25b46256e2d9f7fbb12aba135cdf117d4052fe8",
+  "merged_at": "2026-09-01T02:52:33Z",
+  "note": "test-file excerpts only; not a checkwash verdict",
+  "owner_repo": "ray-project/ray",
+  "pr_number": 65745,
+  "test_file_count": 1,
+  "test_files": [
+    {
+      "additions": 46,
+      "deletions": 0,
+      "filename": "python/ray/experimental/sandbox/tests/test_image_manager.py",
+      "patch": "@@ -510,6 +510,52 @@ def test_prepare_oci_bundle_no_resolv_without_host_side_networking(tmp_path):\n         assert _prepare(mgr, tmp_path, network=network) is None\n \n \n+def test_registry_mirror_rewrites_docker_hub_only(monkeypatch):\n+    \"\"\"RAY_SANDBOX_REGISTRY_MIRROR reroutes Docker Hub pulls (with an\n+    optional repository prefix, as ECR pull-through caches require) and\n+    leaves every other registry untouched.\"\"\"\n+    from ray.experimental.sandbox._internal.image_utils import (\n+        apply_registry_mirror,\n+    )\n+\n+    monkeypatch.delenv(\"RAY_SANDBOX_REGISTRY_MIRROR\", raising=False)\n+    assert apply_registry_mirror(\"registry-1.docker.io\", \"library/python\") == (\n+        \"registry-1.docker.io\",\n+        \"library/python\",\n+    )\n+\n+    monkeypatch.setenv(\"RAY_SANDBOX_REGISTRY_MIRROR\", \"mirror.local:5000\")\n+    assert apply_registry_mirror(\"registry-1.docker.io\", \"library/python\") == (\n+        \"mirror.local:5000\",\n+        \"library/python\",\n+    )\n+\n+    monkeypatch.setenv(\n+        \"RAY_SANDBOX_REGISTRY_MIRROR\",\n+        \"123.dkr.ecr.us-east-2.amazonaws.com/dockerhub/\",\n+    )\n+    assert apply_registry_mirror(\"registry-1.docker.io\", \"library/python\") == (\n+        \"123.dkr.ecr.us-east-2.amazonaws.com\",\n+        \"dockerhub/library/python\",\n+    )\n+    # Non-Docker-Hub registries are never rewritten.\n+    assert apply_registry_mirror(\"ghcr.io\", \"org/repo\") == (\"ghcr.io\", \"org/repo\")\n+\n+    # An explicit scheme is honored (plain-HTTP in-cluster proxies) and\n+    # flows through URL construction; https is stripped to the default.\n+    from ray.experimental.sandbox._internal.image_utils import registry_base_url\n+\n+    monkeypatch.setenv(\"RAY_SANDBOX_REGISTRY_MIRROR\", \"http://mirror.local:5000\")\n+    registry, _ = apply_registry_mirror(\"registry-1.docker.io\", \"library/python\")\n+    assert registry == \"http://mirror.local:5000\"\n+    assert registry_base_url(registry) == \"http://mirror.local:5000\"\n+\n+    monkeypatch.setenv(\"RAY_SANDBOX_REGISTRY_MIRROR\", \"https://mirror.local/dockerhub\")\n+    registry, repo = apply_registry_mirror(\"registry-1.docker.io\", \"library/python\")\n+    assert (registry, repo) == (\"https://mirror.local\", \"dockerhub/library/python\")\n+    assert registry_base_url(\"plain.host\") == \"https://plain.host\"\n+\n+\n def test_extract_tar_layer_preserves_mtimes(tmp_path):\n     \"\"\"Archived mtimes survive extraction: apt inside the sandbox validates\n     its package lists with If-Modified-Since from the file mtime, so a",
+      "status": "modified"
+    }
+  ],
+  "title": "[core][sandbox] Support a Docker Hub pull-through mirror",
+  "url": "https://github.com/ray-project/ray/pull/65745",
+  "wave": "wave1-mock-power"
+}

@@ -1,0 +1,23 @@
+{
+  "catalog_id": "httpx",
+  "changed_file_count": 5,
+  "harvested_on": "2026-09-01",
+  "head_sha": "6ee7a36f3462107f618712c6ba198662b3b2c168",
+  "merged_at": "2025-09-18T12:15:06Z",
+  "note": "test-file excerpts only; not a checkwash verdict",
+  "owner_repo": "encode/httpx",
+  "pr_number": 3670,
+  "test_file_count": 1,
+  "test_files": [
+    {
+      "additions": 3,
+      "deletions": 3,
+      "filename": "tests/test_streams.py",
+      "patch": "@@ -30,17 +30,17 @@ def test_filestream(tmp_path):\n     path = tmp_path / \"example.txt\"\n     path.write_bytes(b\"hello world\")\n \n-    with httpx.FileStream(path) as s:\n+    with httpx.File(path).encode() as s:\n         assert s.size == 11\n         assert s.read() == b'hello world'\n \n-    with httpx.FileStream(path) as s:\n+    with httpx.File(path).encode() as s:\n         assert s.read(5) == b'hello'\n         assert s.read(5) == b' worl'\n         assert s.read(5) == b'd'\n         assert s.read(5) == b''\n \n-    with httpx.FileStream(path) as s:\n+    with httpx.File(path).encode() as s:\n         assert s.read(5) == b'hello'\n \n ",
+      "status": "modified"
+    }
+  ],
+  "title": "Update FileStream API",
+  "url": "https://github.com/encode/httpx/pull/3670",
+  "wave": "wave0-published-fp"
+}

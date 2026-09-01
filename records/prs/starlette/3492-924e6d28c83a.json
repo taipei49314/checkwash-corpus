@@ -1,0 +1,23 @@
+{
+  "catalog_id": "starlette",
+  "changed_file_count": 2,
+  "harvested_on": "2026-09-01",
+  "head_sha": "924e6d28c83a188c5064530992214f075f38e9f2",
+  "merged_at": "2026-08-30T12:57:43Z",
+  "note": "test-file excerpts only; not a checkwash verdict",
+  "owner_repo": "encode/starlette",
+  "pr_number": 3492,
+  "test_file_count": 1,
+  "test_files": [
+    {
+      "additions": 51,
+      "deletions": 0,
+      "filename": "tests/test_formparsers.py",
+      "patch": "@@ -651,6 +651,57 @@ def test_missing_boundary_parameter(\n         assert res.text == \"Missing boundary in multipart.\"\n \n \n+@pytest.mark.parametrize(\n+    \"app,expectation\",\n+    [\n+        (app, pytest.raises(MultiPartException)),\n+        (Starlette(routes=[Mount(\"/\", app=app)]), does_not_raise()),\n+    ],\n+)\n+def test_multipart_boundary_exceeds_limit(\n+    app: ASGIApp,\n+    expectation: AbstractContextManager[Exception],\n+    test_client_factory: TestClientFactory,\n+) -> None:\n+    client = test_client_factory(app)\n+    boundary = \"X\" * 257\n+    with expectation:\n+        response = client.post(\n+            \"/\",\n+            content=f\"--{boundary}\\r\\n\\r\\n--{boundary}--\\r\\n\".encode(),\n+            headers={\"Content-Type\": f\"multipart/form-data; boundary={boundary}\"},\n+        )\n+        assert response.status_code == 400\n+        assert response.text == \"Invalid multipart data.\"\n+\n+\n+@pytest.mark.parametrize(\n+    \"app,expectation\",\n+    [\n+        (app, pytest.raises(MultiPartException)),\n+        (Starlette(routes=[Mount(\"/\", app=app)]), does_not_raise()),\n+    ],\n+)\n+def test_multipart_headers_exceed_limit(\n+    app: ASGIApp,\n+    expectation: AbstractContextManager[Exception],\n+    test_client_factory: TestClientFactory,\n+) -> None:\n+    client = test_client_factory(app)\n+    extra_headers = b\"\".join(f\"X-Extra-{index}: value\\r\\n\".encode() for index in range(8))\n+    with expectation:\n+        response = client.post(\n+            \"/\",\n+            content=(\n+                b\"--boundary\\r\\n\"\n+                b'Content-Disposition: form-data; name=\"field\"\\r\\n' + extra_headers + b\"\\r\\nvalue\\r\\n--boundary--\\r\\n\"\n+            ),\n+            headers={\"Content-Type\": \"multipart/form-data; boundary=boundary\"},\n+        )\n+        assert response.status_code == 400\n+        assert response.text == \"Invalid multipart data.\"\n+\n+\n @pytest.mark.parametrize(\n     \"app,expectation\",\n     [",
+      "status": "modified"
+    }
+  ],
+  "title": "Return 400 for invalid multipart parser input",
+  "url": "https://github.com/Kludex/starlette/pull/3492",
+  "wave": "wave0-published-fp"
+}

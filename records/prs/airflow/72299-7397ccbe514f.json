@@ -1,0 +1,30 @@
+{
+  "catalog_id": "airflow",
+  "changed_file_count": 5,
+  "harvested_on": "2026-09-01",
+  "head_sha": "7397ccbe514f99c9730f1e0bea68a884bdbc9229",
+  "merged_at": "2026-08-30T17:56:21Z",
+  "note": "test-file excerpts only; not a checkwash verdict",
+  "owner_repo": "apache/airflow",
+  "pr_number": 72299,
+  "test_file_count": 2,
+  "test_files": [
+    {
+      "additions": 79,
+      "deletions": 0,
+      "filename": "scripts/tests/ci/testing/test_compute_remaining_test_timeout.py",
+      "patch": "@@ -0,0 +1,79 @@\n+# Licensed to the Apache Software Foundation (ASF) under one\n+# or more contributor license agreements.  See the NOTICE file\n+# distributed with this work for additional information\n+# regarding copyright ownership.  The ASF licenses this file\n+# to you under the Apache License, Version 2.0 (the\n+# \"License\"); you may not use this file except in compliance\n+# with the License.  You may obtain a copy of the License at\n+#\n+#   http://www.apache.org/licenses/LICENSE-2.0\n+#\n+# Unless required by applicable law or agreed to in writing,\n+# software distributed under the License is distributed on an\n+# \"AS IS\" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY\n+# KIND, either express or implied.  See the License for the\n+# specific language governing permissions and limitations\n+# under the License.\n+from __future__ import annotations\n+\n+import importlib.util\n+import sys\n+from datetime import datetime, timezone\n+from pathlib import Path\n+\n+import pytest\n+import time_machine\n+\n+MODULE_PATH = (\n+    Path(__file__).resolve().parents[4] / \"scripts\" / \"ci\" / \"testing\" / \"compute_remaining_test_timeout.py\"\n+)\n+\n+\n+@pytest.fixture\n+def timeout_module():\n+    module_name = \"test_compute_remaining_test_timeout_module\"\n+    sys.modules.pop(module_name, None)\n+    spec = importlib.util.spec_from_file_location(module_name, MODULE_PATH)\n+    module = importlib.util.module_from_spec(spec)\n+    assert spec.loader is not None\n+    sys.modules[module_name] = module\n+    spec.loader.exec_module(module)\n+    return module\n+\n+\n+@pytest.mark.parametrize(\n+    (\"job_timeout_seconds\", \"elapsed_seconds\", \"expected_seconds\"),\n+    [\n+        pytest.param(65 * 60, 8 * 60, 3120, id=\"image-pull-only\"),\n+        pytest.param(65 * 60, 25 * 60, 2100, id=\"image-pull-and-slow-migration-tests\"),\n+        pytest.param(65 * 60, 55 * 60, 600, id=\"floor-applies-when-budget-nearly-gone\"),\n+        pytest.param(65 * 60, 70 * 60, 600, id=\"floor-applies-when-budget-overrun\"),\n+    ],\n+)\n+def test_compute_remaining_test_timeout(\n+    timeout_module, job_timeout_seconds, elapsed_seconds, expected_seconds\n+):\n+    assert (\n+        timeout_module.compute_remaining_test_timeout(job_timeout_seconds, elapsed_seconds)\n+        == expected_seconds\n+    )\n+\n+\n+@time_machine.travel(\"2026-08-29 12:10:00+00:00\", tick=False)\n+def test_main_derives_the_budget_left_from_the_job_start_time(timeout_module, monkeypatch, capsys):\n+    job_start_epoch = int(datetime(2026, 8, 29, 12, 0, tzinfo=timezone.utc).timestamp())\n+    monkeypatch.setattr(\n+        sys,\n+        \"argv\",\n+        [\n+            \"compute_remaining_test_timeout.py\",\n+            \"--job-timeout-minutes\",\n+            \"65\",\n+            \"--job-start-epoch\",\n+            str(job_start_epoch),\n+        ],\n+    )\n+\n+    timeout_module.main()\n+\n+    assert int(capsys.readouterr().out) == (65 - 10 - 5) * 60",
+      "status": "added"
+    },
+    {
+      "additions": 38,
+      "deletions": 0,
+      "filename": "scripts/tests/ci/testing/test_run_unit_tests.py",
+      "patch": "@@ -0,0 +1,38 @@\n+# Licensed to the Apache Software Foundation (ASF) under one\n+# or more contributor license agreements.  See the NOTICE file\n+# distributed with this work for additional information\n+# regarding copyright ownership.  The ASF licenses this file\n+# to you under the Apache License, Version 2.0 (the\n+# \"License\"); you may not use this file except in compliance\n+# with the License.  You may obtain a copy of the License at\n+#\n+#   http://www.apache.org/licenses/LICENSE-2.0\n+#\n+# Unless required by applicable law or agreed to in writing,\n+# software distributed under the License is distributed on an\n+# \"AS IS\" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY\n+# KIND, either express or implied.  See the License for the\n+# specific language governing permissions and limitations\n+# under the License.\n+from __future__ import annotations\n+\n+import subprocess\n+from pathlib import Path\n+\n+SCRIPT_PATH = Path(__file__).resolve().parents[4] / \"scripts\" / \"ci\" / \"testing\" / \"run_unit_tests.sh\"\n+\n+# Deliberately excludes the directory holding breeze, so a regression that lets the script run on\n+# past the guard cannot start a real test run - it fails to find breeze instead.\n+MINIMAL_ENVIRONMENT = {\"PATH\": \"/usr/bin:/bin\"}\n+\n+\n+def test_run_unit_tests_aborts_when_the_job_budget_is_missing_in_github_actions():\n+    result = subprocess.run(\n+        [\"bash\", str(SCRIPT_PATH), \"core\", \"DB\"],\n+        env={**MINIMAL_ENVIRONMENT, \"GITHUB_ACTIONS\": \"true\"},\n+        capture_output=True,\n+        text=True,\n+        check=False,\n+    )\n+    assert result.returncode == 1\n+    assert \"JOB_START_EPOCH and JOB_TIMEOUT_MINUTES must both be set\" in result.stdout",
+      "status": "added"
+    }
+  ],
+  "title": "[v3-3-test] Make the CI unit test timeout fire before the job timeout…",
+  "url": "https://github.com/apache/airflow/pull/72299",
+  "wave": "wave1-mock-power"
+}

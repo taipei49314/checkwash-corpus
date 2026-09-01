@@ -1,0 +1,23 @@
+{
+  "catalog_id": "airflow",
+  "changed_file_count": 2,
+  "harvested_on": "2026-09-01",
+  "head_sha": "66a696e0f841caf3f546c3dd8c5666fdd102bc8e",
+  "merged_at": "2026-08-31T21:51:59Z",
+  "note": "test-file excerpts only; not a checkwash verdict",
+  "owner_repo": "apache/airflow",
+  "pr_number": 72339,
+  "test_file_count": 1,
+  "test_files": [
+    {
+      "additions": 65,
+      "deletions": 0,
+      "filename": "airflow-core/src/airflow/ui/src/components/DurationChart.test.tsx",
+      "patch": "@@ -0,0 +1,65 @@\n+/*!\n+ * Licensed to the Apache Software Foundation (ASF) under one\n+ * or more contributor license agreements.  See the NOTICE file\n+ * distributed with this work for additional information\n+ * regarding copyright ownership.  The ASF licenses this file\n+ * to you under the Apache License, Version 2.0 (the\n+ * \"License\"); you may not use this file except in compliance\n+ * with the License.  You may obtain a copy of the License at\n+ *\n+ *   http://www.apache.org/licenses/LICENSE-2.0\n+ *\n+ * Unless required by applicable law or agreed to in writing,\n+ * software distributed under the License is distributed on an\n+ * \"AS IS\" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY\n+ * KIND, either express or implied.  See the License for the\n+ * specific language governing permissions and limitations\n+ * under the License.\n+ */\n+import { render } from \"@testing-library/react\";\n+import { Bar } from \"react-chartjs-2\";\n+import { describe, expect, it, vi } from \"vitest\";\n+\n+import type { GridRunsResponse } from \"openapi/requests/types.gen\";\n+import { TimezoneContext } from \"src/context/timezone\";\n+import { Wrapper } from \"src/utils/Wrapper\";\n+\n+import { DurationChart } from \"./DurationChart\";\n+\n+const makeRun = (runAfter: string): GridRunsResponse => ({\n+  dag_id: \"tutorial_dag\",\n+  duration: 60,\n+  end_date: `${runAfter.slice(0, -1)}:01:00Z`,\n+  has_missed_deadline: false,\n+  has_note: false,\n+  queued_at: runAfter,\n+  run_after: runAfter,\n+  run_id: runAfter,\n+  run_type: \"scheduled\",\n+  start_date: runAfter,\n+  state: \"success\",\n+});\n+\n+// A Dag scheduled twice a day: the two runs land 12 hours apart on the same date.\n+const entries = [makeRun(\"2026-08-20T08:30:00Z\"), makeRun(\"2026-08-20T20:30:00Z\")];\n+\n+const renderChart = (selectedTimezone: string) => {\n+  render(\n+    <TimezoneContext.Provider value={{ selectedTimezone, setSelectedTimezone: vi.fn() }}>\n+      <DurationChart entries={entries} kind=\"Dag Run\" />\n+    </TimezoneContext.Provider>,\n+    { wrapper: Wrapper },\n+  );\n+\n+  return vi.mocked(Bar).mock.calls.at(-1)?.[0].data.labels;\n+};\n+\n+describe(\"DurationChart\", () => {\n+  it.each([\n+    { expected: [\"2026-08-20 08:30:00\", \"2026-08-20 20:30:00\"], timezone: \"UTC\" },\n+    { expected: [\"2026-08-20 17:30:00\", \"2026-08-21 05:30:00\"], timezone: \"Asia/Tokyo\" },\n+    { expected: [\"2026-08-20 04:30:00\", \"2026-08-20 16:30:00\"], timezone: \"America/New_York\" },\n+  ])(\"labels each bar in the $timezone timezone\", ({ expected, timezone }) => {\n+    expect(renderChart(timezone)).toEqual(expected);\n+  });\n+});",
+      "status": "added"
+    }
+  ],
+  "title": "[v3-3-test] UI: Show duration chart tooltips in the selected timezone (#72024)",
+  "url": "https://github.com/apache/airflow/pull/72339",
+  "wave": "wave1-mock-power"
+}

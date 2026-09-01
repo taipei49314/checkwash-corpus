@@ -1,0 +1,23 @@
+{
+  "catalog_id": "mlflow",
+  "changed_file_count": 2,
+  "harvested_on": "2026-09-01",
+  "head_sha": "2cecf5b968bb6db09e708284b83e3ffed7edcbcf",
+  "merged_at": "2026-09-01T02:21:18Z",
+  "note": "test-file excerpts only; not a checkwash verdict",
+  "owner_repo": "mlflow/mlflow",
+  "pr_number": 25498,
+  "test_file_count": 1,
+  "test_files": [
+    {
+      "additions": 33,
+      "deletions": 0,
+      "filename": "tests/entities/test_evaluation_dataset.py",
+      "patch": "@@ -744,3 +744,36 @@ def test_delete_records():\n     )\n     # Verify cache was cleared\n     assert dataset._records is None\n+\n+\n+def test_validate_schema_with_empty_records_after_to_dict():\n+    \"\"\"Regression test for https://github.com/mlflow/mlflow/issues/25490.\n+\n+    to_dict()/to_df() sets _records=[] on an empty dataset. A subsequent\n+    merge_records() call must not raise IndexError in _get_existing_granularity().\n+    \"\"\"\n+    dataset = EvaluationDataset(\n+        dataset_id=\"dataset123\",\n+        name=\"test_dataset\",\n+        digest=\"digest123\",\n+        created_time=123456789,\n+        last_update_time=123456789,\n+    )\n+\n+    # Simulate the state after to_dict()/to_df() on an empty dataset\n+    dataset._records = []\n+\n+    new_record = {\n+        \"inputs\": {\"question\": \"What is the capital of France?\"},\n+        \"expectations\": {\"name\": \"expected_answer\", \"value\": \"Paris\"},\n+    }\n+\n+    mock_store = Mock()\n+    mock_store.upsert_dataset_records.return_value = None\n+    # schema=None forces _get_existing_granularity into the _records branch under test\n+    mock_store.get_dataset.return_value.schema = None\n+\n+    with patch(\"mlflow.tracking._tracking_service.utils._get_store\", return_value=mock_store):\n+        dataset.merge_records([new_record])\n+\n+    mock_store.upsert_dataset_records.assert_called_once()",
+      "status": "modified"
+    }
+  ],
+  "title": "Fix `IndexError` in `merge_records` after `to_dict`/`to_df` on empty `EvaluationDataset`",
+  "url": "https://github.com/mlflow/mlflow/pull/25498",
+  "wave": "wave1-mock-power"
+}

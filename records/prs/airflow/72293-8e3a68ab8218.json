@@ -1,0 +1,23 @@
+{
+  "catalog_id": "airflow",
+  "changed_file_count": 1,
+  "harvested_on": "2026-09-01",
+  "head_sha": "8e3a68ab8218ac9f3e98dfc5a0ad6e871ef8fc85",
+  "merged_at": "2026-08-30T18:31:02Z",
+  "note": "test-file excerpts only; not a checkwash verdict",
+  "owner_repo": "apache/airflow",
+  "pr_number": 72293,
+  "test_file_count": 1,
+  "test_files": [
+    {
+      "additions": 9,
+      "deletions": 7,
+      "filename": "airflow-core/tests/unit/api_fastapi/core_api/services/ui/test_connections.py",
+      "patch": "@@ -350,11 +350,10 @@ def test_missing_fab_dependencies_are_replaced_by_mock_modules(self, find_spec):\n \n     def test_patched_helpers_return_the_mock_substitutes(self):\n         \"\"\"\n-        The substitutes are reached through ``wtforms.validators``, not ``sys.modules``.\n+        Exactly one of the two ``wtforms.validators`` mocks receives the substitute.\n \n-        ``mock.patch`` resolves ``wtforms.validators.any_of`` by attribute lookup on the ``wtforms``\n-        mock, which is a different object from the ``sys.modules[\"wtforms.validators\"]`` mock that\n-        ``from wtforms.validators import any_of`` would return.\n+        Different Python versions can resolve the dotted patch target to either object, so check\n+        both paths without relying on a particular resolution strategy.\n         \"\"\"\n         captured = {}\n \n@@ -363,14 +362,17 @@ def read_patched_helpers():\n             import wtforms\n \n             captured[\"label\"] = flask_babel.lazy_gettext(\"Some label\")\n-            captured[\"validator\"] = wtforms.validators.any_of([\"a\", \"b\"])\n+            captured[\"validators\"] = [\n+                sys.modules[\"wtforms.validators\"].any_of([\"a\", \"b\"]),\n+                wtforms.validators.any_of([\"a\", \"b\"]),\n+            ]\n             return mock.MagicMock(spec=ProvidersManager)\n \n         self.call_without_fab_modules(find_spec_raises, read_patched_helpers)\n \n         assert captured[\"label\"] == \"Some label\"\n-        assert isinstance(captured[\"validator\"], HookMetaService.MockEnum)\n-        assert captured[\"validator\"].allowed_values == [\"a\", \"b\"]\n+        substitutes = [v for v in captured[\"validators\"] if isinstance(v, HookMetaService.MockEnum)]\n+        assert [substitute.allowed_values for substitute in substitutes] == [[\"a\", \"b\"]]\n \n \n class TestHookMetaData:",
+      "status": "modified"
+    }
+  ],
+  "title": "Fix connection hook metadata test failing on Python 3.11 and newer",
+  "url": "https://github.com/apache/airflow/pull/72293",
+  "wave": "wave1-mock-power"
+}

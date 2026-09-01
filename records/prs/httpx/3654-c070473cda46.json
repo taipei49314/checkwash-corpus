@@ -1,0 +1,37 @@
+{
+  "catalog_id": "httpx",
+  "changed_file_count": 4,
+  "harvested_on": "2026-09-01",
+  "head_sha": "c070473cda466f1f4cbbed2c23dcc8afc8b9ebbe",
+  "merged_at": "2025-09-04T13:48:49Z",
+  "note": "test-file excerpts only; not a checkwash verdict",
+  "owner_repo": "encode/httpx",
+  "pr_number": 3654,
+  "test_file_count": 3,
+  "test_files": [
+    {
+      "additions": 1,
+      "deletions": 1,
+      "filename": "tests/client/test_auth.py",
+      "patch": "@@ -326,7 +326,7 @@ async def test_auth_property() -> None:\n     async with httpx.AsyncClient(transport=httpx.MockTransport(app)) as client:\n         assert client.auth is None\n \n-        client.auth = (\"user\", \"password123\")  # type: ignore\n+        client.auth = (\"user\", \"password123\")\n         assert isinstance(client.auth, httpx.BasicAuth)\n \n         url = \"https://example.org/\"",
+      "status": "modified"
+    },
+    {
+      "additions": 6,
+      "deletions": 6,
+      "filename": "tests/client/test_properties.py",
+      "patch": "@@ -3,35 +3,35 @@\n \n def test_client_base_url():\n     client = httpx.Client()\n-    client.base_url = \"https://www.example.org/\"  # type: ignore\n+    client.base_url = \"https://www.example.org/\"\n     assert isinstance(client.base_url, httpx.URL)\n     assert client.base_url == \"https://www.example.org/\"\n \n \n def test_client_base_url_without_trailing_slash():\n     client = httpx.Client()\n-    client.base_url = \"https://www.example.org/path\"  # type: ignore\n+    client.base_url = \"https://www.example.org/path\"\n     assert isinstance(client.base_url, httpx.URL)\n     assert client.base_url == \"https://www.example.org/path/\"\n \n \n def test_client_base_url_with_trailing_slash():\n     client = httpx.Client()\n-    client.base_url = \"https://www.example.org/path/\"  # type: ignore\n+    client.base_url = \"https://www.example.org/path/\"\n     assert isinstance(client.base_url, httpx.URL)\n     assert client.base_url == \"https://www.example.org/path/\"\n \n \n def test_client_headers():\n     client = httpx.Client()\n-    client.headers = {\"a\": \"b\"}  # type: ignore\n+    client.headers = {\"a\": \"b\"}\n     assert isinstance(client.headers, httpx.Headers)\n     assert client.headers[\"A\"] == \"b\"\n \n \n def test_client_cookies():\n     client = httpx.Client()\n-    client.cookies = {\"a\": \"b\"}  # type: ignore\n+    client.cookies = {\"a\": \"b\"}\n     assert isinstance(client.cookies, httpx.Cookies)\n     mycookies = list(client.cookies.jar)\n     assert len(mycookies) == 1\n@@ -42,7 +42,7 @@ def test_client_timeout():\n     expected_timeout = 12.0\n     client = httpx.Client()\n \n-    client.timeout = expected_timeout  # type: ignore\n+    client.timeout = expected_timeout\n \n     assert isinstance(client.timeout, httpx.Timeout)\n     assert client.timeout.connect == expected_timeout",
+      "status": "modified"
+    },
+    {
+      "additions": 1,
+      "deletions": 1,
+      "filename": "tests/client/test_queryparams.py",
+      "patch": "@@ -17,7 +17,7 @@ def test_client_queryparams_string():\n     assert client.params[\"a\"] == \"b\"\n \n     client = httpx.Client()\n-    client.params = \"a=b\"  # type: ignore\n+    client.params = \"a=b\"\n     assert isinstance(client.params, httpx.QueryParams)\n     assert client.params[\"a\"] == \"b\"\n ",
+      "status": "modified"
+    }
+  ],
+  "title": "Upgrade Python type checker mypy",
+  "url": "https://github.com/encode/httpx/pull/3654",
+  "wave": "wave0-published-fp"
+}

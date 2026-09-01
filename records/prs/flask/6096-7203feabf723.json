@@ -1,0 +1,30 @@
+{
+  "catalog_id": "flask",
+  "changed_file_count": 4,
+  "harvested_on": "2026-09-01",
+  "head_sha": "7203feabf723edae0286ae5dc64fec8ac4c91735",
+  "merged_at": "2026-08-11T19:48:41Z",
+  "note": "test-file excerpts only; not a checkwash verdict",
+  "owner_repo": "pallets/flask",
+  "pr_number": 6096,
+  "test_file_count": 2,
+  "test_files": [
+    {
+      "additions": 1,
+      "deletions": 0,
+      "filename": "tests/test_basic.py",
+      "patch": "@@ -1910,6 +1910,7 @@ def run_simple_mock(hostname, port, application, *args, **kwargs):\n         (\"localhost\", 0, \"localhost:8080\", \"localhost\", 0),\n         (None, None, \"localhost:8080\", \"localhost\", 8080),\n         (None, None, \"localhost:0\", \"localhost\", 0),\n+        (None, None, \"[::1]:8080\", \"::1\", 8080),\n     ),\n )\n def test_run_from_config(",
+      "status": "modified"
+    },
+    {
+      "additions": 14,
+      "deletions": 0,
+      "filename": "tests/test_testing.py",
+      "patch": "@@ -171,6 +171,20 @@ def index():\n             assert sess[\"foo\"] == [42]\n \n \n+def test_session_transaction_ipv6(app):\n+    base_url = \"http://[::1]:8000/\"\n+    client = app.test_client()\n+\n+    @app.get(\"/\")\n+    def index():\n+        return str(flask.session.get(\"value\"))\n+\n+    with client.session_transaction(base_url=base_url) as sess:\n+        sess[\"value\"] = 42\n+\n+    assert client.get(\"/\", base_url=base_url).text == \"42\"\n+\n+\n def test_session_transactions_no_null_sessions():\n     app = flask.Flask(__name__)\n ",
+      "status": "modified"
+    }
+  ],
+  "title": "Fix `.partition(\":\")` usage on potential IPv6 addresses",
+  "url": "https://github.com/pallets/flask/pull/6096",
+  "wave": "wave0-published-fp"
+}

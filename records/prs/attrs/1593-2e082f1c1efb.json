@@ -1,0 +1,23 @@
+{
+  "catalog_id": "attrs",
+  "changed_file_count": 3,
+  "harvested_on": "2026-09-01",
+  "head_sha": "2e082f1c1efb019885fbdb601b32f8464dbe5d47",
+  "merged_at": "2026-07-31T13:30:57Z",
+  "note": "test-file excerpts only; not a checkwash verdict",
+  "owner_repo": "python-attrs/attrs",
+  "pr_number": 1593,
+  "test_file_count": 1,
+  "test_files": [
+    {
+      "additions": 18,
+      "deletions": 0,
+      "filename": "tests/test_annotations.py",
+      "patch": "@@ -434,6 +434,23 @@ class C:\n \n         assert_init_annotations(C)\n \n+    @pytest.mark.skipif(\n+        sys.version_info[:2] < (3, 14),\n+        reason=\"Python 3.14 changed annotation evaluation behavior.\",\n+    )\n+    def test_missing_classvar_import(self, slots):\n+        \"\"\"\n+        Unimported ClassVars are recognized as ForwardRefs.\n+        \"\"\"\n+\n+        @attr.s(auto_attribs=True, slots=slots)\n+        class C:\n+            cls_var: ClassVar[str]  # noqa: F821\n+            value: int = 1\n+\n+        assert \"cls_var\" not in attr.fields_dict(C)\n+        assert 1 == C().value\n+\n     def test_keyword_only_auto_attribs(self):\n         \"\"\"\n         `kw_only` propagates to attributes defined via `auto_attribs`.\n@@ -691,6 +708,7 @@ class A:\n         \"typing.ClassVar\",\n         \"'typing.ClassVar[dict]'\",\n         \"t.ClassVar[int]\",\n+        typing.ForwardRef(\"ClassVar[str]\"),\n     ],\n )\n def test_is_class_var(annot):",
+      "status": "modified"
+    }
+  ],
+  "title": "Fix ClassVar forward reference detection",
+  "url": "https://github.com/python-attrs/attrs/pull/1593",
+  "wave": "wave0-published-fp"
+}

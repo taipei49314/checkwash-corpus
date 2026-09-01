@@ -1,0 +1,23 @@
+{
+  "catalog_id": "rich",
+  "changed_file_count": 4,
+  "harvested_on": "2026-09-01",
+  "head_sha": "2e5a5dad304b59d75aa4b4ed6cae031693e3615e",
+  "merged_at": "2026-01-24T21:40:01Z",
+  "note": "test-file excerpts only; not a checkwash verdict",
+  "owner_repo": "Textualize/rich",
+  "pr_number": 3944,
+  "test_file_count": 1,
+  "test_files": [
+    {
+      "additions": 6,
+      "deletions": 0,
+      "filename": "tests/test_cells.py",
+      "patch": "@@ -181,3 +181,9 @@ def test_split_graphemes(\n     assert cell_len(text) == expected_cell_length\n     assert spans == expected_spans\n     assert cell_length == expected_cell_length\n+\n+\n+def test_nerd_font():\n+    \"\"\"Regression test for https://github.com/Textualize/rich/issues/3943\"\"\"\n+    # Not allocated by unicode, but used by nerd fonts\n+    assert cell_len(\"\\U000f024d\") == 1",
+      "status": "modified"
+    }
+  ],
+  "title": "fix fonts",
+  "url": "https://github.com/Textualize/rich/pull/3944",
+  "wave": "wave0-published-fp"
+}

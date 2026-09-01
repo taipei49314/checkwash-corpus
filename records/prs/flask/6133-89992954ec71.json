@@ -1,0 +1,23 @@
+{
+  "catalog_id": "flask",
+  "changed_file_count": 3,
+  "harvested_on": "2026-09-01",
+  "head_sha": "89992954ec71b594b1b911f98977cdc8ad46a057",
+  "merged_at": "2026-08-11T20:19:14Z",
+  "note": "test-file excerpts only; not a checkwash verdict",
+  "owner_repo": "pallets/flask",
+  "pr_number": 6133,
+  "test_file_count": 1,
+  "test_files": [
+    {
+      "additions": 5,
+      "deletions": 2,
+      "filename": "tests/test_basic.py",
+      "patch": "@@ -7,6 +7,7 @@\n from contextlib import nullcontext\n from datetime import datetime\n from datetime import timezone\n+from functools import partial\n from platform import python_implementation\n \n import pytest\n@@ -52,10 +53,12 @@ def index_put():\n     assert sorted(rv.allow) == [\"GET\", \"HEAD\", \"OPTIONS\", \"POST\", \"PUT\"]\n \n \n-@pytest.mark.parametrize(\"method\", [\"get\", \"post\", \"put\", \"delete\", \"patch\"])\n+@pytest.mark.parametrize(\"method\", [\"get\", \"query\", \"post\", \"put\", \"delete\", \"patch\"])\n def test_method_route(app, client, method):\n     method_route = getattr(app, method)\n-    client_method = getattr(client, method)\n+    client_method = getattr(\n+        client, method, partial(client.open, method=method.capitalize())\n+    )\n \n     @method_route(\"/\")\n     def hello():",
+      "status": "modified"
+    }
+  ],
+  "title": "add `app.query` route decorator",
+  "url": "https://github.com/pallets/flask/pull/6133",
+  "wave": "wave0-published-fp"
+}

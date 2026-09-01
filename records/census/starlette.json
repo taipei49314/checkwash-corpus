@@ -1,0 +1,33 @@
+{
+  "catalog_id": "starlette",
+  "counts": {
+    "approx_sites": 0,
+    "files_scanned": 67,
+    "js_test_files": 0,
+    "patch_sites": 12,
+    "py_files": 67,
+    "runner_files": 0,
+    "skip_sites": 5,
+    "unittest_asserts": 0
+  },
+  "owner_repo": "encode/starlette",
+  "prior_power": null,
+  "probes": {
+    "approx": "pytest\\.approx|assertAlmostEqual",
+    "js_test_globs": [
+      "**/*.test.js",
+      "**/*.test.jsx",
+      "**/*.test.ts",
+      "**/*.test.tsx",
+      "**/*.spec.js",
+      "**/*.spec.jsx",
+      "**/*.spec.ts",
+      "**/*.spec.tsx"
+    ],
+    "patch": "monkeypatch\\.set|mock\\.patch|patch\\.object|mocker\\.patch|respx|responses\\.|freeze_time",
+    "skip": "pytest\\.mark\\.skip|pytest\\.mark\\.xfail|unittest\\.skip|self\\.skipTest",
+    "unittest_assert": "\\bself\\.assert[A-Z]"
+  },
+  "revision": "5174d4c8358a6f06aa8056bafd14c2272dab8dd1",
+  "wave": "wave0-published-fp"
+}

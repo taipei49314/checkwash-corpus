@@ -1,0 +1,23 @@
+{
+  "catalog_id": "rich",
+  "changed_file_count": 1,
+  "harvested_on": "2026-09-01",
+  "head_sha": "f07a3fc5f5f4d5bfc0152cca4b103369934cd8b6",
+  "merged_at": "2026-02-19T17:06:35Z",
+  "note": "test-file excerpts only; not a checkwash verdict",
+  "owner_repo": "Textualize/rich",
+  "pr_number": 4007,
+  "test_file_count": 1,
+  "test_files": [
+    {
+      "additions": 10,
+      "deletions": 0,
+      "filename": "tests/test_cells.py",
+      "patch": "@@ -209,6 +209,16 @@ def test_is_single_cell_widths() -> None:\n             [(0, 2, 0)],\n             0,\n         ),  # Two ZWJs should have zero width\n+        (\n+            \"\\x1b\\ufe0f\",\n+            [(0, 2, 0)],\n+            0,\n+        ),  # VS16 after escape (zero-width, doesn't set last_measured_character) should have zero width\n+        (\n+            \"\\u200d\\ufe0f\",\n+            [(0, 2, 0)],\n+            0,\n+        ),  # VS16 after ZWJ (zero-width, doesn't set last_measured_character) should have zero width\n     ],\n )\n def test_split_graphemes(",
+      "status": "modified"
+    }
+  ],
+  "title": "Add regression tests for VS16 after zero-width chars in split_graphemes",
+  "url": "https://github.com/Textualize/rich/pull/4007",
+  "wave": "wave0-published-fp"
+}

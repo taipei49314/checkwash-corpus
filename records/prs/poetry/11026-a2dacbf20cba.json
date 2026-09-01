@@ -1,0 +1,583 @@
+{
+  "catalog_id": "poetry",
+  "changed_file_count": 81,
+  "harvested_on": "2026-09-01",
+  "head_sha": "a2dacbf20cba7486796933efb96ae257843ad1e5",
+  "merged_at": "2026-08-29T13:38:04Z",
+  "note": "test-file excerpts only; not a checkwash verdict",
+  "owner_repo": "python-poetry/poetry",
+  "pr_number": 11026,
+  "test_file_count": 81,
+  "test_files": [
+    {
+      "additions": 0,
+      "deletions": 1,
+      "filename": "tests/repositories/fixtures/pypi.org/json/attrs.json",
+      "patch": "@@ -1,5 +1,4 @@\n {\n-  \"alternate-locations\": [],\n   \"files\": [\n     {\n       \"core-metadata\": {",
+      "status": "modified"
+    },
+    {
+      "additions": 4,
+      "deletions": 0,
+      "filename": "tests/repositories/fixtures/pypi.org/json/attrs/17.4.0.json",
+      "patch": "@@ -78,6 +78,9 @@\n   \"urls\": [\n     {\n       \"comment_text\": \"\",\n+      \"core-metadata\": {\n+        \"sha256\": \"a4d813359f86b8c38a37d8573fcc144cec2fb416062097a4cce9bc07704a4727\"\n+      },\n       \"digests\": {\n         \"md5\": \"7fe37931797b16c7fa158017457a9ea9\",\n         \"sha256\": \"1fbfc10ebc8c876dcbab17f016b80ae1a4f0c1413461a695871427960795beb4\"\n@@ -98,6 +101,7 @@\n     },\n     {\n       \"comment_text\": \"\",\n+      \"core-metadata\": false,\n       \"digests\": {\n         \"md5\": \"c03e5b3608d9071fbd098850d8922668\",\n         \"sha256\": \"eb7536a1e6928190b3008c5b350bdf9850d619fff212341cd096f87a27a5e564\"",
+      "status": "modified"
+    },
+    {
+      "additions": 0,
+      "deletions": 1,
+      "filename": "tests/repositories/fixtures/pypi.org/json/black.json",
+      "patch": "@@ -1,5 +1,4 @@\n {\n-  \"alternate-locations\": [],\n   \"files\": [\n     {\n       \"core-metadata\": {",
+      "status": "modified"
+    },
+    {
+      "additions": 4,
+      "deletions": 0,
+      "filename": "tests/repositories/fixtures/pypi.org/json/black/19.10b0.json",
+      "patch": "@@ -89,6 +89,9 @@\n   \"urls\": [\n     {\n       \"comment_text\": \"\",\n+      \"core-metadata\": {\n+        \"sha256\": \"50de349c6a155534a9bcbad307036c5e065d648c282854abac30c73fa07bf80d\"\n+      },\n       \"digests\": {\n         \"md5\": \"acc537b0f3f7ebf575616490d7cc14f4\",\n         \"sha256\": \"13001c5b7dbc81137164b43137320a1785e95ce84e4db849279786877ac6d7f6\"\n@@ -109,6 +112,7 @@\n     },\n     {\n       \"comment_text\": \"\",\n+      \"core-metadata\": false,\n       \"digests\": {\n         \"md5\": \"c383543109a66a5a99113e6326db5251\",\n         \"sha256\": \"6cada614d5d2132698c6d5fff384657273d922c4fffa6a2f0de9e03e25b8913a\"",
+      "status": "modified"
+    },
+    {
+      "additions": 4,
+      "deletions": 0,
+      "filename": "tests/repositories/fixtures/pypi.org/json/black/21.11b0.json",
+      "patch": "@@ -99,6 +99,9 @@\n   \"urls\": [\n     {\n       \"comment_text\": \"\",\n+      \"core-metadata\": {\n+        \"sha256\": \"edd8e8e0803d2df231a1a3ccb2717b294d24bf1e58c18bbf5d1e3fbb96d31d99\"\n+      },\n       \"digests\": {\n         \"md5\": \"92942a9efabf8e321a11360667ad2494\",\n         \"sha256\": \"38f6ad54069912caf2fa2d4f25d0c5dedef4b2338a0cb545dbe2fdf54a6a8891\"\n@@ -119,6 +122,7 @@\n     },\n     {\n       \"comment_text\": \"\",\n+      \"core-metadata\": false,\n       \"digests\": {\n         \"md5\": \"f01267bf2613f825dd6684629c1c829e\",\n         \"sha256\": \"f23c482185d842e2f19d506e55c004061167e3c677c063ecd721042c62086ada\"",
+      "status": "modified"
+    },
+    {
+      "additions": 0,
+      "deletions": 1,
+      "filename": "tests/repositories/fixtures/pypi.org/json/cleo.json",
+      "patch": "@@ -1,5 +1,4 @@\n {\n-  \"alternate-locations\": [],\n   \"files\": [\n     {\n       \"core-metadata\": {",
+      "status": "modified"
+    },
+    {
+      "additions": 4,
+      "deletions": 0,
+      "filename": "tests/repositories/fixtures/pypi.org/json/cleo/1.0.0a5.json",
+      "patch": "@@ -64,6 +64,9 @@\n   \"urls\": [\n     {\n       \"comment_text\": \"\",\n+      \"core-metadata\": {\n+        \"sha256\": \"892426a14eeae04120b2baa0212d7090f3a22e64ffd5d0ad3bc4c515b59a9c89\"\n+      },\n       \"digests\": {\n         \"md5\": \"19ed7de77063e8f16bc459276ccbe197\",\n         \"sha256\": \"d0cfea878b77be28be027033e6af419b705abe47278067a7c3a298f39cf825c5\"\n@@ -84,6 +87,7 @@\n     },\n     {\n       \"comment_text\": \"\",\n+      \"core-metadata\": false,\n       \"digests\": {\n         \"md5\": \"92e181952976e09b9d1c583da6c3e2fc\",\n         \"sha256\": \"88f0a4275a17f2ab4d013786b8b9522d4c60bd37d8fc9b3def0fb27f4ac1e694\"",
+      "status": "modified"
+    },
+    {
+      "additions": 0,
+      "deletions": 1,
+      "filename": "tests/repositories/fixtures/pypi.org/json/clikit.json",
+      "patch": "@@ -1,5 +1,4 @@\n {\n-  \"alternate-locations\": [],\n   \"files\": [\n     {\n       \"core-metadata\": {",
+      "status": "modified"
+    },
+    {
+      "additions": 4,
+      "deletions": 0,
+      "filename": "tests/repositories/fixtures/pypi.org/json/clikit/0.2.4.json",
+      "patch": "@@ -65,6 +65,9 @@\n   \"urls\": [\n     {\n       \"comment_text\": \"\",\n+      \"core-metadata\": {\n+        \"sha256\": \"15f6a6ff6510ae910edb11bb14b080688513579dbb1f17a16daf875906569185\"\n+      },\n       \"digests\": {\n         \"md5\": \"93a51e8bf259c29692e51a7cbca6d664\",\n         \"sha256\": \"27316bf6382b04be8fb2f60c85d538fd2b2b03f0f1eba5c88f7d7eddbefc2778\"\n@@ -85,6 +88,7 @@\n     },\n     {\n       \"comment_text\": \"\",\n+      \"core-metadata\": false,\n       \"digests\": {\n         \"md5\": \"f7cdbad3508038a04561f646aae68146\",\n         \"sha256\": \"0fdd41e86e8b118a8b1e94ef2835925ada541d481c9b3b2fc635fa68713e6125\"",
+      "status": "modified"
+    },
+    {
+      "additions": 0,
+      "deletions": 1,
+      "filename": "tests/repositories/fixtures/pypi.org/json/colorama.json",
+      "patch": "@@ -1,5 +1,4 @@\n {\n-  \"alternate-locations\": [],\n   \"files\": [\n     {\n       \"core-metadata\": {",
+      "status": "modified"
+    },
+    {
+      "additions": 4,
+      "deletions": 0,
+      "filename": "tests/repositories/fixtures/pypi.org/json/colorama/0.3.9.json",
+      "patch": "@@ -72,6 +72,9 @@\n   \"urls\": [\n     {\n       \"comment_text\": \"\",\n+      \"core-metadata\": {\n+        \"sha256\": \"9140c2741fd7568fe9bb84d205125452ab1d6e1c967df9639a882a7ae8bc9372\"\n+      },\n       \"digests\": {\n         \"md5\": \"8021c861015b5f590be41190bc3f8eed\",\n         \"sha256\": \"78a441d2e984c790526cdef1cfd8415a366979ef5b3186771a055b35886953bf\"\n@@ -92,6 +95,7 @@\n     },\n     {\n       \"comment_text\": \"\",\n+      \"core-metadata\": false,\n       \"digests\": {\n         \"md5\": \"8323a5b84fdf7ad810804e51fc256b39\",\n         \"sha256\": \"4c5a15209723ce1330a5c193465fe221098f761e9640d823a2ce7c03f983137f\"",
+      "status": "modified"
+    },
+    {
+      "additions": 0,
+      "deletions": 1,
+      "filename": "tests/repositories/fixtures/pypi.org/json/discord-py.json",
+      "patch": "@@ -1,5 +1,4 @@\n {\n-  \"alternate-locations\": [],\n   \"files\": [\n     {\n       \"core-metadata\": {",
+      "status": "modified"
+    },
+    {
+      "additions": 4,
+      "deletions": 0,
+      "filename": "tests/repositories/fixtures/pypi.org/json/discord-py/2.0.0.json",
+      "patch": "@@ -83,6 +83,9 @@\n   \"urls\": [\n     {\n       \"comment_text\": \"\",\n+      \"core-metadata\": {\n+        \"sha256\": \"9a67e27fe067ace2169e406619fcf39ac779d60060bb658cb85dc4682c85f634\"\n+      },\n       \"digests\": {\n         \"md5\": \"65394fc868632423cedb6be7259db970\",\n         \"sha256\": \"25b9739ba456622655203a0925b354c0ba96ac6c740562e7c37791c2f6b594fb\"\n@@ -103,6 +106,7 @@\n     },\n     {\n       \"comment_text\": \"\",\n+      \"core-metadata\": false,\n       \"digests\": {\n         \"md5\": \"6c0505a6032342b29f31f9979f37d277\",\n         \"sha256\": \"b86fa9dd562684f7a52564e6dfe0216f6c172a009c0d86b8dea8bdd6ffa6b1f4\"",
+      "status": "modified"
+    },
+    {
+      "additions": 0,
+      "deletions": 1,
+      "filename": "tests/repositories/fixtures/pypi.org/json/filecache.json",
+      "patch": "@@ -1,5 +1,4 @@\n {\n-  \"alternate-locations\": [],\n   \"files\": [\n     {\n       \"core-metadata\": {",
+      "status": "modified"
+    },
+    {
+      "additions": 4,
+      "deletions": 0,
+      "filename": "tests/repositories/fixtures/pypi.org/json/filecache/0.81.json",
+      "patch": "@@ -59,6 +59,9 @@\n   \"urls\": [\n     {\n       \"comment_text\": \"\",\n+      \"core-metadata\": {\n+        \"sha256\": \"21bcf450c50ad94e37ad88bce7b8106cb1bdad20402d979e57da8e4f4f71294d\"\n+      },\n       \"digests\": {\n         \"blake2b_256\": \"eb79f96a2addff21798ea11aa51ae15052514e9ac0ab4ab9470ddd1a0da6fd3e\",\n         \"md5\": \"0979123d410d2e411025d2e369a10179\",\n@@ -80,6 +83,7 @@\n     },\n     {\n       \"comment_text\": \"\",\n+      \"core-metadata\": false,\n       \"digests\": {\n         \"blake2b_256\": \"b3f5647f13b1cae32f8d3b84866f6bac688b7923c5d7643b994e5e89865c9a2a\",\n         \"md5\": \"f4c8b0e4aba2e37a4d2045a1470fa018\",",
+      "status": "modified"
+    },
+    {
+      "additions": 0,
+      "deletions": 1,
+      "filename": "tests/repositories/fixtures/pypi.org/json/funcsigs.json",
+      "patch": "@@ -1,5 +1,4 @@\n {\n-  \"alternate-locations\": [],\n   \"files\": [\n     {\n       \"core-metadata\": {",
+      "status": "modified"
+    },
+    {
+      "additions": 4,
+      "deletions": 0,
+      "filename": "tests/repositories/fixtures/pypi.org/json/funcsigs/1.0.2.json",
+      "patch": "@@ -75,6 +75,9 @@\n   \"urls\": [\n     {\n       \"comment_text\": \"\",\n+      \"core-metadata\": {\n+        \"sha256\": \"7c806b375f1eb481cf48265ed1aabc4944a5981c1fbed974d827bfb6129516d9\"\n+      },\n       \"digests\": {\n         \"blake2b_256\": \"69cbf5be453359271714c01b9bd06126eaf2e368f1fddfff30818754b5ac2328\",\n         \"md5\": \"701d58358171f34b6d1197de2923a35a\",\n@@ -96,6 +99,7 @@\n     },\n     {\n       \"comment_text\": \"\",\n+      \"core-metadata\": false,\n       \"digests\": {\n         \"blake2b_256\": \"944adb842e7a0545de1cdb0439bb80e6e42dfe82aaeaadd4072f2263a4fbed23\",\n         \"md5\": \"7e583285b1fb8a76305d6d68f4ccc14e\",",
+      "status": "modified"
+    },
+    {
+      "additions": 0,
+      "deletions": 1,
+      "filename": "tests/repositories/fixtures/pypi.org/json/futures.json",
+      "patch": "@@ -1,5 +1,4 @@\n {\n-  \"alternate-locations\": [],\n   \"files\": [\n     {\n       \"core-metadata\": {",
+      "status": "modified"
+    },
+    {
+      "additions": 4,
+      "deletions": 0,
+      "filename": "tests/repositories/fixtures/pypi.org/json/futures/3.2.0.json",
+      "patch": "@@ -61,6 +61,9 @@\n   \"urls\": [\n     {\n       \"comment_text\": \"\",\n+      \"core-metadata\": {\n+        \"sha256\": \"02a2b035758c39be414a32a2582d2c4f072465cb99b487c727d145d863052ffe\"\n+      },\n       \"digests\": {\n         \"md5\": \"f81c5c27f3ba2efc008cc96363a81c5e\",\n         \"sha256\": \"41353b36198757a766cfc82dc9b60e88ecb28e543dd92473b2cc74fc7bf205af\"\n@@ -81,6 +84,7 @@\n     },\n     {\n       \"comment_text\": \"\",\n+      \"core-metadata\": false,\n       \"digests\": {\n         \"md5\": \"40eb168dab84e606df3fdb7e67fe27b7\",\n         \"sha256\": \"baf0d469c9e541b747986b7404cd63a5496955bd0c43a3cc068c449b09b7d4a4\"",
+      "status": "modified"
+    },
+    {
+      "additions": 0,
+      "deletions": 1,
+      "filename": "tests/repositories/fixtures/pypi.org/json/hbmqtt.json",
+      "patch": "@@ -1,5 +1,4 @@\n {\n-  \"alternate-locations\": [],\n   \"files\": [\n     {\n       \"core-metadata\": false,",
+      "status": "modified"
+    },
+    {
+      "additions": 3,
+      "deletions": 0,
+      "filename": "tests/repositories/fixtures/pypi.org/json/hbmqtt/0.9.6.json",
+      "patch": "@@ -62,6 +62,7 @@\n   \"urls\": [\n     {\n       \"comment_text\": \"\",\n+      \"core-metadata\": false,\n       \"digests\": {\n         \"blake2b_256\": \"ee27912d1d8c307a72985edf0b6ad9fc1c32e22bfc42efbd0244902c43bd9307\",\n         \"md5\": \"e7ecbb2bf3aa2b3b5b2a47dc5289039a\",\n@@ -83,6 +84,7 @@\n     },\n     {\n       \"comment_text\": \"\",\n+      \"core-metadata\": false,\n       \"digests\": {\n         \"blake2b_256\": \"4f4b69014d0fd585b45bfdb77ef0e70bcf035fc8fc798c2a0610fd7cfae56cfd\",\n         \"md5\": \"d7896681b8d7d27b53302350b5b3c9c2\",\n@@ -104,6 +106,7 @@\n     },\n     {\n       \"comment_text\": \"\",\n+      \"core-metadata\": false,\n       \"digests\": {\n         \"md5\": \"b284e3118882f169aa618a856cd91c5f\",\n         \"sha256\": \"379f1d9044997c69308ac2e01621c817b5394e1fbe0696e62538ae2dd0aa7e07\"",
+      "status": "modified"
+    },
+    {
+      "additions": 0,
+      "deletions": 1,
+      "filename": "tests/repositories/fixtures/pypi.org/json/importlib-metadata.json",
+      "patch": "@@ -1,5 +1,4 @@\n {\n-  \"alternate-locations\": [],\n   \"files\": [\n     {\n       \"core-metadata\": {",
+      "status": "modified"
+    },
+    {
+      "additions": 4,
+      "deletions": 0,
+      "filename": "tests/repositories/fixtures/pypi.org/json/importlib-metadata/1.7.0.json",
+      "patch": "@@ -75,6 +75,9 @@\n   \"urls\": [\n     {\n       \"comment_text\": \"\",\n+      \"core-metadata\": {\n+        \"sha256\": \"02f33601c52135b17fd98ca8f2db725410a1fea19b44769113731582b1d80d5c\"\n+      },\n       \"digests\": {\n         \"blake2b_256\": \"8e58cdea07eb51fc2b906db0968a94700866fc46249bdc75cac23f9d13168929\",\n         \"md5\": \"8ae1f31228e29443c08e07501a99d1b8\",\n@@ -96,6 +99,7 @@\n     },\n     {\n       \"comment_text\": \"\",\n+      \"core-metadata\": false,\n       \"digests\": {\n         \"blake2b_256\": \"e2ae0b037584024c1557e537d25482c306cf6327b5a09b6c4b893579292c1c38\",\n         \"md5\": \"4505ea85600cca1e693a4f8f5dd27ba8\",",
+      "status": "modified"
+    },
+    {
+      "additions": 0,
+      "deletions": 1,
+      "filename": "tests/repositories/fixtures/pypi.org/json/ipython.json",
+      "patch": "@@ -1,5 +1,4 @@\n {\n-  \"alternate-locations\": [],\n   \"files\": [\n     {\n       \"core-metadata\": {",
+      "status": "modified"
+    },
+    {
+      "additions": 5,
+      "deletions": 0,
+      "filename": "tests/repositories/fixtures/pypi.org/json/ipython/4.1.0rc1.json",
+      "patch": "@@ -121,6 +121,9 @@\n   \"urls\": [\n     {\n       \"comment_text\": \"\",\n+      \"core-metadata\": {\n+        \"sha256\": \"ad06c78c59547c822f72c2758b51935ae8e4056bd8909a8fd8912bf7d9f88fa7\"\n+      },\n       \"digests\": {\n         \"blake2b_256\": \"ac0204a5d372b4e64f9c97b2846646aec1ce4532885005aa4ba51eb20b80e17f\",\n         \"md5\": \"512f0431c850c75a12baa9f8c4a9f12f\",\n@@ -142,6 +145,7 @@\n     },\n     {\n       \"comment_text\": \"\",\n+      \"core-metadata\": false,\n       \"digests\": {\n         \"blake2b_256\": \"a0def71f0c8b8a26ef28cc968fbf1859729ad3e68146cd2eb4a759e9c88da218\",\n         \"md5\": \"2aff56d8e78341f64663bcbc81366376\",\n@@ -163,6 +167,7 @@\n     },\n     {\n       \"comment_text\": \"\",\n+      \"core-metadata\": false,\n       \"digests\": {\n         \"blake2b_256\": \"71f09d670266b840b8b921dc7106ecddd892f6fb893424883498e1ba3ec3a3a1\",\n         \"md5\": \"a9ff233f176dd99b076b81dc8904ab7a\",",
+      "status": "modified"
+    },
+    {
+      "additions": 7,
+      "deletions": 0,
+      "filename": "tests/repositories/fixtures/pypi.org/json/ipython/5.7.0.json",
+      "patch": "@@ -130,6 +130,9 @@\n   \"urls\": [\n     {\n       \"comment_text\": \"\",\n+      \"core-metadata\": {\n+        \"sha256\": \"130f1323b932eb7b6fefa2928c20eaeebfa90ef94c06347a3a960566b98bdcd0\"\n+      },\n       \"digests\": {\n         \"md5\": \"20da5e0b1f79dccb37f033a885d798d7\",\n         \"sha256\": \"4608e3e0500fe8142659d149891400fc0b9fa250051814b569457ae4688943dc\"\n@@ -150,6 +153,9 @@\n     },\n     {\n       \"comment_text\": \"\",\n+      \"core-metadata\": {\n+        \"sha256\": \"5251032152a45b01a679c73fab3a836053167987c9343251cd29bd39b8f9f1c7\"\n+      },\n       \"digests\": {\n         \"md5\": \"2844fa01618fe27ab99ad455d605b47d\",\n         \"sha256\": \"4292c026552a77b2edc0543941516eddd6fe1a4b681a76ac40b3f585d2fca76f\"\n@@ -170,6 +176,7 @@\n     },\n     {\n       \"comment_text\": \"\",\n+      \"core-metadata\": false,\n       \"digests\": {\n         \"md5\": \"01f2808ebe78ff2f28dc39be3aa635ca\",\n         \"sha256\": \"4e7fb265e0264498bd0d62c6261936a658bf3d38beb8a7b10cd2c6327c62ac2a\"",
+      "status": "modified"
+    },
+    {
+      "additions": 4,
+      "deletions": 0,
+      "filename": "tests/repositories/fixtures/pypi.org/json/ipython/7.5.0.json",
+      "patch": "@@ -133,6 +133,9 @@\n   \"urls\": [\n     {\n       \"comment_text\": \"\",\n+      \"core-metadata\": {\n+        \"sha256\": \"3b26900950637e01c03a8de278805adb022c5bbb1e94db2f31d137b5266b7726\"\n+      },\n       \"digests\": {\n         \"md5\": \"f40ea889fb7adf989760c5e7a38bd112\",\n         \"sha256\": \"1b4c76bf1e8dd9067a4f5ab4695d4c5ad81c30d7d06f7592f4c069c389e37f37\"\n@@ -153,6 +156,7 @@\n     },\n     {\n       \"comment_text\": \"\",\n+      \"core-metadata\": false,\n       \"digests\": {\n         \"md5\": \"0e8c1d7c14f309f6cd2dfd4e48e75cb1\",\n         \"sha256\": \"cd2a17ac273fea8bf8953118a2d83bad94f592f0db3e83fff9129a1842e36dbe\"",
+      "status": "modified"
+    },
+    {
+      "additions": 0,
+      "deletions": 1,
+      "filename": "tests/repositories/fixtures/pypi.org/json/isodate.json",
+      "patch": "@@ -1,5 +1,4 @@\n {\n-  \"alternate-locations\": [],\n   \"files\": [\n     {\n       \"core-metadata\": {",
+      "status": "modified"
+    },
+    {
+      "additions": 4,
+      "deletions": 0,
+      "filename": "tests/repositories/fixtures/pypi.org/json/isodate/0.7.0.json",
+      "patch": "@@ -66,6 +66,9 @@\n   \"urls\": [\n     {\n       \"comment_text\": \"\",\n+      \"core-metadata\": {\n+        \"sha256\": \"5b34e05570e2af0903a5708cd738093c881aee395991c7c29e0c9d66be226d26\"\n+      },\n       \"digests\": {\n         \"md5\": \"1af9e3ee3f5669186356afd2dbe7ce81\",\n         \"sha256\": \"04505f97eb100b66dff1239859e6e04ab913714c453d6ab9591adbf418285847\"\n@@ -86,6 +89,7 @@\n     },\n     {\n       \"comment_text\": \"\",\n+      \"core-metadata\": false,\n       \"digests\": {\n         \"md5\": \"5668b7b7120797f03330363000afc35a\",\n         \"sha256\": \"167c3615c0bd2e498c9bae7a1aba5863a17e52299aafd89f17a3a091187dca74\"",
+      "status": "modified"
+    },
+    {
+      "additions": 0,
+      "deletions": 1,
+      "filename": "tests/repositories/fixtures/pypi.org/json/isort.json",
+      "patch": "@@ -1,5 +1,4 @@\n {\n-  \"alternate-locations\": [],\n   \"files\": [\n     {\n       \"core-metadata\": {",
+      "status": "modified"
+    },
+    {
+      "additions": 7,
+      "deletions": 0,
+      "filename": "tests/repositories/fixtures/pypi.org/json/isort/4.3.4.json",
+      "patch": "@@ -71,6 +71,9 @@\n   \"urls\": [\n     {\n       \"comment_text\": \"\",\n+      \"core-metadata\": {\n+        \"sha256\": \"561b4d1df93acbcc6faf926888b5fecfa124ba1485b6e93b9385d14029c91654\"\n+      },\n       \"digests\": {\n         \"md5\": \"42bccda292eca3c91eadf3eb781a224f\",\n         \"sha256\": \"383c39c10b5db83e8d150ac5b84d74bda96e3a1b06a30257f022dcbcd21f54b9\"\n@@ -91,6 +94,9 @@\n     },\n     {\n       \"comment_text\": \"\",\n+      \"core-metadata\": {\n+        \"sha256\": \"ef154fdc33fc83453712f0ebb447bbc86a09f36f888c202eace50a4278476980\"\n+      },\n       \"digests\": {\n         \"md5\": \"6c3b582d7782633ec23917b00a97a2fe\",\n         \"sha256\": \"5668dce9fb48544c57ed626982e190c8ea99e3a612850453e9c3b193b9fa2edc\"\n@@ -111,6 +117,7 @@\n     },\n     {\n       \"comment_text\": \"\",\n+      \"core-metadata\": false,\n       \"digests\": {\n         \"md5\": \"9244631852cf8bd8559f7ab78bf4ec78\",\n         \"sha256\": \"234ad07e1e2780c27fa56364eefa734bee991b0d744337ef7e7ce3d5b1b59f39\"",
+      "status": "modified"
+    },
+    {
+      "additions": 0,
+      "deletions": 1,
+      "filename": "tests/repositories/fixtures/pypi.org/json/jupyter.json",
+      "patch": "@@ -1,5 +1,4 @@\n {\n-  \"alternate-locations\": [],\n   \"files\": [\n     {\n       \"core-metadata\": {",
+      "status": "modified"
+    },
+    {
+      "additions": 5,
+      "deletions": 0,
+      "filename": "tests/repositories/fixtures/pypi.org/json/jupyter/1.0.0.json",
+      "patch": "@@ -90,6 +90,9 @@\n   \"urls\": [\n     {\n       \"comment_text\": \"\",\n+      \"core-metadata\": {\n+        \"sha256\": \"579415fa7a062aa5ee60372caba9b64db5352020efae88849f45aca0dc5f7bab\"\n+      },\n       \"digests\": {\n         \"md5\": \"27f411f164e0878104d76d868127f76f\",\n         \"sha256\": \"1de1f2be45629dd6f7f9558e2385ddf6901849699ef1044c52d171a9b520a420\"\n@@ -110,6 +113,7 @@\n     },\n     {\n       \"comment_text\": \"\",\n+      \"core-metadata\": false,\n       \"digests\": {\n         \"md5\": \"78acaec88533ea6b6e761e7d086a1d04\",\n         \"sha256\": \"3ef1e86ba0556ea5922b846416a41acfd2625830d996c7d06d80c90bed1dc193\"\n@@ -130,6 +134,7 @@\n     },\n     {\n       \"comment_text\": \"\",\n+      \"core-metadata\": false,\n       \"digests\": {\n         \"md5\": \"7b7a957694a73ac0c19fe46c216c0ea0\",\n         \"sha256\": \"4a855b9717c3ea24fd8ca4fd91ab5995894aecc4d20e7f39c28786a2c1869fae\"",
+      "status": "modified"
+    },
+    {
+      "additions": 0,
+      "deletions": 1,
+      "filename": "tests/repositories/fixtures/pypi.org/json/more-itertools.json",
+      "patch": "@@ -1,5 +1,4 @@\n {\n-  \"alternate-locations\": [],\n   \"files\": [\n     {\n       \"core-metadata\": false,",
+      "status": "modified"
+    },
+    {
+      "additions": 7,
+      "deletions": 0,
+      "filename": "tests/repositories/fixtures/pypi.org/json/more-itertools/4.1.0.json",
+      "patch": "@@ -69,6 +69,9 @@\n   \"urls\": [\n     {\n       \"comment_text\": \"\",\n+      \"core-metadata\": {\n+        \"sha256\": \"a8964dc0f60abd1b94b00e7b48fa304da0a8e1655e3c4cd355193fdf86cc3830\"\n+      },\n       \"digests\": {\n         \"md5\": \"703e1e0922de1f11823da60af1488b7a\",\n         \"sha256\": \"0f461c2cd4ec16611396f9ee57f40433de3d59e95475d84c0c829cde02f746cd\"\n@@ -89,6 +92,9 @@\n     },\n     {\n       \"comment_text\": \"\",\n+      \"core-metadata\": {\n+        \"sha256\": \"a8964dc0f60abd1b94b00e7b48fa304da0a8e1655e3c4cd355193fdf86cc3830\"\n+      },\n       \"digests\": {\n         \"md5\": \"ae17a45d13e9dc319794c40fa739c38f\",\n         \"sha256\": \"580b6002d1f28feb5bcb8303278d59cf17dfbd19a63a5c2375112dae72c9bf98\"\n@@ -109,6 +115,7 @@\n     },\n     {\n       \"comment_text\": \"\",\n+      \"core-metadata\": false,\n       \"digests\": {\n         \"md5\": \"bf351a1050242ce3af7e475a4da1a26b\",\n         \"sha256\": \"bab2dc6f4be8f9a4a72177842c5283e2dff57c167439a03e3d8d901e854f0f2e\"",
+      "status": "modified"
+    },
+    {
+      "additions": 0,
+      "deletions": 1,
+      "filename": "tests/repositories/fixtures/pypi.org/json/pastel.json",
+      "patch": "@@ -1,5 +1,4 @@\n {\n-  \"alternate-locations\": [],\n   \"files\": [\n     {\n       \"core-metadata\": {",
+      "status": "modified"
+    },
+    {
+      "additions": 4,
+      "deletions": 0,
+      "filename": "tests/repositories/fixtures/pypi.org/json/pastel/0.1.0.json",
+      "patch": "@@ -61,6 +61,9 @@\n   \"urls\": [\n     {\n       \"comment_text\": \"\",\n+      \"core-metadata\": {\n+        \"sha256\": \"cf50590355f03d1956c461705e74e4cf1f34730179656436d3c2a8dede08c4f7\"\n+      },\n       \"digests\": {\n         \"md5\": \"cf7c53ab0a5d7e7c721425b24b486124\",\n         \"sha256\": \"754d192c088e256d52a3f825c3b9e14252d5adc70f53656453f6431e50a70b99\"\n@@ -81,6 +84,7 @@\n     },\n     {\n       \"comment_text\": \"\",\n+      \"core-metadata\": false,\n       \"digests\": {\n         \"md5\": \"43ea5f07660f630da18ae1827f5b4333\",\n         \"sha256\": \"22f14474c4120b37c54ac2173b49b0ac1de9283ca714be6eb3ea8b39296285a9\"",
+      "status": "modified"
+    },
+    {
+      "additions": 0,
+      "deletions": 1,
+      "filename": "tests/repositories/fixtures/pypi.org/json/pluggy.json",
+      "patch": "@@ -1,5 +1,4 @@\n {\n-  \"alternate-locations\": [],\n   \"files\": [\n     {\n       \"core-metadata\": {",
+      "status": "modified"
+    },
+    {
+      "additions": 7,
+      "deletions": 0,
+      "filename": "tests/repositories/fixtures/pypi.org/json/pluggy/0.6.0.json",
+      "patch": "@@ -88,6 +88,9 @@\n   \"urls\": [\n     {\n       \"comment_text\": \"\",\n+      \"core-metadata\": {\n+        \"sha256\": \"2619993dba4e0b2f54c1133acdba43a1126625e6f81388fe92f21864335b2caa\"\n+      },\n       \"digests\": {\n         \"md5\": \"095eed084713c9b2a9a01520485e20fb\",\n         \"sha256\": \"f5f767d398f18aa177976bf9c4d0c05d96487a7d8f07062251585803aaf56246\"\n@@ -108,6 +111,9 @@\n     },\n     {\n       \"comment_text\": \"\",\n+      \"core-metadata\": {\n+        \"sha256\": \"b433d019ba4cbd16284aa255c5440e2134988195f042123c489ac3b0c217029a\"\n+      },\n       \"digests\": {\n         \"md5\": \"2b6dc266f54023dfb26726686ee6b227\",\n         \"sha256\": \"d34798b80853ab688de1a3ca5b99ba4de91c459c19c76a555dc939979ae67eb0\"\n@@ -128,6 +134,7 @@\n     },\n     {\n       \"comment_text\": \"\",\n+      \"core-metadata\": false,\n       \"digests\": {\n         \"md5\": \"ef8a88abcd501afd47cb22245fe4315a\",\n         \"sha256\": \"a982e208d054867661d27c6d2a86b17ba05fbb6b1bdc01f42660732dd107f865\"",
+      "status": "modified"
+    },
+    {
+      "additions": 0,
+      "deletions": 1,
+      "filename": "tests/repositories/fixtures/pypi.org/json/poetry-core.json",
+      "patch": "@@ -1,5 +1,4 @@\n {\n-  \"alternate-locations\": [],\n   \"files\": [\n     {\n       \"core-metadata\": {",
+      "status": "modified"
+    },
+    {
+      "additions": 4,
+      "deletions": 0,
+      "filename": "tests/repositories/fixtures/pypi.org/json/poetry-core/1.5.0.json",
+      "patch": "@@ -59,6 +59,9 @@\n   \"urls\": [\n     {\n       \"comment_text\": \"\",\n+      \"core-metadata\": {\n+        \"sha256\": \"e083e8b53ccf4edfa539f16e84e0e77e6e7aff1c5b90fba52c66cba0b617a098\"\n+      },\n       \"digests\": {\n         \"md5\": \"be7589b4902793e66d7d979bd8581591\",\n         \"sha256\": \"e216b70f013c47b82a72540d34347632c5bfe59fd54f5fe5d51f6a68b19aaf84\"\n@@ -79,6 +82,7 @@\n     },\n     {\n       \"comment_text\": \"\",\n+      \"core-metadata\": false,\n       \"digests\": {\n         \"md5\": \"3f9b36a7a94cd235bfd5f05794828445\",\n         \"sha256\": \"0ae8d28caf5c12ec1714b16d2e7157ddd52397ea6bfdeba5a9432e449a0184da\"",
+      "status": "modified"
+    },
+    {
+      "additions": 4,
+      "deletions": 0,
+      "filename": "tests/repositories/fixtures/pypi.org/json/poetry-core/2.1.3.json",
+      "patch": "@@ -57,6 +57,9 @@\n   \"urls\": [\n     {\n       \"comment_text\": null,\n+      \"core-metadata\": {\n+        \"sha256\": \"399bf27819cb58d64a726b423bc9efec43d5f2186826eeaf9766218b5f51601a\"\n+      },\n       \"digests\": {\n         \"md5\": \"edbd124754fbb14141470a75d415be48\",\n         \"sha256\": \"2c704f05016698a54ca1d327f46ce2426d72eaca6ff614132c8477c292266771\"\n@@ -77,6 +80,7 @@\n     },\n     {\n       \"comment_text\": null,\n+      \"core-metadata\": false,\n       \"digests\": {\n         \"md5\": \"e57da2d8bd726c565a04d9183a8c36ed\",\n         \"sha256\": \"0610f27f3e8b688fc7d7bdd2a5d197a755248a85cf4c77e5279b3e6bcfde0677\"",
+      "status": "modified"
+    },
+    {
+      "additions": 0,
+      "deletions": 1,
+      "filename": "tests/repositories/fixtures/pypi.org/json/py.json",
+      "patch": "@@ -1,5 +1,4 @@\n {\n-  \"alternate-locations\": [],\n   \"files\": [\n     {\n       \"core-metadata\": {",
+      "status": "modified"
+    },
+    {
+      "additions": 4,
+      "deletions": 0,
+      "filename": "tests/repositories/fixtures/pypi.org/json/py/1.5.3.json",
+      "patch": "@@ -89,6 +89,9 @@\n   \"urls\": [\n     {\n       \"comment_text\": \"\",\n+      \"core-metadata\": {\n+        \"sha256\": \"461e9727669af780862622cb07e1aef6b55e633adddf4368097568ed1397ed27\"\n+      },\n       \"digests\": {\n         \"md5\": \"b316b380701661cb67732ecdaef30eeb\",\n         \"sha256\": \"ef4a94f47156178e42ef8f2b131db420e0f4b6aa0b3936b6dbde6ad6487476a5\"\n@@ -109,6 +112,7 @@\n     },\n     {\n       \"comment_text\": \"\",\n+      \"core-metadata\": false,\n       \"digests\": {\n         \"md5\": \"623e80cfc06df930414a9ce4bf0fd6c9\",\n         \"sha256\": \"2df2c513c3af11de15f58189ba5539ddc4768c6f33816dc5c03950c8bd6180fa\"",
+      "status": "modified"
+    },
+    {
+      "additions": 0,
+      "deletions": 1,
+      "filename": "tests/repositories/fixtures/pypi.org/json/pylev.json",
+      "patch": "@@ -1,5 +1,4 @@\n {\n-  \"alternate-locations\": [],\n   \"files\": [\n     {\n       \"core-metadata\": {",
+      "status": "modified"
+    },
+    {
+      "additions": 4,
+      "deletions": 0,
+      "filename": "tests/repositories/fixtures/pypi.org/json/pylev/1.3.0.json",
+      "patch": "@@ -58,6 +58,9 @@\n   \"urls\": [\n     {\n       \"comment_text\": \"\",\n+      \"core-metadata\": {\n+        \"sha256\": \"9166f5ee3d3de5bdf1cf51b3c741b200aa4536a2b3d2baecfd33fed69575f2bd\"\n+      },\n       \"digests\": {\n         \"blake2b_256\": \"401c7dff1d242bf1e19f9c6202f0ba4e6fd18cc7ecb8bc85b17b2d16c806e228\",\n         \"md5\": \"6da14dfce5034873fc5c2d7a6e83dc29\",\n@@ -79,6 +82,7 @@\n     },\n     {\n       \"comment_text\": \"\",\n+      \"core-metadata\": false,\n       \"digests\": {\n         \"blake2b_256\": \"cc61dab2081d3d86dcf0b9f5dcfb11b256d76cd14aad7ccdd7c8dd5e7f7e41a0\",\n         \"md5\": \"3be579cfc32ce5140cc04001f898741b\",",
+      "status": "modified"
+    },
+    {
+      "additions": 0,
+      "deletions": 1,
+      "filename": "tests/repositories/fixtures/pypi.org/json/pytest.json",
+      "patch": "@@ -1,5 +1,4 @@\n {\n-  \"alternate-locations\": [],\n   \"files\": [\n     {\n       \"core-metadata\": {",
+      "status": "modified"
+    },
+    {
+      "additions": 4,
+      "deletions": 0,
+      "filename": "tests/repositories/fixtures/pypi.org/json/pytest/3.5.0.json",
+      "patch": "@@ -100,6 +100,9 @@\n   \"urls\": [\n     {\n       \"comment_text\": \"\",\n+      \"core-metadata\": {\n+        \"sha256\": \"38a6e6e26c14fef68c703a88011dab133d81b9b025328f03383b66235a29e86e\"\n+      },\n       \"digests\": {\n         \"md5\": \"4a8651dec151e76f283bf59e333286f9\",\n         \"sha256\": \"427b4582bda18e92ad1967e8b1e071e2c53e6cb7e3e5f090cb3ca443455be23f\"\n@@ -120,6 +123,7 @@\n     },\n     {\n       \"comment_text\": \"\",\n+      \"core-metadata\": false,\n       \"digests\": {\n         \"md5\": \"ccd78dac54112045f561c4df86631f19\",\n         \"sha256\": \"677b1d6decd29c041fe64276f29f79fbe66e40c59e445eb251366b4a8ab8bf68\"",
+      "status": "modified"
+    },
+    {
+      "additions": 4,
+      "deletions": 0,
+      "filename": "tests/repositories/fixtures/pypi.org/json/pytest/3.5.1.json",
+      "patch": "@@ -102,6 +102,9 @@\n   \"urls\": [\n     {\n       \"comment_text\": \"\",\n+      \"core-metadata\": {\n+        \"sha256\": \"5bd46b56f8e265d4f282b62d06d722773a5e485c9654f16c4a700207e0c5387e\"\n+      },\n       \"digests\": {\n         \"md5\": \"1e81fba94885bef80170545d045924eb\",\n         \"sha256\": \"d327df3686046c5b374a9776d9e11606f7dba6fb3db5cf5d60ebc78a31e0768e\"\n@@ -122,6 +125,7 @@\n     },\n     {\n       \"comment_text\": \"\",\n+      \"core-metadata\": false,\n       \"digests\": {\n         \"md5\": \"961104636090457187851ccb9ef0f677\",\n         \"sha256\": \"b8fe151f3e181801dd38583a1c03818fbc662a8fce96c9063a0af624613e78f8\"",
+      "status": "modified"
+    },
+    {
+      "additions": 0,
+      "deletions": 1,
+      "filename": "tests/repositories/fixtures/pypi.org/json/python-language-server.json",
+      "patch": "@@ -1,5 +1,4 @@\n {\n-  \"alternate-locations\": [],\n   \"files\": [\n     {\n       \"core-metadata\": false,",
+      "status": "modified"
+    },
+    {
+      "additions": 1,
+      "deletions": 0,
+      "filename": "tests/repositories/fixtures/pypi.org/json/python-language-server/0.21.2.json",
+      "patch": "@@ -50,6 +50,7 @@\n   \"urls\": [\n     {\n       \"comment_text\": \"\",\n+      \"core-metadata\": false,\n       \"digests\": {\n         \"md5\": \"677602ec38bc1c7b72de6128d90d846b\",\n         \"sha256\": \"91b564e092f3135b2bac70dbd23d283da5ad50269766a76648787b69fe702c7e\"",
+      "status": "modified"
+    },
+    {
+      "additions": 0,
+      "deletions": 1,
+      "filename": "tests/repositories/fixtures/pypi.org/json/pyyaml.json",
+      "patch": "@@ -1,5 +1,4 @@\n {\n-  \"alternate-locations\": [],\n   \"files\": [\n     {\n       \"core-metadata\": {",
+      "status": "modified"
+    },
+    {
+      "additions": 31,
+      "deletions": 0,
+      "filename": "tests/repositories/fixtures/pypi.org/json/pyyaml/3.13.0.json",
+      "patch": "@@ -72,6 +72,9 @@\n   \"urls\": [\n     {\n       \"comment_text\": \"\",\n+      \"core-metadata\": {\n+        \"sha256\": \"779873f748d45a14c0dc50ba34bd5100496517298ab2536122d350aec593ad67\"\n+      },\n       \"digests\": {\n         \"blake2b_256\": \"b82e9c2285870c9de070a1fa5ede702ab5fb329901b3cc4028c24f44eda27c5f\",\n         \"md5\": \"a83441aa7004e474bed6f6daeb61f27a\",\n@@ -93,6 +96,9 @@\n     },\n     {\n       \"comment_text\": \"\",\n+      \"core-metadata\": {\n+        \"sha256\": \"779873f748d45a14c0dc50ba34bd5100496517298ab2536122d350aec593ad67\"\n+      },\n       \"digests\": {\n         \"blake2b_256\": \"df4d1ef8d60464a171112401e17a3a3e88fdb1d5b44af7606e8652b2f39ee9ce\",\n         \"md5\": \"dd05ba2d6cb042452a3849dea13b94f0\",\n@@ -114,6 +120,9 @@\n     },\n     {\n       \"comment_text\": \"\",\n+      \"core-metadata\": {\n+        \"sha256\": \"098a272a86eb62810274bdab872f1351d3a9b54d360592fc05068e19bc6eb9d3\"\n+      },\n       \"digests\": {\n         \"blake2b_256\": \"35f0cf0363b5c431c3a828284903aeacc6bdbba342fd4d7871dda9a3b0b00d15\",\n         \"md5\": \"49365caa070d53e30deceae118e4fea8\",\n@@ -135,6 +144,9 @@\n     },\n     {\n       \"comment_text\": \"\",\n+      \"core-metadata\": {\n+        \"sha256\": \"098a272a86eb62810274bdab872f1351d3a9b54d360592fc05068e19bc6eb9d3\"\n+      },\n       \"digests\": {\n         \"blake2b_256\": \"8cbc8950092a86259dc511e02a4c3a517ed4b28a254e4da134e3c04e5264e5a3\",\n         \"md5\": \"0c486a54c19dd18b9e65a559886935c4\",\n@@ -156,6 +168,9 @@\n     },\n     {\n       \"comment_text\": \"\",\n+      \"core-metadata\": {\n+        \"sha256\": \"098a272a86eb62810274bdab872f1351d3a9b54d360592fc05068e19bc6eb9d3\"\n+      },\n       \"digests\": {\n         \"blake2b_256\": \"29338bbcd3740d9e96cfb57427b8db7a12093402a3a83f2054887e027b2849de\",\n         \"md5\": \"53ce2b9f6b741fb2f070d12839b5789e\",\n@@ -177,6 +192,9 @@\n     },\n     {\n       \"comment_text\": \"\",\n+      \"core-metadata\": {\n+        \"sha256\": \"098a272a86eb62810274bdab872f1351d3a9b54d360592fc05068e19bc6eb9d3\"\n+      },\n       \"digests\": {\n         \"blake2b_256\": \"add4d895fb7ac1b0828151b829a32cefc8a8b58b4499570520b91af20982b880\",\n         \"md5\": \"1b70e7ced4c82364bda4ac9094d6e259\",\n@@ -198,6 +216,9 @@\n     },\n     {\n       \"comment_text\": \"\",\n+      \"core-metadata\": {\n+        \"sha256\": \"098a272a86eb62810274bdab872f1351d3a9b54d360592fc05068e19bc6eb9d3\"\n+      },\n       \"digests\": {\n         \"blake2b_256\": \"fb510c49c6caafe8d9a27ad9b0ca9f91adda5a5072b9efbbe7585fb97a4c71c4\",\n         \"md5\": \"8f62197b853b5b387ff588df05cee7a6\",\n@@ -219,6 +240,9 @@\n     },\n     {\n       \"comment_text\": \"\",\n+      \"core-metadata\": {\n+        \"sha256\": \"098a272a86eb62810274bdab872f1351d3a9b54d360592fc05068e19bc6eb9d3\"\n+      },\n       \"digests\": {\n         \"blake2b_256\": \"4fca5fad249c5032270540c24d2189b0ddf1396aac49b0bdc548162edcf14131\",\n         \"md5\": \"ff7280dd032d202b417871d39febadec\",\n@@ -240,6 +264,9 @@\n     },\n     {\n       \"comment_text\": \"\",\n+      \"core-metadata\": {\n+        \"sha256\": \"098a272a86eb62810274bdab872f1351d3a9b54d360592fc05068e19bc6eb9d3\"\n+      },\n       \"digests\": {\n         \"blake2b_256\": \"5cedd6557f70daaaab6ee5cd2f8ccf7bedd63081e522e38679c03840e1acc114\",\n         \"md5\": \"03ac720a2dcb18f2f1a3d026d281d778\",\n@@ -261,6 +288,9 @@\n     },\n     {\n       \"comment_text\": \"\",\n+      \"core-metadata\": {\n+        \"sha256\": \"098a272a86eb62810274bdab872f1351d3a9b54d360592fc05068e19bc6eb9d3\"\n+      },\n       \"digests\": {\n         \"blake2b_256\": \"bf96d02ef8e1f3073e07ffdc240444e5041f403f29c0775f9f1653f18221082f\",\n         \"md5\": \"02ab28701247a80e059daa6efe11e67d\",\n@@ -282,6 +312,7 @@\n     },\n     {\n       \"comment_text\": \"\",\n+      \"core-metadata\": false,\n       \"digests\": {\n         \"blake2b_256\": \"9ea31d13970c3f36777c583f136c136f804d70f500168edc1edea6daa7200769\",\n         \"md5\": \"b78b96636d68ac581c0e2f38158c224f\",",
+      "status": "modified"
+    },
+    {
+      "additions": 0,
+      "deletions": 1,
+      "filename": "tests/repositories/fixtures/pypi.org/json/requests.json",
+      "patch": "@@ -1,5 +1,4 @@\n {\n-  \"alternate-locations\": [],\n   \"files\": [\n     {\n       \"core-metadata\": {",
+      "status": "modified"
+    },
+    {
+      "additions": 4,
+      "deletions": 0,
+      "filename": "tests/repositories/fixtures/pypi.org/json/requests/2.18.0.json",
+      "patch": "@@ -83,6 +83,9 @@\n   \"urls\": [\n     {\n       \"comment_text\": \"\",\n+      \"core-metadata\": {\n+        \"sha256\": \"0f63e169f9c6de69c56d128ed9d480bbaa078e4eba32bac44669b8987f60ba5f\"\n+      },\n       \"digests\": {\n         \"blake2b_256\": \"e2f0c81405acbf53d0412b984eb3fc578cdd10e347374e1aec074638a500c186\",\n         \"md5\": \"6f34e2439fcb3dd1b6e3304903bb6be8\",\n@@ -104,6 +107,7 @@\n     },\n     {\n       \"comment_text\": \"\",\n+      \"core-metadata\": false,\n       \"digests\": {\n         \"blake2b_256\": \"e097e2f972b6826c9cfe57b6934e3773d2783733bc2d345d810bafd309df3d15\",\n         \"md5\": \"b8b333ace1653652ddcce95284577f5c\",",
+      "status": "modified"
+    },
+    {
+      "additions": 4,
+      "deletions": 0,
+      "filename": "tests/repositories/fixtures/pypi.org/json/requests/2.18.1.json",
+      "patch": "@@ -83,6 +83,9 @@\n   \"urls\": [\n     {\n       \"comment_text\": \"\",\n+      \"core-metadata\": {\n+        \"sha256\": \"e86bf30755abc6d7610ffbf6b2eb5e5e95ad5e5673d0d22e030372cc17b281d3\"\n+      },\n       \"digests\": {\n         \"blake2b_256\": \"5a58671011e3ff4a06e2969322267d78dcfda1bf4d1576551df1cce93cd7239d\",\n         \"md5\": \"a7fbdc82134a2610b3d0cdc7e59f0bde\",\n@@ -104,6 +107,7 @@\n     },\n     {\n       \"comment_text\": \"\",\n+      \"core-metadata\": false,\n       \"digests\": {\n         \"blake2b_256\": \"2cb52b6e8ef8dd18203b6399e9f28c7d54f6de7b7549853fe36d575bd31e29a7\",\n         \"md5\": \"40f723ed01dddeaf990d0609d073f021\",",
+      "status": "modified"
+    },
+    {
+      "additions": 4,
+      "deletions": 0,
+      "filename": "tests/repositories/fixtures/pypi.org/json/requests/2.18.2.json",
+      "patch": "@@ -83,6 +83,9 @@\n   \"urls\": [\n     {\n       \"comment_text\": \"\",\n+      \"core-metadata\": {\n+        \"sha256\": \"04c8fdb80658bb8f8563e7825b3d2f4b03aea02c727f5ad7ea6f32e495233b5f\"\n+      },\n       \"digests\": {\n         \"blake2b_256\": \"cffa31b222e4b44975de1b5ac3e1a725abdfeb00e0d761567ab426ee28a7fc73\",\n         \"md5\": \"08026e24839d8bf36d248abfb2b6b674\",\n@@ -104,6 +107,7 @@\n     },\n     {\n       \"comment_text\": \"\",\n+      \"core-metadata\": false,\n       \"digests\": {\n         \"blake2b_256\": \"072e81fdfdfac91cf3cb2518fb149ac67caf0e081b485eab68e9aee63396f7e8\",\n         \"md5\": \"49bd9924d3be341871bc922cde6f372e\",",
+      "status": "modified"
+    },
+    {
+      "additions": 4,
+      "deletions": 0,
+      "filename": "tests/repositories/fixtures/pypi.org/json/requests/2.18.3.json",
+      "patch": "@@ -83,6 +83,9 @@\n   \"urls\": [\n     {\n       \"comment_text\": \"\",\n+      \"core-metadata\": {\n+        \"sha256\": \"9ee8893b30376622ef592ba1a9e5fc9abd2e0839bdbc1e7c225257d6fb496225\"\n+      },\n       \"digests\": {\n         \"blake2b_256\": \"ba92c35ed010e8f96781f08dfa6d9a6a19445a175a9304aceedece77cd48b68f\",\n         \"md5\": \"d2d34c959a45f7da592a383485ad8b8c\",\n@@ -104,6 +107,7 @@\n     },\n     {\n       \"comment_text\": \"\",\n+      \"core-metadata\": false,\n       \"digests\": {\n         \"blake2b_256\": \"c338d95ddb6cc8558930600be088e174a2152261a1e0708a18bf91b5b8c90b22\",\n         \"md5\": \"c8f60cf816a35c0c3fef0a40d0e407a6\",",
+      "status": "modified"
+    },
+    {
+      "additions": 4,
+      "deletions": 0,
+      "filename": "tests/repositories/fixtures/pypi.org/json/requests/2.18.4.json",
+      "patch": "@@ -82,6 +82,9 @@\n   \"urls\": [\n     {\n       \"comment_text\": \"\",\n+      \"core-metadata\": {\n+        \"sha256\": \"e606fa46dd3258448b1e676f40ed5392dfc1398ad4fca2fce8aef38698f4c3c2\"\n+      },\n       \"digests\": {\n         \"md5\": \"e770e65750c42f40b97b0ed738d0f859\",\n         \"sha256\": \"098be851f30be5bcb2c7537798d44314f576e53818ba9def25141ae4dce8b25d\"\n@@ -102,6 +105,7 @@\n     },\n     {\n       \"comment_text\": \"\",\n+      \"core-metadata\": false,\n       \"digests\": {\n         \"md5\": \"942a6a383dc94da90cf58f5adcf028a4\",\n         \"sha256\": \"ec62f7e0e9d4814656b0172dbd592fea06127c6556ff5651eb5d2c8768671fd4\"",
+      "status": "modified"
+    },
+    {
+      "additions": 4,
+      "deletions": 0,
+      "filename": "tests/repositories/fixtures/pypi.org/json/requests/2.19.0.json",
+      "patch": "@@ -82,6 +82,9 @@\n   \"urls\": [\n     {\n       \"comment_text\": \"\",\n+      \"core-metadata\": {\n+        \"sha256\": \"d34a14e65ec267f5a1c3a2ac97c242f8250a2c47ce916e71041de7d9913748fb\"\n+      },\n       \"digests\": {\n         \"blake2b_256\": \"cc15e1c318dbc20032ffbe5628837ca0de2d5b116ffd1b849c699634010f6a5d\",\n         \"md5\": \"1ae2b89f8ea3e4aea8b199987fb2aae9\",\n@@ -103,6 +106,7 @@\n     },\n     {\n       \"comment_text\": \"\",\n+      \"core-metadata\": false,\n       \"digests\": {\n         \"blake2b_256\": \"752782da3fa4ea7a8c3526c48eaafe427352ff9c931633b917c2251826a43697\",\n         \"md5\": \"8a7844c58d496e9e92481de459830229\",",
+      "status": "modified"
+    },
+    {
+      "additions": 0,
+      "deletions": 1,
+      "filename": "tests/repositories/fixtures/pypi.org/json/setuptools.json",
+      "patch": "@@ -1,5 +1,4 @@\n {\n-  \"alternate-locations\": [],\n   \"files\": [\n     {\n       \"core-metadata\": {",
+      "status": "modified"
+    },
+    {
+      "additions": 4,
+      "deletions": 0,
+      "filename": "tests/repositories/fixtures/pypi.org/json/setuptools/39.2.0.json",
+      "patch": "@@ -78,6 +78,9 @@\n   \"urls\": [\n     {\n       \"comment_text\": \"\",\n+      \"core-metadata\": {\n+        \"sha256\": \"ee99cf01025e8997ad4cddd424462474f76dce3a03152c6f6f7072378912c731\"\n+      },\n       \"digests\": {\n         \"blake2b_256\": \"7fe1820d941153923aac1d49d7fc37e17b6e73bfbd2904959fffbad77900cf92\",\n         \"md5\": \"8d066d2201311ed30be535b473e32fed\",\n@@ -99,6 +102,7 @@\n     },\n     {\n       \"comment_text\": \"\",\n+      \"core-metadata\": false,\n       \"digests\": {\n         \"blake2b_256\": \"1a04d6f1159feaccdfc508517dba1929eb93a2854de729fa68da9d5c6b48fa00\",\n         \"md5\": \"dd4e3fa83a21bf7bf9c51026dc8a4e59\",",
+      "status": "modified"
+    },
+    {
+      "additions": 4,
+      "deletions": 0,
+      "filename": "tests/repositories/fixtures/pypi.org/json/setuptools/67.6.1.json",
+      "patch": "@@ -116,6 +116,9 @@\n   \"urls\": [\n     {\n       \"comment_text\": \"\",\n+      \"core-metadata\": {\n+        \"sha256\": \"f91a581677bcbec0f51c199061c0a0e0e3b241f5fe55d13c84e94b89c702e4d0\"\n+      },\n       \"digests\": {\n         \"md5\": \"3b5b846e000da033d54eeaaf7915126e\",\n         \"sha256\": \"e728ca814a823bf7bf60162daf9db95b93d532948c4c0bea762ce62f60189078\"\n@@ -136,6 +139,7 @@\n     },\n     {\n       \"comment_text\": \"\",\n+      \"core-metadata\": false,\n       \"digests\": {\n         \"md5\": \"ee2562f783544d1f95022c906dd3cf98\",\n         \"sha256\": \"a737d365c957dd3fced9ddd246118e95dce7a62c3dc49f37e7fdd9e93475d785\"",
+      "status": "modified"
+    },
+    {
+      "additions": 0,
+      "deletions": 1,
+      "filename": "tests/repositories/fixtures/pypi.org/json/six.json",
+      "patch": "@@ -1,5 +1,4 @@\n {\n-  \"alternate-locations\": [],\n   \"files\": [\n     {\n       \"core-metadata\": {",
+      "status": "modified"
+    },
+    {
+      "additions": 4,
+      "deletions": 0,
+      "filename": "tests/repositories/fixtures/pypi.org/json/six/1.11.0.json",
+      "patch": "@@ -57,6 +57,9 @@\n   \"urls\": [\n     {\n       \"comment_text\": \"\",\n+      \"core-metadata\": {\n+        \"sha256\": \"d3a9d95da0d8377be70bea665238641026051ff6befb2c2f70f22951d35e1f5a\"\n+      },\n       \"digests\": {\n         \"md5\": \"9500094701f7201ddd065c60abcefef1\",\n         \"sha256\": \"534e9875e44a507adec601c29b3cbd2ca6dae7df92bf3dd20c7289b2f99f7466\"\n@@ -77,6 +80,7 @@\n     },\n     {\n       \"comment_text\": \"\",\n+      \"core-metadata\": false,\n       \"digests\": {\n         \"md5\": \"25d3568604f921dd23532b88a0ce17e7\",\n         \"sha256\": \"268a4ccb159c1a2d2c79336b02e75058387b0cdbb4cea2f07846a758f48a356d\"",
+      "status": "modified"
+    },
+    {
+      "additions": 0,
+      "deletions": 1,
+      "filename": "tests/repositories/fixtures/pypi.org/json/sqlalchemy.json",
+      "patch": "@@ -1,5 +1,4 @@\n {\n-  \"alternate-locations\": [],\n   \"files\": [\n     {\n       \"core-metadata\": false,",
+      "status": "modified"
+    },
+    {
+      "additions": 1,
+      "deletions": 0,
+      "filename": "tests/repositories/fixtures/pypi.org/json/sqlalchemy/1.2.12.json",
+      "patch": "@@ -64,6 +64,7 @@\n   \"urls\": [\n     {\n       \"comment_text\": \"\",\n+      \"core-metadata\": false,\n       \"digests\": {\n         \"md5\": \"4a2617b5254748828d09349fc4eff6bd\",\n         \"sha256\": \"b5a127599b3f27847fba6119de0fcb70832a8041b103701a708b7c7d044faa38\"",
+      "status": "modified"
+    },
+    {
+      "additions": 0,
+      "deletions": 1,
+      "filename": "tests/repositories/fixtures/pypi.org/json/toga.json",
+      "patch": "@@ -1,5 +1,4 @@\n {\n-  \"alternate-locations\": [],\n   \"files\": [\n     {\n       \"core-metadata\": {",
+      "status": "modified"
+    },
+    {
+      "additions": 4,
+      "deletions": 0,
+      "filename": "tests/repositories/fixtures/pypi.org/json/toga/0.3.0.json",
+      "patch": "@@ -69,6 +69,9 @@\n   \"urls\": [\n     {\n       \"comment_text\": \"\",\n+      \"core-metadata\": {\n+        \"sha256\": \"009c58129250a35531f131982ce28bec0c59bc939a2267ccb24990266e9b884f\"\n+      },\n       \"digests\": {\n         \"blake2b_256\": \"401df3f98e3811ef657aa2acabe039fcbbcae7fc3463f3e18a2458e099465a49\",\n         \"md5\": \"4c9f80d34e8d3f6a3cb301749fbca4ca\",\n@@ -90,6 +93,7 @@\n     },\n     {\n       \"comment_text\": \"\",\n+      \"core-metadata\": false,\n       \"digests\": {\n         \"blake2b_256\": \"f3cf44b2d505e13b2ec0c7cef2677ac5d8bffb1fb22c4c1d3671179f8a52a40b\",\n         \"md5\": \"f6d6ddeffa5c08a875d436b2dc835e1d\",",
+      "status": "modified"
+    },
+    {
+      "additions": 4,
+      "deletions": 0,
+      "filename": "tests/repositories/fixtures/pypi.org/json/toga/0.3.0dev1.json",
+      "patch": "@@ -62,6 +62,9 @@\n   \"urls\": [\n     {\n       \"comment_text\": \"\",\n+      \"core-metadata\": {\n+        \"sha256\": \"6a8530190f6477fef55ccbeb73c293db3a98540ebf6239c7109c0a7f674d5954\"\n+      },\n       \"digests\": {\n         \"blake2b_256\": \"ebefea806c706d3dc90d4bc8c412c0ad3515fd018074f5fdd4bd020bdd4c0c80\",\n         \"md5\": \"7b219b2249b825f28051aae0230f2818\",\n@@ -83,6 +86,7 @@\n     },\n     {\n       \"comment_text\": \"\",\n+      \"core-metadata\": false,\n       \"digests\": {\n         \"blake2b_256\": \"4f71c55c15950f7275e761fe53fb0dc83fe4f5fba6199d7b8fb05d741dd33566\",\n         \"md5\": \"21b8fff4d110ddfb8c3eb939d7b35a1e\",",
+      "status": "modified"
+    },
+    {
+      "additions": 4,
+      "deletions": 0,
+      "filename": "tests/repositories/fixtures/pypi.org/json/toga/0.3.0dev2.json",
+      "patch": "@@ -62,6 +62,9 @@\n   \"urls\": [\n     {\n       \"comment_text\": \"\",\n+      \"core-metadata\": {\n+        \"sha256\": \"8e949cfa299eddb85405dfc43b0a3134595c690ab1fbd7664cd77080b806bde8\"\n+      },\n       \"digests\": {\n         \"blake2b_256\": \"3a68d1f6feb2ded26b9f6c36cd2a826e895e0fa6bba5fe489ec30b9f3bc1dbea\",\n         \"md5\": \"1aa1d5f48b81475569ea80ea04db8852\",\n@@ -83,6 +86,7 @@\n     },\n     {\n       \"comment_text\": \"\",\n+      \"core-metadata\": false,\n       \"digests\": {\n         \"blake2b_256\": \"e36a3264b3d48733cac7546fee02fbc516621574252f7d86546255532b095415\",\n         \"md5\": \"a6558d0c5ba3cd763084e564001e9d24\",",
+      "status": "modified"
+    },
+    {
+      "additions": 4,
+      "deletions": 0,
+      "filename": "tests/repositories/fixtures/pypi.org/json/toga/0.4.0.json",
+      "patch": "@@ -69,6 +69,9 @@\n   \"urls\": [\n     {\n       \"comment_text\": \"\",\n+      \"core-metadata\": {\n+        \"sha256\": \"023668b7d01bc9af40aaf8268275937eb4e437f8d6833633c756e0cb489c74ce\"\n+      },\n       \"digests\": {\n         \"blake2b_256\": \"365342de9ed8de0d256b785076ac7cf82eaa088f50df8ed2a8ab1011313e8f04\",\n         \"md5\": \"8a4f02f7c8a0353f3205801eadf3e3c9\",\n@@ -90,6 +93,7 @@\n     },\n     {\n       \"comment_text\": \"\",\n+      \"core-metadata\": false,\n       \"digests\": {\n         \"blake2b_256\": \"55607dc01b43f991228fd73679e40dc000e4c28a76b8b27b4d155e5bf716ff06\",\n         \"md5\": \"bd31edb40d9176b268250a6808b24d56\",",
+      "status": "modified"
+    },
+    {
+      "additions": 0,
+      "deletions": 1,
+      "filename": "tests/repositories/fixtures/pypi.org/json/tomlkit.json",
+      "patch": "@@ -1,5 +1,4 @@\n {\n-  \"alternate-locations\": [],\n   \"files\": [\n     {\n       \"core-metadata\": {",
+      "status": "modified"
+    },
+    {
+      "additions": 4,
+      "deletions": 0,
+      "filename": "tests/repositories/fixtures/pypi.org/json/tomlkit/0.5.2.json",
+      "patch": "@@ -64,6 +64,9 @@\n   \"urls\": [\n     {\n       \"comment_text\": \"\",\n+      \"core-metadata\": {\n+        \"sha256\": \"719707873f47237e8d96eedcbeae165670cf5a9afc9cfdf08c58972b626bc202\"\n+      },\n       \"digests\": {\n         \"md5\": \"4045c5f6848fbc93c38df2296a441f07\",\n         \"sha256\": \"dea8ff39e9e2170f1b2f465520482eec71e7909cfff53dcb076b585d50f8ccc8\"\n@@ -84,6 +87,7 @@\n     },\n     {\n       \"comment_text\": \"\",\n+      \"core-metadata\": false,\n       \"digests\": {\n         \"md5\": \"7c31987ef6fba2cd64715cae27fade64\",\n         \"sha256\": \"4a226ccf11ee5a2e76bfc185747b54ee7718706aeb3aabb981327249dbe2b1d4\"",
+      "status": "modified"
+    },
+    {
+      "additions": 4,
+      "deletions": 0,
+      "filename": "tests/repositories/fixtures/pypi.org/json/tomlkit/0.5.3.json",
+      "patch": "@@ -64,6 +64,9 @@\n   \"urls\": [\n     {\n       \"comment_text\": \"\",\n+      \"core-metadata\": {\n+        \"sha256\": \"03e2496802f73382fc323d6206c97c71d9f00c830da1d061bd1c00abb0996903\"\n+      },\n       \"digests\": {\n         \"md5\": \"3a90c70a5067d5727110838094ab8674\",\n         \"sha256\": \"35f06da5835e85f149a4701d43e730adcc09f1b362e5fc2300d77bdd26280908\"\n@@ -84,6 +87,7 @@\n     },\n     {\n       \"comment_text\": \"\",\n+      \"core-metadata\": false,\n       \"digests\": {\n         \"md5\": \"cdbdc302a184d1f1e38d5e0810e3b212\",\n         \"sha256\": \"e2f785651609492c771d9887ccb2369d891d16595d2d97972e2cbe5e8fb3439f\"",
+      "status": "modified"
+    },
+    {
+      "additions": 0,
+      "deletions": 1,
+      "filename": "tests/repositories/fixtures/pypi.org/json/twisted.json",
+      "patch": "@@ -1,5 +1,4 @@\n {\n-  \"alternate-locations\": [],\n   \"files\": [\n     {\n       \"core-metadata\": false,",
+      "status": "modified"
+    },
+    {
+      "additions": 1,
+      "deletions": 0,
+      "filename": "tests/repositories/fixtures/pypi.org/json/twisted/18.9.0.json",
+      "patch": "@@ -52,6 +52,7 @@\n   \"urls\": [\n     {\n       \"comment_text\": \"\",\n+      \"core-metadata\": false,\n       \"digests\": {\n         \"md5\": \"35ff4705ea90a76bf972ff3b229546ca\",\n         \"sha256\": \"4335327da58be11dd6e482ec6b85eb055bcc953a9570cd59e7840a2ce9419a8e\"",
+      "status": "modified"
+    },
+    {
+      "additions": 0,
+      "deletions": 1,
+      "filename": "tests/repositories/fixtures/pypi.org/json/wheel.json",
+      "patch": "@@ -1,5 +1,4 @@\n {\n-  \"alternate-locations\": [],\n   \"files\": [\n     {\n       \"core-metadata\": {",
+      "status": "modified"
+    },
+    {
+      "additions": 4,
+      "deletions": 0,
+      "filename": "tests/repositories/fixtures/pypi.org/json/wheel/0.40.0.json",
+      "patch": "@@ -74,6 +74,9 @@\n   \"urls\": [\n     {\n       \"comment_text\": \"\",\n+      \"core-metadata\": {\n+        \"sha256\": \"9604d6695d5ee4f2de7e980db2697f43d22164e3c35ea20cbc8ff5c045315356\"\n+      },\n       \"digests\": {\n         \"md5\": \"517d39f133bd7b1ff17caf09784b7543\",\n         \"sha256\": \"d236b20e7cb522daf2390fa84c55eea81c5c30190f90f29ae2ca1ad8355bf247\"\n@@ -94,6 +97,7 @@\n     },\n     {\n       \"comment_text\": \"\",\n+      \"core-metadata\": false,\n       \"digests\": {\n         \"md5\": \"5f175a8d693f74878964d4fd29729ab7\",\n         \"sha256\": \"5cb7e75751aa82e1b7db3fd52f5a9d59e7b06905630bed135793295931528740\"",
+      "status": "modified"
+    },
+    {
+      "additions": 0,
+      "deletions": 1,
+      "filename": "tests/repositories/fixtures/pypi.org/json/zipp.json",
+      "patch": "@@ -1,5 +1,4 @@\n {\n-  \"alternate-locations\": [],\n   \"files\": [\n     {\n       \"core-metadata\": {",
+      "status": "modified"
+    },
+    {
+      "additions": 4,
+      "deletions": 0,
+      "filename": "tests/repositories/fixtures/pypi.org/json/zipp/3.5.0.json",
+      "patch": "@@ -69,6 +69,9 @@\n   \"urls\": [\n     {\n       \"comment_text\": \"\",\n+      \"core-metadata\": {\n+        \"sha256\": \"19529d32b29341cd78f52b71cbf56169c7bf910450083e8629907ac27e3eb76d\"\n+      },\n       \"digests\": {\n         \"md5\": \"da62cbd850ba32ba93817aab0f03a855\",\n         \"sha256\": \"ec508cd5a3ed3d126293cafb34611469f2aef7342f575c3b6e072b995dc9da1f\"\n@@ -89,6 +92,7 @@\n     },\n     {\n       \"comment_text\": \"\",\n+      \"core-metadata\": false,\n       \"digests\": {\n         \"md5\": \"16bf2a24fae340052e8565c264d21092\",\n         \"sha256\": \"239d50954a15aa4b283023f18dc451ba811fb4d263f4dd6855642e4d1c80cc9f\"",
+      "status": "modified"
+    }
+  ],
+  "title": "chore: update json fixtures",
+  "url": "https://github.com/python-poetry/poetry/pull/11026",
+  "wave": "wave1-mock-power"
+}

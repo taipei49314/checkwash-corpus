@@ -1,0 +1,23 @@
+{
+  "catalog_id": "poetry",
+  "changed_file_count": 2,
+  "harvested_on": "2026-09-01",
+  "head_sha": "39b386d9d54eef792f8d0eb1a6ae51554e8ec3b1",
+  "merged_at": "2026-08-29T16:14:40Z",
+  "note": "test-file excerpts only; not a checkwash verdict",
+  "owner_repo": "python-poetry/poetry",
+  "pr_number": 11027,
+  "test_file_count": 1,
+  "test_files": [
+    {
+      "additions": 40,
+      "deletions": 8,
+      "filename": "tests/utils/test_helpers.py",
+      "patch": "@@ -1,7 +1,6 @@\n from __future__ import annotations\n \n import contextlib\n-import sys\n import tarfile\n \n from pathlib import Path\n@@ -199,13 +198,7 @@ def test_extractall_sdist_no_path_traversal(\n     has_data_filter = hasattr(tarfile, \"data_filter\")\n     # The stdlib implementation just strips the leading \"/\" from absolute paths\n     # and extracts them relative to the target directory (except for Windows).\n-    # We do not care and raise an error.\n-    raises = (\n-        relative\n-        or WINDOWS\n-        or not has_data_filter\n-        or sys.version_info[:3] in {(3, 10, 12), (3, 11, 4)}\n-    )\n+    raises = relative or WINDOWS\n     exceptions: tuple[type[Exception], ...]\n     if has_data_filter:\n         if relative:\n@@ -289,6 +282,45 @@ def test_extractall_sdist_no_symlink_path_traversal(\n         assert not target.exists()\n \n \n+def test_extractall_sdist_no_symlink_path_traversal_via_directory_symlink(\n+    tmp_path: Path, monkeypatch: pytest.MonkeyPatch\n+) -> None:\n+    \"\"\"\n+    A symlink \"dir\" pointing at \".\" is created first. A later member is then\n+    named \"dir/../traversal.txt\". The path looks safe when resolving \"..\"\n+    without resolving the symlink.\n+    \"\"\"\n+    import io\n+    import tarfile\n+\n+    archive = tmp_path / \"traversal.tar.gz\"\n+    dest = tmp_path / \"dest\"\n+    dest.mkdir()\n+\n+    with tarfile.open(archive, \"w:gz\") as tar:\n+        symlink = tarfile.TarInfo(\"dir\")\n+        symlink.type = tarfile.SYMTYPE\n+        symlink.linkname = \".\"\n+        tar.addfile(symlink)\n+\n+        data = b\"path traversal\"\n+        regular = tarfile.TarInfo(\"dir/../traversal.txt\")\n+        regular.size = len(data)\n+        tar.addfile(regular, io.BytesIO(data))\n+\n+    exception: type[Exception]\n+    if hasattr(tarfile, \"data_filter\"):\n+        exception = tarfile.OutsideDestinationError\n+    else:\n+        # tarfile.OutsideDestinationError does not exist\n+        exception = ValueError\n+\n+    with pytest.raises(exception) if not WINDOWS else contextlib.nullcontext():\n+        extractall(source=archive, dest=dest, zip=False)\n+\n+    assert not (tmp_path / \"traversal.txt\").exists()\n+\n+\n @pytest.mark.parametrize(\"existing\", [False, True])\n def test_extractall_wheel_no_path_traversal(\n     tmp_path: Path, wheel_with_path_traversal: Path, existing: bool",
+      "status": "modified"
+    }
+  ],
+  "title": "fix: refuse to write files outside the target directory during sdist extraction",
+  "url": "https://github.com/python-poetry/poetry/pull/11027",
+  "wave": "wave1-mock-power"
+}

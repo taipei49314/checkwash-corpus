@@ -1,0 +1,23 @@
+{
+  "catalog_id": "moto",
+  "changed_file_count": 2,
+  "harvested_on": "2026-09-01",
+  "head_sha": "5883a2893cffc1010702a928d68168cb0edf3258",
+  "merged_at": "2026-08-22T15:21:10Z",
+  "note": "test-file excerpts only; not a checkwash verdict",
+  "owner_repo": "getmoto/moto",
+  "pr_number": 10197,
+  "test_file_count": 1,
+  "test_files": [
+    {
+      "additions": 7,
+      "deletions": 0,
+      "filename": "tests/test_elbv2/test_elbv2.py",
+      "patch": "@@ -1292,6 +1292,13 @@ def test_describe_ssl_policies():\n     assert first_policy[\"SslProtocols\"] == [\"TLSv1.2\"]\n     assert len(resp[\"SslPolicies\"]) == 2\n \n+    # Ensure FS policy is present\n+    fs_policies = client.describe_ssl_policies(\n+        Names=[\"ELBSecurityPolicy-FS-1-2-Res-2020-10\"]\n+    )[\"SslPolicies\"]\n+    assert len(fs_policies) == 1\n+    assert fs_policies[0][\"Name\"] == \"ELBSecurityPolicy-FS-1-2-Res-2020-10\"\n+\n \n @mock_aws\n def test_set_ip_address_type():",
+      "status": "modified"
+    }
+  ],
+  "title": "ELBv2: Add support for FS policy",
+  "url": "https://github.com/getmoto/moto/pull/10197",
+  "wave": "wave1-mock-power"
+}

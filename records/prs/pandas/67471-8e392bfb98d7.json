@@ -1,0 +1,93 @@
+{
+  "catalog_id": "pandas",
+  "changed_file_count": 14,
+  "harvested_on": "2026-09-01",
+  "head_sha": "8e392bfb98d71bbb7e84822b00fbdc8098586981",
+  "merged_at": "2026-08-31T17:01:14Z",
+  "note": "test-file excerpts only; not a checkwash verdict",
+  "owner_repo": "pandas-dev/pandas",
+  "pr_number": 67471,
+  "test_file_count": 11,
+  "test_files": [
+    {
+      "additions": 1,
+      "deletions": 1,
+      "filename": "pandas/tests/extension/test_arrow.py",
+      "patch": "@@ -4797,7 +4797,7 @@ def test_string_to_time_parsing_cast():\n     tm.assert_series_equal(result, expected)\n \n \n-@td.skip_if_not_us_locale\n+@td.skip_if_not_english_lc_time\n @pytest.mark.parametrize(\"dtype\", [\"time32[s][pyarrow]\", \"time64[us][pyarrow]\"])\n def test_string_to_time_parsing_cast_meridiem(dtype):\n     # GH#18793 the space before AM/PM used to make these coerce to null",
+      "status": "modified"
+    },
+    {
+      "additions": 2,
+      "deletions": 2,
+      "filename": "pandas/tests/frame/methods/test_between_time.py",
+      "patch": "@@ -18,7 +18,7 @@\n \n \n class TestBetweenTime:\n-    @td.skip_if_not_us_locale\n+    @td.skip_if_not_english_lc_time\n     def test_between_time_formats(self, frame_or_series):\n         # GH#11818\n         rng = date_range(\"1/1/2000\", \"1/5/2000\", freq=\"5min\")\n@@ -227,7 +227,7 @@ def test_between_time_incorrect_arg_inclusive(self):\n             ts.between_time(stime, etime, inclusive=inclusive)\n \n \n-@td.skip_if_not_us_locale\n+@td.skip_if_not_english_lc_time\n def test_between_time_space_before_meridiem():\n     # GH#18793 the space before AM/PM used to make these unparsable\n     index = date_range(\"2012-01-01\", periods=48, freq=\"h\")",
+      "status": "modified"
+    },
+    {
+      "additions": 0,
+      "deletions": 1,
+      "filename": "pandas/tests/io/excel/test_readers.py",
+      "patch": "@@ -1009,7 +1009,6 @@ def test_read_from_http_url(self, httpserver, read_ext):\n         local_table = pd.read_excel(\"test1\" + read_ext)\n         tm.assert_frame_equal(url_table, local_table)\n \n-    @td.skip_if_not_us_locale\n     @pytest.mark.single_cpu\n     def test_read_from_s3_url(self, read_ext, s3_bucket_public, s3so):\n         with open(\"test1\" + read_ext, \"rb\") as f:",
+      "status": "modified"
+    },
+    {
+      "additions": 0,
+      "deletions": 3,
+      "filename": "pandas/tests/io/excel/test_style.py",
+      "patch": "@@ -4,8 +4,6 @@\n import numpy as np\n import pytest\n \n-import pandas.util._test_decorators as td\n-\n from pandas import (\n     DataFrame,\n     MultiIndex,\n@@ -320,7 +318,6 @@ def custom_converter(css):\n \n \n @pytest.mark.single_cpu\n-@td.skip_if_not_us_locale\n @pytest.mark.filterwarnings(\n     \"ignore:The default engine for reading:pandas.errors.Pandas4Warning\"\n )",
+      "status": "modified"
+    },
+    {
+      "additions": 0,
+      "deletions": 3,
+      "filename": "pandas/tests/io/json/test_compression.py",
+      "patch": "@@ -6,8 +6,6 @@\n \n import pytest\n \n-import pandas.util._test_decorators as td\n-\n import pandas as pd\n import pandas._testing as tm\n \n@@ -39,7 +37,6 @@ def test_read_zipped_json(datapath):\n     tm.assert_frame_equal(uncompressed_df, compressed_df)\n \n \n-@td.skip_if_not_us_locale\n @pytest.mark.single_cpu\n @pytest.mark.network\n def test_with_s3_url(compression, s3_bucket_public, s3so, temp_file):",
+      "status": "modified"
+    },
+    {
+      "additions": 0,
+      "deletions": 2,
+      "filename": "pandas/tests/io/json/test_pandas.py",
+      "patch": "@@ -1685,7 +1685,6 @@ def test_read_inline_jsonl(self):\n \n     @pytest.mark.single_cpu\n     @pytest.mark.network\n-    @td.skip_if_not_us_locale\n     def test_read_s3_jsonl(self, s3_bucket_public_with_data, s3so):\n         # GH17200\n         result = read_json(\n@@ -1698,7 +1697,6 @@ def test_read_s3_jsonl(self, s3_bucket_public_with_data, s3so):\n \n     @pytest.mark.single_cpu\n     @pytest.mark.network\n-    @td.skip_if_not_us_locale\n     def test_read_s3_jsonl_chunksize(self, s3_bucket_public_with_data, s3so):\n         # GH47659 - reading a binary (e.g. S3) stream in chunks used to raise\n         # \"TypeError: initial_value must be str or None, not bytes\"",
+      "status": "modified"
+    },
+    {
+      "additions": 0,
+      "deletions": 3,
+      "filename": "pandas/tests/io/parser/test_network.py",
+      "patch": "@@ -10,8 +10,6 @@\n import numpy as np\n import pytest\n \n-import pandas.util._test_decorators as td\n-\n from pandas import DataFrame\n import pandas._testing as tm\n \n@@ -72,7 +70,6 @@ def tips_df(datapath):\n \n @pytest.mark.single_cpu\n @pytest.mark.network\n-@td.skip_if_not_us_locale()\n class TestS3:\n     @pytest.mark.parametrize(\n         \"suffix, compression\",",
+      "status": "modified"
+    },
+    {
+      "additions": 63,
+      "deletions": 2,
+      "filename": "pandas/tests/io/test_clipboard.py",
+      "patch": "@@ -1,3 +1,5 @@\n+import importlib\n+import locale\n from textwrap import dedent\n \n import numpy as np\n@@ -178,13 +180,72 @@ def set_pyqt_clipboard(monkeypatch):\n         yield\n \n \n+# GH#44625 must be read before ``qapp`` runs, hence at import rather than\n+#  inside the fixture: session-scoped fixtures are set up before any\n+#  function-scoped one, so a value read there would already include the change.\n+_LOCALE_AT_IMPORT = locale.setlocale(locale.LC_ALL)\n+\n+\n+@pytest.fixture(scope=\"session\")\n+def qapp_restore_locale(qapp):\n+    \"\"\"\n+    ``qapp``, with the process-wide locale it leaked put back.\n+\n+    GH#44625: constructing a QApplication calls ``setlocale(LC_ALL, \"\")`` and\n+    never restores it, which switches LC_TIME to the environment's locale for\n+    the remainder of the worker. Datetime tests running after the clipboard\n+    tests then fail on any machine whose locale is not English. Request this\n+    rather than ``qapp`` directly.\n+    \"\"\"\n+    locale.setlocale(locale.LC_ALL, _LOCALE_AT_IMPORT)\n+    return qapp\n+\n+\n @pytest.fixture\n-def clipboard(qapp):\n-    clip = qapp.clipboard()\n+def clipboard(qapp_restore_locale):\n+    clip = qapp_restore_locale.clipboard()\n     yield clip\n     clip.clear()\n \n \n+def test_init_qt_clipboard_restores_locale(monkeypatch):\n+    # GH#44625 QApplication calls setlocale(LC_ALL, \"\") and does not restore it,\n+    #  which would change LC_TIME and LC_NUMERIC for the rest of the process\n+    # init_qt_clipboard tries qtpy first, then PyQt5; patch whichever it will use\n+    for name in [\"qtpy.QtWidgets\", \"PyQt5.QtWidgets\"]:\n+        try:\n+            qtwidgets = importlib.import_module(name)\n+        except ImportError:\n+            continue\n+        break\n+    else:\n+        pytest.skip(\"No Qt bindings installed\")\n+\n+    before = locale.setlocale(locale.LC_ALL)\n+    other = None\n+    for candidate in [\"C.UTF-8\", \"en_US.UTF-8\", \"de_DE.UTF-8\", \"it_IT.UTF-8\", \"C\"]:\n+        if not tm.can_set_locale(candidate):\n+            continue\n+        with tm.set_locale(candidate):\n+            if locale.setlocale(locale.LC_ALL) != before:\n+                other = candidate\n+                break\n+    if other is None:\n+        pytest.skip(\"No locale available that differs from the current one\")\n+\n+    class FakeQApplication:\n+        @staticmethod\n+        def instance():\n+            return None\n+\n+        def __init__(self, argv) -> None:\n+            locale.setlocale(locale.LC_ALL, other)\n+\n+    monkeypatch.setattr(qtwidgets, \"QApplication\", FakeQApplication)\n+    init_qt_clipboard()\n+    assert locale.setlocale(locale.LC_ALL) == before\n+\n+\n @pytest.mark.single_cpu\n @pytest.mark.clipboard\n @pytest.mark.usefixtures(\"set_pyqt_clipboard\")",
+      "status": "modified"
+    },
+    {
+      "additions": 10,
+      "deletions": 20,
+      "filename": "pandas/tests/tools/test_to_datetime.py",
+      "patch": "@@ -10,7 +10,6 @@\n     timezone,\n )\n from decimal import Decimal\n-import locale\n import re\n import zoneinfo\n \n@@ -339,26 +338,26 @@ def test_to_datetime_format_microsecond(self, cache):\n                 \"01/10/2010 08:14 PM\",\n                 \"%m/%d/%Y %I:%M %p\",\n                 Timestamp(\"2010-01-10 20:14\"),\n-                marks=td.skip_if_not_us_locale,\n+                marks=td.skip_if_not_english_lc_time,\n             ),\n             pytest.param(\n                 \"01/10/2010 07:40 AM\",\n                 \"%m/%d/%Y %I:%M %p\",\n                 Timestamp(\"2010-01-10 07:40\"),\n-                marks=td.skip_if_not_us_locale,\n+                marks=td.skip_if_not_english_lc_time,\n             ),\n             pytest.param(\n                 \"01/10/2010 09:12:56 AM\",\n                 \"%m/%d/%Y %I:%M:%S %p\",\n                 Timestamp(\"2010-01-10 09:12:56\"),\n-                marks=td.skip_if_not_us_locale,\n+                marks=td.skip_if_not_english_lc_time,\n             ),\n         ],\n     )\n     def test_to_datetime_format_time(self, cache, value, format, dt):\n         assert to_datetime(value, format=format, cache=cache) == dt\n \n-    @td.skip_if_not_us_locale\n+    @td.skip_if_not_english_lc_time\n     def test_to_datetime_with_non_exact(self, cache):\n         # GH 10834\n         # 8904\n@@ -1039,18 +1038,10 @@ def test_invalid_iso_week_53(self, msg, s, _format):\n     @pytest.mark.parametrize(\"errors\", [\"raise\", \"coerce\"])\n     def test_error_iso_week_year(self, msg, s, _format, errors):\n         # See GH#16607, GH#50308\n-        # This test checks for errors thrown when giving the wrong format\n-        # However, as discussed on PR#25541, overriding the locale\n-        # causes a different error to be thrown due to the format being\n-        # locale specific, but the test data is in english.\n-        # Therefore, the tests only run when locale is not overwritten,\n-        # as a sort of solution to this problem.\n-        if locale.getlocale() != (\"zh_CN\", \"UTF-8\") and locale.getlocale() != (\n-            \"it_IT\",\n-            \"UTF-8\",\n-        ):\n-            with pytest.raises(ValueError, match=msg):\n-                to_datetime(s, format=_format, errors=errors)\n+        # These formats are rejected before any parsing happens, so the message\n+        #  does not depend on the locale (GH#44625).\n+        with pytest.raises(ValueError, match=msg):\n+            to_datetime(s, format=_format, errors=errors)\n \n     @pytest.mark.parametrize(\"tz\", [None, \"US/Central\"])\n     def test_to_datetime_dtarr(self, tz):\n@@ -2920,7 +2911,7 @@ def test_to_datetime_with_space_in_series(self, cache):\n         expected_coerce = Series([datetime(2006, 10, 18), datetime(2008, 10, 18), NaT])\n         tm.assert_series_equal(result_coerce, expected_coerce)\n \n-    @td.skip_if_not_us_locale\n+    @td.skip_if_not_english_lc_time\n     def test_to_datetime_with_apply(self, cache):\n         # this is only locale tested with US/None locales\n         # GH 5195\n@@ -2936,7 +2927,7 @@ def test_to_datetime_timezone_name(self):\n         expected = Timestamp(2020, 1, 1).tz_localize(\"UTC\")\n         assert result == expected\n \n-    @td.skip_if_not_us_locale\n+    @td.skip_if_not_english_lc_time\n     @pytest.mark.parametrize(\"errors\", [\"raise\", \"coerce\"])\n     def test_to_datetime_with_apply_with_empty_str(self, cache, errors):\n         # this is only locale tested with US/None locales\n@@ -3216,7 +3207,6 @@ def test_guess_datetime_format_for_array(self, test_list):\n         test_array = np.array(test_list, dtype=object)\n         assert tools._guess_datetime_format_for_array(test_array) == expected_format\n \n-    @td.skip_if_not_us_locale\n     def test_guess_datetime_format_for_array_all_nans(self):\n         format_for_string_of_nans = tools._guess_datetime_format_for_array(\n             np.array([np.nan, np.nan, np.nan], dtype=\"O\")",
+      "status": "modified"
+    },
+    {
+      "additions": 9,
+      "deletions": 9,
+      "filename": "pandas/tests/tools/test_to_time.py",
+      "patch": "@@ -16,24 +16,24 @@ class TestToTime:\n         [\n             \"14:15\",\n             \"1415\",\n-            pytest.param(\"2:15pm\", marks=td.skip_if_not_us_locale),\n-            pytest.param(\"0215pm\", marks=td.skip_if_not_us_locale),\n+            pytest.param(\"2:15pm\", marks=td.skip_if_not_english_lc_time),\n+            pytest.param(\"0215pm\", marks=td.skip_if_not_english_lc_time),\n             \"14:15:00\",\n             \"141500\",\n-            pytest.param(\"2:15:00pm\", marks=td.skip_if_not_us_locale),\n-            pytest.param(\"021500pm\", marks=td.skip_if_not_us_locale),\n-            pytest.param(\"2:15 pm\", marks=td.skip_if_not_us_locale),\n-            pytest.param(\"0215 pm\", marks=td.skip_if_not_us_locale),\n-            pytest.param(\"2:15:00 pm\", marks=td.skip_if_not_us_locale),\n-            pytest.param(\"021500 pm\", marks=td.skip_if_not_us_locale),\n+            pytest.param(\"2:15:00pm\", marks=td.skip_if_not_english_lc_time),\n+            pytest.param(\"021500pm\", marks=td.skip_if_not_english_lc_time),\n+            pytest.param(\"2:15 pm\", marks=td.skip_if_not_english_lc_time),\n+            pytest.param(\"0215 pm\", marks=td.skip_if_not_english_lc_time),\n+            pytest.param(\"2:15:00 pm\", marks=td.skip_if_not_english_lc_time),\n+            pytest.param(\"021500 pm\", marks=td.skip_if_not_english_lc_time),\n             time(14, 15),\n         ],\n     )\n     def test_parsers_time(self, time_string):\n         # GH#11818\n         assert to_time(time_string) == time(14, 15)\n \n-    @td.skip_if_not_us_locale\n+    @td.skip_if_not_english_lc_time\n     def test_parsers_time_space_before_meridiem(self):\n         # GH#18793 the space before AM/PM used to make these unparsable\n         arg = [\"3:25:00 AM\", \"3:25:00 PM\", \"12:30:00 AM\", \"12:30:00 PM\"]",
+      "status": "modified"
+    },
+    {
+      "additions": 2,
+      "deletions": 2,
+      "filename": "pandas/tests/tslibs/test_parsing.py",
+      "patch": "@@ -241,7 +241,7 @@ def test_parsers_month_freq(date_str, expected):\n     assert result == expected\n \n \n-@td.skip_if_not_us_locale\n+@td.skip_if_not_english_lc_time\n @pytest.mark.parametrize(\n     \"string,fmt\",\n     [\n@@ -304,7 +304,7 @@ def test_guess_datetime_format_with_dayfirst(dayfirst, expected):\n     assert result == expected\n \n \n-@td.skip_if_not_us_locale\n+@td.skip_if_not_english_lc_time\n @pytest.mark.parametrize(\n     \"string,fmt\",\n     [",
+      "status": "modified"
+    }
+  ],
+  "title": "BUG: to_clipboard Qt backend leaked the process locale (GH#44625)",
+  "url": "https://github.com/pandas-dev/pandas/pull/67471",
+  "wave": "wave1-mock-power"
+}

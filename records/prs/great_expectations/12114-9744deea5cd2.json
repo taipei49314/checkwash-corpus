@@ -1,0 +1,23 @@
+{
+  "catalog_id": "great_expectations",
+  "changed_file_count": 2,
+  "harvested_on": "2026-09-01",
+  "head_sha": "9744deea5cd2eb9e455279f93bb1697e7e3b8a48",
+  "merged_at": "2026-08-28T08:04:02Z",
+  "note": "test-file excerpts only; not a checkwash verdict",
+  "owner_repo": "great-expectations/great_expectations",
+  "pr_number": 12114,
+  "test_file_count": 1,
+  "test_files": [
+    {
+      "additions": 0,
+      "deletions": 11,
+      "filename": "tests/integration/test_script_runner.py",
+      "patch": "@@ -579,17 +579,6 @@ def _check_for_skipped_tests(  # noqa: C901, PLR0912 # FIXME CoP\n     ]\n     if integration_test_fixture.name in TESTS_TO_SKIP_DURING_CI_TRANSITION:\n         pytest.skip(\"CI TRANSITION\")\n-    # TEMPORARY: This custom-expectation example declares no backend dependencies, so\n-    # it runs unconditionally, but its diagnostic checklist opens a connection to every\n-    # installed SQL backend -- including BigQuery, whose credentials are unavailable\n-    # during the CI transition. That makes it fail on GCP auth regardless of the backend\n-    # pytest flags. Gate it by name until the credentials are re-provisioned; remove this\n-    # block to re-enable.\n-    TESTS_TO_SKIP_DURING_CI_TRANSITION_GCP = [\n-        \"expect_column_max_to_be_between_custom\",\n-    ]\n-    if integration_test_fixture.name in TESTS_TO_SKIP_DURING_CI_TRANSITION_GCP:\n-        pytest.skip(\"CI TRANSITION\")\n     dependencies = integration_test_fixture.backend_dependencies\n     if not dependencies:\n         return",
+      "status": "modified"
+    }
+  ],
+  "title": "[MAINTENANCE] Request the docs-creds-needed backends that are live again",
+  "url": "https://github.com/fivetran/great_expectations/pull/12114",
+  "wave": "wave1-mock-power"
+}

@@ -1,0 +1,33 @@
+{
+  "catalog_id": "rich",
+  "counts": {
+    "approx_sites": 0,
+    "files_scanned": 213,
+    "js_test_files": 0,
+    "patch_sites": 41,
+    "py_files": 213,
+    "runner_files": 2,
+    "skip_sites": 39,
+    "unittest_asserts": 0
+  },
+  "owner_repo": "Textualize/rich",
+  "prior_power": null,
+  "probes": {
+    "approx": "pytest\\.approx|assertAlmostEqual",
+    "js_test_globs": [
+      "**/*.test.js",
+      "**/*.test.jsx",
+      "**/*.test.ts",
+      "**/*.test.tsx",
+      "**/*.spec.js",
+      "**/*.spec.jsx",
+      "**/*.spec.ts",
+      "**/*.spec.tsx"
+    ],
+    "patch": "monkeypatch\\.set|mock\\.patch|patch\\.object|mocker\\.patch|respx|responses\\.|freeze_time",
+    "skip": "pytest\\.mark\\.skip|pytest\\.mark\\.xfail|unittest\\.skip|self\\.skipTest",
+    "unittest_assert": "\\bself\\.assert[A-Z]"
+  },
+  "revision": "ce51a2f8bf326878a94a382cb7102c85824f7e04",
+  "wave": "wave0-published-fp"
+}

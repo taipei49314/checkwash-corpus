@@ -1,0 +1,23 @@
+{
+  "catalog_id": "attrs",
+  "changed_file_count": 12,
+  "harvested_on": "2026-09-01",
+  "head_sha": "4ee25dd7ff10a34e4040b7cfbe17f9ec15ae0bf3",
+  "merged_at": "2026-07-30T11:22:35Z",
+  "note": "test-file excerpts only; not a checkwash verdict",
+  "owner_repo": "python-attrs/attrs",
+  "pr_number": 1597,
+  "test_file_count": 1,
+  "test_files": [
+    {
+      "additions": 1,
+      "deletions": 1,
+      "filename": "tests/test_mypy.yml",
+      "patch": "@@ -1202,7 +1202,7 @@\n     class A:\n         a = attr.ib(kw_only=True)\n     A()  # E: Missing named argument \"a\" for \"A\"  [call-arg]\n-    A(15) # E: Too many positional arguments for \"A\"  [misc]\n+    A(15) # E: Too many positional arguments for \"A\"  [call-arg]\n     A(a=15)\n \n - case: testAttrsKwOnlyClass",
+      "status": "modified"
+    }
+  ],
+  "title": "Update dev & drop pre-commit.ci",
+  "url": "https://github.com/python-attrs/attrs/pull/1597",
+  "wave": "wave0-published-fp"
+}

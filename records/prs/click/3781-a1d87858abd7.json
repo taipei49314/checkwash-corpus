@@ -1,0 +1,30 @@
+{
+  "catalog_id": "click",
+  "changed_file_count": 5,
+  "harvested_on": "2026-09-01",
+  "head_sha": "a1d87858abd77fa8e3ffc204670ccd75b96c4781",
+  "merged_at": "2026-08-20T02:50:20Z",
+  "note": "test-file excerpts only; not a checkwash verdict",
+  "owner_repo": "pallets/click",
+  "pr_number": 3781,
+  "test_file_count": 2,
+  "test_files": [
+    {
+      "additions": 15,
+      "deletions": 2,
+      "filename": "tests/test_termui.py",
+      "patch": "@@ -421,13 +421,13 @@ def test_getchar_windows_exceptions(runner, monkeypatch, key_char, exc):\n         click.getchar()\n \n \n-@pytest.mark.skipif(platform.system() == \"Windows\", reason=\"No sed on Windows.\")\n+@pytest.mark.skipif(WIN, reason=\"No sed on Windows.\")\n def test_fast_edit(runner):\n     result = click.edit(\"a\\nb\", editor=\"sed -i~ 's/$/Test/'\")\n     assert result == \"aTest\\nbTest\\n\"\n \n \n-@pytest.mark.skipif(platform.system() == \"Windows\", reason=\"No sed on Windows.\")\n+@pytest.mark.skipif(WIN, reason=\"No sed on Windows.\")\n def test_edit(runner):\n     with tempfile.NamedTemporaryFile(mode=\"w\") as named_tempfile:\n         named_tempfile.write(\"a\\nb\\n\")\n@@ -448,6 +448,19 @@ def test_edit(runner):\n             assert reopened_file.read() == \"aTest\\nbTest\\n\"\n \n \n+@pytest.mark.skipif(WIN, reason=\"No sed on Windows.\")\n+@pytest.mark.parametrize(\"use_iterable\", [False, True], ids=[\"single\", \"iterable\"])\n+def test_edit_pathlib(runner, tmp_path, use_iterable):\n+    \"\"\"Issue #2869: ``filename`` accepts ``os.PathLike`` values.\"\"\"\n+    file_path = tmp_path / \"file.txt\"\n+    file_path.write_text(\"a\\nb\\n\", encoding=\"UTF-8\")\n+    filename = [file_path] if use_iterable else file_path\n+\n+    result = click.edit(filename=filename, editor=\"sed -i~ 's/$/Test/'\")\n+    assert result is None\n+    assert file_path.read_text(encoding=\"UTF-8\") == \"aTest\\nbTest\\n\"\n+\n+\n @pytest.mark.parametrize(\n     (\"editor_cmd\", \"filenames\", \"expected_args\"),\n     [",
+      "status": "modified"
+    },
+    {
+      "additions": 10,
+      "deletions": 0,
+      "filename": "tests/typing/typing_edit.py",
+      "patch": "@@ -0,0 +1,10 @@\n+from pathlib import Path\n+\n+from typing_extensions import assert_type\n+\n+import click\n+\n+# ``filename`` accepts a path or an iterable of paths.\n+assert_type(click.edit(filename=\"f.txt\"), None)\n+assert_type(click.edit(filename=Path(\"f.txt\")), None)\n+assert_type(click.edit(filename=[\"f.txt\", Path(\"g.txt\")]), None)",
+      "status": "added"
+    }
+  ],
+  "title": "Add support of `pathlib.Path` to `edit`",
+  "url": "https://github.com/pallets/click/pull/3781",
+  "wave": "wave0-published-fp"
+}

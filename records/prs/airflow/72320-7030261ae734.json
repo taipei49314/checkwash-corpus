@@ -1,0 +1,23 @@
+{
+  "catalog_id": "airflow",
+  "changed_file_count": 2,
+  "harvested_on": "2026-09-01",
+  "head_sha": "7030261ae734f5ea3b22244ed5c30a969b0d16e2",
+  "merged_at": "2026-08-31T11:24:27Z",
+  "note": "test-file excerpts only; not a checkwash verdict",
+  "owner_repo": "apache/airflow",
+  "pr_number": 72320,
+  "test_file_count": 1,
+  "test_files": [
+    {
+      "additions": 14,
+      "deletions": 4,
+      "filename": "airflow-core/tests/unit/cli/commands/test_task_command.py",
+      "patch": "@@ -215,7 +215,18 @@ def test_cli_test_with_params(self):\n             )\n         )\n \n-    def test_cli_test_with_env_vars(self):\n+    @pytest.mark.parametrize(\n+        (\"env_var_args\", \"expected_foo\"),\n+        [\n+            pytest.param([], \"foo=sentinel\", id=\"without-env-vars\"),\n+            pytest.param([\"--env-vars\", '{\"foo\":\"bar\"}'], \"foo=bar\", id=\"with-env-vars\"),\n+        ],\n+    )\n+    def test_cli_test_with_env_vars(self, monkeypatch, env_var_args, expected_foo):\n+        # setenv (unlike delenv) always records an undo entry, so task_test's writes to the real\n+        # process environment cannot leak out; the sentinel proves the command overwrote the key.\n+        monkeypatch.setenv(\"AIRFLOW_TEST_MODE\", \"sentinel\")\n+        monkeypatch.setenv(\"foo\", \"sentinel\")\n         with redirect_stdout(io.StringIO()) as stdout:\n             task_command.task_test(\n                 self.parser.parse_args(\n@@ -225,13 +236,12 @@ def test_cli_test_with_env_vars(self):\n                         \"example_passing_params_via_test_command\",\n                         \"env_var_test_task\",\n                         DEFAULT_DATE.isoformat(),\n-                        \"--env-vars\",\n-                        '{\"foo\":\"bar\"}',\n+                        *env_var_args,\n                     ]\n                 )\n             )\n         output = stdout.getvalue()\n-        assert \"foo=bar\" in output\n+        assert expected_foo in output\n         assert \"AIRFLOW_TEST_MODE=True\" in output\n \n     @mock.patch(",
+      "status": "modified"
+    }
+  ],
+  "title": "[v3-3-test] Export AIRFLOW_TEST_MODE from airflow tasks test without --env-vars (#72291)",
+  "url": "https://github.com/apache/airflow/pull/72320",
+  "wave": "wave1-mock-power"
+}

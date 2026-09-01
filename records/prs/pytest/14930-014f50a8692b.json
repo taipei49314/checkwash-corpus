@@ -1,0 +1,23 @@
+{
+  "catalog_id": "pytest",
+  "changed_file_count": 1,
+  "harvested_on": "2026-09-01",
+  "head_sha": "014f50a8692b08050afc01648d26465d4197859f",
+  "merged_at": "2026-08-24T04:08:50Z",
+  "note": "test-file excerpts only; not a checkwash verdict",
+  "owner_repo": "pytest-dev/pytest",
+  "pr_number": 14930,
+  "test_file_count": 1,
+  "test_files": [
+    {
+      "additions": 1,
+      "deletions": 1,
+      "filename": "testing/plugins_integration/requirements.txt",
+      "patch": "@@ -3,7 +3,7 @@ django==6.1\n pytest-asyncio==1.4.0\n pytest-bdd==8.1.0\n pytest-cov==7.1.0\n-pytest-django==4.13.0\n+pytest-django==4.14.0\n pytest-flakes==4.0.5\n pytest-html==4.2.0\n pytest-mock==3.15.1",
+      "status": "modified"
+    }
+  ],
+  "title": "build(deps): Bump pytest-django from 4.13.0 to 4.14.0 in /testing/plugins_integration",
+  "url": "https://github.com/pytest-dev/pytest/pull/14930",
+  "wave": "wave1-mock-power"
+}

@@ -1,0 +1,23 @@
+{
+  "catalog_id": "pandas",
+  "changed_file_count": 3,
+  "harvested_on": "2026-09-01",
+  "head_sha": "4d6f4c49cb25e4e6eb3fec813636d4fd2675b8e8",
+  "merged_at": "2026-08-30T19:36:06Z",
+  "note": "test-file excerpts only; not a checkwash verdict",
+  "owner_repo": "pandas-dev/pandas",
+  "pr_number": 67343,
+  "test_file_count": 1,
+  "test_files": [
+    {
+      "additions": 17,
+      "deletions": 0,
+      "filename": "pandas/tests/io/formats/test_format.py",
+      "patch": "@@ -150,6 +150,23 @@ def test_max_colwidth_negative_int_raises(self):\n             with option_context(\"display.max_colwidth\", -1):\n                 pass\n \n+    @pytest.mark.parametrize(\n+        \"max_colwidth, expected\",\n+        [\n+            (0, \" a\\n  \\n  \"),\n+            (1, \"  a\\n0 .\\n1 .\"),\n+            (2, \"   a\\n0 ..\\n1 ..\"),\n+            (3, \"    a\\n0 ...\\n1 ...\"),\n+            (4, \"     a\\n0  foo\\n1  ...\"),\n+        ],\n+    )\n+    def test_max_colwidth_narrower_than_placeholder(self, max_colwidth, expected):\n+        # GH#16097 widths too narrow to fit the \"...\" placeholder used to be\n+        # silently ignored\n+        df = DataFrame({\"a\": [\"foo\", \"horse\"]})\n+        with option_context(\"display.max_colwidth\", max_colwidth):\n+            assert repr(df) == expected\n+\n     def test_repr_chop_threshold(self):\n         df = DataFrame([[0.1, 0.5], [0.5, -0.1]])\n         reset_option(\"display.chop_threshold\")  # default None",
+      "status": "modified"
+    }
+  ],
+  "title": "BUG: display.max_colwidth below 4 silently ignored (GH#16097)",
+  "url": "https://github.com/pandas-dev/pandas/pull/67343",
+  "wave": "wave1-mock-power"
+}

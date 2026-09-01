@@ -1,0 +1,23 @@
+{
+  "catalog_id": "bokeh",
+  "changed_file_count": 13,
+  "harvested_on": "2026-09-01",
+  "head_sha": "548d64aa337dff9dea1ec1f79fe16e8158f5f920",
+  "merged_at": "2026-08-31T16:40:54Z",
+  "note": "test-file excerpts only; not a checkwash verdict",
+  "owner_repo": "bokeh/bokeh",
+  "pr_number": 15385,
+  "test_file_count": 1,
+  "test_files": [
+    {
+      "additions": 2,
+      "deletions": 1,
+      "filename": "tests/unit/bokeh/core/property/test_wrappers__property.py",
+      "patch": "@@ -17,6 +17,7 @@\n #-----------------------------------------------------------------------------\n \n # Standard library imports\n+import copy\n from unittest.mock import MagicMock, patch\n \n # External imports\n@@ -581,7 +582,7 @@ def test_PropertyValueColumnData___copy__() -> None:\n \n def test_PropertyValueColumnData___deepcopy__() -> None:\n     source = ColumnDataSource(data=dict(foo=[10]))\n-    pvcd = source.data.__deepcopy__()\n+    pvcd = copy.deepcopy(source.data)\n     assert source.data == pvcd\n     assert id(source.data) != id(pvcd)\n     pvcd['foo'][0] = 20",
+      "status": "modified"
+    }
+  ],
+  "title": "Fix mutable default argument in grid()",
+  "url": "https://github.com/bokeh/bokeh/pull/15385",
+  "wave": "wave1-mock-power"
+}

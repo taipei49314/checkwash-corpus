@@ -1,0 +1,23 @@
+{
+  "catalog_id": "transformers",
+  "changed_file_count": 1,
+  "harvested_on": "2026-09-01",
+  "head_sha": "1608da4ef210f962a8bcf96990dc62c2cb6d5167",
+  "merged_at": "2026-09-01T04:12:13Z",
+  "note": "test-file excerpts only; not a checkwash verdict",
+  "owner_repo": "huggingface/transformers",
+  "pr_number": 48406,
+  "test_file_count": 1,
+  "test_files": [
+    {
+      "additions": 9,
+      "deletions": 3,
+      "filename": "tests/models/minicpmv4_6/test_modeling_minicpmv4_6.py",
+      "patch": "@@ -497,9 +497,11 @@ def test_small_model_vision_generation_batch(self):\n         expected_texts = Expectations(\n             {\n                 (\"cuda\", None): [\n-                    \"The animal in the image is a Pystylus, also known as the Eurasian pystylus or snow leopard cat. It's a\",\n-                    \"The animal in the image is a Pystylus, also known as the Eurasian pystylus or snow leopard cat. It's a\",\n-                ],\n+                    \"The animal in the image is a Pystylus, also known as a Pystylus cat or Eurasian pystylus. It\",\n+                ] * 2,\n+                (\"cuda\", 10): [\n+                    \"The animal in the image is a Pystylus, also known as a Eurasian pystylus or snow leopard cat. It's a\",\n+                ] * 2,\n             }\n         )  # fmt: skip\n         EXPECTED_TEXT = expected_texts.get_expectation()\n@@ -547,6 +549,10 @@ def test_small_model_vision_generation_batch_mixed(self):\n                     \"The animal in the image is a Pystylus, also known as the Eurasian pystylus or snow leopard cat. It's a\",\n                     \"I'm a model from the MiniCPM series, developed by Modelbest and OpenBMB. For more details, you can visit https://github\",\n                 ],\n+                (\"cuda\", 10): [\n+                    \"The animal in the image is a Pystylus, also known as a Eurasian pystylus or snow leopard cat. It's a\",\n+                    \"I'm a model from the MiniCPM series, developed by Modelbest and OpenBMB. For more details, you can visit https://github\",\n+                ],\n             }\n         )  # fmt: skip\n         EXPECTED_TEXT = expected_texts.get_expectation()",
+      "status": "modified"
+    }
+  ],
+  "title": "[MiniCPMV4_6] Update test_small_model_vision_generation_batch expected output (value drift)",
+  "url": "https://github.com/huggingface/transformers/pull/48406",
+  "wave": "wave1-mock-power"
+}

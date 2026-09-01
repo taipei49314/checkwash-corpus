@@ -1,0 +1,23 @@
+{
+  "catalog_id": "transformers",
+  "changed_file_count": 1,
+  "harvested_on": "2026-09-01",
+  "head_sha": "18733a8ff7d0436adf9847c4dc642637ff3072b7",
+  "merged_at": "2026-08-31T16:57:07Z",
+  "note": "test-file excerpts only; not a checkwash verdict",
+  "owner_repo": "huggingface/transformers",
+  "pr_number": 48440,
+  "test_file_count": 1,
+  "test_files": [
+    {
+      "additions": 1,
+      "deletions": 1,
+      "filename": "tests/models/hyperclovax/test_modeling_hyperclovax.py",
+      "patch": "@@ -125,7 +125,7 @@ def test_model_seed_think_14b_bf16(self):\n         tokenizer = AutoTokenizer.from_pretrained(self.model_id)\n \n         inputs = tokenizer(self.input_text, return_tensors=\"pt\", padding=True).to(torch_device)\n-        output = model.generate(**inputs, max_new_tokens=20, do_sample=False)\n+        output = model.generate(**inputs, max_new_tokens=20, do_sample=False, tokenizer=tokenizer)\n         output_text = tokenizer.batch_decode(output, skip_special_tokens=False)\n \n         self.assertEqual(output_text, EXPECTED_TEXTS)",
+      "status": "modified"
+    }
+  ],
+  "title": "[serge] Fix 2 integration tests for model `hyperclovax` failing with `other` (other (2))",
+  "url": "https://github.com/huggingface/transformers/pull/48440",
+  "wave": "wave1-mock-power"
+}

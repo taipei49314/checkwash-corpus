@@ -1,0 +1,30 @@
+{
+  "catalog_id": "azure-cli",
+  "changed_file_count": 2,
+  "harvested_on": "2026-09-01",
+  "head_sha": "2eb6bd0f0620589f5def5eb9a676d0c19b270a14",
+  "merged_at": "2026-08-31T03:44:07Z",
+  "note": "test-file excerpts only; not a checkwash verdict",
+  "owner_repo": "Azure/azure-cli",
+  "pr_number": 33990,
+  "test_file_count": 2,
+  "test_files": [
+    {
+      "additions": 10,
+      "deletions": 6,
+      "filename": "src/azure-cli-core/azure/cli/core/extension/dynamic_install.py",
+      "patch": "@@ -241,13 +241,17 @@ def _check_value_in_extensions(cli_ctx, parser, args, no_prompt):  # pylint: dis\n         from azure.cli.core.extension.operations import add_extension\n         add_extension(cli_ctx=cli_ctx, extension_name=ext_name, upgrade=True, allow_preview=extension_allow_preview)\n         if run_after_extension_installed:\n-            import subprocess\n-            import platform\n-            exit_code = subprocess.call(args, shell=platform.system() == 'Windows')\n+            # Rerun the command with the CLI's own entry point instead of handing the raw argv back to a\n+            # shell. The previous implementation used `subprocess.call(args, shell=True)` on Windows, which\n+            # let cmd.exe reinterpret user-controlled arguments (e.g. `&`, `|`, `^`) and allowed command\n+            # injection. `run_az_cmd` executes the command in-process with the args kept as a list, so no\n+            # shell is involved.\n+            from azure.cli.core.util import run_az_cmd\n+            result = run_az_cmd(args[1:])\n+            exit_code = getattr(result, 'exit_code', 0)\n             # In this case, error msg is for telemetry recording purpose only.\n-            # From UX perspective, the command will rerun in subprocess. Whether it succeeds or fails,\n-            # mesages will be shown from the subprocess and this process should not print more message to\n-            # interrupt that.\n+            # From UX perspective, the command is rerun and its messages are already shown,\n+            # so this process should not print more message to interrupt that.\n             print_error = False\n             error_msg = (\"Extension {} dynamically installed{} and commands will be \"\n                          \"rerun automatically.\").format(ext_name, prompt_info)",
+      "status": "modified"
+    },
+    {
+      "additions": 28,
+      "deletions": 0,
+      "filename": "src/azure-cli-core/azure/cli/core/tests/test_parser.py",
+      "patch": "@@ -274,6 +274,34 @@ def mock_add_extension(*args, **kwargs):\n                 parser.parse_args('test new-ext reset pos1 pos2'.split())  # test positional args\n             self.assertIn(\"Extension another-ext-name installed. Please rerun your command.\", logger_msgs[6])\n \n+        # test dynamic extension install with the command rerun after installation.\n+        # The command must be rerun via run_az_cmd (args as a list, no shell) to avoid command injection.\n+        from knack.util import CommandResultItem\n+        run_az_cmd_args = []\n+\n+        def mock_run_az_cmd(args, out_file=None):  # pylint: disable=unused-argument\n+            run_az_cmd_args.append(args)\n+            return CommandResultItem(None, exit_code=0)\n+\n+        with mock.patch.object(logging.Logger, 'error', mock_log_error), \\\n+                mock.patch.object(azure.cli.core.extension.operations, 'add_extension', mock_add_extension), \\\n+                mock.patch.object(azure.cli.core.extension.dynamic_install, '_get_extension_command_tree',\n+                                  mock_ext_cmd_tree_load), \\\n+                mock.patch.object(azure.cli.core.extension.dynamic_install, '_get_extension_use_dynamic_install_config',\n+                                  return_value='yes_without_prompt'), \\\n+                mock.patch.object(azure.cli.core.extension.dynamic_install,\n+                                  '_get_extension_run_after_dynamic_install_config', return_value=True), \\\n+                mock.patch.object(azure.cli.core.util, 'run_az_cmd', mock_run_az_cmd):\n+            with self.assertRaises(SystemExit) as cm:\n+                parser.parse_args(['test', 'new-ext', 'create', '--opt', 'enum_2 & echo injected'])\n+            # exit code comes from the rerun result\n+            self.assertEqual(cm.exception.code, 0)\n+            # args are passed as a list without the 'az' entry point, so no shell can reinterpret them\n+            self.assertEqual(run_az_cmd_args,\n+                             [['test', 'new-ext', 'create', '--opt', 'enum_2 & echo injected']])\n+            # error message is only for telemetry, it should not be printed again\n+            self.assertEqual(len(logger_msgs), 7)\n+\n \n class VerifyError:  # pylint: disable=too-few-public-methods\n ",
+      "status": "modified"
+    }
+  ],
+  "title": "{Core} Fix injection risk during extension dynamic installation",
+  "url": "https://github.com/Azure/azure-cli/pull/33990",
+  "wave": "wave1-mock-power"
+}

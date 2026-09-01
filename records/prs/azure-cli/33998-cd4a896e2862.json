@@ -1,0 +1,23 @@
+{
+  "catalog_id": "azure-cli",
+  "changed_file_count": 1,
+  "harvested_on": "2026-09-01",
+  "head_sha": "cd4a896e2862598a91e6c7d3d9ed6e853cc7e65d",
+  "merged_at": "2026-09-01T05:20:32Z",
+  "note": "test-file excerpts only; not a checkwash verdict",
+  "owner_repo": "Azure/azure-cli",
+  "pr_number": 33998,
+  "test_file_count": 1,
+  "test_files": [
+    {
+      "additions": 10,
+      "deletions": 4,
+      "filename": "src/azure-cli/azure/cli/command_modules/acs/tests/latest/test_aks_commands.py",
+      "patch": "@@ -8353,10 +8353,16 @@ def test_aks_create_with_outbound_type_udr(self, resource_group, resource_group_\n \n         # role assignment\n         assignee_object_id = _get_test_sp_object_id(sp_name)\n-        role_assignment_cmd = (\n-            'role assignment create --scope {vnet_id} --role \"Network Contributor\" ' +\n-            (\"--assignee-object-id \" + assignee_object_id) if assignee_object_id else \"--assignee {service_principal}\"\n-        )\n+        if assignee_object_id:\n+            role_assignment_cmd = (\n+                'role assignment create --scope {vnet_id} --role \"Network Contributor\" '\n+                f\"--assignee-object-id {assignee_object_id} --assignee-principal-type ServicePrincipal\"\n+            )\n+        else:\n+            role_assignment_cmd = (\n+                'role assignment create --scope {vnet_id} --role \"Network Contributor\" '\n+                \"--assignee {service_principal}\"\n+            )\n         self.cmd(role_assignment_cmd, checks=[\n             self.check('scope', vnet_id)\n         ])",
+      "status": "modified"
+    }
+  ],
+  "title": "{AKS} Specify principal type in live-test role assignment",
+  "url": "https://github.com/Azure/azure-cli/pull/33998",
+  "wave": "wave1-mock-power"
+}

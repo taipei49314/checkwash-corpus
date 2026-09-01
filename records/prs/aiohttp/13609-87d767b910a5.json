@@ -1,0 +1,30 @@
+{
+  "catalog_id": "aiohttp",
+  "changed_file_count": 5,
+  "harvested_on": "2026-09-01",
+  "head_sha": "87d767b910a5943cddb49603455c2c4426a5b10c",
+  "merged_at": "2026-08-31T21:17:46Z",
+  "note": "test-file excerpts only; not a checkwash verdict",
+  "owner_repo": "aio-libs/aiohttp",
+  "pr_number": 13609,
+  "test_file_count": 2,
+  "test_files": [
+    {
+      "additions": 17,
+      "deletions": 0,
+      "filename": "tests/test_http_parser.py",
+      "patch": "@@ -2364,6 +2364,23 @@ def test_c_parser_error_snippet_at_buffer_end_request(\n         parser.feed_data(text)\n \n \n+@pytest.mark.skipif(NO_EXTENSIONS, reason=\"Python parser lacks error pos output\")\n+def test_c_parser_error_message_bounded_for_crlf_free_input(\n+    event_loop: asyncio.AbstractEventLoop,\n+    server: Server[Request],\n+) -> None:\n+    \"\"\"Garbage with no CRLF must not be echoed back whole.\"\"\"\n+    protocol = RequestHandler(server, loop=event_loop)\n+    parser = HttpRequestParserC(\n+        protocol, event_loop, 2**16, max_line_size=8190, max_field_size=8190\n+    )\n+    protocol._parser = parser\n+    with pytest.raises(http_exceptions.BadHttpMethod) as exc_info:\n+        parser.feed_data(b\"A\" * (64 * 1024))\n+    # Two bounded windows, escaped by repr, plus the pointer line beneath them.\n+    assert len(exc_info.value.message) < 2048\n+\n+\n @pytest.mark.skipif(NO_EXTENSIONS, reason=\"Only tests C parser.\")\n @pytest.mark.parametrize(\"split\", [1, 2, 3, 5])\n @pytest.mark.parametrize((\"body\", \"snippet\", \"reason\"), _BAD_CHUNKED_RESPONSES)",
+      "status": "modified"
+    },
+    {
+      "additions": 2,
+      "deletions": 1,
+      "filename": "tests/test_web_functional.py",
+      "patch": "@@ -1974,7 +1974,8 @@ async def send_until_paused() -> None:\n                 await sender\n     finally:\n         release_handler.set()\n-        writer.close()\n+        # Abort so the server doesn't get stuck waiting for the client to read.\n+        writer.transport.abort()\n         with suppress(ConnectionResetError, BrokenPipeError):\n             await writer.wait_closed()\n ",
+      "status": "modified"
+    }
+  ],
+  "title": "Fix possible deadlock in test",
+  "url": "https://github.com/aio-libs/aiohttp/pull/13609",
+  "wave": "wave1-mock-power"
+}

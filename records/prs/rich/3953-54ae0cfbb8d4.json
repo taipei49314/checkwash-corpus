@@ -1,0 +1,23 @@
+{
+  "catalog_id": "rich",
+  "changed_file_count": 4,
+  "harvested_on": "2026-09-01",
+  "head_sha": "54ae0cfbb8d43ccc8f56bf57019b9a22c252eefa",
+  "merged_at": "2026-02-01T16:19:21Z",
+  "note": "test-file excerpts only; not a checkwash verdict",
+  "owner_repo": "Textualize/rich",
+  "pr_number": 3953,
+  "test_file_count": 1,
+  "test_files": [
+    {
+      "additions": 17,
+      "deletions": 0,
+      "filename": "tests/test_cells.py",
+      "patch": "@@ -187,3 +187,20 @@ def test_nerd_font():\n     \"\"\"Regression test for https://github.com/Textualize/rich/issues/3943\"\"\"\n     # Not allocated by unicode, but used by nerd fonts\n     assert cell_len(\"\\U000f024d\") == 1\n+\n+\n+def test_zwj():\n+    \"\"\"Test special case of zero width joiners\"\"\"\n+    assert cell_len(\"\") == 0\n+    assert cell_len(\"\\u200d\") == 0\n+    assert cell_len(\"1\\u200d\") == 1\n+    # This sequence should really produce 2, but it aligns with with wcwidth\n+    # What gets written to the terminal is anybody's guess, I've seen multiple variations\n+    assert cell_len(\"1\\u200d2\") == 1\n+\n+\n+def test_non_printable():\n+    \"\"\"Non printable characters should report a width of 0.\"\"\"\n+    for ordinal in range(31):\n+        character = chr(ordinal)\n+        assert cell_len(character) == 0",
+      "status": "modified"
+    }
+  ],
+  "title": "Fix ZWJ and edge cases",
+  "url": "https://github.com/Textualize/rich/pull/3953",
+  "wave": "wave0-published-fp"
+}

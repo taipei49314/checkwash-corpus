@@ -1,0 +1,23 @@
+{
+  "catalog_id": "click",
+  "changed_file_count": 3,
+  "harvested_on": "2026-09-01",
+  "head_sha": "f58ca3e81424a35626c8a475eb59ab95589008ce",
+  "merged_at": "2026-08-29T15:12:36Z",
+  "note": "test-file excerpts only; not a checkwash verdict",
+  "owner_repo": "pallets/click",
+  "pr_number": 3805,
+  "test_file_count": 1,
+  "test_files": [
+    {
+      "additions": 45,
+      "deletions": 0,
+      "filename": "tests/test_utils/test_sentinel.py",
+      "patch": "@@ -1,6 +1,12 @@\n+import copy\n+import pickle\n from decimal import Decimal\n from fractions import Fraction\n \n+import pytest\n+\n+import click\n+from click._utils import Sentinel\n from click._utils import UNSET\n \n \n@@ -50,3 +56,42 @@ def test_unset_sentinel():\n         assert value is not real_value\n \n     assert value not in real_values\n+\n+\n+@pytest.mark.parametrize(\"sentinel\", tuple(Sentinel))\n+@pytest.mark.parametrize(\n+    \"duplicate\",\n+    (\n+        copy.copy,\n+        copy.deepcopy,\n+        lambda value: pickle.loads(pickle.dumps(value)),\n+    ),\n+    ids=(\"copy\", \"deepcopy\", \"pickle\"),\n+)\n+def test_sentinel_duplication_preserves_identity(sentinel, duplicate):\n+    \"\"\"Sentinels are singletons: copying or pickling one returns the member.\n+\n+    The default ``Enum`` reduction is ``(cls, (member.value,))``, which cannot\n+    round-trip a bare ``object()`` value: the copy or the unpickled value is a\n+    new object and ``Sentinel()`` rejects it.\n+    \"\"\"\n+    assert duplicate(sentinel) is sentinel\n+\n+\n+@pytest.mark.parametrize(\n+    \"duplicate\",\n+    (\n+        copy.copy,\n+        copy.deepcopy,\n+        lambda value: pickle.loads(pickle.dumps(value)),\n+    ),\n+    ids=(\"copy\", \"deepcopy\", \"pickle\"),\n+)\n+def test_parameter_duplication(duplicate):\n+    \"\"\"Every ``Parameter`` holds ``UNSET`` in ``default`` unless one is given.\"\"\"\n+    option = click.Option([\"--name\"])\n+    assert option.default is UNSET\n+\n+    duplicated = duplicate(option)\n+    assert duplicated.default is UNSET\n+    assert duplicated.name == \"name\"",
+      "status": "modified"
+    }
+  ],
+  "title": "Fix `copy`, `deepcopy` and `pickle` of `Sentinel` members",
+  "url": "https://github.com/pallets/click/pull/3805",
+  "wave": "wave0-published-fp"
+}

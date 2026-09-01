@@ -1,0 +1,23 @@
+{
+  "catalog_id": "starlette",
+  "changed_file_count": 3,
+  "harvested_on": "2026-09-01",
+  "head_sha": "e5d9445bc2bf63334e921b0d79f6a03d25f653b3",
+  "merged_at": "2026-08-23T20:24:35Z",
+  "note": "test-file excerpts only; not a checkwash verdict",
+  "owner_repo": "encode/starlette",
+  "pr_number": 3463,
+  "test_file_count": 1,
+  "test_files": [
+    {
+      "additions": 47,
+      "deletions": 0,
+      "filename": "tests/middleware/test_opentelemetry.py",
+      "patch": "@@ -55,6 +55,35 @@ def test_noop_provider_skips_instrumentation(\n     assert test_client_factory(app).get(\"/\").status_code == 200\n \n \n+@pytest.mark.parametrize(\n+    (\"excluded_urls\", \"excluded_paths\"),\n+    [\n+        ([r\"^http://testserver/health(?:\\?.*)?$\"], (\"/health?full=true\",)),\n+        (r\"/health(?:\\?.*)?$\", (\"/health?full=true\",)),\n+        (r\"/health$, /metrics$\", (\"/health\", \"/metrics\")),\n+        (\"\", ()),\n+    ],\n+)\n+def test_excluded_urls(\n+    test_client_factory: TestClientFactory,\n+    tracer_provider: tuple[TracerProvider, InMemorySpanExporter],\n+    excluded_urls: str | list[str],\n+    excluded_paths: tuple[str, ...],\n+) -> None:\n+    _, exporter = tracer_provider\n+    app = Starlette(\n+        routes=[Route(\"/\", homepage), Route(\"/health\", homepage), Route(\"/metrics\", homepage)],\n+        middleware=[Middleware(OpenTelemetryMiddleware, excluded_urls=excluded_urls)],\n+    )\n+    client = test_client_factory(app)\n+\n+    for path in excluded_paths:\n+        assert client.get(path).status_code == 200\n+    assert exporter.get_finished_spans() == ()\n+    assert client.get(\"/\").status_code == 200\n+    assert get_span(exporter).name == \"GET /\"\n+\n+\n def test_multiple_native_middlewares_do_not_create_duplicate_span(\n     test_client_factory: TestClientFactory,\n     tracer_provider: tuple[TracerProvider, InMemorySpanExporter],\n@@ -69,6 +98,24 @@ def test_multiple_native_middlewares_do_not_create_duplicate_span(\n     assert get_span(exporter).name == \"GET /\"\n \n \n+def test_exclusion_propagates_to_nested_native_middleware(\n+    test_client_factory: TestClientFactory,\n+    tracer_provider: tuple[TracerProvider, InMemorySpanExporter],\n+) -> None:\n+    _, exporter = tracer_provider\n+    mounted_app = Starlette(\n+        routes=[Route(\"/health\", homepage)],\n+        middleware=[Middleware(OpenTelemetryMiddleware)],\n+    )\n+    app = Starlette(\n+        routes=[Mount(\"/api\", app=mounted_app)],\n+        middleware=[Middleware(OpenTelemetryMiddleware, excluded_urls=[r\"/api/health$\"])],\n+    )\n+\n+    assert test_client_factory(app).get(\"/api/health\").status_code == 200\n+    assert exporter.get_finished_spans() == ()\n+\n+\n def test_provider_configured_after_middleware_stack_is_built(\n     monkeypatch: pytest.MonkeyPatch,\n     test_client_factory: TestClientFactory,",
+      "status": "modified"
+    }
+  ],
+  "title": "Add `excluded_urls` to `OpenTelemetryMiddleware`",
+  "url": "https://github.com/Kludex/starlette/pull/3463",
+  "wave": "wave0-published-fp"
+}

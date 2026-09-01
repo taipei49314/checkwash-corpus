@@ -1,0 +1,23 @@
+{
+  "catalog_id": "pandas",
+  "changed_file_count": 1,
+  "harvested_on": "2026-09-01",
+  "head_sha": "2a0786501eb27d375eb31e9c80a65708cf90c2b5",
+  "merged_at": "2026-08-30T19:56:30Z",
+  "note": "test-file excerpts only; not a checkwash verdict",
+  "owner_repo": "pandas-dev/pandas",
+  "pr_number": 67293,
+  "test_file_count": 1,
+  "test_files": [
+    {
+      "additions": 2,
+      "deletions": 4,
+      "filename": "pandas/tests/io/test_iceberg.py",
+      "patch": "@@ -26,7 +26,7 @@\n \n \n @pytest.fixture\n-def catalog(request, tmp_path):\n+def catalog(request, tmp_path, datapath):\n     # the catalog stores the full path of data files, so the catalog needs to be\n     # created dynamically, and not saved in pandas/tests/io/data as other formats\n     uri = f\"sqlite:///{tmp_path}/catalog.sqlite\"\n@@ -40,9 +40,7 @@ def catalog(request, tmp_path):\n     )\n     catalog.create_namespace(\"ns\")\n \n-    df = pq.read_table(\n-        pathlib.Path(__file__).parent / \"data\" / \"parquet\" / \"simple.parquet\"\n-    )\n+    df = pq.read_table(datapath(\"io\", \"data\", \"parquet\", \"simple.parquet\"))\n     table = catalog.create_table(\"ns.my_table\", schema=df.schema)\n     table.append(df)\n ",
+      "status": "modified"
+    }
+  ],
+  "title": "TST: skip the iceberg tests when their data file is absent",
+  "url": "https://github.com/pandas-dev/pandas/pull/67293",
+  "wave": "wave1-mock-power"
+}

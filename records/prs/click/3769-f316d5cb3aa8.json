@@ -1,0 +1,23 @@
+{
+  "catalog_id": "click",
+  "changed_file_count": 3,
+  "harvested_on": "2026-09-01",
+  "head_sha": "f316d5cb3aa89b57c14aee54da6ac9062ac5bec4",
+  "merged_at": "2026-08-15T17:56:58Z",
+  "note": "test-file excerpts only; not a checkwash verdict",
+  "owner_repo": "pallets/click",
+  "pr_number": 3769,
+  "test_file_count": 1,
+  "test_files": [
+    {
+      "additions": 31,
+      "deletions": 0,
+      "filename": "tests/test_termui.py",
+      "patch": "@@ -106,6 +106,37 @@ def cli():\n     assert runner.invoke(cli, []).output == \"\"\n \n \n+@pytest.mark.parametrize(\"update_min_steps\", [1, 2, 3, 7, 20, 25])\n+@pytest.mark.parametrize(\"drive\", [\"iterate\", \"update\"])\n+def test_progressbar_lands_on_final_position(monkeypatch, update_min_steps, drive):\n+    \"\"\"The bar reaches its total whatever the ``update_min_steps`` threshold.\n+\n+    Regression for issue #3571: a threshold that does not divide the length\n+    left a remainder pending, so `show_pos` froze below completion, reporting\n+    `14/20` for a length of 20 and a threshold of 7. Thresholds of 1 and 2 do\n+    divide 20, and 25 exceeds it, so nothing is ever rendered until the end.\n+    \"\"\"\n+    monkeypatch.setattr(click._termui_impl, \"isatty\", lambda _: True)\n+    stream = io.StringIO()\n+\n+    if drive == \"iterate\":\n+        with click.progressbar(\n+            range(20), show_pos=True, update_min_steps=update_min_steps, file=stream\n+        ) as bar:\n+            for _ in bar:\n+                pass\n+    else:\n+        with click.progressbar(\n+            length=20, show_pos=True, update_min_steps=update_min_steps, file=stream\n+        ) as bar:\n+            for _ in range(20):\n+                bar.update(1)\n+\n+    assert bar.pos == 20\n+    assert bar.finished\n+    assert \"20/20\" in stream.getvalue()\n+\n+\n @pytest.mark.parametrize(\"avg, expected\", [([], 0.0), ([1, 4], 2.5)])\n def test_progressbar_time_per_iteration(runner, avg, expected):\n     with _create_progress(2, avg=avg) as progress:",
+      "status": "modified"
+    }
+  ],
+  "title": "Settles progress bar on its final position",
+  "url": "https://github.com/pallets/click/pull/3769",
+  "wave": "wave0-published-fp"
+}

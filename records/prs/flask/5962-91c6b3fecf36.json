@@ -1,0 +1,23 @@
+{
+  "catalog_id": "flask",
+  "changed_file_count": 1,
+  "harvested_on": "2026-09-01",
+  "head_sha": "91c6b3fecf36b1f04554e57cc4060ccb737a445d",
+  "merged_at": "2026-03-24T13:55:57Z",
+  "note": "test-file excerpts only; not a checkwash verdict",
+  "owner_repo": "pallets/flask",
+  "pr_number": 5962,
+  "test_file_count": 1,
+  "test_files": [
+    {
+      "additions": 0,
+      "deletions": 21,
+      "filename": "tests/test_reqctx.py",
+      "patch": "@@ -294,27 +294,6 @@ def test_bad_environ_raises_bad_request():\n     assert response.status_code == 400\n \n \n-def test_environ_for_valid_idna_completes():\n-    app = flask.Flask(__name__)\n-\n-    @app.route(\"/\")\n-    def index():\n-        return \"Hello World!\"\n-\n-    from flask.testing import EnvironBuilder\n-\n-    builder = EnvironBuilder(app)\n-    environ = builder.get_environ()\n-\n-    # these characters are all IDNA-compatible\n-    environ[\"HTTP_HOST\"] = \"ąśźäüжŠßя.com\"\n-\n-    with app.request_context(environ) as ctx:\n-        response = app.full_dispatch_request(ctx)\n-\n-    assert response.status_code == 200\n-\n-\n def test_normal_environ_completes():\n     app = flask.Flask(__name__)\n ",
+      "status": "modified"
+    }
+  ],
+  "title": "remove unicode host test",
+  "url": "https://github.com/pallets/flask/pull/5962",
+  "wave": "wave0-published-fp"
+}

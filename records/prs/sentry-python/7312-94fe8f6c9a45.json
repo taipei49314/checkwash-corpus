@@ -1,0 +1,23 @@
+{
+  "catalog_id": "sentry-python",
+  "changed_file_count": 1,
+  "harvested_on": "2026-09-01",
+  "head_sha": "94fe8f6c9a4515b23e5332bfa7af44d026be8051",
+  "merged_at": "2026-08-31T13:10:56Z",
+  "note": "test-file excerpts only; not a checkwash verdict",
+  "owner_repo": "getsentry/sentry-python",
+  "pr_number": 7312,
+  "test_file_count": 1,
+  "test_files": [
+    {
+      "additions": 0,
+      "deletions": 27,
+      "filename": "tests/integrations/pyramid/test_pyramid.py",
+      "patch": "@@ -665,33 +665,6 @@ def index(request):\n     assert \"data\" not in event.get(\"_meta\", {}).get(\"request\", {})\n \n \n-def test_transaction_request_body_data_collection(\n-    sentry_init, capture_events, route, get_client\n-):\n-    sentry_init(\n-        integrations=[PyramidIntegration()],\n-        traces_sample_rate=1.0,\n-        _experiments={\"data_collection\": {\"http_bodies\": []}},\n-    )\n-\n-    data = {\"username\": \"sentry-user\", \"age\": \"26\"}\n-\n-    @route(\"/\")\n-    def index(request):\n-        capture_message(\"hi\")\n-        return Response(\"ok\")\n-\n-    events = capture_events()\n-\n-    client = get_client()\n-    response = client.post(\"/\", content_type=\"application/json\", data=json.dumps(data))\n-    assert response[1] == \"200 OK\"\n-\n-    event, transaction_event = events\n-    assert \"data\" not in event[\"request\"]\n-    assert \"data\" not in transaction_event[\"request\"]\n-\n-\n def test_oversized_request_body_not_annotated_data_collection(\n     sentry_init, capture_events, route, get_client\n ):",
+      "status": "modified"
+    }
+  ],
+  "title": "test(pyramid): Remove transaction test",
+  "url": "https://github.com/getsentry/sentry-python/pull/7312",
+  "wave": "wave1-mock-power"
+}

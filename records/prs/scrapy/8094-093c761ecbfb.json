@@ -1,0 +1,23 @@
+{
+  "catalog_id": "scrapy",
+  "changed_file_count": 2,
+  "harvested_on": "2026-09-01",
+  "head_sha": "093c761ecbfb081a324ecff309c633f824555b6b",
+  "merged_at": "2026-08-27T12:02:20Z",
+  "note": "test-file excerpts only; not a checkwash verdict",
+  "owner_repo": "scrapy/scrapy",
+  "pr_number": 8094,
+  "test_file_count": 1,
+  "test_files": [
+    {
+      "additions": 12,
+      "deletions": 0,
+      "filename": "tests/test_utils_url.py",
+      "patch": "@@ -75,6 +75,18 @@ class MySpider3(Spider):\n     assert url_is_from_spider(\"http://www.example.com/some/page.html\", MySpider3)\n \n \n+def test_url_is_from_spider_with_allowed_domains_property():\n+    class MySpider(Spider):\n+        name = \"myspider\"\n+\n+        @property\n+        def allowed_domains(self):\n+            return [\"example.org\"]\n+\n+    with pytest.warns(UserWarning, match=\"allowed_domains is a property\"):\n+        assert not url_is_from_spider(\"http://www.example.org/some/page.html\", MySpider)\n+\n+\n @pytest.mark.parametrize(\n     (\"url\", \"expected\"),\n     [",
+      "status": "modified"
+    }
+  ],
+  "title": "Warn and ignore allowed_domains defined as a property",
+  "url": "https://github.com/scrapy/scrapy/pull/8094",
+  "wave": "wave1-mock-power"
+}

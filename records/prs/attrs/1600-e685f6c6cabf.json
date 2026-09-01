@@ -1,0 +1,23 @@
+{
+  "catalog_id": "attrs",
+  "changed_file_count": 7,
+  "harvested_on": "2026-09-01",
+  "head_sha": "e685f6c6cabf43df2e11feee6d9c2653cd92fd02",
+  "merged_at": "2026-07-31T09:44:52Z",
+  "note": "test-file excerpts only; not a checkwash verdict",
+  "owner_repo": "python-attrs/attrs",
+  "pr_number": 1600,
+  "test_file_count": 1,
+  "test_files": [
+    {
+      "additions": 23,
+      "deletions": 0,
+      "filename": "tests/test_import.py",
+      "patch": "@@ -1,5 +1,8 @@\n # SPDX-License-Identifier: MIT\n \n+import attr\n+import attrs\n+\n \n class TestImportStar:\n     def test_from_attr_import_star(self):\n@@ -9,3 +12,23 @@ def test_from_attr_import_star(self):\n         # attr_import_star contains `from attr import *`, which cannot\n         # be done here because *-imports are only allowed on module level.\n         from . import attr_import_star  # noqa: F401\n+\n+\n+class TestDir:\n+    def test_attr_dir_includes_lazy_submodules(self):\n+        \"\"\"\n+        converters and validators are listed in dir(attr).\n+        \"\"\"\n+        assert \"converters\" in dir(attr)\n+        assert \"validators\" in dir(attr)\n+        assert \"__name__\" in dir(attr)\n+        assert \"_make_getattr\" in dir(attr)\n+\n+    def test_attrs_dir_includes_lazy_submodules(self):\n+        \"\"\"\n+        converters and validators are listed in dir(attrs).\n+        \"\"\"\n+        assert \"converters\" in dir(attrs)\n+        assert \"validators\" in dir(attrs)\n+        assert \"__name__\" in dir(attrs)\n+        assert \"_make_getattr\" in dir(attrs)",
+      "status": "modified"
+    }
+  ],
+  "title": "Defer imports on the cold import path",
+  "url": "https://github.com/python-attrs/attrs/pull/1600",
+  "wave": "wave0-published-fp"
+}
