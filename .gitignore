@@ -1,4 +1,5 @@
 clones/
+tools/.watch-state.json
 /attrs/
 /click/
 /flask/
