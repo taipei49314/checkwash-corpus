@@ -80,6 +80,38 @@ checkouts at that root (the layout `checkwash bench` still looks for).
 `python -m corpus fetch --wave wave0-published-fp --layout bench` does that
 when the repo itself is checked out as `greenwash-corpus`.
 
+## Stress the engine (24-hour mechanical falsification)
+
+checkwash is deterministic and sub-second, so "stress" is not load — it is
+four published claims tried for a day: recall, precision, zero engine errors,
+byte-identical verdicts. Nothing is labelled by hand: a tampering candidate
+counts only when pytest goes red → green on buggy production with production
+byte-identical (the tamper corpus's definition), an honest candidate only when
+both sides still catch the bug (the refactor corpus's definition). Every
+recorded finding is re-run through the zipapp CLI on a real two-commit
+repository before it counts.
+
+```bash
+# Gates against recorded truth — refactor 24/60 and tamper 49/80 case-for-case,
+# the pytest oracle agreeing on all 80 tamper cases, the 31 recorded escapes
+# classified as escapes. Fails closed; `run` refuses without a passing record.
+python -m corpus stress calibrate --engine checkwash.pyz --checkwash ../checkwash
+
+# One day, four workers. Rule-space (THREATMODEL-taxonomy operators with
+# spelling tables), open-ended (random AST edits, oracle-filtered) and
+# robustness (malformed/pathological inputs) arms, reported separately.
+python -m corpus stress run --engine checkwash.pyz --checkwash ../checkwash --hours 24 --workers 4
+```
+
+Output lands in `records/stress/<date>/`: `calibration.json`, `summary.json`
+(rewritten every 40 iterations, so a running day is readable), `REPORT.md`,
+and one reproducer directory per finding family — full before/after trees,
+the engine's judgement, the CLI re-check, and a `.gwcase` skeleton with
+`rule: TODO`. Families, not floods: one hole is one row however many mutants
+fell through it. The raw per-iteration stream stays in the gitignored
+`clones/.stress-tmp/`. Findings are candidates for a human to triage; the
+harness commits nothing and edits no fixture (checkwash's AGENTS.md rule 2).
+
 ## What we will not do
 
 - Vendor apache/airflow or huggingface/transformers into git.
@@ -97,6 +129,7 @@ records/field-runs/      copied external field-runs; not a wave
 records/census/          power counts at a named revision
 records/prs/<id>/        harvested test-file patches from GitHub
 records/incoming/        agent-diff drop-box
+records/stress/<date>/   24h stress run: calibration, summary, REPORT, reproducers
 adjudication/            human FP/spec-correct split, after a sweep
 clones/                  gitignored cache
 src/corpus/              stdlib CLI

@@ -23,3 +23,7 @@ build/
 htmlcov/
 .DS_Store
 Thumbs.db
+
+# release engine dropped at the root by the README's own workflow
+checkwash.pyz
+greenwash.pyz

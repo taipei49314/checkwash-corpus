@@ -248,7 +248,51 @@ def build_parser() -> argparse.ArgumentParser:
         help="allow PATH/checkout engines; wave1 records still fail validate",
     )
     sw.set_defaults(func=cmd_sweep)
+
+    st_ = sub.add_parser("stress", help="24-hour mechanical falsification of checkwash's claims")
+    st_sub = st_.add_subparsers(dest="stress_command", required=True)
+
+    def add_stress_common(sp: argparse.ArgumentParser) -> None:
+        sp.add_argument("--engine", required=True, help="checkwash.pyz (a Release asset; the judge is imported from it)")
+        sp.add_argument("--checkwash", default=None, help="checkwash checkout holding benchmarks/ (default: sibling ../checkwash)")
+        sp.add_argument("--out", default=None, help="output dir (default: records/stress/<date>)")
+        sp.add_argument("--python", default=None, help="interpreter for the pytest oracle (default: this one)")
+
+    sr = st_sub.add_parser("run", help="generate, verify, judge, record")
+    add_stress_common(sr)
+    sr.add_argument("--hours", type=float, default=None)
+    sr.add_argument("--minutes", type=float, default=None)
+    sr.add_argument("--iterations", type=int, default=None)
+    sr.add_argument("--workers", type=int, default=4)
+    sr.add_argument("--seed", default=None, help="PRNG master seed (default: today's date)")
+    sr.add_argument("--modes", default="rules,open,robust")
+    sr.add_argument("--skip-calibration", action="store_true")
+    sr.set_defaults(func=cmd_stress_run)
+
+    sc = st_sub.add_parser("calibrate", help="replay the recorded corpora through the harness; must pass")
+    add_stress_common(sc)
+    sc.add_argument("--hours", type=float, default=None)
+    sc.add_argument("--minutes", type=float, default=None)
+    sc.add_argument("--iterations", type=int, default=None)
+    sc.add_argument("--workers", type=int, default=1)
+    sc.add_argument("--seed", default=None)
+    sc.add_argument("--modes", default="rules,open,robust")
+    sc.set_defaults(func=cmd_stress_calibrate)
     return p
+
+
+def cmd_stress_run(args: argparse.Namespace) -> int:
+    from corpus.stress.run import cmd_run
+
+    root = Path(args.root).resolve() if args.root else repo_root()
+    return cmd_run(args, root)
+
+
+def cmd_stress_calibrate(args: argparse.Namespace) -> int:
+    from corpus.stress.run import cmd_calibrate
+
+    root = Path(args.root).resolve() if args.root else repo_root()
+    return cmd_calibrate(args, root)
 
 
 def main(argv: list[str] | None = None) -> int:
