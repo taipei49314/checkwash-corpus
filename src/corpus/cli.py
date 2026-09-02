@@ -260,13 +260,21 @@ def build_parser() -> argparse.ArgumentParser:
 
     sr = st_sub.add_parser("run", help="generate, verify, judge, record")
     add_stress_common(sr)
-    sr.add_argument("--hours", type=float, default=None)
+    sr.add_argument("--hours", type=float, default=None, help="0 = run until a STOP file appears in the output dir, or Ctrl-C")
     sr.add_argument("--minutes", type=float, default=None)
     sr.add_argument("--iterations", type=int, default=None)
     sr.add_argument("--workers", type=int, default=4)
     sr.add_argument("--seed", default=None, help="PRNG master seed (default: today's date)")
     sr.add_argument("--modes", default="rules,open,robust")
     sr.add_argument("--skip-calibration", action="store_true")
+    # LLM arm (--modes llm): a local model proposes, the harness decides.
+    sr.add_argument("--llm-url", default=None, help="model server (default http://127.0.0.1:11434; LM Studio server: http://127.0.0.1:1234)")
+    sr.add_argument("--llm-model", default=None, help="model name (default qwen2.5-coder:7b)")
+    sr.add_argument("--llm-api", default=None, choices=["auto", "ollama", "openai"], help="auto: Ollama native on :11434, OpenAI-compatible otherwise")
+    sr.add_argument("--llm-temperature", type=float, default=None, help="default 0.9")
+    sr.add_argument("--llm-num-ctx", type=int, default=None, help="context window to request (default 8192)")
+    sr.add_argument("--llm-timeout", type=int, default=None, help="seconds per completion (default 600)")
+    sr.add_argument("--llm-briefs", default=None, help="brief weights, e.g. attack=0.6,honest=0.25,config=0.15")
     sr.set_defaults(func=cmd_stress_run)
 
     sc = st_sub.add_parser("calibrate", help="replay the recorded corpora through the harness; must pass")

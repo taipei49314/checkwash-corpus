@@ -15,14 +15,14 @@ from concurrent.futures import ThreadPoolExecutor, as_completed
 from dataclasses import asdict, dataclass, field
 from pathlib import Path
 
-from corpus.stress import honest_ops, random_ops, tamper_ops
+from corpus.stress import honest_ops, llm_ops, random_ops, tamper_ops
 from corpus.stress import report as R
 from corpus.stress.common import Variant
 from corpus.stress.engine import Engine, Judgement, blackbox_check
 from corpus.stress.sandbox import Workspace, ci_green, materialise
 from corpus.stress.seeds import Seed, load_seeds
 
-MODE_WEIGHTS = {"rules": 0.6, "open": 0.25, "robust": 0.15}
+MODE_WEIGHTS = {"rules": 0.6, "open": 0.25, "robust": 0.15, "llm": 0.25}
 REGISTRIES = {"tamper": tamper_ops.OPS, "honest": honest_ops.OPS, "open": random_ops.OPS}
 
 
@@ -45,6 +45,14 @@ class Config:
     det_sample: float = 0.05
     oracle_timeout: int = 60
     max_repros_per_class: int = 300
+    # LLM arm (estate T-56): a local model proposes, this harness decides.
+    llm_url: str = "http://127.0.0.1:11434"
+    llm_model: str = "qwen2.5-coder:7b"
+    llm_api: str = "auto"
+    llm_temperature: float = 0.9
+    llm_num_ctx: int = 8192
+    llm_timeout: int = 600
+    llm_briefs: dict = field(default_factory=lambda: dict(llm_ops.BRIEFS))
 
 
 @dataclass
@@ -155,6 +163,12 @@ class Runner:
         self.iterations_done = 0
         self.stream = (cfg.scratch / f"{cfg.out_dir.name}-outcomes.jsonl").open("a", encoding="utf-8")
         self.stop = threading.Event()
+        # LLM arm: the model is created lazily (tests inject doubles); stats by
+        # brief and discard reason; a backoff so a dead server does not turn
+        # the loop into a tight retry.
+        self.llm_model = None
+        self.llm_stats: Counter = Counter()
+        self.llm_consecutive_errors = 0
 
     # -- oracle -------------------------------------------------------------
     def _green(self, prod: dict[str, bytes], tests: dict, extras: dict, label: str) -> str:
@@ -196,6 +210,8 @@ class Runner:
         seed = rng.choice(self.seeds)
         if mode == "robust":
             return self._robust_iteration(i, rng, seed)
+        if mode == "llm":
+            return self._llm_iteration(i, rng, seed)
         kind = "open" if mode == "open" else (
             "honest" if seed.honest_capable and rng.random() < cfg.honest_share else "tamper"
         )
@@ -241,7 +257,7 @@ class Runner:
         family = ""
         minimized_from = None
         if klass in ("ESCAPE", "FALSE_POSITIVE"):
-            reduced = self._minimize(seed, kind, chain, i, klass)
+            reduced = None if mode == "llm" else self._minimize(seed, kind, chain, i, klass)
             if reduced is not None and reduced[0] != chain:
                 minimized_from = ops
                 chain, variant, changes, before_files, after_files, judgement = reduced
@@ -249,8 +265,9 @@ class Runner:
             family = f"{mode}:{kind}:" + "+".join(f"{n}.{s}" for n, s in chain)
             if klass == "FALSE_POSITIVE":
                 family += ":" + ",".join(judgement.rules)
-            for name, sp in chain:
-                self._cover(f"{mode}/{kind}/{name}/{sp}", "findings")
+            if mode != "llm":
+                for name, sp in chain:
+                    self._cover(f"{mode}/{kind}/{name}/{sp}", "findings")
         if det is False:
             klass = "NONDET" if klass == "OK" else klass
             family = family or f"nondet:{mode}:" + "+".join(f"{n}.{s}" for n, s in chain)
@@ -314,6 +331,80 @@ class Runner:
             row["blackbox_note"] = note
             row["divergence"] = out.divergence
             row["repro"] = "capped" if capped else (str(repro.relative_to(self.cfg.out_dir)).replace("\\", "/") if repro else None)
+
+    # -- the LLM arm ----------------------------------------------------------
+    def _llm(self):
+        if self.llm_model is None:
+            self.llm_model = llm_ops.make_model(
+                self.cfg.llm_url, self.cfg.llm_model, self.cfg.llm_api,
+                num_ctx=self.cfg.llm_num_ctx, timeout=self.cfg.llm_timeout,
+            )
+        return self.llm_model
+
+    def _known_llm_families(self) -> list[str]:
+        with self.lock:
+            rows = [(fam, row["count"]) for fam, row in self.families.items() if fam.startswith("llm:")]
+        rows.sort(key=lambda r: -r[1])
+        return [fam.split(":", 2)[-1] for fam, _ in rows[:30]]
+
+    def _llm_iteration(self, i, rng, seed):
+        """Same gates as every other arm; only the proposal comes from a model.
+
+        MODEL_ERROR is the server failing, backed off exponentially (2 s .. 60 s)
+        and never counted as a finding. DISCARDED covers everything the parse
+        gate, the unsafe-source scan and the oracle refuse — before pytest ever
+        runs in the first two cases."""
+        cfg = self.cfg
+        brief = llm_ops.pick_brief(rng, cfg.llm_briefs, seed)
+        kind = llm_ops.KIND_OF_BRIEF[brief]
+        with self.lock:
+            self.llm_stats[f"brief/{brief}/generated"] += 1
+        try:
+            proposal = llm_ops.generate(self._llm(), seed, brief, self._known_llm_families(), cfg.llm_temperature)
+        except llm_ops.ModelError as exc:
+            with self.lock:
+                self.llm_consecutive_errors += 1
+                self.llm_stats["model_errors"] += 1
+                pause = min(60.0, 2.0 ** min(self.llm_consecutive_errors, 6))
+            time.sleep(pause)
+            return Outcome(i, "llm", kind, seed.id, [[f"brief_{brief}", "-"]], "n/a", None, [], 0.0, None, "MODEL_ERROR", "", note=str(exc)[:300])
+        with self.lock:
+            self.llm_consecutive_errors = 0
+        if proposal.variant is None:
+            with self.lock:
+                self.llm_stats[f"discard/{proposal.reason}"] += 1
+            klass = "NOOP" if proposal.reason == "NOOP" else "DISCARDED"
+            return Outcome(i, "llm", kind, seed.id, [[f"brief_{brief}", "-"]], "n/a", None, [], 0.0, None, klass, "", note=f"{proposal.reason}; tactic={proposal.tactic}")
+        variant = proposal.variant
+        chain = [(f"brief_{brief}", proposal.signature)]
+        ops = [list(c) for c in chain]
+        head = seed.prod_good if kind == "honest" else seed.prod_bug
+        changes, before_files, after_files = build_changes(seed, variant.tests, variant.extras, head)
+        if not changes:
+            with self.lock:
+                self.llm_stats["discard/NOOP"] += 1
+            return Outcome(i, "llm", kind, seed.id, ops, "n/a", None, [], 0.0, None, "NOOP", "", note=f"tactic={proposal.tactic}")
+        oracle = self.verify(seed, kind, variant.tests, variant.extras)
+        if oracle != "verified":
+            klass = {"discarded": "DISCARDED", "timeout": "ORACLE_TIMEOUT", "error": "ORACLE_ERROR"}[oracle]
+            with self.lock:
+                self.llm_stats[f"discard/oracle_{oracle}"] += 1
+            return Outcome(i, "llm", kind, seed.id, ops, oracle, None, [], 0.0, None, klass, "", note=f"tactic={proposal.tactic}")
+        with self.lock:
+            self.llm_stats[f"brief/{brief}/verified"] += 1
+        twice = rng.random() < cfg.det_sample
+        judgement, det = self.judge(changes, head, seed.modules, twice=twice)
+        out = self._classify(i, "llm", kind, seed, chain, variant, changes, before_files, after_files, head, judgement, det)
+        out.note = f"brief={brief}; model={self._llm().name}; tactic={proposal.tactic}"
+        if out.klass in ("ESCAPE", "FALSE_POSITIVE"):
+            with self.lock:
+                self.llm_stats[f"brief/{brief}/{out.klass}"] += 1
+                row = self.families.get(out.family) or {}
+                first = row.get("examples") == [i]
+                repro = row.get("repro")
+            if first and repro and repro != "capped":
+                R.write_proposal(cfg.out_dir / repro, proposal, self._llm().name)
+        return out
 
     def _robust_iteration(self, i, rng, seed):
         sp = rng.choice(random_ops.ROBUST_SPELLINGS)
@@ -391,6 +482,9 @@ class Runner:
             pending = set()
             try:
                 while True:
+                    if (self.cfg.out_dir / "STOP").exists():
+                        print("STOP file found — draining and writing the report", flush=True)
+                        break
                     if time.time() >= deadline or (self.cfg.max_iterations is not None and i >= self.cfg.max_iterations):
                         break
                     while len(pending) < self.cfg.workers * 2 and (self.cfg.max_iterations is None or i < self.cfg.max_iterations) and time.time() < deadline:
@@ -511,6 +605,23 @@ def calibrate(cfg: Config, engine: Engine) -> dict:
     return result
 
 
+def _parse_briefs(spec: str | None) -> dict[str, float]:
+    """`attack=0.6,honest=0.25,config=0.15`; unnamed briefs get weight 0."""
+    weights = dict(llm_ops.BRIEFS)
+    if not spec:
+        return weights
+    out: dict[str, float] = {}
+    for part in spec.split(","):
+        if not part.strip():
+            continue
+        name, _, value = part.partition("=")
+        name = name.strip()
+        if name not in weights:
+            raise SystemExit(f"unknown brief {name!r}; want attack, honest, config")
+        out[name] = float(value or 0)
+    return {k: out.get(k, 0.0) for k in weights}
+
+
 def make_config(args, root: Path) -> Config:
     engine = Path(args.engine).resolve()
     checkwash_root = Path(args.checkwash).resolve() if args.checkwash else (root.parent / "checkwash")
@@ -518,11 +629,14 @@ def make_config(args, root: Path) -> Config:
     out = Path(args.out).resolve() if args.out else root / "records" / "stress" / day
     scratch = root / "clones" / ".stress-tmp"
     scratch.mkdir(parents=True, exist_ok=True)
-    seconds = float(args.hours) * 3600.0 if args.hours else (float(args.minutes) * 60.0 if args.minutes else 24 * 3600.0)
+    if args.hours is not None and float(args.hours) <= 0:
+        seconds = float("inf")  # --hours 0: run until a STOP file appears in the output dir, or Ctrl-C
+    else:
+        seconds = float(args.hours) * 3600.0 if args.hours else (float(args.minutes) * 60.0 if args.minutes else 24 * 3600.0)
     modes = tuple(m.strip() for m in (args.modes or "rules,open,robust").split(",") if m.strip())
     for m in modes:
         if m not in MODE_WEIGHTS:
-            raise SystemExit(f"unknown mode {m!r}; want rules,open,robust")
+            raise SystemExit(f"unknown mode {m!r}; want rules,open,robust,llm")
     return Config(
         engine_pyz=engine,
         checkwash_root=checkwash_root,
@@ -534,6 +648,13 @@ def make_config(args, root: Path) -> Config:
         master_seed=args.seed or day,
         modes=modes,
         python=args.python,
+        llm_url=getattr(args, "llm_url", None) or "http://127.0.0.1:11434",
+        llm_model=getattr(args, "llm_model", None) or "qwen2.5-coder:7b",
+        llm_api=getattr(args, "llm_api", None) or "auto",
+        llm_temperature=float(getattr(args, "llm_temperature", None) or 0.9),
+        llm_num_ctx=int(getattr(args, "llm_num_ctx", None) or 8192),
+        llm_timeout=int(getattr(args, "llm_timeout", None) or 600),
+        llm_briefs=_parse_briefs(getattr(args, "llm_briefs", None)),
     )
 
 
