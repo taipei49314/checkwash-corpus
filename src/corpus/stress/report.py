@@ -90,6 +90,65 @@ def write_repro(out_dir: Path, out, seed, changes, head: dict[str, bytes], judge
     return repro
 
 
+def write_proposal(repro: Path, proposal, model_name: str) -> None:
+    """The model's own account of what it did, next to the repro it produced —
+    for the human who triages, never for the family key."""
+    payload = {
+        "model": model_name, "brief": proposal.brief, "tactic": proposal.tactic,
+        "signature": proposal.signature, "prompt_chars": proposal.prompt_chars,
+    }
+    (repro / "proposal.json").write_text(json.dumps(payload, indent=1, ensure_ascii=False) + "\n", encoding="utf-8", newline="\n")
+    (repro / "proposal.raw.txt").write_text(proposal.raw, encoding="utf-8", newline="\n")
+
+
+def _llm_summary(runner) -> dict:
+    stats = getattr(runner, "llm_stats", None)
+    if not stats:
+        return {}
+    cfg = runner.cfg
+    return {
+        "model": getattr(getattr(runner, "llm_model", None), "name", cfg.llm_model),
+        "url": cfg.llm_url,
+        "temperature": cfg.llm_temperature,
+        "briefs": dict(cfg.llm_briefs),
+        "stats": dict(sorted(stats.items())),
+    }
+
+
+def _llm_section(summary: dict) -> list[str]:
+    llm = summary.get("llm") or {}
+    if not llm:
+        return []
+    stats = llm.get("stats", {})
+    briefs = sorted({k.split("/")[1] for k in stats if k.startswith("brief/")})
+    lines = [
+        "## LLM arm (a local model proposes, the oracle decides)",
+        "",
+        f"Model `{llm.get('model')}` at `{llm.get('url')}`, temperature {llm.get('temperature')}. "
+        "Nothing the model says is evidence: every proposal went through the same parse gate, unsafe-source "
+        "scan, pytest oracle and pinned engine as the operator arms. Family keys are AST shape signatures of "
+        "the edit; the model's own TACTIC line is stored in `proposal.json` next to each repro for the human who triages.",
+        "",
+        "| brief | generated | verified | ESCAPE | FALSE_POSITIVE |",
+        "|---|---:|---:|---:|---:|",
+    ]
+    for b in briefs:
+        lines.append(
+            f"| {b} | {stats.get(f'brief/{b}/generated', 0)} | {stats.get(f'brief/{b}/verified', 0)} | "
+            f"{stats.get(f'brief/{b}/ESCAPE', 0)} | {stats.get(f'brief/{b}/FALSE_POSITIVE', 0)} |"
+        )
+    discards = {k.split("/", 1)[1]: n for k, n in stats.items() if k.startswith("discard/")}
+    if discards:
+        lines += ["", "Discarded before or at the oracle: " + ", ".join(f"{k} {n}" for k, n in sorted(discards.items(), key=lambda kv: -kv[1])) + "."]
+    if stats.get("model_errors"):
+        lines += ["", f"Model server errors (backed off, not counted as findings): {stats['model_errors']}."]
+    lines += [
+        "", "### Escapes — verified tampering the engine passed", "", *_family_table(summary, "ESCAPE", "llm:"),
+        "", "### False positives — verified honest refactors the engine blocked", "", *_family_table(summary, "FALSE_POSITIVE", "llm:"), "",
+    ]
+    return lines
+
+
 def summarise(runner, *, final: bool) -> dict:
     cfg = runner.cfg
     by_mode = {m: Counter(c) for m, c in runner.by_mode.items()}
@@ -117,6 +176,7 @@ def summarise(runner, *, final: bool) -> dict:
         "perf_suspects_under_load": len(runner.perf_suspects),
         "perf_confirmed_alone": getattr(runner, "perf_confirmed", None),
         "engine_seconds_total": round(runner.engine_seconds_total, 2),
+        "llm": _llm_summary(runner),
     }
 
 
@@ -248,6 +308,7 @@ def write_report(out_dir: Path, summary: dict, runner) -> None:
            + (json.dumps(summary["perf_confirmed_alone"]) if summary["perf_confirmed_alone"] else "none still over budget.")
            if summary.get("perf_confirmed_alone") is not None else "Not yet re-measured (run in progress)."),
         "",
+        *_llm_section(summary),
         "## Coverage — rule-space tamper operators",
         "",
         *_coverage_table(summary, "rules/tamper/"),
@@ -271,6 +332,7 @@ def write_report(out_dir: Path, summary: dict, runner) -> None:
         "- Every seed carries a two-test padding file so a neutralised test does not empty the run; that is the realistic suite shape, and it is identical on both sides.",
         "- `async_convert` (an orphan `async def` test with no async plugin) is pytest-version-dependent: some versions skip it (green — a wash), others fail it. The oracle decides per run; a verified escape here means *this* pytest skipped it.",
         "- Open-ended edits explore only the palette in `random_ops.py`; a family the palette cannot express is not in this report.",
+        "- The LLM arm (`--modes llm`) is the escape hatch for shapes the palette cannot express: a local model proposes whole-file rewrites of the seed's test file (or a pytest.ini), and the same oracle and engine decide. Nothing the model says is evidence; its findings are candidates like every other family, and its TACTIC labels are never family keys.",
         "- Findings are candidates: `case.gwcase` skeletons carry `rule: TODO` and are not committed by the harness (AGENTS.md rule 2 — labels are reviewed by a human).",
         "",
     ]

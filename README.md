@@ -101,6 +101,22 @@ python -m corpus stress calibrate --engine checkwash.pyz --checkwash ../checkwas
 # spelling tables), open-ended (random AST edits, oracle-filtered) and
 # robustness (malformed/pathological inputs) arms, reported separately.
 python -m corpus stress run --engine checkwash.pyz --checkwash ../checkwash --hours 24 --workers 4
+
+# The LLM arm: a local model proposes, the same oracle and engine decide.
+# Three briefs — attack (make the failing test pass on buggy production and
+# look legitimate), honest (refactor without changing what is verified),
+# config (pytest.ini only). Nothing the model says is evidence: every
+# proposal goes through the parse gate, an unsafe-source scan (processes,
+# filesystem writes, network, native code never reach the sandbox), the
+# pytest oracle and the pinned zipapp; families are keyed by the AST shape of
+# the edit, never by the model's own label. `--hours 0` runs until a `STOP`
+# file appears in the output directory. Ollama on :11434 by default; any
+# OpenAI-compatible server (LM Studio) via --llm-url/--llm-api openai.
+# Keep --out short on Windows: repro directories nest family slugs under it
+# and the 260-character path limit turns a long output path into
+# HARNESS_ERROR rows.
+python -m corpus stress run --engine checkwash.pyz --checkwash ../checkwash --hours 0 --workers 4 \
+    --modes llm --llm-model qwen2.5-coder:7b
 ```
 
 Output lands in `records/stress/<date>/`: `calibration.json`, `summary.json`
