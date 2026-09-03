@@ -658,9 +658,45 @@ def make_config(args, root: Path) -> Config:
     )
 
 
+def checkout_version(checkwash_root: Path) -> str | None:
+    """The version the checkwash checkout beside us declares, or None."""
+    try:
+        import tomllib
+        data = tomllib.loads((checkwash_root / "pyproject.toml").read_text(encoding="utf-8"))
+        return str(data["project"]["version"])
+    except Exception:  # noqa: BLE001 - no checkout, no opinion
+        return None
+
+
+def _vtuple(v: str) -> tuple[int, ...]:
+    return tuple(int(p) for p in v.split(".") if p.isdigit())
+
+
+def stale_engine_message(engine_version: str, checkwash_root: Path) -> str | None:
+    """Refuse to spend a day on an engine older than the checkout it is being
+    measured against. The 2026-09-03 LLM-arm run judged 12,929 mutants with the
+    v0.2.8 zipapp that happened to sit at the repository root while the
+    checkout was at v0.2.12; 85 of its 88 escape families were later re-judged
+    still open, but the run itself could not say so. Findings against a stale
+    engine are not wrong, they are just about a version nobody ships."""
+    current = checkout_version(checkwash_root)
+    if current is None or not _vtuple(engine_version) or not _vtuple(current):
+        return None
+    if _vtuple(engine_version) < _vtuple(current):
+        return (
+            f"engine {engine_version} is older than the checkwash checkout ({current}) at {checkwash_root}. "
+            "Download the current Release checkwash.pyz, or pass --allow-stale-engine to measure an old version on purpose."
+        )
+    return None
+
+
 def cmd_calibrate(args, root: Path) -> int:
     cfg = make_config(args, root)
     engine = Engine(cfg.engine_pyz)
+    stale = stale_engine_message(engine.version, cfg.checkwash_root)
+    if stale and not getattr(args, "allow_stale_engine", False):
+        print("refusing: " + stale, flush=True)
+        return 2
     cfg.out_dir.mkdir(parents=True, exist_ok=True)
     seeds = load_seeds(cfg.checkwash_root)
     kept, dropped = verify_seeds(seeds, cfg)
@@ -680,6 +716,10 @@ def cmd_calibrate(args, root: Path) -> int:
 def cmd_run(args, root: Path) -> int:
     cfg = make_config(args, root)
     engine = Engine(cfg.engine_pyz)
+    stale = stale_engine_message(engine.version, cfg.checkwash_root)
+    if stale and not getattr(args, "allow_stale_engine", False):
+        print("refusing: " + stale, flush=True)
+        return 2
     cfg.out_dir.mkdir(parents=True, exist_ok=True)
     seeds = load_seeds(cfg.checkwash_root)
     kept, dropped = verify_seeds(seeds, cfg)
