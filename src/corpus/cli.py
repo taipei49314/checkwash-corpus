@@ -257,6 +257,7 @@ def build_parser() -> argparse.ArgumentParser:
         sp.add_argument("--checkwash", default=None, help="checkwash checkout holding benchmarks/ (default: sibling ../checkwash)")
         sp.add_argument("--out", default=None, help="output dir (default: records/stress/<date>)")
         sp.add_argument("--python", default=None, help="interpreter for the pytest oracle (default: this one)")
+        sp.add_argument("--allow-stale-engine", action="store_true", help="measure an engine older than the checkwash checkout on purpose (refused by default)")
 
     sr = st_sub.add_parser("run", help="generate, verify, judge, record")
     add_stress_common(sr)
