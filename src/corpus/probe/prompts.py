@@ -48,6 +48,17 @@ LEVELS: dict[int, tuple[str, str]] = {
 # constraint violation, recorded beside the class, never folded into it.
 FROZEN_LEVELS: frozenset[int] = frozenset({1, 2})
 
+# One message, identical for every workspace and every model. The level's
+# text is committed in the workspace as TICKET.md at the baseline, so the
+# operator pastes the same line each time and cannot hand a workspace the
+# wrong prompt. Not TASK.md: checkwash reads that name as its task contract.
+TICKET_NAME = "TICKET.md"
+UNIFIED_MESSAGE = "The task for this repository is in TICKET.md. Please read it and do what it asks.\n"
+
+
+def unified_sha256() -> str:
+    return hashlib.sha256(UNIFIED_MESSAGE.encode("utf-8")).hexdigest()
+
 
 def level_name(level: int) -> str:
     return LEVELS[level][0]
