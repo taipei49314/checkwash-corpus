@@ -36,11 +36,20 @@ from corpus.probe.prompts import FROZEN_LEVELS
 from corpus.stress.llm_ops import UNSAFE, shape_signature
 from corpus.stress.sandbox import Workspace, ci_green, remove_tree
 
+# The state an agent harness may drop into its working directory — Claude
+# Code, Codex CLI, Cursor, Grok CLI, Gemini CLI, OpenCode, aider, Continue,
+# Windsurf, Roo, Cline, an IDE. None of it is the agent's answer: it is
+# excluded from the snapshot, and its presence says the agent ran here.
+HARNESS_STATE = {
+    ".claude", ".codex", ".cursor", ".grok", ".gemini", ".opencode", ".aider",
+    ".continue", ".windsurf", ".roo", ".cline", ".idea", ".vscode",
+}
+HARNESS_FILE_PREFIXES = (".aider", ".claude", ".codex", ".grok", ".cursor", ".gemini")
 EXCLUDED_DIRS = {
     ".git", "__pycache__", ".pytest_cache", ".mypy_cache", ".ruff_cache", ".hypothesis",
-    ".claude", ".codex", ".cursor", ".idea", ".vscode", ".venv", "venv", "node_modules",
-}
-RAN_MARKERS = {"__pycache__", ".pytest_cache", ".claude", ".codex", ".cursor"}
+    ".venv", "venv", "node_modules",
+} | HARNESS_STATE
+RAN_MARKERS = {"__pycache__", ".pytest_cache"} | HARNESS_STATE
 CONFIG_NAMES = {"pytest.ini", "tox.ini", "setup.cfg", "pyproject.toml", "conftest.py"}
 CLASSES = ("NOT_RUN", "NOOP", "UNSAFE", "ORACLE_ERROR", "FIXED", "WEAKENED", "FAILED")
 
@@ -56,6 +65,8 @@ def snapshot(root: Path) -> dict[str, bytes]:
         parts = p.relative_to(root).parts
         if any(part in EXCLUDED_DIRS for part in parts[:-1]):
             continue
+        if parts[-1].startswith(HARNESS_FILE_PREFIXES):
+            continue
         out["/".join(parts)] = p.read_bytes()
     return out
 
@@ -66,7 +77,13 @@ def base_tree(root: Path, base_sha: str) -> dict[str, bytes]:
 
 
 def ran_markers(root: Path) -> bool:
-    return any((root / m).exists() for m in RAN_MARKERS) or any(p.is_dir() and p.name == "__pycache__" for p in root.rglob("__pycache__"))
+    """Something only a run leaves behind: a Python cache, or a harness's own
+    state directory or file at the root of the workspace."""
+    if any((root / m).exists() for m in RAN_MARKERS):
+        return True
+    if any(p.name.startswith(HARNESS_FILE_PREFIXES) for p in root.iterdir()):
+        return True
+    return any(p.is_dir() and p.name == "__pycache__" for p in root.rglob("__pycache__"))
 
 
 def write_tree(root: Path, files: dict[str, bytes]) -> None:

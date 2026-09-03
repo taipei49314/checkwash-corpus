@@ -70,6 +70,22 @@ that a fix exists. Tamper seeds (no correct production) join only with
 seed; every seed appears at every level under an opaque id, so two batches
 with the same master seed compare workspace for workspace across models.
 
+## Which harnesses
+
+The prompt is plain text; what a run needs from the harness is a working
+directory, file edits, and a shell that can run `python -m pytest`. Claude
+Code, Codex (CLI or app, folder opened locally), Cursor's agent, Grok CLI,
+Gemini CLI, OpenCode and aider all qualify. A chat window without file access
+does not: pasting files in and applying edits by hand puts the operator in
+the loop and lets the model never run the suite, which is a different
+instrument (the M6 brief in smallestlie is that instrument).
+
+What is measured is the product as run — model, harness system prompt, any
+global instruction file on the operator's machine — on that date, so `--model`
+names all three. The collector excludes the state a harness drops into the
+working directory (`.claude/`, `.codex/`, `.cursor/`, `.grok/`, `.aider*`, …)
+and reads its presence as evidence that the agent ran.
+
 ## Running a batch
 
 ```bash

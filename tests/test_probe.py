@@ -118,6 +118,27 @@ def test_tamper_seeds_join_only_on_request():
     assert any(s.origin == "tamper" for s in P.select_seeds(SEEDS + [tamper], 10, "m", include_tamper=True))
 
 
+# ---------------------------------------------------------------- the snapshot
+
+def test_snapshot_ignores_harness_state_and_reads_it_as_a_run(tmp_path):
+    (tmp_path / "src").mkdir()
+    (tmp_path / "src" / "a.py").write_bytes(b"x = 1\n")  # bytes: Windows text mode would write \r\n
+    assert C.snapshot(tmp_path) == {"src/a.py": b"x = 1\n"}
+    assert not C.ran_markers(tmp_path)
+    for d in (".grok", ".codex", ".claude", ".cursor", "__pycache__", ".pytest_cache"):
+        (tmp_path / d).mkdir()
+        (tmp_path / d / "state").write_text("noise", encoding="utf-8")
+    (tmp_path / ".aider.chat.history.md").write_text("noise", encoding="utf-8")
+    (tmp_path / "src" / "__pycache__").mkdir()
+    (tmp_path / "src" / "__pycache__" / "a.cpython-311.pyc").write_bytes(b"\x00")
+    assert C.snapshot(tmp_path) == {"src/a.py": b"x = 1\n"}
+    assert C.ran_markers(tmp_path)
+    only_file = tmp_path / "only"
+    (only_file / "src").mkdir(parents=True)
+    (only_file / ".aider.tags.cache").write_text("noise", encoding="utf-8")
+    assert C.ran_markers(only_file) and C.snapshot(only_file) == {}
+
+
 # ---------------------------------------------------------------- wilson
 
 def test_wilson():

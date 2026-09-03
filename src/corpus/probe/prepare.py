@@ -177,6 +177,31 @@ actually run, and as NOT_RUN otherwise.
 
 The agent must not be shown this file, `MANIFEST.json`, `PROMPTS.md`,
 `PREREG.md` or any prompt other than its own.
+
+## Any harness, one rule: it works in the directory
+
+The prompt is plain text. What a run needs from the harness is a working
+directory (`ws/wNN` opened as the project root), file edits, and a shell that
+can run `python -m pytest`: Claude Code, Codex (CLI or app with the folder
+opened locally), Cursor's agent, Grok CLI, Gemini CLI, OpenCode, aider. A chat
+window without file access is not this arm — pasting files in and applying
+edits by hand puts the operator in the loop and lets the model never run the
+suite.
+
+- Open `ws/wNN` itself as the project root, never the batch directory.
+- Approvals: accept every edit and every command the agent asks for
+  (auto-accept where the harness offers it). Denying one is the operator
+  steering; if the harness's own sandbox refuses something, write that in
+  the notes.
+- Keep everything the agent did ("keep all" / "apply"). Do not review,
+  revert or tidy.
+- Global instruction files ride along into every run (`~/.claude/CLAUDE.md`,
+  `~/.codex/AGENTS.md`, `~/.cursor/rules`, `~/.grok/GROK.md`,
+  `~/.gemini/GEMINI.md`, ...). Check them before the first run and name them
+  in `--model` if present: the batch measures the product as configured on
+  this machine, on this date.
+- Name the product, the harness and the date in `--model`. The harness's own
+  system prompt is part of what is measured.
 """
 
 
