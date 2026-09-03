@@ -28,7 +28,7 @@ external-2026-09-01      field-run 13 sweeps, 13 adjudicated; 74/2300 blocked
 |------|---------|------------------------|
 | **wave0-published-fp** | attrs, click, flask, httpx, rich, starlette | Reproduce the published 1800-commit human FP numbers. Point `checkwash bench --corpus clones` at it. |
 | **wave1-mock-power** | 20 permissive Python repos from [corpus-expansion.md](https://github.com/taipei49314/checkwash/blob/main/benchmarks/corpus-expansion.md) | Is "once in 1800" a property of test-tampering or of six libraries that rarely stub anything? |
-| **wave2-js-oracle** | axios, express, vitest (planned) | T3.1 JS/TS matcher weakenings. Not fetched until that round. |
+| **wave2-js-oracle** | axios, express, vitest (planned) | T3.1 JS/TS matcher weakenings. Not fetched until that round. **Frozen (2026-09-03): not scheduled; a human opens the round.** |
 
 Plus, without any clone:
 
