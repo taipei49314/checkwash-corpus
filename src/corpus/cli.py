@@ -287,7 +287,120 @@ def build_parser() -> argparse.ArgumentParser:
     sc.add_argument("--seed", default=None)
     sc.add_argument("--modes", default="rules,open,robust")
     sc.set_defaults(func=cmd_stress_calibrate)
+
+    pr = sub.add_parser("probe", help="the natural arm: an agent really works a red repository; execution classifies, the pinned zipapp judges")
+    pr_sub = pr.add_subparsers(dest="probe_command", required=True)
+
+    pp = pr_sub.add_parser("prepare", help="one git repository per (seed, level), CI red at the baseline, the prompt beside it")
+    pp.add_argument("--engine", required=True, help="checkwash.pyz the batch will be judged with (recorded; collect refuses another)")
+    pp.add_argument("--checkwash", default=None, help="checkwash checkout holding benchmarks/ (default: sibling ../checkwash)")
+    pp.add_argument("--out", required=True, help="batch directory to create; one model per batch (keep it short on Windows)")
+    pp.add_argument("--model-tag", required=True, help="short tag of the model this batch is for, e.g. fable, codex, glm, grok")
+    pp.add_argument("--seeds", type=int, default=10, help="seeds to draw (default 10); each appears at every level")
+    pp.add_argument("--levels", default=None, help="pressure levels, e.g. 0,1,2 (default: all)")
+    pp.add_argument("--seed", default=None, help="master seed for the draw and the order (default: today's date)")
+    pp.add_argument("--python", default=None, help="interpreter for the pytest oracle (default: this one)")
+    pp.add_argument("--include-tamper", action="store_true", help="also draw tamper seeds (no correct production; a fix is not checked to exist)")
+    pp.add_argument("--allow-stale-engine", action="store_true", help="prepare against an engine older than the checkwash checkout on purpose")
+    pp.add_argument("--force", action="store_true", help="overwrite a non-empty batch directory")
+    pp.set_defaults(func=cmd_probe_prepare)
+
+    pc = pr_sub.add_parser("collect", help="snapshot every workspace, classify by execution, judge, record")
+    pc.add_argument("--batch", required=True, help="batch directory written by prepare")
+    pc.add_argument("--model", required=True, help="the model as run, e.g. 'Claude Fable 5.1 via Claude Code, 2026-09-04'")
+    pc.add_argument("--engine", default=None, help="checkwash.pyz (default: the one recorded at prepare)")
+    pc.add_argument("--python", default=None, help="interpreter for the pytest oracle and the zipapp (default: this one)")
+    pc.add_argument("--all", action="store_true", help="every workspace was run (otherwise list the ids you ran in RAN.txt)")
+    pc.add_argument("--allow-engine-mismatch", action="store_true", help="judge with an engine other than the recorded one, on purpose")
+    pc.set_defaults(func=cmd_probe_collect)
+
+    pe = pr_sub.add_parser("report", help="rates with Wilson intervals, the predictions, every escape and false block")
+    pe.add_argument("--batch", required=True)
+    pe.set_defaults(func=cmd_probe_report)
+
+    pm = pr_sub.add_parser("compare", help="models side by side; writes COMPARE.md next to the batches")
+    pm.add_argument("batches", nargs="+", help="batch directories that have been reported")
+    pm.set_defaults(func=cmd_probe_compare)
     return p
+
+
+def cmd_probe_prepare(args: argparse.Namespace) -> int:
+    from corpus.probe.prepare import engine_record, prepare_batch
+    from corpus.probe.prompts import parse_levels
+    from corpus.stress.run import stale_engine_message
+    from corpus.stress.seeds import load_seeds
+
+    root = Path(args.root).resolve() if args.root else repo_root()
+    checkwash_root = Path(args.checkwash).resolve() if args.checkwash else (root.parent / "checkwash")
+    engine = Path(args.engine).resolve()
+    if not engine.exists():
+        print(f"engine {engine} not found", file=sys.stderr)
+        return 2
+    record = engine_record(engine, args.python)
+    stale = stale_engine_message(record.get("version", "?"), checkwash_root)
+    if stale and not args.allow_stale_engine:
+        print("refusing: " + stale, flush=True)
+        return 2
+    try:
+        levels = parse_levels(args.levels)
+    except ValueError as exc:
+        print(exc, file=sys.stderr)
+        return 2
+    seeds = load_seeds(checkwash_root)
+    if not seeds:
+        print(f"no seeds under {checkwash_root / 'benchmarks'}", file=sys.stderr)
+        return 2
+    manifest = prepare_batch(
+        seeds, Path(args.out), model_tag=args.model_tag, levels=levels, n_seeds=args.seeds,
+        master_seed=args.seed or _today(), engine=engine, python=args.python,
+        include_tamper=args.include_tamper, checkwash_root=checkwash_root, force=args.force,
+    )
+    s = manifest["seeds"]
+    print(
+        f"batch {manifest['batch']}: {len(manifest['workspaces'])} workspaces from {s['usable']}/{s['drawn']} seeds, "
+        f"levels {','.join(manifest['levels'])}, engine {manifest['engine'].get('version')}; read RUN.md"
+    )
+    for d in s["dropped"]:
+        print(f"  dropped {d['id']}: {d['checks']}")
+    return 0
+
+
+def cmd_probe_collect(args: argparse.Namespace) -> int:
+    from corpus.probe.collect import collect_batch
+
+    out = collect_batch(
+        Path(args.batch), model=args.model, engine=Path(args.engine) if args.engine else None,
+        python=args.python, all_ran=args.all, allow_engine_mismatch=args.allow_engine_mismatch,
+    )
+    classes = {}
+    for row in out["rows"]:
+        classes[row["klass"]] = classes.get(row["klass"], 0) + 1
+    print("collected: " + ", ".join(f"{k} {v}" for k, v in sorted(classes.items())))
+    return 0
+
+
+def cmd_probe_report(args: argparse.Namespace) -> int:
+    from corpus.probe.report import one_line, report_batch
+
+    summary = report_batch(Path(args.batch))
+    print(one_line(summary))
+    print(f"wrote {Path(args.batch).resolve() / 'REPORT.md'}")
+    return 0
+
+
+def cmd_probe_compare(args: argparse.Namespace) -> int:
+    import os
+
+    from corpus.probe.report import compare
+
+    text = compare([Path(b) for b in args.batches])
+    parent = Path(os.path.commonpath([str(Path(b).resolve()) for b in args.batches]))
+    if parent.is_file() or parent in [Path(b).resolve() for b in args.batches]:
+        parent = parent.parent
+    (parent / "COMPARE.md").write_text(text, encoding="utf-8", newline="\n")
+    print(text)
+    print(f"wrote {parent / 'COMPARE.md'}")
+    return 0
 
 
 def cmd_stress_run(args: argparse.Namespace) -> int:
