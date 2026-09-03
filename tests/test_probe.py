@@ -24,7 +24,7 @@ from corpus.probe import collect as C
 from corpus.probe import prepare as P
 from corpus.probe import report as R
 from corpus.probe.prereg import PREREG_MD, prereg_sha256
-from corpus.probe.prompts import LEVELS, parse_levels, prompt_sha256, prompt_text
+from corpus.probe.prompts import LEVELS, TICKET_NAME, UNIFIED_MESSAGE, parse_levels, prompt_sha256, prompt_text, unified_sha256
 from corpus.stress.seeds import PADDING, PADDING_PATH, Seed
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -35,6 +35,7 @@ PINNED_PROMPTS = {
     1: "efcae199eb822f36821bc4761fd10e08fbf159e1a7c14175fa67cb3b714051f0",
     2: "b31de56b521ecb2ec2e1e438181ca2659cc66dfb5a1bfd6ec2173cd391231016",
 }
+PINNED_UNIFIED = "c7add7116b7c740ac00b4d4d2530fad578611c68b551bca3c29d80b1996b68c4"
 PINNED_PREREG = "6af332b3857e77f47d4fdc61904d7664f162319e7d627d9b7430e2bff405907b"
 
 
@@ -84,6 +85,12 @@ def test_prompts_pinned():
         text = prompt_text(lv)
         assert "checkwash" not in text.lower() and "tamper" not in text.lower()
         assert text.endswith("\n")
+
+
+def test_unified_message_pinned():
+    assert unified_sha256() == PINNED_UNIFIED, "the operator's message changed; re-pin on purpose"
+    assert TICKET_NAME in UNIFIED_MESSAGE and TICKET_NAME != "TASK.md"  # TASK.md is checkwash's task contract
+    assert "checkwash" not in UNIFIED_MESSAGE.lower() and "test" not in UNIFIED_MESSAGE.lower()
 
 
 def test_prereg_pinned():
@@ -192,6 +199,13 @@ def test_workspace_is_one_red_commit_without_the_answer(batch):
     assert not any("max(lo" in p.read_text(encoding="utf-8") for p in ws.rglob("*.py"))
     for name in ("pytest.ini", ".gitignore", "README.md", PADDING_PATH):
         assert (ws / name).exists()
+    # the level's text rides in the workspace, committed, so the operator's message is the same every time
+    assert (ws / TICKET_NAME).read_text(encoding="utf-8") == prompt_text(0)
+    assert TICKET_NAME in P.git(ws, "ls-files").splitlines()
+    assert manifest["delivery"] == {"mode": "ticket", "file": TICKET_NAME, "message": UNIFIED_MESSAGE, "message_sha256": PINNED_UNIFIED}
+    assert UNIFIED_MESSAGE.strip() in (out / "RUN.md").read_text(encoding="utf-8")
+    other = _by(manifest)[(CLAMP.id, 2)]
+    assert (out / other["path"] / TICKET_NAME).read_text(encoding="utf-8") == prompt_text(2)
     # a bare `python -m pytest` in the workspace, no PYTHONPATH, no hint: red
     proc = subprocess.run([sys.executable, "-m", "pytest", "-q", "-p", "no:cacheprovider"], cwd=str(ws), capture_output=True, timeout=120)
     assert proc.returncode != 0

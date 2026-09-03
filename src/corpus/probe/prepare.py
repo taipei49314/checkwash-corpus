@@ -25,7 +25,7 @@ import sys
 from pathlib import Path
 
 from corpus.probe.prereg import PREREG_MD, prereg_sha256
-from corpus.probe.prompts import LEVELS, level_name, prompt_sha256, prompt_text
+from corpus.probe.prompts import TICKET_NAME, UNIFIED_MESSAGE, level_name, prompt_sha256, prompt_text, unified_sha256
 from corpus.stress.sandbox import Workspace, ci_green, materialise, remove_tree
 from corpus.stress.seeds import Seed
 
@@ -123,10 +123,10 @@ def workspace_extras(seed: Seed) -> dict[str, str]:
     return {"pytest.ini": WORKSPACE_INI, ".gitignore": GITIGNORE, "README.md": README.format(name=_module_name(seed))}
 
 
-def materialise_workspace(root: Path, seed: Seed) -> str:
-    """Write the buggy production, the tests and the extras; commit once.
-    Returns the baseline commit sha."""
-    materialise(root, seed.prod_bug, seed.tests, workspace_extras(seed))
+def materialise_workspace(root: Path, seed: Seed, level: int) -> str:
+    """Write the buggy production, the tests, the extras and the level's text
+    as TICKET.md; commit once. Returns the baseline commit sha."""
+    materialise(root, seed.prod_bug, seed.tests, {**workspace_extras(seed), TICKET_NAME: prompt_text(level)})
     git(root, "init", "-q")
     git(root, "add", "-A")
     git(root, "commit", "-q", "-m", "baseline")
@@ -151,14 +151,19 @@ def check_seed(seed: Seed, scratch: Path, python: str | None, timeout: int) -> d
 RUN_MD = """# How to run this batch (operator)
 
 One model per batch. This batch: model tag `{model_tag}`, {count} workspaces
-under `ws/`, one prompt per workspace under `prompts/`.
+under `ws/`. Every workspace carries its own task as `TICKET.md`, committed
+at the baseline, so the message you paste is the same every time:
+
+    {message}
 
 For each workspace `ws/wNN`, in any order:
 
 1. Start a **fresh** agent session with that directory as its working
    directory (for example `cd ws/w07`, then launch the agent there). One
    workspace per session; never reuse a session across workspaces.
-2. Paste the contents of `prompts/wNN.txt` as the first and only message.
+2. Paste the message above as the first and only message. `prompts/wNN.txt`
+   holds the same text as that workspace's `TICKET.md`; only for a harness
+   that cannot read files, paste that instead and say so in the notes.
 3. Let it finish. If it asks a question, reply exactly `Use your judgement.`
    and note that in step 4.
 4. Optional but useful: paste the agent's final message into `notes/wNN.md`.
@@ -206,9 +211,20 @@ suite.
 
 
 def _prompts_md(levels: tuple[int, ...]) -> str:
-    lines = ["# The prompts of this batch", "", "Pinned by sha256 in `tests/test_probe.py`. One level per workspace; the agent sees exactly one of these, verbatim, as its only message.", ""]
+    lines = [
+        "# The prompts of this batch",
+        "",
+        "Pinned by sha256 in `tests/test_probe.py`. Every workspace carries exactly one level's text, committed at its baseline as `TICKET.md`; the operator pastes the same one-line message every time.",
+        "",
+        f"## The message the operator pastes — sha256 `{unified_sha256()}`",
+        "",
+        "```text",
+        UNIFIED_MESSAGE.rstrip("\n"),
+        "```",
+        "",
+    ]
     for lv in levels:
-        lines += [f"## Level {lv} — `{level_name(lv)}` — sha256 `{prompt_sha256(lv)}`", "", "```text", prompt_text(lv).rstrip("\n"), "```", ""]
+        lines += [f"## Level {lv} — `{level_name(lv)}` — `TICKET.md` — sha256 `{prompt_sha256(lv)}`", "", "```text", prompt_text(lv).rstrip("\n"), "```", ""]
     return "\n".join(lines)
 
 
@@ -254,7 +270,7 @@ def prepare_batch(
         root = out / "ws" / spec["id"]
         if root.exists():
             remove_tree(root)
-        base_sha = materialise_workspace(root, seed)
+        base_sha = materialise_workspace(root, seed, spec["level"])
         (out / "prompts" / f"{spec['id']}.txt").write_text(prompt_text(spec["level"]), encoding="utf-8", newline="\n")
         workspaces.append(
             {
@@ -275,6 +291,7 @@ def prepare_batch(
         "created_utc": datetime.datetime.now(datetime.timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ"),
         "master_seed": master_seed,
         "levels": {str(lv): {"name": level_name(lv), "sha256": prompt_sha256(lv)} for lv in levels},
+        "delivery": {"mode": "ticket", "file": TICKET_NAME, "message": UNIFIED_MESSAGE, "message_sha256": unified_sha256()},
         "prereg_sha256": prereg_sha256(),
         "engine": engine_record(engine, python),
         "python": python or sys.executable,
@@ -285,8 +302,12 @@ def prepare_batch(
     (out / "MANIFEST.json").write_text(json.dumps(manifest, indent=1, ensure_ascii=False) + "\n", encoding="utf-8", newline="\n")
     (out / "PROMPTS.md").write_text(_prompts_md(levels), encoding="utf-8", newline="\n")
     (out / "PREREG.md").write_text(PREREG_MD, encoding="utf-8", newline="\n")
-    (out / "RUN.md").write_text(RUN_MD.format(model_tag=model_tag, count=len(workspaces)), encoding="utf-8", newline="\n")
+    (out / "RUN.md").write_text(run_md(model_tag, len(workspaces)), encoding="utf-8", newline="\n")
     return manifest
+
+
+def run_md(model_tag: str, count: int) -> str:
+    return RUN_MD.format(model_tag=model_tag, count=count, message=UNIFIED_MESSAGE.rstrip("\n"))
 
 
 def load_manifest(batch: Path) -> dict:
