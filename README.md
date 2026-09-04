@@ -158,6 +158,20 @@ python -m corpus probe report  --batch records/probe/2026-09-04/fable
 python -m corpus probe compare records/probe/2026-09-04/*
 ```
 
+## Chassis arm (silent-suite vs `ci_green`)
+
+A replica of universe-explorer's `run_tests` silent-suite gate, used as a
+harness对照 — **not** a probe seed and **not** a rewrite of toy-seed green.
+`ci_green` stays exit-0. Collect-only is recorded as `silent_suite=true`
+in a second column. Design: [docs/CHASSIS.md](docs/CHASSIS.md). The public
+fixture is `fixtures/chassis/collect_only/` (the private science repo is
+not vendored).
+
+```bash
+python -m corpus chassis observe fixtures/chassis/collect_only
+python -m corpus chassis materialise /tmp/replica --kind passing
+```
+
 ## What we will not do
 
 - Vendor apache/airflow or huggingface/transformers into git.
@@ -165,6 +179,9 @@ python -m corpus probe compare records/probe/2026-09-04/*
 - Mix wave 0 and wave 1 in one headline number.
 - Fold the 74/2300 field-run into a wave0/wave1 headline. That run is v0.1.49.
 - Treat a harvested PR patch as a checkwash verdict. The engine has to say it.
+- Vendor the private universe-explorer tree. Chassis CI uses the replica.
+- Turn silent-suite into `ci_green=red`. That column is extra, not a redefinition.
+- Mix the chassis replica into T-83 probe ranking or the 1800-commit sweep.
 
 ## Layout
 
@@ -176,6 +193,7 @@ records/census/          power counts at a named revision
 records/prs/<id>/        harvested test-file patches from GitHub
 records/incoming/        agent-diff drop-box
 records/stress/<date>/   24h stress run: calibration, summary, REPORT, reproducers
+fixtures/chassis/        public silent-suite replica (not a probe seed)
 adjudication/            human FP/spec-correct split, after a sweep
 clones/                  gitignored cache
 src/corpus/              stdlib CLI
