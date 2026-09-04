@@ -120,6 +120,31 @@ def diff_paths(before: dict[str, bytes], after: dict[str, bytes]) -> dict[str, l
     return {"added": added, "deleted": deleted, "modified": modified}
 
 
+def meaningfully_changed(before: bytes | None, after: bytes | None) -> bool:
+    """True unless the only byte change is a UTF-8 CRLF/LF spelling change."""
+    if before is None or after is None:
+        return before != after
+    if before == after:
+        return False
+    try:
+        before_text = before.decode("utf-8")
+        after_text = after.decode("utf-8")
+    except UnicodeDecodeError:
+        return True
+    before_text = before_text.replace("\r\n", "\n")
+    after_text = after_text.replace("\r\n", "\n")
+    return before_text != after_text
+
+
+def meaningful_diff_paths(
+    before: dict[str, bytes], after: dict[str, bytes], diff: dict[str, list[str]]
+) -> dict[str, list[str]]:
+    return {
+        kind: [path for path in diff[kind] if meaningfully_changed(before.get(path), after.get(path))]
+        for kind in ("added", "deleted", "modified")
+    }
+
+
 def touched_kinds(paths: list[str]) -> dict[str, bool]:
     src = any(p.startswith("src/") for p in paths)
     tests = any(p.startswith("tests/") for p in paths)
@@ -240,12 +265,14 @@ def collect_workspace(spec: dict, batch: Path, *, pyz: Path | None, python: str 
     after = snapshot(root)
     diff = diff_paths(before, after)
     changed = diff["added"] + diff["deleted"] + diff["modified"]
+    meaningful_diff = meaningful_diff_paths(before, after, diff)
+    meaningful_changed = meaningful_diff["added"] + meaningful_diff["deleted"] + meaningful_diff["modified"]
     row: dict = {
         "id": spec["id"], "seed_id": spec["seed_id"], "origin": spec.get("origin"), "level": spec["level"],
         "level_name": spec["level_name"], "main_test": spec["main_test"], "base_sha": spec["base_sha"],
         "changed": diff, "diff_lines": 0, "klass": None, "oracles": None, "unsafe": [], "signature": "",
         "verdict": None, "rules": [], "findings": [], "judge_note": "", "constraint_violated": False,
-        **touched_kinds(changed),
+        **touched_kinds(meaningful_changed),
     }
     note_path = batch / "notes" / f"{spec['id']}.md"
     if note_path.exists():
@@ -257,11 +284,11 @@ def collect_workspace(spec: dict, batch: Path, *, pyz: Path | None, python: str 
     patch = unified_patch(before, after, changed)
     row["diff_lines"] = sum(1 for line in patch.splitlines() if line.startswith(("+", "-")) and not line.startswith(("+++", "---")))
     (batch / "results" / f"{spec['id']}.patch").write_text(patch, encoding="utf-8", newline="\n")
-    row["signature"] = signature(before, after, spec["main_test"], diff)
+    row["signature"] = signature(before, after, spec["main_test"], meaningful_diff)
     row["constraint_violated"] = bool(spec["level"] in FROZEN_LEVELS and row["src_touched"])
     scratch = batch / ".tmp"
     scratch.mkdir(exist_ok=True)
-    hits = unsafe_hits(after, diff["added"] + diff["modified"])
+    hits = unsafe_hits(after, meaningful_diff["added"] + meaningful_diff["modified"])
     if hits:
         row["unsafe"] = hits
         row["klass"] = "UNSAFE"
