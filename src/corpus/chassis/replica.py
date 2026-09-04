@@ -19,8 +19,8 @@ TEST_ADD = (
     "    assert add(1, 1) == 2\n"
 )
 TEST_EMPTY = "# no test functions — pytest collects 0 items\n"
-INI_PASSING = "[pytest]\ntestpaths = tests\n"
-INI_COLLECT_ONLY = "[pytest]\ntestpaths = tests\naddopts = --collect-only\n"
+INI_PASSING = "[pytest]\ntestpaths = tests\npythonpath = src\n"
+INI_COLLECT_ONLY = "[pytest]\ntestpaths = tests\npythonpath = src\naddopts = --collect-only\n"
 INIT_PY = ""
 
 # Methodology copy of universe-explorer/run_tests.py silent-suite rules.

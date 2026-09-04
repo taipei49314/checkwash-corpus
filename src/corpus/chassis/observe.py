@@ -6,7 +6,6 @@ silent suite must not flip that oracle to red.
 
 from __future__ import annotations
 
-import os
 import subprocess
 import sys
 from dataclasses import asdict, dataclass
@@ -47,7 +46,7 @@ def _harness_exit(root: Path, python: str | None = None, timeout: int = 60) -> i
     script = root / "run_tests.py"
     if not script.is_file():
         return None
-    env = os.environ.copy()
+    env = pytest_env(root / "src")
     env["PYTHONUTF8"] = "1"
     env["PYTHONIOENCODING"] = "utf-8"
     proc = subprocess.run(
