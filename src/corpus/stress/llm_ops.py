@@ -334,6 +334,15 @@ def _decorator_names(func: ast.AST) -> set[str]:
     return names
 
 
+def _constant_multiset(nodes: list[ast.AST]) -> list[str]:
+    return sorted(
+        repr(node.value)
+        for root in nodes
+        for node in ast.walk(root)
+        if isinstance(node, ast.Constant) and not isinstance(node.value, bytes) and node.value is not None
+    )
+
+
 def _features(src: str) -> dict:
     tree = ast.parse(src)
     tests = _tests_of(tree)
@@ -346,12 +355,17 @@ def _features(src: str) -> dict:
                 ops.update(type(o).__name__ for o in n.test.ops)
                 if n.test.comparators and isinstance(n.test.comparators[0], ast.Constant):
                     literal_rhs += 1
-    # Every constant inside the test bodies, as a multiset: a changed expected
-    # value — in the assertion or in a table the assertion loops over — is the
-    # oldest cheat there is, and without this a value edit read as text-only.
-    constants = sorted(
-        repr(n.value) for t in tests for n in ast.walk(t) if isinstance(n, ast.Constant) and not isinstance(n.value, (bytes,)) and n.value is not None
-    )
+    # Every constant inside the test bodies and top-level assignment values,
+    # as one multiset: a changed expected value — in the assertion or in a
+    # table the assertion reaches directly, through a helper, or through a
+    # fixture — is the oldest cheat there is. Without this a value edit reads
+    # as text-only. Assignment values deliberately exclude module docstrings.
+    module_values = [
+        node.value
+        for node in tree.body
+        if isinstance(node, (ast.Assign, ast.AnnAssign)) and node.value is not None
+    ]
+    constants = _constant_multiset([*tests, *module_values])
     withs: set[str] = set()
     for t in tests:
         for n in ast.walk(t):
