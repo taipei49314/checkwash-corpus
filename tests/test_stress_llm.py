@@ -177,6 +177,44 @@ def test_signature_names_a_changed_expected_value_even_inside_a_table():
     assert "literal:changed" in llm_ops.shape_signature(SOURCE, inline)
 
 
+@pytest.mark.parametrize(
+    "declaration",
+    [
+        'CASES = [(90, "A"), (80, "B")]\n',
+        'CASES = ((90, "A"), (80, "B"))\n',
+        'CASES: list[tuple[int, str]] = [(90, "A"), (80, "B")]\n',
+        'CASES: tuple[tuple[int, str], ...] = ((90, "A"), (80, "B"))\n',
+    ],
+    ids=("assign-list", "assign-tuple", "annassign-list", "annassign-tuple"),
+)
+@pytest.mark.parametrize(
+    "consumer",
+    [
+        "\n\ndef test_boundaries():\n    for score, expected in CASES:\n        assert letter_grade(score) == expected\n",
+        "\n\ndef cases():\n    return CASES\n\n\ndef test_boundaries():\n    for score, expected in cases():\n        assert letter_grade(score) == expected\n",
+        "\n\n@pytest.fixture\ndef cases():\n    return CASES\n\n\ndef test_boundaries(cases):\n    for score, expected in cases:\n        assert letter_grade(score) == expected\n",
+    ],
+    ids=("direct", "helper", "fixture"),
+)
+def test_signature_names_changed_module_expectation_tables_across_declarations_and_consumers(declaration, consumer):
+    prefix = "import pytest\nfrom app.grade import letter_grade\n"
+    before = prefix + declaration + consumer
+    after = before.replace('(90, "A")', '(90, "F")')
+    assert llm_ops.shape_signature(before, after) == "literal:changed"
+
+
+@pytest.mark.parametrize(
+    "before,after",
+    [
+        (SOURCE + "\n# explanation before\n", SOURCE + "\n# explanation after\n"),
+        ('"""explanation before"""\n' + SOURCE, '"""explanation after"""\n' + SOURCE),
+    ],
+    ids=("comment", "module-docstring"),
+)
+def test_signature_leaves_non_executable_text_edits_as_text_only(before, after):
+    assert llm_ops.shape_signature(before, after) == "text-only"
+
+
 def test_signature_is_deterministic_and_bounded():
     after = SOURCE.replace("== 5", ">= 0").replace("== 10\n", "is not None\n")
     a = llm_ops.shape_signature(SOURCE, after)
