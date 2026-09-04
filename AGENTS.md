@@ -12,3 +12,6 @@
 - Frozen: `wave2-js-oracle` is not scheduled. Nothing is fetched or measured
   for it until a human opens that round.
 - Public repository: open a PR, do not merge it. The human merges.
+- The chassis arm (`src/corpus/chassis`, `fixtures/chassis`) observes
+  silent-suite vs `ci_green`. It is not a probe seed. Do not fold it into
+  T-83 / T-88 rankings. Do not change `sandbox.ci_green`.

@@ -193,7 +193,7 @@ def cmd_sweep(args: argparse.Namespace) -> int:
 def build_parser() -> argparse.ArgumentParser:
     p = argparse.ArgumentParser(
         prog="corpus",
-        description="checkwash-corpus: fetch, census, harvest, sweep, validate",
+        description="checkwash-corpus: fetch, census, harvest, sweep, validate, chassis",
     )
     p.add_argument("--root", default=None, help="corpus checkout (default: walk up)")
     p.add_argument("--version", action="version", version=f"checkwash-corpus {__version__}")
@@ -321,6 +321,25 @@ def build_parser() -> argparse.ArgumentParser:
     pm = pr_sub.add_parser("compare", help="models side by side; writes COMPARE.md next to the batches")
     pm.add_argument("batches", nargs="+", help="batch directories that have been reported")
     pm.set_defaults(func=cmd_probe_compare)
+
+    ch = sub.add_parser(
+        "chassis",
+        help="observe silent-suite vs ci_green on a replica (not a probe seed)",
+    )
+    ch_sub = ch.add_subparsers(dest="chassis_command", required=True)
+    cm = ch_sub.add_parser("materialise", help="write a public replica fixture")
+    cm.add_argument("path", help="directory to write")
+    cm.add_argument(
+        "--kind",
+        choices=("passing", "collect_only", "collect_zero"),
+        default="collect_only",
+        help="passing suite, collect-only (CI green + silent), or collected 0",
+    )
+    cm.set_defaults(func=cmd_chassis_materialise)
+    co = ch_sub.add_parser("observe", help="print ci_exit / ci_green / silent_suite columns as JSON")
+    co.add_argument("path", help="replica directory")
+    co.add_argument("--python", default=None)
+    co.set_defaults(func=cmd_chassis_observe)
     return p
 
 
@@ -415,6 +434,24 @@ def cmd_stress_calibrate(args: argparse.Namespace) -> int:
 
     root = Path(args.root).resolve() if args.root else repo_root()
     return cmd_calibrate(args, root)
+
+
+def cmd_chassis_materialise(args: argparse.Namespace) -> int:
+    from corpus.chassis.replica import write_replica
+
+    dest = write_replica(Path(args.path), args.kind)
+    print(f"wrote replica {args.kind} at {dest.resolve()}")
+    return 0
+
+
+def cmd_chassis_observe(args: argparse.Namespace) -> int:
+    import json
+
+    from corpus.chassis.observe import observe
+
+    row = observe(Path(args.path), python=args.python)
+    print(json.dumps(row.as_dict(), sort_keys=True))
+    return 0
 
 
 def main(argv: list[str] | None = None) -> int:
