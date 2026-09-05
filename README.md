@@ -10,7 +10,7 @@ never committed. See [SPEC.md](SPEC.md).
 
 | You want to… | Read first |
 |---|---|
-| Use Checkwash on your own changes | [Checkwash v0.2.12 public launch and first use](https://github.com/taipei49314/checkwash/blob/main/docs/releases/v0.2.12-public-launch.md) — installation, release assets, verification and limits |
+| Use Checkwash on your own changes | [Checkwash v0.2.13 public launch and first use](https://github.com/taipei49314/checkwash/blob/main/docs/releases/v0.2.13-public-launch.md) — installation, release assets, verification and limits |
 | Understand this measurement repository | [SPEC.md](SPEC.md) for the record contract, then [REPORT.md](REPORT.md) for the dated historical measurements |
 | Understand the separate verifier research harness | [smallestlie](https://github.com/taipei49314/smallestlie) — its scope, authorization and documentation |
 
@@ -40,7 +40,7 @@ Historical snapshot (2026-09-01): [REPORT.md](REPORT.md) — wave 0 on Release
 `checkwash.pyz` v0.2.8 still 42/1800 at the published pins; field-run
 `external-2026-09-01` is a separate copied ledger (74/2300 on v0.1.49
 `greenwash.pyz`, not a v0.2.8 number).
-These are historical observations, not a fresh v0.2.12 sweep.
+These are historical observations, not a fresh v0.2.13 sweep.
 
 ```
 $ python -m corpus status
