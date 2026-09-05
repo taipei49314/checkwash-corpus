@@ -31,7 +31,11 @@ Do not hand-edit numbers. Adjudication comes after the sweep, and must
 cover exactly the blocked set. External field-runs are copied with
 `tools/post_hanging_records.py`; they stay out of `records/sweeps/`.
 
-## Division of labor (two agent sessions, one human)
+## Historical division of labor (2026-09-01)
+
+The session assignments and next-version references below are a dated record.
+For current engine pins, release timing and frozen rounds, follow
+[AGENTS.md](AGENTS.md). This history does not schedule a new run or release.
 
 As of 2026-09-01 two agent sessions work these repos concurrently. The
 split, so records stop eating each other:

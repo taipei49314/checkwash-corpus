@@ -6,13 +6,41 @@ This is not the engine. It is the ledger of catalogs, recorded sweeps, and
 harvested PRs. Third-party source trees live in `clones/` on disk and are
 never committed. See [SPEC.md](SPEC.md).
 
+## Start here
+
+| You want to… | Read first |
+|---|---|
+| Use Checkwash on your own changes | [Checkwash v0.2.12 public launch and first use](https://github.com/taipei49314/checkwash/blob/main/docs/releases/v0.2.12-public-launch.md) — installation, release assets, verification and limits |
+| Understand this measurement repository | [SPEC.md](SPEC.md) for the record contract, then [REPORT.md](REPORT.md) for the dated historical measurements |
+| Understand the separate verifier research harness | [smallestlie](https://github.com/taipei49314/smallestlie) — its scope, authorization and documentation |
+
+The tools below maintain the corpus. Installing them is not required to use
+Checkwash. Read a report's date, engine pin and data-availability limits before
+using its numbers.
+
+## Public status (2026-09-06)
+
+This navigation update uses the records from
+[`12c079f`](https://github.com/taipei49314/checkwash-corpus/tree/12c079fc686648490a2c94720cf8a64724308a1c)
+(2026-09-03) as its baseline. Catalogs, historical sweeps and harvested records are published here.
+The next changes are public but still under review:
+[cross-model report #9](https://github.com/taipei49314/checkwash-corpus/pull/9),
+[signature classification #10](https://github.com/taipei49314/checkwash-corpus/pull/10),
+[line-ending classification #11](https://github.com/taipei49314/checkwash-corpus/pull/11)
+and [separate harness observation #12](https://github.com/taipei49314/checkwash-corpus/pull/12).
+They are not part of this default-branch snapshot. The report in #9 does not
+include its raw run directories; its provenance limits still apply.
+
+## Published historical measurements
+
 The six-repo false-positive set cannot see mocking, unittest dialect, or
 JS/TS oracles. Later waves exist to close those holes.
 
-Latest round (2026-09-01): [REPORT.md](REPORT.md) — wave 0 on Release
+Historical snapshot (2026-09-01): [REPORT.md](REPORT.md) — wave 0 on Release
 `checkwash.pyz` v0.2.8 still 42/1800 at the published pins; field-run
 `external-2026-09-01` is a separate copied ledger (74/2300 on v0.1.49
 `greenwash.pyz`, not a v0.2.8 number).
+These are historical observations, not a fresh v0.2.12 sweep.
 
 ```
 $ python -m corpus status
