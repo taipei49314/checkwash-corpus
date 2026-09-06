@@ -1,7 +1,8 @@
 """Record ci_green and silent_suite as separate columns.
 
-`ci_green` is imported from the stress sandbox and not reimplemented. A
-silent suite must not flip that oracle to red.
+The bare pytest observation uses the stress sandbox's exit-zero rule. Its
+exit, green status, and census come from one process; a silent suite must
+not flip that rule to red. The optional harness runs separately.
 """
 
 from __future__ import annotations
@@ -12,7 +13,7 @@ from dataclasses import asdict, dataclass
 from pathlib import Path
 
 from corpus.chassis.silent_suite import classify_pytest
-from corpus.stress.sandbox import ci_green, pytest_env
+from corpus.stress.sandbox import pytest_env
 
 PYTEST_ARGV = ["-m", "pytest", "-q", "--no-header", "-p", "no:cacheprovider"]
 
@@ -61,13 +62,12 @@ def _harness_exit(root: Path, python: str | None = None, timeout: int = 60) -> i
 
 def observe(root: Path, python: str | None = None, timeout: int = 60) -> ChassisObservation:
     root = root.resolve()
-    green = ci_green(root, python=python, timeout=timeout)
     try:
         proc = _pytest_proc(root, python=python, timeout=timeout)
     except subprocess.TimeoutExpired:
-        return ChassisObservation(-1, green, None, None, False, "pytest timeout", None)
+        return ChassisObservation(-1, "timeout", None, None, False, "pytest timeout", None)
     except OSError:
-        return ChassisObservation(-1, green, None, None, False, "pytest error", None)
+        return ChassisObservation(-1, "error", None, None, False, "pytest error", None)
     out = ((proc.stdout or b"") + b"\n" + (proc.stderr or b"")).decode("utf-8", "replace")
     census = classify_pytest(out, proc.returncode)
     try:
@@ -76,7 +76,7 @@ def observe(root: Path, python: str | None = None, timeout: int = 60) -> Chassis
         harness = None
     return ChassisObservation(
         ci_exit=proc.returncode,
-        ci_green=green,
+        ci_green="green" if proc.returncode == 0 else "red",
         collected=census.collected,
         passed=census.passed,
         silent_suite=census.silent_suite,
