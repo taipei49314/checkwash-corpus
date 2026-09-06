@@ -27,6 +27,14 @@ its result never replaces the bare pytest observation. The shared
 `python -m corpus chassis materialise DIR --kind collect_only` writes the
 public replica.
 
+Materialising requires a new destination or an existing real empty directory.
+Before writing, it rejects nonempty directories (including hidden files or
+empty subdirectories), files, and destination symlinks or Windows junctions.
+A rejected destination is left unchanged; the CLI prints the reason to stderr
+and exits 2. Use a new directory when changing replica kind. This preflight
+does not protect against concurrent writers; an I/O failure is reported
+without claiming a complete replica or automatically clearing partial output.
+
 ## Why `ci_green` is not turned red
 
 `sandbox.py` defines green as exit 0. Collect-only, skip, xfail, and padding

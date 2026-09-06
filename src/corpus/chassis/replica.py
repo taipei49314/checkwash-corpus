@@ -6,6 +6,7 @@ app plus the silent-suite gate rules, small enough for corpus CI.
 
 from __future__ import annotations
 
+import stat
 from pathlib import Path
 
 from corpus.stress.sandbox import materialise
@@ -97,6 +98,17 @@ def replica_tree(kind: str) -> dict[str, bytes]:
 
 
 def write_replica(root: Path, kind: str) -> Path:
+    """Write a replica to an absent destination or an existing real empty directory."""
     prod, tests, extras = replica_files(kind)
+    try:
+        info = root.lstat()
+    except FileNotFoundError:
+        info = None
+    if info is not None:
+        reparse = getattr(info, "st_file_attributes", 0) & stat.FILE_ATTRIBUTE_REPARSE_POINT
+        if not stat.S_ISDIR(info.st_mode) or reparse:
+            raise ValueError(f"replica destination must be a real empty directory: {root}")
+        if next(root.iterdir(), None) is not None:
+            raise ValueError(f"replica destination is not empty: {root}")
     materialise(root, prod, tests, extras)
     return root

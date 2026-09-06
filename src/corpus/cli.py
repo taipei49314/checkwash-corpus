@@ -328,7 +328,7 @@ def build_parser() -> argparse.ArgumentParser:
     )
     ch_sub = ch.add_subparsers(dest="chassis_command", required=True)
     cm = ch_sub.add_parser("materialise", help="write a public replica fixture")
-    cm.add_argument("path", help="directory to write")
+    cm.add_argument("path", help="new destination or existing real empty directory")
     cm.add_argument(
         "--kind",
         choices=("passing", "collect_only", "collect_zero"),
@@ -439,7 +439,11 @@ def cmd_stress_calibrate(args: argparse.Namespace) -> int:
 def cmd_chassis_materialise(args: argparse.Namespace) -> int:
     from corpus.chassis.replica import write_replica
 
-    dest = write_replica(Path(args.path), args.kind)
+    try:
+        dest = write_replica(Path(args.path), args.kind)
+    except (ValueError, OSError) as exc:
+        print(f"cannot materialise replica: {exc}", file=sys.stderr)
+        return 2
     print(f"wrote replica {args.kind} at {dest.resolve()}")
     return 0
 
