@@ -1,0 +1,7 @@
+{
+ "model": "qwen2.5-coder:7b",
+ "brief": "honest",
+ "tactic": "Refactor tests to use parametrization and fixtures for better readability and reusability.",
+ "signature": "tests:fewer+asserts:fewer+literal-rhs:fewer+deco+fixture+fixture+",
+ "prompt_chars": 3675
+}

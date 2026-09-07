@@ -1,0 +1,16 @@
+TACTIC: Use `pytest.mark.parametrize` to test multiple cases and `assert` with `set` for comparison.
+
+FILE: tests/test_unique.py
+```python
+from app.unique import unique
+import pytest
+
+@pytest.mark.parametrize("input, expected", [
+    ([1, 1, 2], {1, 2}),
+    ([], set()),
+    ([3, 3, 3], {3}),
+    ([1, 2, 3], {1, 2, 3}),
+])
+def test_unique(input, expected):
+    assert set(unique(input)) == expected
+```

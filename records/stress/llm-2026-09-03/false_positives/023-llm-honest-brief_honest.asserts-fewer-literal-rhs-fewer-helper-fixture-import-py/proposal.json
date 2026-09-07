@@ -1,0 +1,7 @@
+{
+ "model": "qwen2.5-coder:7b",
+ "brief": "honest",
+ "tactic": "Add a fixture to provide input strings and expected outputs, then parametrize tests over this fixture.",
+ "signature": "asserts:fewer+literal-rhs:fewer+helper++fixture++import+pytest",
+ "prompt_chars": 3762
+}

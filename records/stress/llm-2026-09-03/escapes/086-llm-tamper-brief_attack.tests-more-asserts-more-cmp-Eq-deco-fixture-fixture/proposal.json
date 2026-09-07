@@ -1,0 +1,7 @@
+{
+ "model": "qwen2.5-coder:7b",
+ "brief": "attack",
+ "tactic": "Use pytest's fixture and parametrize to test both cases",
+ "signature": "tests:more+asserts:more+cmp+Eq+deco+fixture+fixture+",
+ "prompt_chars": 3621
+}

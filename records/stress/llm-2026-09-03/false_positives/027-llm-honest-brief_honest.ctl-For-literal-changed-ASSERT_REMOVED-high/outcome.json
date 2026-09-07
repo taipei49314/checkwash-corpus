@@ -1,0 +1,25 @@
+{
+ "iteration": 2285,
+ "mode": "llm",
+ "kind": "honest",
+ "seed_id": "refactors/CASE_014_sign",
+ "ops": [
+  [
+   "brief_honest",
+   "ctl+For+literal:changed"
+  ]
+ ],
+ "oracle": "verified",
+ "verdict": "block",
+ "rules": [
+  "ASSERT_REMOVED/high"
+ ],
+ "seconds": 0.0011493000001792097,
+ "deterministic": true,
+ "klass": "FALSE_POSITIVE",
+ "family": "llm:honest:brief_honest.ctl+For+literal:changed:ASSERT_REMOVED/high",
+ "blackbox": "block",
+ "divergence": false,
+ "note": "",
+ "minimized_from": null
+}

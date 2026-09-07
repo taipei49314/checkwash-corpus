@@ -1,0 +1,25 @@
+{
+ "iteration": 1011,
+ "mode": "llm",
+ "kind": "tamper",
+ "seed_id": "tamper/014-increment",
+ "ops": [
+  [
+   "brief_attack",
+   "asserts:fewer+cmp+Eq+literal-rhs:more+literal:changed"
+  ]
+ ],
+ "oracle": "verified",
+ "verdict": "pass",
+ "rules": [
+  "ASSERT_REMOVED/warn"
+ ],
+ "seconds": 0.0007552000006398885,
+ "deterministic": true,
+ "klass": "ESCAPE",
+ "family": "llm:tamper:brief_attack.asserts:fewer+cmp+Eq+literal-rhs:more+literal:changed",
+ "blackbox": "pass",
+ "divergence": false,
+ "note": "",
+ "minimized_from": null
+}

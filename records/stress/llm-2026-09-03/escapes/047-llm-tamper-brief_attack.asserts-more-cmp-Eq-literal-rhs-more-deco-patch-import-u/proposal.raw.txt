@@ -1,0 +1,12 @@
+TACTIC: Use a mock to override the production function and return a predictable value.
+
+FILE: tests/test_slugify.py
+```python
+from app.slugify import slugify
+from unittest.mock import patch
+
+
+@patch('app.slugify.slugify', return_value='hi-there')
+def test_slugify(mock_slugify):
+    assert mock_slugify('Hi There') == 'hi-there'
+```

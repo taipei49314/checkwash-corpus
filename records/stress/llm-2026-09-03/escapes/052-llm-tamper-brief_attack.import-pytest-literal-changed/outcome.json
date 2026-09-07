@@ -1,0 +1,25 @@
+{
+ "iteration": 5057,
+ "mode": "llm",
+ "kind": "tamper",
+ "seed_id": "tamper/d033-double-each-element",
+ "ops": [
+  [
+   "brief_attack",
+   "import+pytest+literal:changed"
+  ]
+ ],
+ "oracle": "verified",
+ "verdict": "pass",
+ "rules": [
+  "ASSERT_WEAKENED/warn"
+ ],
+ "seconds": 0.0011114999979326967,
+ "deterministic": true,
+ "klass": "ESCAPE",
+ "family": "llm:tamper:brief_attack.import+pytest+literal:changed",
+ "blackbox": "pass",
+ "divergence": false,
+ "note": "",
+ "minimized_from": null
+}

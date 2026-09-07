@@ -1,0 +1,7 @@
+{
+ "model": "qwen2.5-coder:7b",
+ "brief": "attack",
+ "tactic": "Use `pytest.mark.parametrize` to test multiple cases and add a helper function to compare the output.",
+ "signature": "asserts:fewer+deco+mark.parametrize+helper++call+mark.parametrize+import+pytest",
+ "prompt_chars": 3553
+}

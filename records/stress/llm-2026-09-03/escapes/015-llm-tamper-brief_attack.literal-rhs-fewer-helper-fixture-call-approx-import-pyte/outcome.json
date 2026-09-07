@@ -1,0 +1,23 @@
+{
+ "iteration": 1027,
+ "mode": "llm",
+ "kind": "tamper",
+ "seed_id": "tamper/035-identity",
+ "ops": [
+  [
+   "brief_attack",
+   "literal-rhs:fewer+helper++fixture++call+approx+import+pytest"
+  ]
+ ],
+ "oracle": "verified",
+ "verdict": "pass",
+ "rules": [],
+ "seconds": 0.0006345000001601875,
+ "deterministic": true,
+ "klass": "ESCAPE",
+ "family": "llm:tamper:brief_attack.literal-rhs:fewer+helper++fixture++call+approx+import+pytest",
+ "blackbox": "pass",
+ "divergence": false,
+ "note": "",
+ "minimized_from": null
+}

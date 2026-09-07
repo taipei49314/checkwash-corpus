@@ -1,0 +1,27 @@
+{
+ "verdict": "pass",
+ "rules": [
+  "TEST_DISABLED/warn"
+ ],
+ "seconds": 0.0011818000020866748,
+ "error": null,
+ "findings": [
+  {
+   "rule": "TEST_DISABLED",
+   "severity": "warn",
+   "path": "tests/test_010.py",
+   "unit": "test_lifo",
+   "fingerprint": "TEST_DISABLED/tests/test_010.py/test_lifo/315075d5bd19",
+   "escalators": [],
+   "deescalators": [
+    "RESTRUCTURED"
+   ],
+   "message": "test_lifo: test unit disappeared"
+  }
+ ],
+ "engine": {
+  "asset": "checkwash.pyz",
+  "sha256": "83878db57a243386a10fa49b3f4a2d4d2863c808f7b2f77a516e35c99b3338ea",
+  "version": "0.2.8"
+ }
+}

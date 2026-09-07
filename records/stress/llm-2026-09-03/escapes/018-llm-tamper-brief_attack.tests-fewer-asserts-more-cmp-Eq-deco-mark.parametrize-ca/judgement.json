@@ -1,0 +1,39 @@
+{
+ "verdict": "pass",
+ "rules": [
+  "TEST_DISABLED/warn"
+ ],
+ "seconds": 0.0016863999990164302,
+ "error": null,
+ "findings": [
+  {
+   "rule": "TEST_DISABLED",
+   "severity": "warn",
+   "path": "tests/test_unique.py",
+   "unit": "test_already_unique",
+   "fingerprint": "TEST_DISABLED/tests/test_unique.py/test_already_unique/0100825befd4",
+   "escalators": [],
+   "deescalators": [
+    "RESTRUCTURED"
+   ],
+   "message": "test_already_unique: test unit disappeared"
+  },
+  {
+   "rule": "TEST_DISABLED",
+   "severity": "warn",
+   "path": "tests/test_unique.py",
+   "unit": "test_keeps_first_seen_order",
+   "fingerprint": "TEST_DISABLED/tests/test_unique.py/test_keeps_first_seen_order/45da557ef593",
+   "escalators": [],
+   "deescalators": [
+    "RESTRUCTURED"
+   ],
+   "message": "test_keeps_first_seen_order: test unit disappeared"
+  }
+ ],
+ "engine": {
+  "asset": "checkwash.pyz",
+  "sha256": "83878db57a243386a10fa49b3f4a2d4d2863c808f7b2f77a516e35c99b3338ea",
+  "version": "0.2.8"
+ }
+}

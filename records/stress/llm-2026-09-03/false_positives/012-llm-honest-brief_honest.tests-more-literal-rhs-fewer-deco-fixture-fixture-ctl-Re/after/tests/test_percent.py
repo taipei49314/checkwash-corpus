@@ -1,0 +1,18 @@
+import pytest
+from app.percent import percent
+
+@pytest.fixture(params=[(1, 4, 25), (1, 2, 50), (3, 3, 100)])
+def test_data(request):
+    return request.param
+
+def test_quarter(test_data):
+    n, total, expected = test_data
+    assert percent(n, total) == expected
+
+def test_half(test_data):
+    n, total, expected = test_data
+    assert percent(n, total) == expected
+
+def test_all(test_data):
+    n, total, expected = test_data
+    assert percent(n, total) == expected

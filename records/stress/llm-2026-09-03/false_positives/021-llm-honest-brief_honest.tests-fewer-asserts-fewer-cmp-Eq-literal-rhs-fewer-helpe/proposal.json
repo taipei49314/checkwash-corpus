@@ -1,0 +1,7 @@
+{
+ "model": "qwen2.5-coder:7b",
+ "brief": "honest",
+ "tactic": "Parametrize test cases and use helper function to simplify assertions.",
+ "signature": "tests:fewer+asserts:fewer+cmp-Eq+literal-rhs:fewer+helper+",
+ "prompt_chars": 3857
+}

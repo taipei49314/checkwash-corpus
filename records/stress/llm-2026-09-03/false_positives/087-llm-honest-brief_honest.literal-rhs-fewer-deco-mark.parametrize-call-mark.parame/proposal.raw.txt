@@ -1,0 +1,24 @@
+TACTIC: Change the assertion style from `assert` to `pytest.mark.parametrize`
+
+FILE: tests/test_slugify.py
+```python
+import pytest
+
+from app.slugify import slugify
+
+
+@pytest.fixture
+def slugged():
+    assert slugify("Hello World") == "hello-world"
+    return slugify
+
+
+@pytest.mark.parametrize("input_str, expected", [
+    ("Hello, World!", "hello-world"),
+    ("  Leading and trailing  ", "leading-and-trailing"),
+    ("Special*Characters!", "special-characters"),
+    ("CAPITALS and lowercases", "capitals-and-lowercases")
+])
+def test_punctuation(slugged, input_str, expected):
+    assert slugged(input_str) == expected
+```

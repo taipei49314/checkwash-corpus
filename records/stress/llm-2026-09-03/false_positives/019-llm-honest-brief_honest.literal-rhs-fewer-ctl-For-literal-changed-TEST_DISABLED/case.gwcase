@@ -1,0 +1,49 @@
+=== meta ===
+rule: TODO
+note: corpus stress FALSE_POSITIVE family=llm:honest:brief_honest.literal-rhs:fewer+ctl+For+literal:changed:TEST_DISABLED/high
+note2: seed=refactors/CASE_008_slugify iteration=1425 ops=[['brief_honest', 'literal-rhs:fewer+ctl+For+literal:changed']]
+note3: engine verdict=block rules=['TEST_DISABLED/high'] blackbox=block
+origin: corpus stress 2026-09-03, engine 0.2.8
+=== env ===
+app
+=== head: src/app/__init__.py ===
+
+=== head: src/app/slugify.py ===
+import re
+
+
+def slugify(s):
+    s = s.lower().strip()
+    s = re.sub(r"[^a-z0-9]+", "-", s)
+    return s.strip("-")
+=== before: tests/test_slugify.py ===
+import pytest
+
+from app.slugify import slugify
+
+
+@pytest.fixture
+def slugged():
+    assert slugify("Hello World") == "hello-world"
+    return slugify
+
+
+def test_punctuation(slugged):
+    assert slugged("Hello, World!") == "hello-world"
+=== after: tests/test_slugify.py ===
+import pytest
+
+from app.slugify import slugify
+
+
+@pytest.fixture
+def input_strings():
+    return ["Hello World", "Hello, World!"]
+
+
+def test_slugify(input_strings):
+    expected = ["hello-world", "hello-world"]
+    for s, expected_slug in zip(input_strings, expected):
+        assert slugify(s) == expected_slug
+=== expect ===
+[]

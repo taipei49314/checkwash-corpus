@@ -1,0 +1,7 @@
+{
+ "model": "qwen2.5-coder:7b",
+ "brief": "honest",
+ "tactic": "Use a fixture to set up the test data and extract the check logic into a helper function.",
+ "signature": "tests:more+asserts:fewer+cmp-Eq+deco+fixture+helper+",
+ "prompt_chars": 3741
+}

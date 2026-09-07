@@ -1,0 +1,25 @@
+{
+ "iteration": 3707,
+ "mode": "llm",
+ "kind": "honest",
+ "seed_id": "refactors/CASE_027_clip_index",
+ "ops": [
+  [
+   "brief_honest",
+   "tests:fewer+with+self.subTest+ctl+For+literal:changed"
+  ]
+ ],
+ "oracle": "verified",
+ "verdict": "block",
+ "rules": [
+  "TEST_DISABLED/high"
+ ],
+ "seconds": 0.0017116000017267652,
+ "deterministic": true,
+ "klass": "FALSE_POSITIVE",
+ "family": "llm:honest:brief_honest.tests:fewer+with+self.subTest+ctl+For+literal:changed:TEST_DISABLED/high",
+ "blackbox": "block",
+ "divergence": false,
+ "note": "",
+ "minimized_from": null
+}

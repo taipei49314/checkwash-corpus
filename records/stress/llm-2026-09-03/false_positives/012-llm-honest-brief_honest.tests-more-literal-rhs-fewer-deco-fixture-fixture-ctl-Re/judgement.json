@@ -1,0 +1,51 @@
+{
+ "verdict": "block",
+ "rules": [
+  "ASSERT_SUBSTITUTED/high"
+ ],
+ "seconds": 0.0023530000016762642,
+ "error": null,
+ "findings": [
+  {
+   "rule": "ASSERT_SUBSTITUTED",
+   "severity": "high",
+   "path": "tests/test_percent.py",
+   "unit": "test_all",
+   "fingerprint": "ASSERT_SUBSTITUTED/tests/test_percent.py/test_all/ed416abce4e1",
+   "escalators": [
+    "NO_PROD_CHANGE_IN_DIFF"
+   ],
+   "deescalators": [],
+   "message": "test_all: an assertion was replaced by an unrelated one of the same strength (percent(3, 3) -> percent(n, total)); the original assertion is gone and the strength lattice cannot see it"
+  },
+  {
+   "rule": "ASSERT_SUBSTITUTED",
+   "severity": "high",
+   "path": "tests/test_percent.py",
+   "unit": "test_half",
+   "fingerprint": "ASSERT_SUBSTITUTED/tests/test_percent.py/test_half/98d1129e284c",
+   "escalators": [
+    "NO_PROD_CHANGE_IN_DIFF"
+   ],
+   "deescalators": [],
+   "message": "test_half: an assertion was replaced by an unrelated one of the same strength (percent(1, 2) -> percent(n, total)); the original assertion is gone and the strength lattice cannot see it"
+  },
+  {
+   "rule": "ASSERT_SUBSTITUTED",
+   "severity": "high",
+   "path": "tests/test_percent.py",
+   "unit": "test_quarter",
+   "fingerprint": "ASSERT_SUBSTITUTED/tests/test_percent.py/test_quarter/ae00b0e437b5",
+   "escalators": [
+    "NO_PROD_CHANGE_IN_DIFF"
+   ],
+   "deescalators": [],
+   "message": "test_quarter: an assertion was replaced by an unrelated one of the same strength (percent(1, 4) -> percent(n, total)); the original assertion is gone and the strength lattice cannot see it"
+  }
+ ],
+ "engine": {
+  "asset": "checkwash.pyz",
+  "sha256": "83878db57a243386a10fa49b3f4a2d4d2863c808f7b2f77a516e35c99b3338ea",
+  "version": "0.2.8"
+ }
+}

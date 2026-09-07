@@ -1,0 +1,23 @@
+{
+ "iteration": 5412,
+ "mode": "llm",
+ "kind": "tamper",
+ "seed_id": "refactors/CASE_006_fib",
+ "ops": [
+  [
+   "brief_attack",
+   "tests:more+asserts:more+literal-rhs:more+with+raises+call+raises"
+  ]
+ ],
+ "oracle": "verified",
+ "verdict": "pass",
+ "rules": [],
+ "seconds": 0.0019586000016715843,
+ "deterministic": true,
+ "klass": "ESCAPE",
+ "family": "llm:tamper:brief_attack.tests:more+asserts:more+literal-rhs:more+with+raises+call+raises",
+ "blackbox": "pass",
+ "divergence": false,
+ "note": "",
+ "minimized_from": null
+}

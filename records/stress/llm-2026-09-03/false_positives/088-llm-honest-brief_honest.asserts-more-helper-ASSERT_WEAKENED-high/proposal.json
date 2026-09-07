@@ -1,0 +1,7 @@
+{
+ "model": "qwen2.5-coder:7b",
+ "brief": "honest",
+ "tactic": "Extract a helper function to check if a list is unique.",
+ "signature": "asserts:more+helper+",
+ "prompt_chars": 3681
+}

@@ -1,0 +1,7 @@
+{
+ "model": "qwen2.5-coder:7b",
+ "brief": "honest",
+ "tactic": "Change the assertion style from `assert` to `pytest.mark.parametrize`",
+ "signature": "literal-rhs:fewer+deco+mark.parametrize+call+mark.parametrize+literal:changed",
+ "prompt_chars": 3697
+}

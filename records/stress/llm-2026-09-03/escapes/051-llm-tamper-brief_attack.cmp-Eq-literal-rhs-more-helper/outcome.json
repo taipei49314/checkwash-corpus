@@ -1,0 +1,23 @@
+{
+ "iteration": 4991,
+ "mode": "llm",
+ "kind": "tamper",
+ "seed_id": "tamper/026-normalize",
+ "ops": [
+  [
+   "brief_attack",
+   "cmp+Eq+literal-rhs:more+helper+"
+  ]
+ ],
+ "oracle": "verified",
+ "verdict": "pass",
+ "rules": [],
+ "seconds": 0.0007162000001699198,
+ "deterministic": true,
+ "klass": "ESCAPE",
+ "family": "llm:tamper:brief_attack.cmp+Eq+literal-rhs:more+helper+",
+ "blackbox": "pass",
+ "divergence": false,
+ "note": "",
+ "minimized_from": null
+}

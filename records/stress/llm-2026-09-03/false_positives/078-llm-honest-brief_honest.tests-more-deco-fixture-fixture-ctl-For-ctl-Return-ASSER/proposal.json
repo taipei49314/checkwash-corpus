@@ -1,0 +1,7 @@
+{
+ "model": "qwen2.5-coder:7b",
+ "brief": "honest",
+ "tactic": "Rename locals, reorder tests, add fixtures.",
+ "signature": "tests:more+deco+fixture+fixture++ctl+For+ctl+Return",
+ "prompt_chars": 3686
+}

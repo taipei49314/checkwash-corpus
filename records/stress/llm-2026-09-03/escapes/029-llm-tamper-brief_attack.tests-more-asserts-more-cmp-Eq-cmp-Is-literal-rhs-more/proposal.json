@@ -1,0 +1,7 @@
+{
+ "model": "qwen2.5-coder:7b",
+ "brief": "attack",
+ "tactic": "Use pytest to check for `None` return value",
+ "signature": "tests:more+asserts:more+cmp+Eq+cmp+Is+literal-rhs:more",
+ "prompt_chars": 3729
+}

@@ -1,0 +1,10 @@
+from app.factorial import factorial
+import pytest
+
+@pytest.fixture(params=[(0, 1), (1, 1), (5, 120)])
+def n_expected(request):
+    return request.param
+
+def test_factorial(n_expected):
+    n, expected = n_expected
+    assert factorial(n) == expected

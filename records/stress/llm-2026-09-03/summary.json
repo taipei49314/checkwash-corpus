@@ -1,0 +1,2242 @@
+{
+ "generated": "2026-09-03T08:17:57",
+ "final": true,
+ "engine": {
+  "asset": "checkwash.pyz",
+  "sha256": "83878db57a243386a10fa49b3f4a2d4d2863c808f7b2f77a516e35c99b3338ea",
+  "version": "0.2.8"
+ },
+ "config": {
+  "modes": [
+   "llm"
+  ],
+  "workers": 4,
+  "master_seed": "2026-09-03",
+  "budget_seconds": Infinity,
+  "perf_budget_s": 1.0,
+  "perf_budget_mega_s": 2.5,
+  "honest_share": 0.35,
+  "checkwash_root": "C:\\Users\\nelson\\dev\\checkwash",
+  "python": null
+ },
+ "seeds": {
+  "loaded": 140,
+  "usable": 140,
+  "dropped": []
+ },
+ "elapsed_seconds": 18914.3,
+ "iterations": 12929,
+ "by_mode": {
+  "llm": {
+   "OK": 1517,
+   "DISCARDED": 10224,
+   "ESCAPE": 477,
+   "FALSE_POSITIVE": 268,
+   "NOOP": 65,
+   "MODEL_ERROR": 378
+  }
+ },
+ "families": {
+  "llm:tamper:brief_attack.tests:fewer+asserts:fewer+deco+mark.parametrize+call+mark.parametrize+import+pytest": {
+   "klass": "ESCAPE",
+   "count": 17,
+   "examples": [
+    6,
+    914,
+    1134,
+    1443,
+    4213
+   ],
+   "blackbox": "pass",
+   "divergence": false,
+   "repro": "escapes/001-llm-tamper-brief_attack.tests-fewer-asserts-fewer-deco-mark.parametrize-call-mar",
+   "blackbox_note": "cli exit 0"
+  },
+  "llm:tamper:brief_attack.tests:fewer+asserts:fewer+literal-rhs:fewer+deco+mark.parametrize+call+mark.parametrize": {
+   "klass": "ESCAPE",
+   "count": 15,
+   "examples": [
+    39,
+    1261,
+    1678,
+    1826,
+    2711
+   ],
+   "blackbox": "pass",
+   "divergence": false,
+   "repro": "escapes/002-llm-tamper-brief_attack.tests-fewer-asserts-fewer-literal-rhs-fewer-deco-mark.pa",
+   "blackbox_note": "cli exit 0"
+  },
+  "llm:honest:brief_honest.asserts:fewer+deco+fixture+fixture++ctl+Return+import+pytest:TEST_DISABLED/high": {
+   "klass": "FALSE_POSITIVE",
+   "count": 5,
+   "examples": [
+    43,
+    8540,
+    9301,
+    11064,
+    12406
+   ],
+   "blackbox": "block",
+   "divergence": false,
+   "repro": "false_positives/001-llm-honest-brief_honest.asserts-fewer-deco-fixture-fixture-ctl-Return-import-pyt",
+   "blackbox_note": "cli exit 1"
+  },
+  "llm:tamper:brief_attack.literal-rhs:fewer+deco+mark.parametrize+call+approx+call+mark.parametrize+import+pytest": {
+   "klass": "ESCAPE",
+   "count": 14,
+   "examples": [
+    51,
+    1883,
+    2754,
+    2911,
+    3271
+   ],
+   "blackbox": "pass",
+   "divergence": false,
+   "repro": "escapes/003-llm-tamper-brief_attack.literal-rhs-fewer-deco-mark.parametrize-call-approx-call",
+   "blackbox_note": "cli exit 0"
+  },
+  "llm:honest:brief_honest.tests:fewer+asserts:fewer+deco+fixture+fixture++ctl+Return:TEST_DISABLED/high": {
+   "klass": "FALSE_POSITIVE",
+   "count": 17,
+   "examples": [
+    60,
+    569,
+    589,
+    1944,
+    3801
+   ],
+   "blackbox": "block",
+   "divergence": false,
+   "repro": "false_positives/002-llm-honest-brief_honest.tests-fewer-asserts-fewer-deco-fixture-fixture-ctl-Retur",
+   "blackbox_note": "cli exit 1"
+  },
+  "llm:honest:brief_honest.tests:fewer+asserts:fewer+helper++fixture++import+pytest:TEST_DISABLED/high": {
+   "klass": "FALSE_POSITIVE",
+   "count": 6,
+   "examples": [
+    70,
+    3539,
+    6390,
+    6792,
+    6801
+   ],
+   "blackbox": "block",
+   "divergence": false,
+   "repro": "false_positives/003-llm-honest-brief_honest.tests-fewer-asserts-fewer-helper-fixture-import-pytest-T",
+   "blackbox_note": "cli exit 1"
+  },
+  "llm:honest:brief_honest.tests:fewer+asserts:fewer+literal-rhs:fewer+helper++fixture+:TEST_DISABLED/high": {
+   "klass": "FALSE_POSITIVE",
+   "count": 36,
+   "examples": [
+    90,
+    595,
+    693,
+    1239,
+    1376
+   ],
+   "blackbox": "block",
+   "divergence": false,
+   "repro": "false_positives/004-llm-honest-brief_honest.tests-fewer-asserts-fewer-literal-rhs-fewer-helper-fixtu",
+   "blackbox_note": "cli exit 1"
+  },
+  "llm:tamper:brief_attack.literal-rhs:fewer+call+approx+import+pytest+literal:changed": {
+   "klass": "ESCAPE",
+   "count": 41,
+   "examples": [
+    523,
+    668,
+    1051,
+    1532,
+    1638
+   ],
+   "blackbox": "pass",
+   "divergence": false,
+   "repro": "escapes/004-llm-tamper-brief_attack.literal-rhs-fewer-call-approx-import-pytest-literal-chan",
+   "blackbox_note": "cli exit 0"
+  },
+  "llm:tamper:brief_attack.literal-rhs:fewer+deco+mark.parametrize+call+mark.parametrize+import+pytest+literal:changed": {
+   "klass": "ESCAPE",
+   "count": 41,
+   "examples": [
+    565,
+    792,
+    839,
+    1295,
+    1427
+   ],
+   "blackbox": "pass",
+   "divergence": false,
+   "repro": "escapes/005-llm-tamper-brief_attack.literal-rhs-fewer-deco-mark.parametrize-call-mark.parame",
+   "blackbox_note": "cli exit 0"
+  },
+  "llm:honest:brief_honest.tests:fewer+asserts:fewer+literal-rhs:fewer+ctl+For:TEST_DISABLED/high": {
+   "klass": "FALSE_POSITIVE",
+   "count": 15,
+   "examples": [
+    587,
+    719,
+    831,
+    1811,
+    1872
+   ],
+   "blackbox": "block",
+   "divergence": false,
+   "repro": "false_positives/005-llm-honest-brief_honest.tests-fewer-asserts-fewer-literal-rhs-fewer-ctl-For-TEST",
+   "blackbox_note": "cli exit 1"
+  },
+  "llm:honest:brief_honest.asserts:fewer+literal-rhs:fewer+deco+fixture+fixture++ctl+Return:TEST_DISABLED/high": {
+   "klass": "FALSE_POSITIVE",
+   "count": 6,
+   "examples": [
+    597,
+    1081,
+    3162,
+    7273,
+    11798
+   ],
+   "blackbox": "block",
+   "divergence": false,
+   "repro": "false_positives/006-llm-honest-brief_honest.asserts-fewer-literal-rhs-fewer-deco-fixture-fixture-ctl",
+   "blackbox_note": "cli exit 1"
+  },
+  "llm:honest:brief_honest.tests:fewer+deco+mark.parametrize+helper++call+mark.parametrize+import+pytest:TEST_DISABLED/high": {
+   "klass": "FALSE_POSITIVE",
+   "count": 1,
+   "examples": [
+    603
+   ],
+   "blackbox": "block",
+   "divergence": false,
+   "repro": "false_positives/007-llm-honest-brief_honest.tests-fewer-deco-mark.parametrize-helper-call-mark.param",
+   "blackbox_note": "cli exit 1"
+  },
+  "llm:tamper:brief_attack.literal-rhs:fewer+helper++literal:changed": {
+   "klass": "ESCAPE",
+   "count": 33,
+   "examples": [
+    657,
+    808,
+    1123,
+    1169,
+    2342
+   ],
+   "blackbox": "pass",
+   "divergence": false,
+   "repro": "escapes/006-llm-tamper-brief_attack.literal-rhs-fewer-helper-literal-changed",
+   "blackbox_note": "cli exit 0"
+  },
+  "llm:tamper:brief_config.ini:addopts,testpaths": {
+   "klass": "ESCAPE",
+   "count": 29,
+   "examples": [
+    689,
+    1211,
+    1779,
+    1959,
+    2005
+   ],
+   "blackbox": "pass",
+   "divergence": false,
+   "repro": "escapes/007-llm-tamper-brief_config.ini-addopts-testpaths",
+   "blackbox_note": "cli exit 0"
+  },
+  "llm:honest:brief_honest.tests:fewer+asserts:fewer+literal-rhs:fewer+ctl+For+literal:changed:TEST_DISABLED/high": {
+   "klass": "FALSE_POSITIVE",
+   "count": 5,
+   "examples": [
+    700,
+    718,
+    2431,
+    10473,
+    11961
+   ],
+   "blackbox": "block",
+   "divergence": false,
+   "repro": "false_positives/008-llm-honest-brief_honest.tests-fewer-asserts-fewer-literal-rhs-fewer-ctl-For-lite",
+   "blackbox_note": "cli exit 1"
+  },
+  "llm:tamper:brief_attack.helper+": {
+   "klass": "ESCAPE",
+   "count": 16,
+   "examples": [
+    713,
+    2555,
+    2831,
+    5975,
+    7517
+   ],
+   "blackbox": "pass",
+   "divergence": false,
+   "repro": "escapes/008-llm-tamper-brief_attack.helper",
+   "blackbox_note": "cli exit 0"
+  },
+  "llm:tamper:brief_attack.with+patch+import+unittest+literal:changed": {
+   "klass": "ESCAPE",
+   "count": 2,
+   "examples": [
+    851,
+    5851
+   ],
+   "blackbox": "pass",
+   "divergence": false,
+   "repro": "escapes/009-llm-tamper-brief_attack.with-patch-import-unittest-literal-changed",
+   "blackbox_note": "cli exit 0"
+  },
+  "llm:honest:brief_honest.tests:fewer+asserts:fewer+deco+fixture+helper++fixture+:TEST_DISABLED/high": {
+   "klass": "FALSE_POSITIVE",
+   "count": 1,
+   "examples": [
+    871
+   ],
+   "blackbox": "block",
+   "divergence": false,
+   "repro": "false_positives/009-llm-honest-brief_honest.tests-fewer-asserts-fewer-deco-fixture-helper-fixture-TE",
+   "blackbox_note": "cli exit 1"
+  },
+  "llm:tamper:brief_attack.asserts:fewer+literal-rhs:fewer+deco+mark.parametrize+call+mark.parametrize+import+pytest": {
+   "klass": "ESCAPE",
+   "count": 11,
+   "examples": [
+    916,
+    2818,
+    5472,
+    6099,
+    7689
+   ],
+   "blackbox": "pass",
+   "divergence": false,
+   "repro": "escapes/010-llm-tamper-brief_attack.asserts-fewer-literal-rhs-fewer-deco-mark.parametrize-ca",
+   "blackbox_note": "cli exit 0"
+  },
+  "llm:tamper:brief_attack.literal:changed": {
+   "klass": "ESCAPE",
+   "count": 22,
+   "examples": [
+    946,
+    1064,
+    1812,
+    1820,
+    2197
+   ],
+   "blackbox": "pass",
+   "divergence": false,
+   "repro": "escapes/011-llm-tamper-brief_attack.literal-changed",
+   "blackbox_note": "cli exit 0"
+  },
+  "llm:tamper:brief_attack.asserts:fewer+cmp+Eq+deco+mark.parametrize+call+approx+call+mark.parametrize": {
+   "klass": "ESCAPE",
+   "count": 1,
+   "examples": [
+    948
+   ],
+   "blackbox": "pass",
+   "divergence": false,
+   "repro": "escapes/012-llm-tamper-brief_attack.asserts-fewer-cmp-Eq-deco-mark.parametrize-call-approx-c",
+   "blackbox_note": "cli exit 0"
+  },
+  "llm:tamper:brief_attack.cmp+Eq+helper++fixture++ctl+For+import+pytest": {
+   "klass": "ESCAPE",
+   "count": 1,
+   "examples": [
+    951
+   ],
+   "blackbox": "pass",
+   "divergence": false,
+   "repro": "escapes/013-llm-tamper-brief_attack.cmp-Eq-helper-fixture-ctl-For-import-pytest",
+   "blackbox_note": "cli exit 0"
+  },
+  "llm:honest:brief_honest.asserts:fewer+cmp-In+cmp-NotIn+helper++fixture+:ASSERT_REMOVED/high": {
+   "klass": "FALSE_POSITIVE",
+   "count": 1,
+   "examples": [
+    997
+   ],
+   "blackbox": "block",
+   "divergence": false,
+   "repro": "false_positives/010-llm-honest-brief_honest.asserts-fewer-cmp-In-cmp-NotIn-helper-fixture-ASSERT_REM",
+   "blackbox_note": "cli exit 1"
+  },
+  "llm:tamper:brief_attack.asserts:fewer+cmp+Eq+literal-rhs:more+literal:changed": {
+   "klass": "ESCAPE",
+   "count": 2,
+   "examples": [
+    1011,
+    2385
+   ],
+   "blackbox": "pass",
+   "divergence": false,
+   "repro": "escapes/014-llm-tamper-brief_attack.asserts-fewer-cmp-Eq-literal-rhs-more-literal-changed",
+   "blackbox_note": "cli exit 0"
+  },
+  "llm:honest:brief_honest.tests:fewer+ctl+For:TEST_DISABLED/high,TEST_DISABLED/info": {
+   "klass": "FALSE_POSITIVE",
+   "count": 1,
+   "examples": [
+    1018
+   ],
+   "blackbox": "block",
+   "divergence": false,
+   "repro": "false_positives/011-llm-honest-brief_honest.tests-fewer-ctl-For-TEST_DISABLED-high-TEST_DISABLED-inf",
+   "blackbox_note": "cli exit 1"
+  },
+  "llm:tamper:brief_attack.literal-rhs:fewer+helper++fixture++call+approx+import+pytest": {
+   "klass": "ESCAPE",
+   "count": 1,
+   "examples": [
+    1027
+   ],
+   "blackbox": "pass",
+   "divergence": false,
+   "repro": "escapes/015-llm-tamper-brief_attack.literal-rhs-fewer-helper-fixture-call-approx-import-pyte",
+   "blackbox_note": "cli exit 0"
+  },
+  "llm:honest:brief_honest.tests:more+literal-rhs:fewer+deco+fixture+fixture++ctl+Return:ASSERT_SUBSTITUTED/high": {
+   "klass": "FALSE_POSITIVE",
+   "count": 12,
+   "examples": [
+    1098,
+    2873,
+    3085,
+    3988,
+    4370
+   ],
+   "blackbox": "block",
+   "divergence": false,
+   "repro": "false_positives/012-llm-honest-brief_honest.tests-more-literal-rhs-fewer-deco-fixture-fixture-ctl-Re",
+   "blackbox_note": "cli exit 1"
+  },
+  "llm:honest:brief_honest.tests:fewer+with+self.subTest+helper++ctl+For+literal:changed:TEST_DISABLED/high": {
+   "klass": "FALSE_POSITIVE",
+   "count": 1,
+   "examples": [
+    1172
+   ],
+   "blackbox": "block",
+   "divergence": false,
+   "repro": "false_positives/013-llm-honest-brief_honest.tests-fewer-with-self.subTest-helper-ctl-For-literal-cha",
+   "blackbox_note": "cli exit 1"
+  },
+  "llm:honest:brief_honest.tests:fewer+asserts:fewer+cmp+Eq+cmp-Is+literal-rhs:fewer:TEST_DISABLED/high": {
+   "klass": "FALSE_POSITIVE",
+   "count": 8,
+   "examples": [
+    1192,
+    3137,
+    3833,
+    5053,
+    5096
+   ],
+   "blackbox": "block",
+   "divergence": false,
+   "repro": "false_positives/014-llm-honest-brief_honest.tests-fewer-asserts-fewer-cmp-Eq-cmp-Is-literal-rhs-fewe",
+   "blackbox_note": "cli exit 1"
+  },
+  "llm:tamper:brief_attack.cmp+Is+literal-rhs:more+literal:changed": {
+   "klass": "ESCAPE",
+   "count": 5,
+   "examples": [
+    1198,
+    5257,
+    7955,
+    8087,
+    9640
+   ],
+   "blackbox": "pass",
+   "divergence": false,
+   "repro": "escapes/016-llm-tamper-brief_attack.cmp-Is-literal-rhs-more-literal-changed",
+   "blackbox_note": "cli exit 0"
+  },
+  "llm:tamper:brief_attack.asserts:more+cmp+Is+literal-rhs:more+literal:changed": {
+   "klass": "ESCAPE",
+   "count": 1,
+   "examples": [
+    1205
+   ],
+   "blackbox": "pass",
+   "divergence": false,
+   "repro": "escapes/017-llm-tamper-brief_attack.asserts-more-cmp-Is-literal-rhs-more-literal-changed",
+   "blackbox_note": "cli exit 0"
+  },
+  "llm:tamper:brief_attack.tests:fewer+asserts:more+cmp+Eq+deco+mark.parametrize+call+mark.parametrize": {
+   "klass": "ESCAPE",
+   "count": 6,
+   "examples": [
+    1207,
+    1628,
+    3567,
+    5942,
+    8642
+   ],
+   "blackbox": "pass",
+   "divergence": false,
+   "repro": "escapes/018-llm-tamper-brief_attack.tests-fewer-asserts-more-cmp-Eq-deco-mark.parametrize-ca",
+   "blackbox_note": "cli exit 0"
+  },
+  "llm:honest:brief_honest.helper+:SUBJECT_NORMALIZED/high": {
+   "klass": "FALSE_POSITIVE",
+   "count": 5,
+   "examples": [
+    1246,
+    4956,
+    5575,
+    6176,
+    11479
+   ],
+   "blackbox": "block",
+   "divergence": false,
+   "repro": "false_positives/015-llm-honest-brief_honest.helper-SUBJECT_NORMALIZED-high",
+   "blackbox_note": "cli exit 1"
+  },
+  "llm:tamper:brief_attack.call+approx+import+pytest+literal:changed": {
+   "klass": "ESCAPE",
+   "count": 3,
+   "examples": [
+    1257,
+    1368,
+    7414
+   ],
+   "blackbox": "pass",
+   "divergence": false,
+   "repro": "escapes/019-llm-tamper-brief_attack.call-approx-import-pytest-literal-changed",
+   "blackbox_note": "cli exit 0"
+  },
+  "llm:tamper:brief_attack.asserts:fewer+cmp+Eq+deco+mark.parametrize+call+mark.parametrize+import+pytest": {
+   "klass": "ESCAPE",
+   "count": 7,
+   "examples": [
+    1299,
+    1918,
+    3554,
+    7630,
+    8674
+   ],
+   "blackbox": "pass",
+   "divergence": false,
+   "repro": "escapes/020-llm-tamper-brief_attack.asserts-fewer-cmp-Eq-deco-mark.parametrize-call-mark.par",
+   "blackbox_note": "cli exit 0"
+  },
+  "llm:honest:brief_honest.tests:fewer+asserts:fewer+literal-rhs:fewer+helper++ctl+For:TEST_DISABLED/high": {
+   "klass": "FALSE_POSITIVE",
+   "count": 5,
+   "examples": [
+    1319,
+    8826,
+    9223,
+    10659,
+    12026
+   ],
+   "blackbox": "block",
+   "divergence": false,
+   "repro": "false_positives/016-llm-honest-brief_honest.tests-fewer-asserts-fewer-literal-rhs-fewer-helper-ctl-F",
+   "blackbox_note": "cli exit 1"
+  },
+  "llm:honest:brief_honest.tests:fewer+asserts:fewer+ctl+For+literal:changed:TEST_DISABLED/high": {
+   "klass": "FALSE_POSITIVE",
+   "count": 5,
+   "examples": [
+    1328,
+    2580,
+    6871,
+    10313,
+    12371
+   ],
+   "blackbox": "block",
+   "divergence": false,
+   "repro": "false_positives/017-llm-honest-brief_honest.tests-fewer-asserts-fewer-ctl-For-literal-changed-TEST_D",
+   "blackbox_note": "cli exit 1"
+  },
+  "llm:honest:brief_honest.tests:fewer+asserts:fewer+cmp+Eq+cmp-Is+literal-rhs:fewer:ASSERT_SUBSTITUTED/high,TEST_DISABLED/high": {
+   "klass": "FALSE_POSITIVE",
+   "count": 2,
+   "examples": [
+    1397,
+    2814
+   ],
+   "blackbox": "block",
+   "divergence": false,
+   "repro": "false_positives/018-llm-honest-brief_honest.tests-fewer-asserts-fewer-cmp-Eq-cmp-Is-literal-rhs-fewe",
+   "blackbox_note": "cli exit 1"
+  },
+  "llm:honest:brief_honest.literal-rhs:fewer+ctl+For+literal:changed:TEST_DISABLED/high": {
+   "klass": "FALSE_POSITIVE",
+   "count": 1,
+   "examples": [
+    1425
+   ],
+   "blackbox": "block",
+   "divergence": false,
+   "repro": "false_positives/019-llm-honest-brief_honest.literal-rhs-fewer-ctl-For-literal-changed-TEST_DISABLED",
+   "blackbox_note": "cli exit 1"
+  },
+  "llm:honest:brief_honest.tests:more+asserts:more+literal-rhs:more+ctl+For+literal:changed:ASSERT_SUBSTITUTED/high,EXPECTED_VALUE_CHANGED/high": {
+   "klass": "FALSE_POSITIVE",
+   "count": 1,
+   "examples": [
+    1437
+   ],
+   "blackbox": "block",
+   "divergence": false,
+   "repro": "false_positives/020-llm-honest-brief_honest.tests-more-asserts-more-literal-rhs-more-ctl-For-literal",
+   "blackbox_note": "cli exit 1"
+  },
+  "llm:tamper:brief_attack.helper++fixture++import+pytest+literal:changed": {
+   "klass": "ESCAPE",
+   "count": 8,
+   "examples": [
+    1455,
+    5189,
+    5318,
+    6805,
+    9082
+   ],
+   "blackbox": "pass",
+   "divergence": false,
+   "repro": "escapes/021-llm-tamper-brief_attack.helper-fixture-import-pytest-literal-changed",
+   "blackbox_note": "cli exit 0"
+  },
+  "llm:tamper:brief_attack.literal-rhs:fewer+helper++fixture++import+pytest+literal:changed": {
+   "klass": "ESCAPE",
+   "count": 39,
+   "examples": [
+    1480,
+    1522,
+    2406,
+    2659,
+    2951
+   ],
+   "blackbox": "pass",
+   "divergence": false,
+   "repro": "escapes/022-llm-tamper-brief_attack.literal-rhs-fewer-helper-fixture-import-pytest-literal-c",
+   "blackbox_note": "cli exit 0"
+  },
+  "llm:tamper:brief_config.ini:addopts": {
+   "klass": "ESCAPE",
+   "count": 16,
+   "examples": [
+    1517,
+    1568,
+    1848,
+    1955,
+    2254
+   ],
+   "blackbox": "pass",
+   "divergence": false,
+   "repro": "escapes/023-llm-tamper-brief_config.ini-addopts",
+   "blackbox_note": "cli exit 0"
+  },
+  "llm:tamper:brief_attack.tests:fewer+asserts:more+cmp+Is+deco+mark.parametrize+call+mark.parametrize": {
+   "klass": "ESCAPE",
+   "count": 2,
+   "examples": [
+    1529,
+    11885
+   ],
+   "blackbox": "pass",
+   "divergence": false,
+   "repro": "escapes/024-llm-tamper-brief_attack.tests-fewer-asserts-more-cmp-Is-deco-mark.parametrize-ca",
+   "blackbox_note": "cli exit 0"
+  },
+  "llm:honest:brief_honest.tests:fewer+asserts:fewer+cmp-Eq+literal-rhs:fewer+helper+:TEST_DISABLED/high": {
+   "klass": "FALSE_POSITIVE",
+   "count": 2,
+   "examples": [
+    1539,
+    9198
+   ],
+   "blackbox": "block",
+   "divergence": false,
+   "repro": "false_positives/021-llm-honest-brief_honest.tests-fewer-asserts-fewer-cmp-Eq-literal-rhs-fewer-helpe",
+   "blackbox_note": "cli exit 1"
+  },
+  "llm:honest:brief_honest.tests:more+asserts:fewer+cmp-Eq+deco+fixture+helper+:ASSERT_WEAKENED/high": {
+   "klass": "FALSE_POSITIVE",
+   "count": 4,
+   "examples": [
+    1545,
+    2432,
+    11862,
+    12834
+   ],
+   "blackbox": "block",
+   "divergence": false,
+   "repro": "false_positives/022-llm-honest-brief_honest.tests-more-asserts-fewer-cmp-Eq-deco-fixture-helper-ASSE",
+   "blackbox_note": "cli exit 1"
+  },
+  "llm:tamper:brief_attack.literal-rhs:fewer+literal:changed": {
+   "klass": "ESCAPE",
+   "count": 12,
+   "examples": [
+    1689,
+    1985,
+    2337,
+    4387,
+    4679
+   ],
+   "blackbox": "pass",
+   "divergence": false,
+   "repro": "escapes/025-llm-tamper-brief_attack.literal-rhs-fewer-literal-changed",
+   "blackbox_note": "cli exit 0"
+  },
+  "llm:tamper:brief_attack.literal-rhs:fewer+deco+mark.parametrize+helper++fixture++call+mark.parametrize": {
+   "klass": "ESCAPE",
+   "count": 2,
+   "examples": [
+    1708,
+    10262
+   ],
+   "blackbox": "pass",
+   "divergence": false,
+   "repro": "escapes/026-llm-tamper-brief_attack.literal-rhs-fewer-deco-mark.parametrize-helper-fixture-c",
+   "blackbox_note": "cli exit 0"
+  },
+  "llm:honest:brief_honest.asserts:fewer+literal-rhs:fewer+helper++fixture++import+pytest:ASSERT_REMOVED/warn,ASSERT_SUBSTITUTED/high,ASSERT_SUBSTITUTED/warn": {
+   "klass": "FALSE_POSITIVE",
+   "count": 2,
+   "examples": [
+    1719,
+    6852
+   ],
+   "blackbox": "block",
+   "divergence": false,
+   "repro": "false_positives/023-llm-honest-brief_honest.asserts-fewer-literal-rhs-fewer-helper-fixture-import-py",
+   "blackbox_note": "cli exit 1"
+  },
+  "llm:honest:brief_honest.tests:more+asserts:fewer+cmp-Eq+deco+fixture+helper+:ASSERT_REMOVED/high": {
+   "klass": "FALSE_POSITIVE",
+   "count": 1,
+   "examples": [
+    1742
+   ],
+   "blackbox": "block",
+   "divergence": false,
+   "repro": "false_positives/024-llm-honest-brief_honest.tests-more-asserts-fewer-cmp-Eq-deco-fixture-helper-ASSE",
+   "blackbox_note": "cli exit 1"
+  },
+  "llm:tamper:brief_attack.tests:fewer+asserts:fewer+deco+mark.parametrize+call+approx+call+mark.parametrize": {
+   "klass": "ESCAPE",
+   "count": 4,
+   "examples": [
+    1790,
+    2304,
+    9518,
+    10829
+   ],
+   "blackbox": "pass",
+   "divergence": false,
+   "repro": "escapes/027-llm-tamper-brief_attack.tests-fewer-asserts-fewer-deco-mark.parametrize-call-app",
+   "blackbox_note": "cli exit 0"
+  },
+  "llm:honest:brief_honest.tests:fewer+asserts:fewer+literal-rhs:fewer+deco+fixture+fixture+:TEST_DISABLED/high": {
+   "klass": "FALSE_POSITIVE",
+   "count": 25,
+   "examples": [
+    1821,
+    3227,
+    3793,
+    4640,
+    4853
+   ],
+   "blackbox": "block",
+   "divergence": false,
+   "repro": "false_positives/025-llm-honest-brief_honest.tests-fewer-asserts-fewer-literal-rhs-fewer-deco-fixture",
+   "blackbox_note": "cli exit 1"
+  },
+  "llm:tamper:brief_attack.tests:fewer+asserts:fewer+cmp-Eq+cmp-In+literal-rhs:fewer": {
+   "klass": "ESCAPE",
+   "count": 1,
+   "examples": [
+    1824
+   ],
+   "blackbox": "pass",
+   "divergence": false,
+   "repro": "escapes/028-llm-tamper-brief_attack.tests-fewer-asserts-fewer-cmp-Eq-cmp-In-literal-rhs-fewe",
+   "blackbox_note": "cli exit 0"
+  },
+  "llm:honest:brief_honest.tests:fewer+asserts:fewer+literal-rhs:fewer+helper++fixture+:TEST_DISABLED/high,TEST_DISABLED/warn": {
+   "klass": "FALSE_POSITIVE",
+   "count": 2,
+   "examples": [
+    1915,
+    3621
+   ],
+   "blackbox": "block",
+   "divergence": false,
+   "repro": "false_positives/026-llm-honest-brief_honest.tests-fewer-asserts-fewer-literal-rhs-fewer-helper-fixtu",
+   "blackbox_note": "cli exit 1"
+  },
+  "llm:tamper:brief_attack.tests:more+asserts:more+cmp+Eq+cmp+Is+literal-rhs:more": {
+   "klass": "ESCAPE",
+   "count": 1,
+   "examples": [
+    1924
+   ],
+   "blackbox": "pass",
+   "divergence": false,
+   "repro": "escapes/029-llm-tamper-brief_attack.tests-more-asserts-more-cmp-Eq-cmp-Is-literal-rhs-more",
+   "blackbox_note": "cli exit 0"
+  },
+  "llm:tamper:brief_attack.helper++literal:changed": {
+   "klass": "ESCAPE",
+   "count": 14,
+   "examples": [
+    1962,
+    2491,
+    3379,
+    5842,
+    7077
+   ],
+   "blackbox": "pass",
+   "divergence": false,
+   "repro": "escapes/030-llm-tamper-brief_attack.helper-literal-changed",
+   "blackbox_note": "cli exit 0"
+  },
+  "llm:tamper:brief_attack.cmp+Eq+helper++call+approx+import+pytest": {
+   "klass": "ESCAPE",
+   "count": 1,
+   "examples": [
+    1991
+   ],
+   "blackbox": "pass",
+   "divergence": false,
+   "repro": "escapes/031-llm-tamper-brief_attack.cmp-Eq-helper-call-approx-import-pytest",
+   "blackbox_note": "cli exit 0"
+  },
+  "llm:tamper:brief_attack.deco+mark.parametrize+call+mark.parametrize+import+pytest+literal:changed": {
+   "klass": "ESCAPE",
+   "count": 9,
+   "examples": [
+    2042,
+    2274,
+    3756,
+    4419,
+    5268
+   ],
+   "blackbox": "pass",
+   "divergence": false,
+   "repro": "escapes/032-llm-tamper-brief_attack.deco-mark.parametrize-call-mark.parametrize-import-pytes",
+   "blackbox_note": "cli exit 0"
+  },
+  "llm:tamper:brief_attack.literal-rhs:fewer+deco+mark.parametrize+helper++call+mark.parametrize+import+pytest": {
+   "klass": "ESCAPE",
+   "count": 2,
+   "examples": [
+    2064,
+    4600
+   ],
+   "blackbox": "pass",
+   "divergence": false,
+   "repro": "escapes/033-llm-tamper-brief_attack.literal-rhs-fewer-deco-mark.parametrize-helper-call-mark",
+   "blackbox_note": "cli exit 0"
+  },
+  "llm:tamper:brief_attack.helper++fixture++import+pytest": {
+   "klass": "ESCAPE",
+   "count": 6,
+   "examples": [
+    2098,
+    2238,
+    8000,
+    9201,
+    11715
+   ],
+   "blackbox": "pass",
+   "divergence": false,
+   "repro": "escapes/034-llm-tamper-brief_attack.helper-fixture-import-pytest",
+   "blackbox_note": "cli exit 0"
+  },
+  "llm:tamper:brief_attack.deco+mark.parametrize+helper++call+mark.parametrize+import+pytest+literal:changed": {
+   "klass": "ESCAPE",
+   "count": 1,
+   "examples": [
+    2115
+   ],
+   "blackbox": "pass",
+   "divergence": false,
+   "repro": "escapes/035-llm-tamper-brief_attack.deco-mark.parametrize-helper-call-mark.parametrize-impor",
+   "blackbox_note": "cli exit 0"
+  },
+  "llm:tamper:brief_attack.cmp+Eq+deco+mark.parametrize+helper++fixture++call+mark.parametrize": {
+   "klass": "ESCAPE",
+   "count": 2,
+   "examples": [
+    2180,
+    6008
+   ],
+   "blackbox": "pass",
+   "divergence": false,
+   "repro": "escapes/036-llm-tamper-brief_attack.cmp-Eq-deco-mark.parametrize-helper-fixture-call-mark.pa",
+   "blackbox_note": "cli exit 0"
+  },
+  "llm:tamper:brief_attack.tests:fewer+deco+patch+import+unittest+import+unittest+literal:changed": {
+   "klass": "ESCAPE",
+   "count": 1,
+   "examples": [
+    2212
+   ],
+   "blackbox": "pass",
+   "divergence": false,
+   "repro": "escapes/037-llm-tamper-brief_attack.tests-fewer-deco-patch-import-unittest-import-unittest-l",
+   "blackbox_note": "cli exit 0"
+  },
+  "llm:tamper:brief_attack.tests:fewer+deco+mark.parametrize+call+mark.parametrize+import+pytest+literal:changed": {
+   "klass": "ESCAPE",
+   "count": 7,
+   "examples": [
+    2282,
+    5630,
+    6768,
+    10112,
+    12560
+   ],
+   "blackbox": "pass",
+   "divergence": false,
+   "repro": "escapes/038-llm-tamper-brief_attack.tests-fewer-deco-mark.parametrize-call-mark.parametrize",
+   "blackbox_note": "cli exit 0"
+  },
+  "llm:honest:brief_honest.ctl+For+literal:changed:ASSERT_REMOVED/high": {
+   "klass": "FALSE_POSITIVE",
+   "count": 1,
+   "examples": [
+    2285
+   ],
+   "blackbox": "block",
+   "divergence": false,
+   "repro": "false_positives/027-llm-honest-brief_honest.ctl-For-literal-changed-ASSERT_REMOVED-high",
+   "blackbox_note": "cli exit 1"
+  },
+  "llm:tamper:brief_attack.ctl+Return+literal:changed": {
+   "klass": "ESCAPE",
+   "count": 1,
+   "examples": [
+    2335
+   ],
+   "blackbox": "pass",
+   "divergence": false,
+   "repro": "escapes/039-llm-tamper-brief_attack.ctl-Return-literal-changed",
+   "blackbox_note": "cli exit 0"
+  },
+  "llm:honest:brief_honest.helper++fixture++import+pytest+literal:changed:ASSERT_SUBSTITUTED/high,EXPECTED_VALUE_CHANGED/high": {
+   "klass": "FALSE_POSITIVE",
+   "count": 1,
+   "examples": [
+    2336
+   ],
+   "blackbox": "block",
+   "divergence": false,
+   "repro": "false_positives/028-llm-honest-brief_honest.helper-fixture-import-pytest-literal-changed-ASSERT_SUBS",
+   "blackbox_note": "cli exit 1"
+  },
+  "llm:honest:brief_honest.deco+fixture+fixture++ctl+Return+import+pytest+literal:changed:TEST_DISABLED/high,TEST_DISABLED/info": {
+   "klass": "FALSE_POSITIVE",
+   "count": 1,
+   "examples": [
+    2339
+   ],
+   "blackbox": "block",
+   "divergence": false,
+   "repro": "false_positives/029-llm-honest-brief_honest.deco-fixture-fixture-ctl-Return-import-pytest-literal-ch",
+   "blackbox_note": "cli exit 1"
+  },
+  "llm:tamper:brief_attack.text-only": {
+   "klass": "ESCAPE",
+   "count": 10,
+   "examples": [
+    2453,
+    2907,
+    3658,
+    4644,
+    7782
+   ],
+   "blackbox": "pass",
+   "divergence": false,
+   "repro": "escapes/040-llm-tamper-brief_attack.text-only",
+   "blackbox_note": "cli exit 0"
+  },
+  "llm:honest:brief_honest.literal-rhs:fewer+helper++fixture++ctl+For+ctl+If:ASSERT_SUBSTITUTED/high": {
+   "klass": "FALSE_POSITIVE",
+   "count": 1,
+   "examples": [
+    2518
+   ],
+   "blackbox": "block",
+   "divergence": false,
+   "repro": "false_positives/030-llm-honest-brief_honest.literal-rhs-fewer-helper-fixture-ctl-For-ctl-If-ASSERT_S",
+   "blackbox_note": "cli exit 1"
+  },
+  "llm:tamper:brief_attack.literal-rhs:fewer+helper++import+pytest+literal:changed": {
+   "klass": "ESCAPE",
+   "count": 1,
+   "examples": [
+    2566
+   ],
+   "blackbox": "pass",
+   "divergence": false,
+   "repro": "escapes/041-llm-tamper-brief_attack.literal-rhs-fewer-helper-import-pytest-literal-changed",
+   "blackbox_note": "cli exit 0"
+  },
+  "llm:honest:brief_honest.asserts:fewer+literal-rhs:fewer+deco+fixture+fixture++ctl+For:TEST_DISABLED/high": {
+   "klass": "FALSE_POSITIVE",
+   "count": 2,
+   "examples": [
+    2623,
+    2842
+   ],
+   "blackbox": "block",
+   "divergence": false,
+   "repro": "false_positives/031-llm-honest-brief_honest.asserts-fewer-literal-rhs-fewer-deco-fixture-fixture-ctl",
+   "blackbox_note": "cli exit 1"
+  },
+  "llm:honest:brief_honest.literal-rhs:fewer+helper++fixture++import+pytest+literal:changed:ASSERT_SUBSTITUTED/high": {
+   "klass": "FALSE_POSITIVE",
+   "count": 5,
+   "examples": [
+    2661,
+    5079,
+    7207,
+    8736,
+    12038
+   ],
+   "blackbox": "block",
+   "divergence": false,
+   "repro": "false_positives/032-llm-honest-brief_honest.literal-rhs-fewer-helper-fixture-import-pytest-literal-c",
+   "blackbox_note": "cli exit 1"
+  },
+  "llm:honest:brief_honest.helper++fixture++import+pytest+literal:changed:ASSERT_WEAKENED/high": {
+   "klass": "FALSE_POSITIVE",
+   "count": 3,
+   "examples": [
+    2741,
+    3888,
+    10465
+   ],
+   "blackbox": "block",
+   "divergence": false,
+   "repro": "false_positives/033-llm-honest-brief_honest.helper-fixture-import-pytest-literal-changed-ASSERT_WEAK",
+   "blackbox_note": "cli exit 1"
+  },
+  "llm:honest:brief_honest.tests:fewer+helper++fixture++import+pytest+literal:changed:TEST_DISABLED/high": {
+   "klass": "FALSE_POSITIVE",
+   "count": 1,
+   "examples": [
+    2755
+   ],
+   "blackbox": "block",
+   "divergence": false,
+   "repro": "false_positives/034-llm-honest-brief_honest.tests-fewer-helper-fixture-import-pytest-literal-changed",
+   "blackbox_note": "cli exit 1"
+  },
+  "llm:honest:brief_honest.tests:fewer+asserts:more+cmp+Is+deco+fixture+fixture+:TEST_DISABLED/high,TEST_DISABLED/info": {
+   "klass": "FALSE_POSITIVE",
+   "count": 1,
+   "examples": [
+    2791
+   ],
+   "blackbox": "block",
+   "divergence": false,
+   "repro": "false_positives/035-llm-honest-brief_honest.tests-fewer-asserts-more-cmp-Is-deco-fixture-fixture-TES",
+   "blackbox_note": "cli exit 1"
+  },
+  "llm:honest:brief_honest.tests:more+deco+fixture+fixture++ctl+Return+import+pytest:ASSERT_WEAKENED/high": {
+   "klass": "FALSE_POSITIVE",
+   "count": 7,
+   "examples": [
+    2898,
+    4594,
+    5490,
+    5949,
+    8983
+   ],
+   "blackbox": "block",
+   "divergence": false,
+   "repro": "false_positives/036-llm-honest-brief_honest.tests-more-deco-fixture-fixture-ctl-Return-import-pytest",
+   "blackbox_note": "cli exit 1"
+  },
+  "llm:honest:brief_honest.asserts:fewer+helper++fixture++import+pytest+literal:changed:ASSERT_REMOVED/warn,ASSERT_WEAKENED/high": {
+   "klass": "FALSE_POSITIVE",
+   "count": 3,
+   "examples": [
+    2950,
+    5646,
+    8236
+   ],
+   "blackbox": "block",
+   "divergence": false,
+   "repro": "false_positives/037-llm-honest-brief_honest.asserts-fewer-helper-fixture-import-pytest-literal-chang",
+   "blackbox_note": "cli exit 1"
+  },
+  "llm:tamper:brief_attack.tests:more+literal-rhs:fewer+with+raises+deco+mark.parametrize+helper+": {
+   "klass": "ESCAPE",
+   "count": 1,
+   "examples": [
+    3056
+   ],
+   "blackbox": "pass",
+   "divergence": false,
+   "repro": "escapes/042-llm-tamper-brief_attack.tests-more-literal-rhs-fewer-with-raises-deco-mark.param",
+   "blackbox_note": "cli exit 0"
+  },
+  "llm:honest:brief_honest.tests:fewer+asserts:more+cmp+Eq+deco+mark.parametrize+call+mark.parametrize:TEST_DISABLED/high": {
+   "klass": "FALSE_POSITIVE",
+   "count": 1,
+   "examples": [
+    3065
+   ],
+   "blackbox": "block",
+   "divergence": false,
+   "repro": "false_positives/038-llm-honest-brief_honest.tests-fewer-asserts-more-cmp-Eq-deco-mark.parametrize-ca",
+   "blackbox_note": "cli exit 1"
+  },
+  "llm:honest:brief_honest.tests:fewer+asserts:fewer+deco+fixture+fixture++ctl+For:TEST_DISABLED/high": {
+   "klass": "FALSE_POSITIVE",
+   "count": 1,
+   "examples": [
+    3218
+   ],
+   "blackbox": "block",
+   "divergence": false,
+   "repro": "false_positives/039-llm-honest-brief_honest.tests-fewer-asserts-fewer-deco-fixture-fixture-ctl-For-T",
+   "blackbox_note": "cli exit 1"
+  },
+  "llm:honest:brief_honest.text-only:ASSERT_SUBSTITUTED/high,EXPECTED_VALUE_CHANGED/high": {
+   "klass": "FALSE_POSITIVE",
+   "count": 2,
+   "examples": [
+    3470,
+    5687
+   ],
+   "blackbox": "block",
+   "divergence": false,
+   "repro": "false_positives/040-llm-honest-brief_honest.text-only-ASSERT_SUBSTITUTED-high-EXPECTED_VALUE_CHANGED",
+   "blackbox_note": "cli exit 1"
+  },
+  "llm:honest:brief_honest.asserts:fewer+helper++fixture++ctl+For+import+pytest:ASSERT_REMOVED/warn,ASSERT_WEAKENED/high": {
+   "klass": "FALSE_POSITIVE",
+   "count": 1,
+   "examples": [
+    3687
+   ],
+   "blackbox": "block",
+   "divergence": false,
+   "repro": "false_positives/041-llm-honest-brief_honest.asserts-fewer-helper-fixture-ctl-For-import-pytest-ASSER",
+   "blackbox_note": "cli exit 1"
+  },
+  "llm:honest:brief_honest.tests:fewer+with+self.subTest+ctl+For+literal:changed:TEST_DISABLED/high": {
+   "klass": "FALSE_POSITIVE",
+   "count": 1,
+   "examples": [
+    3707
+   ],
+   "blackbox": "block",
+   "divergence": false,
+   "repro": "false_positives/042-llm-honest-brief_honest.tests-fewer-with-self.subTest-ctl-For-literal-changed-TE",
+   "blackbox_note": "cli exit 1"
+  },
+  "llm:honest:brief_honest.tests:fewer+asserts:more+cmp+Eq+fixture++import+pytest:TEST_DISABLED/high,TEST_DISABLED/info": {
+   "klass": "FALSE_POSITIVE",
+   "count": 1,
+   "examples": [
+    3718
+   ],
+   "blackbox": "block",
+   "divergence": false,
+   "repro": "false_positives/043-llm-honest-brief_honest.tests-fewer-asserts-more-cmp-Eq-fixture-import-pytest-TE",
+   "blackbox_note": "cli exit 1"
+  },
+  "llm:tamper:brief_attack.cmp+Eq+helper++fixture++import+pytest+literal:changed": {
+   "klass": "ESCAPE",
+   "count": 2,
+   "examples": [
+    3721,
+    4801
+   ],
+   "blackbox": "pass",
+   "divergence": false,
+   "repro": "escapes/043-llm-tamper-brief_attack.cmp-Eq-helper-fixture-import-pytest-literal-changed",
+   "blackbox_note": "cli exit 0"
+  },
+  "llm:tamper:brief_attack.asserts:fewer+cmp-Eq+literal-rhs:fewer+helper++import+pytest": {
+   "klass": "ESCAPE",
+   "count": 1,
+   "examples": [
+    3761
+   ],
+   "blackbox": "pass",
+   "divergence": false,
+   "repro": "escapes/044-llm-tamper-brief_attack.asserts-fewer-cmp-Eq-literal-rhs-fewer-helper-import-pyt",
+   "blackbox_note": "cli exit 0"
+  },
+  "llm:honest:brief_honest.cmp+Eq+cmp-Is+literal-rhs:fewer+deco+mark.parametrize+ctl+For:TEST_DISABLED/high": {
+   "klass": "FALSE_POSITIVE",
+   "count": 1,
+   "examples": [
+    3859
+   ],
+   "blackbox": "block",
+   "divergence": false,
+   "repro": "false_positives/044-llm-honest-brief_honest.cmp-Eq-cmp-Is-literal-rhs-fewer-deco-mark.parametrize-ct",
+   "blackbox_note": "cli exit 1"
+  },
+  "llm:honest:brief_honest.literal-rhs:fewer+helper++fixture++ctl+For+import+pytest:ASSERT_SUBSTITUTED/high": {
+   "klass": "FALSE_POSITIVE",
+   "count": 1,
+   "examples": [
+    4036
+   ],
+   "blackbox": "block",
+   "divergence": false,
+   "repro": "false_positives/045-llm-honest-brief_honest.literal-rhs-fewer-helper-fixture-ctl-For-import-pytest-A",
+   "blackbox_note": "cli exit 1"
+  },
+  "llm:honest:brief_honest.asserts:fewer+cmp-Eq+deco+mark.parametrize+helper++call+mark.parametrize:ASSERT_REMOVED/high": {
+   "klass": "FALSE_POSITIVE",
+   "count": 1,
+   "examples": [
+    4220
+   ],
+   "blackbox": "block",
+   "divergence": false,
+   "repro": "false_positives/046-llm-honest-brief_honest.asserts-fewer-cmp-Eq-deco-mark.parametrize-helper-call-m",
+   "blackbox_note": "cli exit 1"
+  },
+  "llm:tamper:brief_attack.cmp+Eq+cmp-Is+literal-rhs:fewer+helper++literal:changed": {
+   "klass": "ESCAPE",
+   "count": 7,
+   "examples": [
+    4430,
+    5179,
+    6336,
+    8429,
+    8794
+   ],
+   "blackbox": "pass",
+   "divergence": false,
+   "repro": "escapes/045-llm-tamper-brief_attack.cmp-Eq-cmp-Is-literal-rhs-fewer-helper-literal-changed",
+   "blackbox_note": "cli exit 0"
+  },
+  "llm:honest:brief_honest.tests:more+cmp-Is+literal-rhs:fewer+deco+fixture+fixture+:ASSERT_SUBSTITUTED/high": {
+   "klass": "FALSE_POSITIVE",
+   "count": 2,
+   "examples": [
+    4444,
+    12865
+   ],
+   "blackbox": "block",
+   "divergence": false,
+   "repro": "false_positives/047-llm-honest-brief_honest.tests-more-cmp-Is-literal-rhs-fewer-deco-fixture-fixture",
+   "blackbox_note": "cli exit 1"
+  },
+  "llm:honest:brief_honest.helper++fixture++ctl+For+import+pytest+literal:changed:ASSERT_WEAKENED/high": {
+   "klass": "FALSE_POSITIVE",
+   "count": 2,
+   "examples": [
+    4518,
+    12099
+   ],
+   "blackbox": "block",
+   "divergence": false,
+   "repro": "false_positives/048-llm-honest-brief_honest.helper-fixture-ctl-For-import-pytest-literal-changed-ASS",
+   "blackbox_note": "cli exit 1"
+  },
+  "llm:tamper:brief_attack.cmp-Is+literal-rhs:fewer+deco+fixture+fixture++ctl+For": {
+   "klass": "ESCAPE",
+   "count": 1,
+   "examples": [
+    4534
+   ],
+   "blackbox": "pass",
+   "divergence": false,
+   "repro": "escapes/046-llm-tamper-brief_attack.cmp-Is-literal-rhs-fewer-deco-fixture-fixture-ctl-For",
+   "blackbox_note": "cli exit 0"
+  },
+  "llm:honest:brief_honest.asserts:fewer+cmp-Eq+literal-rhs:fewer+helper++literal:changed:ASSERT_REMOVED/high": {
+   "klass": "FALSE_POSITIVE",
+   "count": 1,
+   "examples": [
+    4572
+   ],
+   "blackbox": "block",
+   "divergence": false,
+   "repro": "false_positives/049-llm-honest-brief_honest.asserts-fewer-cmp-Eq-literal-rhs-fewer-helper-literal-ch",
+   "blackbox_note": "cli exit 1"
+  },
+  "llm:tamper:brief_attack.asserts:more+cmp+Eq+literal-rhs:more+deco+patch+import+unittest": {
+   "klass": "ESCAPE",
+   "count": 1,
+   "examples": [
+    4639
+   ],
+   "blackbox": "pass",
+   "divergence": false,
+   "repro": "escapes/047-llm-tamper-brief_attack.asserts-more-cmp-Eq-literal-rhs-more-deco-patch-import-u",
+   "blackbox_note": "cli exit 0"
+  },
+  "llm:honest:brief_honest.tests:more+literal-rhs:fewer+deco+fixture+fixture++ctl+For:ASSERT_SUBSTITUTED/high": {
+   "klass": "FALSE_POSITIVE",
+   "count": 5,
+   "examples": [
+    4743,
+    6893,
+    9581,
+    9920,
+    11121
+   ],
+   "blackbox": "block",
+   "divergence": false,
+   "repro": "false_positives/050-llm-honest-brief_honest.tests-more-literal-rhs-fewer-deco-fixture-fixture-ctl-Fo",
+   "blackbox_note": "cli exit 1"
+  },
+  "llm:tamper:brief_attack.asserts:fewer+cmp-In+literal-rhs:fewer+literal:changed": {
+   "klass": "ESCAPE",
+   "count": 1,
+   "examples": [
+    4824
+   ],
+   "blackbox": "pass",
+   "divergence": false,
+   "repro": "escapes/048-llm-tamper-brief_attack.asserts-fewer-cmp-In-literal-rhs-fewer-literal-changed",
+   "blackbox_note": "cli exit 0"
+  },
+  "llm:tamper:brief_attack.tests:more+literal-rhs:fewer+ctl+For+literal:changed": {
+   "klass": "ESCAPE",
+   "count": 1,
+   "examples": [
+    4843
+   ],
+   "blackbox": "pass",
+   "divergence": false,
+   "repro": "escapes/049-llm-tamper-brief_attack.tests-more-literal-rhs-fewer-ctl-For-literal-changed",
+   "blackbox_note": "cli exit 0"
+  },
+  "llm:tamper:brief_attack.asserts:more+helper++literal:changed": {
+   "klass": "ESCAPE",
+   "count": 1,
+   "examples": [
+    4845
+   ],
+   "blackbox": "pass",
+   "divergence": false,
+   "repro": "escapes/050-llm-tamper-brief_attack.asserts-more-helper-literal-changed",
+   "blackbox_note": "cli exit 0"
+  },
+  "llm:honest:brief_honest.tests:more+asserts:more+literal-rhs:more+literal:changed:ASSERT_REMOVED/high": {
+   "klass": "FALSE_POSITIVE",
+   "count": 2,
+   "examples": [
+    4953,
+    7697
+   ],
+   "blackbox": "block",
+   "divergence": false,
+   "repro": "false_positives/051-llm-honest-brief_honest.tests-more-asserts-more-literal-rhs-more-literal-changed",
+   "blackbox_note": "cli exit 1"
+  },
+  "llm:tamper:brief_attack.cmp+Eq+literal-rhs:more+helper+": {
+   "klass": "ESCAPE",
+   "count": 2,
+   "examples": [
+    4991,
+    11097
+   ],
+   "blackbox": "pass",
+   "divergence": false,
+   "repro": "escapes/051-llm-tamper-brief_attack.cmp-Eq-literal-rhs-more-helper",
+   "blackbox_note": "cli exit 0"
+  },
+  "llm:tamper:brief_attack.import+pytest+literal:changed": {
+   "klass": "ESCAPE",
+   "count": 1,
+   "examples": [
+    5057
+   ],
+   "blackbox": "pass",
+   "divergence": false,
+   "repro": "escapes/052-llm-tamper-brief_attack.import-pytest-literal-changed",
+   "blackbox_note": "cli exit 0"
+  },
+  "llm:honest:brief_honest.asserts:fewer+cmp-In+cmp-NotIn+helper++literal:changed:ASSERT_WEAKENED/high,EXPECTED_VALUE_CHANGED/high": {
+   "klass": "FALSE_POSITIVE",
+   "count": 1,
+   "examples": [
+    5119
+   ],
+   "blackbox": "block",
+   "divergence": false,
+   "repro": "false_positives/052-llm-honest-brief_honest.asserts-fewer-cmp-In-cmp-NotIn-helper-literal-changed-AS",
+   "blackbox_note": "cli exit 1"
+  },
+  "llm:honest:brief_honest.tests:more+asserts:fewer+literal-rhs:fewer+deco+fixture+fixture+:ASSERT_REMOVED/warn,ASSERT_SUBSTITUTED/high,ASSERT_SUBSTITUTED/warn": {
+   "klass": "FALSE_POSITIVE",
+   "count": 1,
+   "examples": [
+    5141
+   ],
+   "blackbox": "block",
+   "divergence": false,
+   "repro": "false_positives/053-llm-honest-brief_honest.tests-more-asserts-fewer-literal-rhs-fewer-deco-fixture",
+   "blackbox_note": "cli exit 1"
+  },
+  "llm:tamper:brief_attack.asserts:fewer+literal-rhs:fewer+ctl+For": {
+   "klass": "ESCAPE",
+   "count": 1,
+   "examples": [
+    5151
+   ],
+   "blackbox": "pass",
+   "divergence": false,
+   "repro": "escapes/053-llm-tamper-brief_attack.asserts-fewer-literal-rhs-fewer-ctl-For",
+   "blackbox_note": "cli exit 0"
+  },
+  "llm:tamper:brief_attack.literal-rhs:fewer+deco+mark.parametrize+ctl+For+call+mark.parametrize+import+pytest": {
+   "klass": "ESCAPE",
+   "count": 2,
+   "examples": [
+    5153,
+    7961
+   ],
+   "blackbox": "pass",
+   "divergence": false,
+   "repro": "escapes/054-llm-tamper-brief_attack.literal-rhs-fewer-deco-mark.parametrize-ctl-For-call-mar",
+   "blackbox_note": "cli exit 0"
+  },
+  "llm:tamper:brief_attack.cmp+Is+cmp-Eq+literal-rhs:fewer+helper++fixture+": {
+   "klass": "ESCAPE",
+   "count": 1,
+   "examples": [
+    5196
+   ],
+   "blackbox": "pass",
+   "divergence": false,
+   "repro": "escapes/055-llm-tamper-brief_attack.cmp-Is-cmp-Eq-literal-rhs-fewer-helper-fixture",
+   "blackbox_note": "cli exit 0"
+  },
+  "llm:honest:brief_honest.asserts:fewer+ctl+For+literal:changed:ASSERT_REMOVED/warn,ASSERT_WEAKENED/high": {
+   "klass": "FALSE_POSITIVE",
+   "count": 2,
+   "examples": [
+    5259,
+    11873
+   ],
+   "blackbox": "block",
+   "divergence": false,
+   "repro": "false_positives/054-llm-honest-brief_honest.asserts-fewer-ctl-For-literal-changed-ASSERT_REMOVED-war",
+   "blackbox_note": "cli exit 1"
+  },
+  "llm:tamper:brief_attack.tests:more+asserts:more+literal-rhs:more+with+raises+call+raises": {
+   "klass": "ESCAPE",
+   "count": 1,
+   "examples": [
+    5412
+   ],
+   "blackbox": "pass",
+   "divergence": false,
+   "repro": "escapes/056-llm-tamper-brief_attack.tests-more-asserts-more-literal-rhs-more-with-raises-cal",
+   "blackbox_note": "cli exit 0"
+  },
+  "llm:tamper:brief_attack.cmp+Eq+cmp-Is+literal-rhs:fewer+helper++fixture+": {
+   "klass": "ESCAPE",
+   "count": 1,
+   "examples": [
+    5621
+   ],
+   "blackbox": "pass",
+   "divergence": false,
+   "repro": "escapes/057-llm-tamper-brief_attack.cmp-Eq-cmp-Is-literal-rhs-fewer-helper-fixture",
+   "blackbox_note": "cli exit 0"
+  },
+  "llm:honest:brief_honest.literal-rhs:fewer+literal:changed:ASSERT_WEAKENED/high": {
+   "klass": "FALSE_POSITIVE",
+   "count": 1,
+   "examples": [
+    5628
+   ],
+   "blackbox": "block",
+   "divergence": false,
+   "repro": "false_positives/055-llm-honest-brief_honest.literal-rhs-fewer-literal-changed-ASSERT_WEAKENED-high",
+   "blackbox_note": "cli exit 1"
+  },
+  "llm:tamper:brief_attack.asserts:fewer+cmp+Is+cmp-Eq+literal-rhs:fewer+deco+mark.parametrize": {
+   "klass": "ESCAPE",
+   "count": 3,
+   "examples": [
+    5663,
+    9816,
+    11601
+   ],
+   "blackbox": "pass",
+   "divergence": false,
+   "repro": "escapes/058-llm-tamper-brief_attack.asserts-fewer-cmp-Is-cmp-Eq-literal-rhs-fewer-deco-mark.",
+   "blackbox_note": "cli exit 0"
+  },
+  "llm:honest:brief_honest.tests:more+literal-rhs:fewer+deco+fixture+helper++fixture+:ASSERT_SUBSTITUTED/high": {
+   "klass": "FALSE_POSITIVE",
+   "count": 2,
+   "examples": [
+    5670,
+    12005
+   ],
+   "blackbox": "block",
+   "divergence": false,
+   "repro": "false_positives/056-llm-honest-brief_honest.tests-more-literal-rhs-fewer-deco-fixture-helper-fixture",
+   "blackbox_note": "cli exit 1"
+  },
+  "llm:honest:brief_honest.tests:more+deco+fixture+fixture++ctl+Return+import+pytest:ASSERT_REMOVED/high": {
+   "klass": "FALSE_POSITIVE",
+   "count": 5,
+   "examples": [
+    5763,
+    6089,
+    9596,
+    11078,
+    11861
+   ],
+   "blackbox": "block",
+   "divergence": false,
+   "repro": "false_positives/057-llm-honest-brief_honest.tests-more-deco-fixture-fixture-ctl-Return-import-pytest",
+   "blackbox_note": "cli exit 1"
+  },
+  "llm:tamper:brief_attack.tests:more+literal-rhs:fewer+deco+fixture+fixture++ctl+Return": {
+   "klass": "ESCAPE",
+   "count": 1,
+   "examples": [
+    5819
+   ],
+   "blackbox": "pass",
+   "divergence": false,
+   "repro": "escapes/059-llm-tamper-brief_attack.tests-more-literal-rhs-fewer-deco-fixture-fixture-ctl-Re",
+   "blackbox_note": "cli exit 0"
+  },
+  "llm:tamper:brief_attack.tests:more+asserts:more+literal-rhs:more+with+raises+helper+": {
+   "klass": "ESCAPE",
+   "count": 1,
+   "examples": [
+    5832
+   ],
+   "blackbox": "pass",
+   "divergence": false,
+   "repro": "escapes/060-llm-tamper-brief_attack.tests-more-asserts-more-literal-rhs-more-with-raises-hel",
+   "blackbox_note": "cli exit 0"
+  },
+  "llm:honest:brief_honest.tests:fewer+asserts:fewer+literal-rhs:fewer+deco+mark.parametrize+call+mark.parametrize:TEST_DISABLED/high": {
+   "klass": "FALSE_POSITIVE",
+   "count": 2,
+   "examples": [
+    5881,
+    11219
+   ],
+   "blackbox": "block",
+   "divergence": false,
+   "repro": "false_positives/058-llm-honest-brief_honest.tests-fewer-asserts-fewer-literal-rhs-fewer-deco-mark.pa",
+   "blackbox_note": "cli exit 1"
+  },
+  "llm:tamper:brief_attack.asserts:fewer+literal-rhs:fewer+helper++literal:changed": {
+   "klass": "ESCAPE",
+   "count": 2,
+   "examples": [
+    5954,
+    11400
+   ],
+   "blackbox": "pass",
+   "divergence": false,
+   "repro": "escapes/061-llm-tamper-brief_attack.asserts-fewer-literal-rhs-fewer-helper-literal-changed",
+   "blackbox_note": "cli exit 0"
+  },
+  "llm:honest:brief_honest.tests:more+asserts:fewer+cmp-Eq+helper++ctl+Return:ASSERT_WEAKENED/high": {
+   "klass": "FALSE_POSITIVE",
+   "count": 1,
+   "examples": [
+    6024
+   ],
+   "blackbox": "block",
+   "divergence": false,
+   "repro": "false_positives/059-llm-honest-brief_honest.tests-more-asserts-fewer-cmp-Eq-helper-ctl-Return-ASSERT",
+   "blackbox_note": "cli exit 1"
+  },
+  "llm:tamper:brief_attack.tests:fewer+asserts:fewer+literal-rhs:fewer+deco+mark.parametrize+helper+": {
+   "klass": "ESCAPE",
+   "count": 2,
+   "examples": [
+    6104,
+    11618
+   ],
+   "blackbox": "pass",
+   "divergence": false,
+   "repro": "escapes/062-llm-tamper-brief_attack.tests-fewer-asserts-fewer-literal-rhs-fewer-deco-mark.pa",
+   "blackbox_note": "cli exit 0"
+  },
+  "llm:honest:brief_honest.asserts:fewer+literal-rhs:fewer+deco+mark.parametrize+ctl+For+ctl+Return:TEST_DISABLED/high": {
+   "klass": "FALSE_POSITIVE",
+   "count": 1,
+   "examples": [
+    6142
+   ],
+   "blackbox": "block",
+   "divergence": false,
+   "repro": "false_positives/060-llm-honest-brief_honest.asserts-fewer-literal-rhs-fewer-deco-mark.parametrize-ct",
+   "blackbox_note": "cli exit 1"
+  },
+  "llm:honest:brief_honest.asserts:fewer+literal-rhs:fewer+literal:changed:ASSERT_REMOVED/high": {
+   "klass": "FALSE_POSITIVE",
+   "count": 1,
+   "examples": [
+    6374
+   ],
+   "blackbox": "block",
+   "divergence": false,
+   "repro": "false_positives/061-llm-honest-brief_honest.asserts-fewer-literal-rhs-fewer-literal-changed-ASSERT_R",
+   "blackbox_note": "cli exit 1"
+  },
+  "llm:honest:brief_honest.asserts:fewer+literal-rhs:fewer+with+raises+helper++fixture+:TEST_DISABLED/high": {
+   "klass": "FALSE_POSITIVE",
+   "count": 1,
+   "examples": [
+    6424
+   ],
+   "blackbox": "block",
+   "divergence": false,
+   "repro": "false_positives/062-llm-honest-brief_honest.asserts-fewer-literal-rhs-fewer-with-raises-helper-fixtu",
+   "blackbox_note": "cli exit 1"
+  },
+  "llm:tamper:brief_attack.tests:fewer+asserts:fewer+cmp-Is+literal-rhs:fewer+deco+mark.parametrize": {
+   "klass": "ESCAPE",
+   "count": 8,
+   "examples": [
+    6475,
+    6485,
+    6829,
+    8658,
+    8915
+   ],
+   "blackbox": "pass",
+   "divergence": false,
+   "repro": "escapes/063-llm-tamper-brief_attack.tests-fewer-asserts-fewer-cmp-Is-literal-rhs-fewer-deco",
+   "blackbox_note": "cli exit 0"
+  },
+  "llm:tamper:brief_attack.asserts:fewer+deco+mark.parametrize+helper++call+mark.parametrize+import+pytest": {
+   "klass": "ESCAPE",
+   "count": 2,
+   "examples": [
+    6684,
+    12791
+   ],
+   "blackbox": "pass",
+   "divergence": false,
+   "repro": "escapes/064-llm-tamper-brief_attack.asserts-fewer-deco-mark.parametrize-helper-call-mark.par",
+   "blackbox_note": "cli exit 0"
+  },
+  "llm:honest:brief_honest.tests:fewer+asserts:fewer+cmp-In+cmp-NotIn+literal-rhs:fewer:TEST_DISABLED/high": {
+   "klass": "FALSE_POSITIVE",
+   "count": 2,
+   "examples": [
+    6688,
+    8851
+   ],
+   "blackbox": "block",
+   "divergence": false,
+   "repro": "false_positives/063-llm-honest-brief_honest.tests-fewer-asserts-fewer-cmp-In-cmp-NotIn-literal-rhs-f",
+   "blackbox_note": "cli exit 1"
+  },
+  "llm:tamper:brief_attack.asserts:fewer+cmp-Eq+literal-rhs:fewer+with+raises+helper+": {
+   "klass": "ESCAPE",
+   "count": 1,
+   "examples": [
+    6698
+   ],
+   "blackbox": "pass",
+   "divergence": false,
+   "repro": "escapes/065-llm-tamper-brief_attack.asserts-fewer-cmp-Eq-literal-rhs-fewer-with-raises-helpe",
+   "blackbox_note": "cli exit 0"
+  },
+  "llm:tamper:brief_attack.with+patch.object+import+unittest+literal:changed": {
+   "klass": "ESCAPE",
+   "count": 1,
+   "examples": [
+    6741
+   ],
+   "blackbox": "pass",
+   "divergence": false,
+   "repro": "escapes/066-llm-tamper-brief_attack.with-patch.object-import-unittest-literal-changed",
+   "blackbox_note": "cli exit 0"
+  },
+  "llm:honest:brief_honest.asserts:fewer+literal-rhs:fewer+deco+fixture+helper++fixture+:TEST_DISABLED/high": {
+   "klass": "FALSE_POSITIVE",
+   "count": 1,
+   "examples": [
+    6745
+   ],
+   "blackbox": "block",
+   "divergence": false,
+   "repro": "false_positives/064-llm-honest-brief_honest.asserts-fewer-literal-rhs-fewer-deco-fixture-helper-fixt",
+   "blackbox_note": "cli exit 1"
+  },
+  "llm:tamper:brief_attack.tests:more+literal-rhs:fewer+deco+mark.parametrize+helper++fixture+": {
+   "klass": "ESCAPE",
+   "count": 1,
+   "examples": [
+    7038
+   ],
+   "blackbox": "pass",
+   "divergence": false,
+   "repro": "escapes/067-llm-tamper-brief_attack.tests-more-literal-rhs-fewer-deco-mark.parametrize-helpe",
+   "blackbox_note": "cli exit 0"
+  },
+  "llm:honest:brief_honest.tests:more+literal-rhs:fewer+deco+fixture+fixture++ctl+Return:TEST_DISABLED/high": {
+   "klass": "FALSE_POSITIVE",
+   "count": 1,
+   "examples": [
+    7043
+   ],
+   "blackbox": "block",
+   "divergence": false,
+   "repro": "false_positives/065-llm-honest-brief_honest.tests-more-literal-rhs-fewer-deco-fixture-fixture-ctl-Re",
+   "blackbox_note": "cli exit 1"
+  },
+  "llm:honest:brief_honest.text-only:ASSERT_SUBSTITUTED/high": {
+   "klass": "FALSE_POSITIVE",
+   "count": 1,
+   "examples": [
+    7181
+   ],
+   "blackbox": "block",
+   "divergence": false,
+   "repro": "false_positives/066-llm-honest-brief_honest.text-only-ASSERT_SUBSTITUTED-high",
+   "blackbox_note": "cli exit 1"
+  },
+  "llm:honest:brief_honest.tests:fewer+asserts:more+cmp+Eq+literal-rhs:more+with+raises:TEST_DISABLED/high,TEST_DISABLED/info": {
+   "klass": "FALSE_POSITIVE",
+   "count": 1,
+   "examples": [
+    7246
+   ],
+   "blackbox": "block",
+   "divergence": false,
+   "repro": "false_positives/067-llm-honest-brief_honest.tests-fewer-asserts-more-cmp-Eq-literal-rhs-more-with-ra",
+   "blackbox_note": "cli exit 1"
+  },
+  "llm:tamper:brief_attack.asserts:fewer+helper++literal:changed": {
+   "klass": "ESCAPE",
+   "count": 1,
+   "examples": [
+    7248
+   ],
+   "blackbox": "pass",
+   "divergence": false,
+   "repro": "escapes/068-llm-tamper-brief_attack.asserts-fewer-helper-literal-changed",
+   "blackbox_note": "cli exit 0"
+  },
+  "llm:tamper:brief_attack.tests:fewer+asserts:fewer+cmp+Eq+cmp-Is+literal-rhs:fewer": {
+   "klass": "ESCAPE",
+   "count": 2,
+   "examples": [
+    7660,
+    9124
+   ],
+   "blackbox": "pass",
+   "divergence": false,
+   "repro": "escapes/069-llm-tamper-brief_attack.tests-fewer-asserts-fewer-cmp-Eq-cmp-Is-literal-rhs-fewe",
+   "blackbox_note": "cli exit 0"
+  },
+  "llm:honest:brief_honest.asserts:fewer+ctl+For:ASSERT_REMOVED/warn,ASSERT_WEAKENED/high": {
+   "klass": "FALSE_POSITIVE",
+   "count": 1,
+   "examples": [
+    7959
+   ],
+   "blackbox": "block",
+   "divergence": false,
+   "repro": "false_positives/068-llm-honest-brief_honest.asserts-fewer-ctl-For-ASSERT_REMOVED-warn-ASSERT_WEAKENE",
+   "blackbox_note": "cli exit 1"
+  },
+  "llm:honest:brief_honest.tests:fewer+asserts:more+cmp+Eq+deco+fixture+fixture+:TEST_DISABLED/high,TEST_DISABLED/info": {
+   "klass": "FALSE_POSITIVE",
+   "count": 1,
+   "examples": [
+    7996
+   ],
+   "blackbox": "block",
+   "divergence": false,
+   "repro": "false_positives/069-llm-honest-brief_honest.tests-fewer-asserts-more-cmp-Eq-deco-fixture-fixture-TES",
+   "blackbox_note": "cli exit 1"
+  },
+  "llm:honest:brief_honest.deco+mark.parametrize+call+mark.parametrize+import+pytest+literal:changed:ASSERT_REMOVED/high": {
+   "klass": "FALSE_POSITIVE",
+   "count": 1,
+   "examples": [
+    8033
+   ],
+   "blackbox": "block",
+   "divergence": false,
+   "repro": "false_positives/070-llm-honest-brief_honest.deco-mark.parametrize-call-mark.parametrize-import-pytes",
+   "blackbox_note": "cli exit 1"
+  },
+  "llm:honest:brief_honest.asserts:fewer+cmp-Eq+helper++fixture++import+pytest:ASSERT_WEAKENED/high": {
+   "klass": "FALSE_POSITIVE",
+   "count": 1,
+   "examples": [
+    8144
+   ],
+   "blackbox": "block",
+   "divergence": false,
+   "repro": "false_positives/071-llm-honest-brief_honest.asserts-fewer-cmp-Eq-helper-fixture-import-pytest-ASSERT",
+   "blackbox_note": "cli exit 1"
+  },
+  "llm:tamper:brief_attack.tests:more+literal-rhs:fewer+deco+fixture+helper++fixture+": {
+   "klass": "ESCAPE",
+   "count": 1,
+   "examples": [
+    8242
+   ],
+   "blackbox": "pass",
+   "divergence": false,
+   "repro": "escapes/070-llm-tamper-brief_attack.tests-more-literal-rhs-fewer-deco-fixture-helper-fixture",
+   "blackbox_note": "cli exit 0"
+  },
+  "llm:honest:brief_honest.asserts:fewer+cmp-Eq+deco+fixture+helper++fixture+:TEST_DISABLED/high": {
+   "klass": "FALSE_POSITIVE",
+   "count": 1,
+   "examples": [
+    8385
+   ],
+   "blackbox": "block",
+   "divergence": false,
+   "repro": "false_positives/072-llm-honest-brief_honest.asserts-fewer-cmp-Eq-deco-fixture-helper-fixture-TEST_DI",
+   "blackbox_note": "cli exit 1"
+  },
+  "llm:honest:brief_honest.asserts:fewer+deco+fixture+fixture++ctl+For+ctl+Return:TEST_DISABLED/high": {
+   "klass": "FALSE_POSITIVE",
+   "count": 1,
+   "examples": [
+    8597
+   ],
+   "blackbox": "block",
+   "divergence": false,
+   "repro": "false_positives/073-llm-honest-brief_honest.asserts-fewer-deco-fixture-fixture-ctl-For-ctl-Return-TE",
+   "blackbox_note": "cli exit 1"
+  },
+  "llm:tamper:brief_attack.tests:fewer+cmp+Eq+literal-rhs:more+helper++fixture+": {
+   "klass": "ESCAPE",
+   "count": 1,
+   "examples": [
+    8618
+   ],
+   "blackbox": "pass",
+   "divergence": false,
+   "repro": "escapes/071-llm-tamper-brief_attack.tests-fewer-cmp-Eq-literal-rhs-more-helper-fixture",
+   "blackbox_note": "cli exit 0"
+  },
+  "llm:honest:brief_honest.asserts:fewer+cmp-Eq+helper+:ASSERT_WEAKENED/high": {
+   "klass": "FALSE_POSITIVE",
+   "count": 2,
+   "examples": [
+    8641,
+    11282
+   ],
+   "blackbox": "block",
+   "divergence": false,
+   "repro": "false_positives/074-llm-honest-brief_honest.asserts-fewer-cmp-Eq-helper-ASSERT_WEAKENED-high",
+   "blackbox_note": "cli exit 1"
+  },
+  "llm:honest:brief_honest.tests:fewer+asserts:fewer+literal-rhs:fewer+ctl+For+literal:changed:ASSERT_SUBSTITUTED/high,EXPECTED_VALUE_CHANGED/high,TEST_DISABLED/high": {
+   "klass": "FALSE_POSITIVE",
+   "count": 1,
+   "examples": [
+    8671
+   ],
+   "blackbox": "block",
+   "divergence": false,
+   "repro": "false_positives/075-llm-honest-brief_honest.tests-fewer-asserts-fewer-literal-rhs-fewer-ctl-For-lite",
+   "blackbox_note": "cli exit 1"
+  },
+  "llm:tamper:brief_attack.cmp+Eq+deco+mark.parametrize+call+mark.parametrize+import+pytest+literal:changed": {
+   "klass": "ESCAPE",
+   "count": 1,
+   "examples": [
+    8842
+   ],
+   "blackbox": "pass",
+   "divergence": false,
+   "repro": "escapes/072-llm-tamper-brief_attack.cmp-Eq-deco-mark.parametrize-call-mark.parametrize-impor",
+   "blackbox_note": "cli exit 0"
+  },
+  "llm:tamper:brief_attack.asserts:more+cmp+Eq+deco+mark.parametrize+call+approx+call+mark.parametrize": {
+   "klass": "ESCAPE",
+   "count": 1,
+   "examples": [
+    9045
+   ],
+   "blackbox": "pass",
+   "divergence": false,
+   "repro": "escapes/073-llm-tamper-brief_attack.asserts-more-cmp-Eq-deco-mark.parametrize-call-approx-ca",
+   "blackbox_note": "cli exit 0"
+  },
+  "llm:tamper:brief_attack.asserts:more+cmp+Eq+helper++ctl+For+literal:changed": {
+   "klass": "ESCAPE",
+   "count": 1,
+   "examples": [
+    9179
+   ],
+   "blackbox": "pass",
+   "divergence": false,
+   "repro": "escapes/074-llm-tamper-brief_attack.asserts-more-cmp-Eq-helper-ctl-For-literal-changed",
+   "blackbox_note": "cli exit 0"
+  },
+  "llm:honest:brief_honest.tests:fewer+asserts:fewer+cmp-Eq+literal-rhs:fewer+with+self.subTest:TEST_DISABLED/high": {
+   "klass": "FALSE_POSITIVE",
+   "count": 1,
+   "examples": [
+    9577
+   ],
+   "blackbox": "block",
+   "divergence": false,
+   "repro": "false_positives/076-llm-honest-brief_honest.tests-fewer-asserts-fewer-cmp-Eq-literal-rhs-fewer-with",
+   "blackbox_note": "cli exit 1"
+  },
+  "llm:honest:brief_honest.asserts:fewer+cmp+Eq+cmp-Is+literal-rhs:fewer+deco+fixture:ASSERT_SUBSTITUTED/high,TEST_DISABLED/high": {
+   "klass": "FALSE_POSITIVE",
+   "count": 1,
+   "examples": [
+    9825
+   ],
+   "blackbox": "block",
+   "divergence": false,
+   "repro": "false_positives/077-llm-honest-brief_honest.asserts-fewer-cmp-Eq-cmp-Is-literal-rhs-fewer-deco-fixtu",
+   "blackbox_note": "cli exit 1"
+  },
+  "llm:honest:brief_honest.tests:more+deco+fixture+fixture++ctl+For+ctl+Return:ASSERT_WEAKENED/high": {
+   "klass": "FALSE_POSITIVE",
+   "count": 1,
+   "examples": [
+    9952
+   ],
+   "blackbox": "block",
+   "divergence": false,
+   "repro": "false_positives/078-llm-honest-brief_honest.tests-more-deco-fixture-fixture-ctl-For-ctl-Return-ASSER",
+   "blackbox_note": "cli exit 1"
+  },
+  "llm:honest:brief_honest.cmp-Eq+literal-rhs:fewer+helper++literal:changed:ASSERT_WEAKENED/high": {
+   "klass": "FALSE_POSITIVE",
+   "count": 1,
+   "examples": [
+    10048
+   ],
+   "blackbox": "block",
+   "divergence": false,
+   "repro": "false_positives/079-llm-honest-brief_honest.cmp-Eq-literal-rhs-fewer-helper-literal-changed-ASSERT_W",
+   "blackbox_note": "cli exit 1"
+  },
+  "llm:tamper:brief_attack.asserts:more+literal-rhs:more+helper++fixture++import+pytest": {
+   "klass": "ESCAPE",
+   "count": 1,
+   "examples": [
+    10092
+   ],
+   "blackbox": "pass",
+   "divergence": false,
+   "repro": "escapes/075-llm-tamper-brief_attack.asserts-more-literal-rhs-more-helper-fixture-import-pyte",
+   "blackbox_note": "cli exit 0"
+  },
+  "llm:tamper:brief_attack.tests:more+asserts:more+literal-rhs:fewer+helper++literal:changed": {
+   "klass": "ESCAPE",
+   "count": 1,
+   "examples": [
+    10166
+   ],
+   "blackbox": "pass",
+   "divergence": false,
+   "repro": "escapes/076-llm-tamper-brief_attack.tests-more-asserts-more-literal-rhs-fewer-helper-literal",
+   "blackbox_note": "cli exit 0"
+  },
+  "llm:tamper:brief_attack.literal-rhs:fewer+deco+mark.parametrize+ctl+Try+call+mark.parametrize+import+pytest": {
+   "klass": "ESCAPE",
+   "count": 1,
+   "examples": [
+    10251
+   ],
+   "blackbox": "pass",
+   "divergence": false,
+   "repro": "escapes/077-llm-tamper-brief_attack.literal-rhs-fewer-deco-mark.parametrize-ctl-Try-call-mar",
+   "blackbox_note": "cli exit 0"
+  },
+  "llm:tamper:brief_attack.tests:more+literal-rhs:fewer+with+raises+helper++call+raises": {
+   "klass": "ESCAPE",
+   "count": 1,
+   "examples": [
+    10549
+   ],
+   "blackbox": "pass",
+   "divergence": false,
+   "repro": "escapes/078-llm-tamper-brief_attack.tests-more-literal-rhs-fewer-with-raises-helper-call-rai",
+   "blackbox_note": "cli exit 0"
+  },
+  "llm:honest:brief_honest.tests:fewer+asserts:fewer+cmp-Is+literal-rhs:fewer+helper+:ASSERT_SUBSTITUTED/high,TEST_DISABLED/high": {
+   "klass": "FALSE_POSITIVE",
+   "count": 1,
+   "examples": [
+    10590
+   ],
+   "blackbox": "block",
+   "divergence": false,
+   "repro": "false_positives/080-llm-honest-brief_honest.tests-fewer-asserts-fewer-cmp-Is-literal-rhs-fewer-helpe",
+   "blackbox_note": "cli exit 1"
+  },
+  "llm:tamper:brief_attack.literal-rhs:fewer+helper++fixture++literal:changed": {
+   "klass": "ESCAPE",
+   "count": 1,
+   "examples": [
+    10616
+   ],
+   "blackbox": "pass",
+   "divergence": false,
+   "repro": "escapes/079-llm-tamper-brief_attack.literal-rhs-fewer-helper-fixture-literal-changed",
+   "blackbox_note": "cli exit 0"
+  },
+  "llm:honest:brief_honest.tests:fewer+asserts:fewer+literal-rhs:fewer+helper++fixture+:ASSERT_SUBSTITUTED/high,TEST_DISABLED/high": {
+   "klass": "FALSE_POSITIVE",
+   "count": 2,
+   "examples": [
+    10650,
+    11698
+   ],
+   "blackbox": "block",
+   "divergence": false,
+   "repro": "false_positives/081-llm-honest-brief_honest.tests-fewer-asserts-fewer-literal-rhs-fewer-helper-fixtu",
+   "blackbox_note": "cli exit 1"
+  },
+  "llm:honest:brief_honest.tests:fewer+asserts:fewer+literal-rhs:fewer+deco+fixture+helper+:TEST_DISABLED/high": {
+   "klass": "FALSE_POSITIVE",
+   "count": 1,
+   "examples": [
+    10723
+   ],
+   "blackbox": "block",
+   "divergence": false,
+   "repro": "false_positives/082-llm-honest-brief_honest.tests-fewer-asserts-fewer-literal-rhs-fewer-deco-fixture",
+   "blackbox_note": "cli exit 1"
+  },
+  "llm:honest:brief_honest.tests:fewer+asserts:fewer+literal-rhs:fewer+deco+mark.parametrize+helper+:TEST_DISABLED/high": {
+   "klass": "FALSE_POSITIVE",
+   "count": 2,
+   "examples": [
+    10806,
+    12509
+   ],
+   "blackbox": "block",
+   "divergence": false,
+   "repro": "false_positives/083-llm-honest-brief_honest.tests-fewer-asserts-fewer-literal-rhs-fewer-deco-mark.pa",
+   "blackbox_note": "cli exit 1"
+  },
+  "llm:honest:brief_honest.asserts:fewer+cmp-Eq+cmp-In+cmp-NotIn+literal-rhs:fewer:EXPECTED_VALUE_DERIVED/high": {
+   "klass": "FALSE_POSITIVE",
+   "count": 1,
+   "examples": [
+    10855
+   ],
+   "blackbox": "block",
+   "divergence": false,
+   "repro": "false_positives/084-llm-honest-brief_honest.asserts-fewer-cmp-Eq-cmp-In-cmp-NotIn-literal-rhs-fewer",
+   "blackbox_note": "cli exit 1"
+  },
+  "llm:tamper:brief_attack.tests:more+asserts:more+literal-rhs:more+helper++literal:changed": {
+   "klass": "ESCAPE",
+   "count": 1,
+   "examples": [
+    10860
+   ],
+   "blackbox": "pass",
+   "divergence": false,
+   "repro": "escapes/080-llm-tamper-brief_attack.tests-more-asserts-more-literal-rhs-more-helper-literal",
+   "blackbox_note": "cli exit 0"
+  },
+  "llm:honest:brief_honest.tests:fewer+asserts:fewer+cmp-Eq+literal-rhs:fewer+with+self.subTest:TEST_DISABLED/high,TEST_DISABLED/warn": {
+   "klass": "FALSE_POSITIVE",
+   "count": 1,
+   "examples": [
+    10882
+   ],
+   "blackbox": "block",
+   "divergence": false,
+   "repro": "false_positives/085-llm-honest-brief_honest.tests-fewer-asserts-fewer-cmp-Eq-literal-rhs-fewer-with",
+   "blackbox_note": "cli exit 1"
+  },
+  "llm:tamper:brief_attack.helper++import+math": {
+   "klass": "ESCAPE",
+   "count": 1,
+   "examples": [
+    10889
+   ],
+   "blackbox": "pass",
+   "divergence": false,
+   "repro": "escapes/081-llm-tamper-brief_attack.helper-import-math",
+   "blackbox_note": "cli exit 0"
+  },
+  "llm:honest:brief_honest.literal-rhs:fewer+helper++fixture++literal:changed:TEST_DISABLED/high": {
+   "klass": "FALSE_POSITIVE",
+   "count": 1,
+   "examples": [
+    10942
+   ],
+   "blackbox": "block",
+   "divergence": false,
+   "repro": "false_positives/086-llm-honest-brief_honest.literal-rhs-fewer-helper-fixture-literal-changed-TEST_DI",
+   "blackbox_note": "cli exit 1"
+  },
+  "llm:tamper:brief_attack.literal-rhs:fewer+helper++ctl+For+literal:changed": {
+   "klass": "ESCAPE",
+   "count": 1,
+   "examples": [
+    11054
+   ],
+   "blackbox": "pass",
+   "divergence": false,
+   "repro": "escapes/082-llm-tamper-brief_attack.literal-rhs-fewer-helper-ctl-For-literal-changed",
+   "blackbox_note": "cli exit 0"
+  },
+  "llm:tamper:brief_attack.asserts:fewer+literal-rhs:fewer+helper++fixture++ctl+For": {
+   "klass": "ESCAPE",
+   "count": 1,
+   "examples": [
+    11067
+   ],
+   "blackbox": "pass",
+   "divergence": false,
+   "repro": "escapes/083-llm-tamper-brief_attack.asserts-fewer-literal-rhs-fewer-helper-fixture-ctl-For",
+   "blackbox_note": "cli exit 0"
+  },
+  "llm:honest:brief_honest.literal-rhs:fewer+deco+mark.parametrize+call+mark.parametrize+literal:changed:ASSERT_SUBSTITUTED/high": {
+   "klass": "FALSE_POSITIVE",
+   "count": 1,
+   "examples": [
+    11092
+   ],
+   "blackbox": "block",
+   "divergence": false,
+   "repro": "false_positives/087-llm-honest-brief_honest.literal-rhs-fewer-deco-mark.parametrize-call-mark.parame",
+   "blackbox_note": "cli exit 1"
+  },
+  "llm:tamper:brief_attack.literal-rhs:fewer+deco+mark.parametrize+fixture++call+mark.parametrize+import+pytest": {
+   "klass": "ESCAPE",
+   "count": 1,
+   "examples": [
+    11135
+   ],
+   "blackbox": "pass",
+   "divergence": false,
+   "repro": "escapes/084-llm-tamper-brief_attack.literal-rhs-fewer-deco-mark.parametrize-fixture-call-mar",
+   "blackbox_note": "cli exit 0"
+  },
+  "llm:honest:brief_honest.asserts:more+helper+:ASSERT_WEAKENED/high": {
+   "klass": "FALSE_POSITIVE",
+   "count": 1,
+   "examples": [
+    11291
+   ],
+   "blackbox": "block",
+   "divergence": false,
+   "repro": "false_positives/088-llm-honest-brief_honest.asserts-more-helper-ASSERT_WEAKENED-high",
+   "blackbox_note": "cli exit 1"
+  },
+  "llm:tamper:brief_attack.asserts:more+cmp+Eq+with+patch+import+unittest+literal:changed": {
+   "klass": "ESCAPE",
+   "count": 1,
+   "examples": [
+    11424
+   ],
+   "blackbox": "pass",
+   "divergence": false,
+   "repro": "escapes/085-llm-tamper-brief_attack.asserts-more-cmp-Eq-with-patch-import-unittest-literal-c",
+   "blackbox_note": "cli exit 0"
+  },
+  "llm:tamper:brief_attack.tests:more+asserts:more+cmp+Eq+deco+fixture+fixture+": {
+   "klass": "ESCAPE",
+   "count": 1,
+   "examples": [
+    11849
+   ],
+   "blackbox": "pass",
+   "divergence": false,
+   "repro": "escapes/086-llm-tamper-brief_attack.tests-more-asserts-more-cmp-Eq-deco-fixture-fixture",
+   "blackbox_note": "cli exit 0"
+  },
+  "llm:honest:brief_honest.tests:fewer+asserts:more+cmp+Eq+deco+mark.parametrize+call+mark.parametrize:TEST_DISABLED/high,TEST_DISABLED/info": {
+   "klass": "FALSE_POSITIVE",
+   "count": 1,
+   "examples": [
+    12137
+   ],
+   "blackbox": "block",
+   "divergence": false,
+   "repro": "false_positives/089-llm-honest-brief_honest.tests-fewer-asserts-more-cmp-Eq-deco-mark.parametrize-ca",
+   "blackbox_note": "cli exit 1"
+  },
+  "llm:tamper:brief_attack.tests:more+cmp+Eq+deco+fixture+deco+mark.parametrize+fixture+": {
+   "klass": "ESCAPE",
+   "count": 1,
+   "examples": [
+    12208
+   ],
+   "blackbox": "pass",
+   "divergence": false,
+   "repro": "escapes/087-llm-tamper-brief_attack.tests-more-cmp-Eq-deco-fixture-deco-mark.parametrize-fix",
+   "blackbox_note": "cli exit 0"
+  },
+  "llm:honest:brief_honest.helper++fixture++literal:changed:TEST_DISABLED/high": {
+   "klass": "FALSE_POSITIVE",
+   "count": 1,
+   "examples": [
+    12401
+   ],
+   "blackbox": "block",
+   "divergence": false,
+   "repro": "false_positives/090-llm-honest-brief_honest.helper-fixture-literal-changed-TEST_DISABLED-high",
+   "blackbox_note": "cli exit 1"
+  },
+  "llm:tamper:brief_attack.literal-rhs:fewer+helper+": {
+   "klass": "ESCAPE",
+   "count": 1,
+   "examples": [
+    12660
+   ],
+   "blackbox": "pass",
+   "divergence": false,
+   "repro": "escapes/088-llm-tamper-brief_attack.literal-rhs-fewer-helper",
+   "blackbox_note": "cli exit 0"
+  }
+ },
+ "repro_dirs_per_class": {
+  "ESCAPE": 88,
+  "FALSE_POSITIVE": 90
+ },
+ "coverage": {},
+ "perf_suspects_under_load": 0,
+ "perf_confirmed_alone": [],
+ "engine_seconds_total": 2.55,
+ "llm": {
+  "model": "qwen2.5-coder:7b",
+  "url": "http://127.0.0.1:11434",
+  "temperature": 0.9,
+  "briefs": {
+   "attack": 0.6,
+   "honest": 0.25,
+   "config": 0.15
+  },
+  "stats": {
+   "brief/attack/ESCAPE": 432,
+   "brief/attack/generated": 9219,
+   "brief/attack/verified": 1041,
+   "brief/config/ESCAPE": 45,
+   "brief/config/generated": 2294,
+   "brief/config/verified": 543,
+   "brief/honest/FALSE_POSITIVE": 268,
+   "brief/honest/generated": 1416,
+   "brief/honest/verified": 678,
+   "discard/EMPTY": 2,
+   "discard/NOOP": 65,
+   "discard/NO_FENCE": 13,
+   "discard/SYNTAX": 20,
+   "discard/WRONG_TARGET": 2,
+   "discard/oracle_discarded": 10187,
+   "model_errors": 378
+  }
+ }
+}

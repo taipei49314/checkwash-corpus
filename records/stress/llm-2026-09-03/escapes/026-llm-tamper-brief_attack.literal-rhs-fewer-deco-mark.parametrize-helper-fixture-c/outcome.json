@@ -1,0 +1,25 @@
+{
+ "iteration": 1708,
+ "mode": "llm",
+ "kind": "tamper",
+ "seed_id": "tamper/d022-18-is-adult",
+ "ops": [
+  [
+   "brief_attack",
+   "literal-rhs:fewer+deco+mark.parametrize+helper++fixture++call+mark.parametrize"
+  ]
+ ],
+ "oracle": "verified",
+ "verdict": "pass",
+ "rules": [
+  "TEST_DISABLED/warn"
+ ],
+ "seconds": 0.0009801000014704186,
+ "deterministic": true,
+ "klass": "ESCAPE",
+ "family": "llm:tamper:brief_attack.literal-rhs:fewer+deco+mark.parametrize+helper++fixture++call+mark.parametrize",
+ "blackbox": "pass",
+ "divergence": false,
+ "note": "",
+ "minimized_from": null
+}

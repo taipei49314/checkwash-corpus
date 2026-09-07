@@ -1,0 +1,23 @@
+{
+ "iteration": 12208,
+ "mode": "llm",
+ "kind": "tamper",
+ "seed_id": "tamper/003-evenness",
+ "ops": [
+  [
+   "brief_attack",
+   "tests:more+cmp+Eq+deco+fixture+deco+mark.parametrize+fixture+"
+  ]
+ ],
+ "oracle": "verified",
+ "verdict": "pass",
+ "rules": [],
+ "seconds": 0.0012889999998151325,
+ "deterministic": true,
+ "klass": "ESCAPE",
+ "family": "llm:tamper:brief_attack.tests:more+cmp+Eq+deco+fixture+deco+mark.parametrize+fixture+",
+ "blackbox": "pass",
+ "divergence": false,
+ "note": "",
+ "minimized_from": null
+}

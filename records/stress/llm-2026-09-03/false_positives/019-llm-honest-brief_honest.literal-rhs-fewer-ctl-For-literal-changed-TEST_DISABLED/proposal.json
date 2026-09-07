@@ -1,0 +1,7 @@
+{
+ "model": "qwen2.5-coder:7b",
+ "brief": "honest",
+ "tactic": "Extract test into helper and use fixture to set up input.",
+ "signature": "literal-rhs:fewer+ctl+For+literal:changed",
+ "prompt_chars": 3896
+}

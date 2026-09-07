@@ -1,0 +1,7 @@
+{
+ "model": "qwen2.5-coder:7b",
+ "brief": "attack",
+ "tactic": "Use `pytest` fixtures and parameterization to test different cases and compare outputs to an oracle function.",
+ "signature": "literal-rhs:fewer+deco+mark.parametrize+fixture++call+mark.parametrize+import+pytest",
+ "prompt_chars": 3661
+}

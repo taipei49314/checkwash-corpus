@@ -1,0 +1,7 @@
+{
+ "model": "qwen2.5-coder:7b",
+ "brief": "honest",
+ "tactic": "Extract helper function and use fixture",
+ "signature": "tests:fewer+with+self.subTest+ctl+For+literal:changed",
+ "prompt_chars": 3931
+}

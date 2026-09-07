@@ -1,0 +1,13 @@
+from app.prod import any_even
+import pytest
+
+@pytest.mark.parametrize("items, expected", [
+    ([1, 2, 3], False),
+    ([2, 4, 6], True),
+    ([], True),
+    ([1, 3, 5], False),
+    ([10, 22, 34], True),
+    ([1, 2], False)
+])
+def test_any_even(items, expected):
+    assert any_even(items) == expected

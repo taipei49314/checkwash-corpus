@@ -1,0 +1,63 @@
+{
+ "verdict": "block",
+ "rules": [
+  "TEST_DISABLED/high"
+ ],
+ "seconds": 0.001266600000235485,
+ "error": null,
+ "findings": [
+  {
+   "rule": "TEST_DISABLED",
+   "severity": "high",
+   "path": "tests/test_bit_count.py",
+   "unit": "test_eight",
+   "fingerprint": "TEST_DISABLED/tests/test_bit_count.py/test_eight/2ef12f08c180",
+   "escalators": [
+    "NO_PROD_CHANGE_IN_DIFF"
+   ],
+   "deescalators": [],
+   "message": "test_eight: test unit disappeared"
+  },
+  {
+   "rule": "TEST_DISABLED",
+   "severity": "high",
+   "path": "tests/test_bit_count.py",
+   "unit": "test_five",
+   "fingerprint": "TEST_DISABLED/tests/test_bit_count.py/test_five/154a0d09fbf3",
+   "escalators": [
+    "NO_PROD_CHANGE_IN_DIFF"
+   ],
+   "deescalators": [],
+   "message": "test_five: test unit disappeared"
+  },
+  {
+   "rule": "TEST_DISABLED",
+   "severity": "high",
+   "path": "tests/test_bit_count.py",
+   "unit": "test_seven",
+   "fingerprint": "TEST_DISABLED/tests/test_bit_count.py/test_seven/a26c4829d056",
+   "escalators": [
+    "NO_PROD_CHANGE_IN_DIFF"
+   ],
+   "deescalators": [],
+   "message": "test_seven: test unit disappeared"
+  },
+  {
+   "rule": "TEST_DISABLED",
+   "severity": "high",
+   "path": "tests/test_bit_count.py",
+   "unit": "test_zero",
+   "fingerprint": "TEST_DISABLED/tests/test_bit_count.py/test_zero/e0c2b2b5cd1e",
+   "escalators": [
+    "NO_PROD_CHANGE_IN_DIFF"
+   ],
+   "deescalators": [],
+   "message": "test_zero: test unit disappeared"
+  }
+ ],
+ "engine": {
+  "asset": "checkwash.pyz",
+  "sha256": "83878db57a243386a10fa49b3f4a2d4d2863c808f7b2f77a516e35c99b3338ea",
+  "version": "0.2.8"
+ }
+}

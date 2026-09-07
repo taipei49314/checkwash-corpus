@@ -1,0 +1,26 @@
+{
+ "iteration": 11067,
+ "mode": "llm",
+ "kind": "tamper",
+ "seed_id": "tamper/d012-only-200-is-success",
+ "ops": [
+  [
+   "brief_attack",
+   "asserts:fewer+literal-rhs:fewer+helper++fixture++ctl+For"
+  ]
+ ],
+ "oracle": "verified",
+ "verdict": "pass",
+ "rules": [
+  "ASSERT_REMOVED/warn",
+  "ASSERT_SUBSTITUTED/warn"
+ ],
+ "seconds": 0.0011217999999644235,
+ "deterministic": true,
+ "klass": "ESCAPE",
+ "family": "llm:tamper:brief_attack.asserts:fewer+literal-rhs:fewer+helper++fixture++ctl+For",
+ "blackbox": "pass",
+ "divergence": false,
+ "note": "",
+ "minimized_from": null
+}

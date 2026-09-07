@@ -1,0 +1,7 @@
+{
+ "model": "qwen2.5-coder:7b",
+ "brief": "honest",
+ "tactic": "Rename fixture and simplify test structure",
+ "signature": "tests:more+asserts:more+literal-rhs:more+literal:changed",
+ "prompt_chars": 3738
+}

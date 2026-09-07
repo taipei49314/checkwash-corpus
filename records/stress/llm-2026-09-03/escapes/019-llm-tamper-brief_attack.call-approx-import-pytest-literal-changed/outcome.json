@@ -1,0 +1,23 @@
+{
+ "iteration": 1257,
+ "mode": "llm",
+ "kind": "tamper",
+ "seed_id": "tamper/035-identity",
+ "ops": [
+  [
+   "brief_attack",
+   "call+approx+import+pytest+literal:changed"
+  ]
+ ],
+ "oracle": "verified",
+ "verdict": "pass",
+ "rules": [],
+ "seconds": 0.0008134999989124481,
+ "deterministic": true,
+ "klass": "ESCAPE",
+ "family": "llm:tamper:brief_attack.call+approx+import+pytest+literal:changed",
+ "blackbox": "pass",
+ "divergence": false,
+ "note": "",
+ "minimized_from": null
+}

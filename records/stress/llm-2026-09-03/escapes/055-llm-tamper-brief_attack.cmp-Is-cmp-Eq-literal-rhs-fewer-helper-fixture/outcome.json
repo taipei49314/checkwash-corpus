@@ -1,0 +1,23 @@
+{
+ "iteration": 5196,
+ "mode": "llm",
+ "kind": "tamper",
+ "seed_id": "tamper/d014-four-is-even",
+ "ops": [
+  [
+   "brief_attack",
+   "cmp+Is+cmp-Eq+literal-rhs:fewer+helper++fixture+"
+  ]
+ ],
+ "oracle": "verified",
+ "verdict": "pass",
+ "rules": [],
+ "seconds": 0.0008803999990050215,
+ "deterministic": true,
+ "klass": "ESCAPE",
+ "family": "llm:tamper:brief_attack.cmp+Is+cmp-Eq+literal-rhs:fewer+helper++fixture+",
+ "blackbox": "pass",
+ "divergence": false,
+ "note": "",
+ "minimized_from": null
+}

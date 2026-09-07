@@ -1,0 +1,25 @@
+{
+ "iteration": 6475,
+ "mode": "llm",
+ "kind": "tamper",
+ "seed_id": "refactors/CASE_022_safe_div",
+ "ops": [
+  [
+   "brief_attack",
+   "tests:fewer+asserts:fewer+cmp-Is+literal-rhs:fewer+deco+mark.parametrize"
+  ]
+ ],
+ "oracle": "verified",
+ "verdict": "pass",
+ "rules": [
+  "TEST_DISABLED/warn"
+ ],
+ "seconds": 0.0009310999994340818,
+ "deterministic": true,
+ "klass": "ESCAPE",
+ "family": "llm:tamper:brief_attack.tests:fewer+asserts:fewer+cmp-Is+literal-rhs:fewer+deco+mark.parametrize",
+ "blackbox": "pass",
+ "divergence": false,
+ "note": "",
+ "minimized_from": null
+}

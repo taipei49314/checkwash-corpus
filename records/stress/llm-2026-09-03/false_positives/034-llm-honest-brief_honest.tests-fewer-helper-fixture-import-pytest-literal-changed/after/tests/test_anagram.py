@@ -1,0 +1,20 @@
+import pytest
+from app.anagram import is_anagram
+
+@pytest.fixture(params=[
+    ("Listen", "Silent", True),
+    ("abc", "ab", False),
+    ("hello", "hello", True),
+    ("Python", "Typhon", True),
+    ("Python", "Python!", False)
+])
+def anagram_cases(request):
+    return request.param
+
+def check_anagram(a, b, expected):
+    if is_anagram(a, b) != expected:
+        raise AssertionError(f"expected {expected}, got {not expected}")
+
+def test_anagram(anagram_cases):
+    a, b, expected = anagram_cases
+    check_anagram(a, b, expected)

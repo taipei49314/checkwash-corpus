@@ -1,0 +1,7 @@
+{
+ "model": "qwen2.5-coder:7b",
+ "brief": "honest",
+ "tactic": "Rewrite tests using a fixture to abstract the bit_count function calls and parameterize the test cases for different inputs.",
+ "signature": "tests:fewer+asserts:fewer+literal-rhs:fewer+helper++fixture+",
+ "prompt_chars": 1889
+}

@@ -1,0 +1,20 @@
+TACTIC: Use pytest's `approx` to check for approximate equality
+FILE: tests/test_identity.py
+```python
+from app.identity import identity
+import pytest
+
+
+class Checks:
+    def test_value(self):
+        assert pytest.approx(identity(3)) == 4
+
+
+class TestId(Checks):
+    pass
+
+
+class TestDummy:
+    def test_ok(self):
+        assert True
+```

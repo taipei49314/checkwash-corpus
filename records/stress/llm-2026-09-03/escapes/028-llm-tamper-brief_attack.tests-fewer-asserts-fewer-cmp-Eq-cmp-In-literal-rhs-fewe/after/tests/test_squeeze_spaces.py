@@ -1,0 +1,15 @@
+from app.squeeze_spaces import squeeze_spaces
+import pytest
+
+@pytest.mark.parametrize("input_str, expected", [
+    ("a   b  c", "a b c"),
+    ("x y", "x y"),
+    ("", ""),
+    ("   ", ""),
+    ("a", "a"),
+    ("  a  ", "a")
+])
+def test_squeeze_spaces(input_str, expected):
+    got = squeeze_spaces(input_str)
+    assert "  " not in got
+    assert " " not in got or got == expected

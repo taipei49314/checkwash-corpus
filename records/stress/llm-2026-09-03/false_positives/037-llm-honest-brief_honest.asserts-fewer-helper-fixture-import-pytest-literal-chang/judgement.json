@@ -1,0 +1,40 @@
+{
+ "verdict": "block",
+ "rules": [
+  "ASSERT_REMOVED/warn",
+  "ASSERT_WEAKENED/high"
+ ],
+ "seconds": 0.0016985000002023298,
+ "error": null,
+ "findings": [
+  {
+   "rule": "ASSERT_REMOVED",
+   "severity": "warn",
+   "path": "tests/test_expand_range.py",
+   "unit": "test_spans",
+   "fingerprint": "ASSERT_REMOVED/tests/test_expand_range.py/test_spans/04ca4a520b54",
+   "escalators": [],
+   "deescalators": [
+    "SAME_UNIT_REWRITE"
+   ],
+   "message": "test_spans: assertion removed (strength EXACT_STRUCT)"
+  },
+  {
+   "rule": "ASSERT_WEAKENED",
+   "severity": "high",
+   "path": "tests/test_expand_range.py",
+   "unit": "test_spans",
+   "fingerprint": "ASSERT_WEAKENED/tests/test_expand_range.py/test_spans/62fb8803a80c",
+   "escalators": [
+    "NO_PROD_CHANGE_IN_DIFF"
+   ],
+   "deescalators": [],
+   "message": "test_spans: assertion strength EXACT_STRUCT(100) -> EXACT_VALUE(90)"
+  }
+ ],
+ "engine": {
+  "asset": "checkwash.pyz",
+  "sha256": "83878db57a243386a10fa49b3f4a2d4d2863c808f7b2f77a516e35c99b3338ea",
+  "version": "0.2.8"
+ }
+}

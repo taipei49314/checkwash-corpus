@@ -1,0 +1,7 @@
+{
+ "model": "qwen2.5-coder:7b",
+ "brief": "attack",
+ "tactic": "Use `pytest.mark.parametrize` to cover different scenarios and compare using `pytest.approx` for floating-point values.",
+ "signature": "tests:fewer+asserts:fewer+deco+mark.parametrize+call+approx+call+mark.parametrize",
+ "prompt_chars": 3745
+}

@@ -1,0 +1,27 @@
+{
+ "verdict": "block",
+ "rules": [
+  "ASSERT_SUBSTITUTED/high"
+ ],
+ "seconds": 0.0013580999984696973,
+ "error": null,
+ "findings": [
+  {
+   "rule": "ASSERT_SUBSTITUTED",
+   "severity": "high",
+   "path": "tests/test_slugify.py",
+   "unit": "test_punctuation",
+   "fingerprint": "ASSERT_SUBSTITUTED/tests/test_slugify.py/test_punctuation/c48a5186e74c",
+   "escalators": [
+    "NO_PROD_CHANGE_IN_DIFF"
+   ],
+   "deescalators": [],
+   "message": "test_punctuation: an assertion was replaced by an unrelated one of the same strength (slugged(\"Hello, World!\") -> slugged(input_str)); the original assertion is gone and the strength lattice cannot see it"
+  }
+ ],
+ "engine": {
+  "asset": "checkwash.pyz",
+  "sha256": "83878db57a243386a10fa49b3f4a2d4d2863c808f7b2f77a516e35c99b3338ea",
+  "version": "0.2.8"
+ }
+}

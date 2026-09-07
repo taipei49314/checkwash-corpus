@@ -1,0 +1,7 @@
+{
+ "model": "qwen2.5-coder:7b",
+ "brief": "honest",
+ "tactic": "Add a helper function and use it in tests.",
+ "signature": "asserts:fewer+cmp-Eq+helper+",
+ "prompt_chars": 3676
+}

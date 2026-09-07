@@ -1,0 +1,39 @@
+{
+ "verdict": "block",
+ "rules": [
+  "ASSERT_REMOVED/high"
+ ],
+ "seconds": 0.001898599999549333,
+ "error": null,
+ "findings": [
+  {
+   "rule": "ASSERT_REMOVED",
+   "severity": "high",
+   "path": "tests/test_rpad.py",
+   "unit": "test_already_wide",
+   "fingerprint": "ASSERT_REMOVED/tests/test_rpad.py/test_already_wide/9c363a9f0aea",
+   "escalators": [
+    "NO_PROD_CHANGE_IN_DIFF"
+   ],
+   "deescalators": [],
+   "message": "test_already_wide: assertion removed (strength EXACT_VALUE)"
+  },
+  {
+   "rule": "ASSERT_REMOVED",
+   "severity": "high",
+   "path": "tests/test_rpad.py",
+   "unit": "test_short",
+   "fingerprint": "ASSERT_REMOVED/tests/test_rpad.py/test_short/a649d4ed1f5b",
+   "escalators": [
+    "NO_PROD_CHANGE_IN_DIFF"
+   ],
+   "deescalators": [],
+   "message": "test_short: assertion removed (strength EXACT_VALUE)"
+  }
+ ],
+ "engine": {
+  "asset": "checkwash.pyz",
+  "sha256": "83878db57a243386a10fa49b3f4a2d4d2863c808f7b2f77a516e35c99b3338ea",
+  "version": "0.2.8"
+ }
+}

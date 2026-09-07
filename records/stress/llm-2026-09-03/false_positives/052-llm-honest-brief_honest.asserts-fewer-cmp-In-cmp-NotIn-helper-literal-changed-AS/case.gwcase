@@ -1,0 +1,51 @@
+=== meta ===
+rule: TODO
+note: corpus stress FALSE_POSITIVE family=llm:honest:brief_honest.asserts:fewer+cmp-In+cmp-NotIn+helper++literal:changed:ASSERT_WEAKENED/high,EXPECTED_VALUE_CHANGED/high
+note2: seed=refactors/EXT_017_squeeze_spaces iteration=5119 ops=[['brief_honest', 'asserts:fewer+cmp-In+cmp-NotIn+helper++literal:changed']]
+note3: engine verdict=block rules=['ASSERT_WEAKENED/high', 'EXPECTED_VALUE_CHANGED/high'] blackbox=block
+origin: corpus stress 2026-09-03, engine 0.2.8
+=== env ===
+app
+=== head: src/app/__init__.py ===
+
+=== head: src/app/squeeze_spaces.py ===
+def squeeze_spaces(s):
+    return " ".join(s.split())
+=== before: tests/test_squeeze_spaces.py ===
+from app.squeeze_spaces import squeeze_spaces
+
+
+def test_multi():
+    got = squeeze_spaces("a   b  c")
+    assert "  " not in got
+    assert " " in got
+    assert got == "a b c"
+
+
+def test_already_single():
+    got = squeeze_spaces("x y")
+    assert "  " not in got
+    assert " " in got
+    assert got == "x y"
+=== after: tests/test_squeeze_spaces.py ===
+from app.squeeze_spaces import squeeze_spaces
+
+def assert_contains_space(s):
+    assert " " in s
+
+def assert_does_not_contain_double_space(s):
+    assert "  " not in s
+
+def test_multi():
+    got = squeeze_spaces("a   b  c")
+    assert_contains_space(got)
+    assert_does_not_contain_double_space(got)
+    assert got == "a b c"
+
+def test_already_single():
+    got = squeeze_spaces("x y")
+    assert_contains_space(got)
+    assert_does_not_contain_double_space(got)
+    assert got == "x y"
+=== expect ===
+[]

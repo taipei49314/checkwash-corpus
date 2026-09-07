@@ -1,0 +1,16 @@
+from app.prod import is_success
+
+def test_is_success_with_valid_codes():
+    """Test that valid HTTP status codes return True."""
+    test_cases = [
+        (200, True),
+        (201, True),
+        (204, True),
+    ]
+    for code, expected in test_cases:
+        assert is_success(code) == expected, f"Failed for code: {code}"
+
+def test_is_success_with_invalid_code():
+    """Test that an invalid HTTP status code returns False."""
+    invalid_code = 404
+    assert is_success(invalid_code) == False, f"Failed for code: {invalid_code}"

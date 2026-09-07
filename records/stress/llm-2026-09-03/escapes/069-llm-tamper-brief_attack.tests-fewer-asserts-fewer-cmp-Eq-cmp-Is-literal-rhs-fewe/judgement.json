@@ -1,0 +1,75 @@
+{
+ "verdict": "pass",
+ "rules": [
+  "TEST_DISABLED/warn"
+ ],
+ "seconds": 0.00192349999997532,
+ "error": null,
+ "findings": [
+  {
+   "rule": "TEST_DISABLED",
+   "severity": "warn",
+   "path": "tests/test_is_prefix.py",
+   "unit": "test_empty",
+   "fingerprint": "TEST_DISABLED/tests/test_is_prefix.py/test_empty/e49cb693efb7",
+   "escalators": [],
+   "deescalators": [
+    "RESTRUCTURED"
+   ],
+   "message": "test_empty: test unit disappeared"
+  },
+  {
+   "rule": "TEST_DISABLED",
+   "severity": "warn",
+   "path": "tests/test_is_prefix.py",
+   "unit": "test_exact",
+   "fingerprint": "TEST_DISABLED/tests/test_is_prefix.py/test_exact/8b27bff7c49b",
+   "escalators": [],
+   "deescalators": [
+    "RESTRUCTURED"
+   ],
+   "message": "test_exact: test unit disappeared"
+  },
+  {
+   "rule": "TEST_DISABLED",
+   "severity": "warn",
+   "path": "tests/test_is_prefix.py",
+   "unit": "test_longer",
+   "fingerprint": "TEST_DISABLED/tests/test_is_prefix.py/test_longer/762ffaeb94ac",
+   "escalators": [],
+   "deescalators": [
+    "RESTRUCTURED"
+   ],
+   "message": "test_longer: test unit disappeared"
+  },
+  {
+   "rule": "TEST_DISABLED",
+   "severity": "warn",
+   "path": "tests/test_is_prefix.py",
+   "unit": "test_prefix",
+   "fingerprint": "TEST_DISABLED/tests/test_is_prefix.py/test_prefix/871a66b0a307",
+   "escalators": [],
+   "deescalators": [
+    "RESTRUCTURED"
+   ],
+   "message": "test_prefix: test unit disappeared"
+  },
+  {
+   "rule": "TEST_DISABLED",
+   "severity": "warn",
+   "path": "tests/test_is_prefix.py",
+   "unit": "test_suffix_is_not_prefix",
+   "fingerprint": "TEST_DISABLED/tests/test_is_prefix.py/test_suffix_is_not_prefix/044c0b455a1e",
+   "escalators": [],
+   "deescalators": [
+    "RESTRUCTURED"
+   ],
+   "message": "test_suffix_is_not_prefix: test unit disappeared"
+  }
+ ],
+ "engine": {
+  "asset": "checkwash.pyz",
+  "sha256": "83878db57a243386a10fa49b3f4a2d4d2863c808f7b2f77a516e35c99b3338ea",
+  "version": "0.2.8"
+ }
+}

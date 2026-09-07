@@ -1,0 +1,52 @@
+{
+ "verdict": "pass",
+ "rules": [
+  "ASSERT_REMOVED/warn",
+  "ASSERT_SUBSTITUTED/warn"
+ ],
+ "seconds": 0.0011571000013645971,
+ "error": null,
+ "findings": [
+  {
+   "rule": "ASSERT_REMOVED",
+   "severity": "warn",
+   "path": "tests/test_absint.py",
+   "unit": "test_abs_int",
+   "fingerprint": "ASSERT_REMOVED/tests/test_absint.py/test_abs_int/08a0067fd273",
+   "escalators": [],
+   "deescalators": [
+    "SAME_UNIT_REWRITE"
+   ],
+   "message": "test_abs_int: assertion removed (strength EXACT_VALUE)"
+  },
+  {
+   "rule": "ASSERT_REMOVED",
+   "severity": "warn",
+   "path": "tests/test_absint.py",
+   "unit": "test_abs_int",
+   "fingerprint": "ASSERT_REMOVED/tests/test_absint.py/test_abs_int/a4dfaad80513",
+   "escalators": [],
+   "deescalators": [
+    "SAME_UNIT_REWRITE"
+   ],
+   "message": "test_abs_int: assertion removed (strength EXACT_VALUE)"
+  },
+  {
+   "rule": "ASSERT_SUBSTITUTED",
+   "severity": "warn",
+   "path": "tests/test_absint.py",
+   "unit": "test_abs_int",
+   "fingerprint": "ASSERT_SUBSTITUTED/tests/test_absint.py/test_abs_int/e298ab806401",
+   "escalators": [],
+   "deescalators": [
+    "SAME_UNIT_REWRITE"
+   ],
+   "message": "test_abs_int: an assertion was replaced by an unrelated one of the same strength (abs_int(5) -> abs(result)); the original assertion is gone and the strength lattice cannot see it"
+  }
+ ],
+ "engine": {
+  "asset": "checkwash.pyz",
+  "sha256": "83878db57a243386a10fa49b3f4a2d4d2863c808f7b2f77a516e35c99b3338ea",
+  "version": "0.2.8"
+ }
+}

@@ -1,0 +1,7 @@
+{
+ "model": "qwen2.5-coder:7b",
+ "brief": "honest",
+ "tactic": "Use pytest fixtures to setup test cases and use a helper function to check the anagram condition.",
+ "signature": "tests:fewer+helper++fixture++import+pytest+literal:changed",
+ "prompt_chars": 3703
+}

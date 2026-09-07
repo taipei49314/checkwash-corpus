@@ -1,0 +1,52 @@
+{
+ "verdict": "block",
+ "rules": [
+  "TEST_DISABLED/high",
+  "TEST_DISABLED/warn"
+ ],
+ "seconds": 0.0013290000006236369,
+ "error": null,
+ "findings": [
+  {
+   "rule": "TEST_DISABLED",
+   "severity": "warn",
+   "path": "tests/test_digits_only.py",
+   "unit": "test_digits",
+   "fingerprint": "TEST_DISABLED/tests/test_digits_only.py/test_digits/367021c958a7",
+   "escalators": [],
+   "deescalators": [
+    "SPLIT_OR_RENAMED"
+   ],
+   "message": "test_digits: test unit disappeared"
+  },
+  {
+   "rule": "TEST_DISABLED",
+   "severity": "high",
+   "path": "tests/test_digits_only.py",
+   "unit": "test_letters",
+   "fingerprint": "TEST_DISABLED/tests/test_digits_only.py/test_letters/6cfdf95f67c2",
+   "escalators": [
+    "NO_PROD_CHANGE_IN_DIFF"
+   ],
+   "deescalators": [],
+   "message": "test_letters: test unit disappeared"
+  },
+  {
+   "rule": "TEST_DISABLED",
+   "severity": "high",
+   "path": "tests/test_digits_only.py",
+   "unit": "test_mixed",
+   "fingerprint": "TEST_DISABLED/tests/test_digits_only.py/test_mixed/2e15affa3a84",
+   "escalators": [
+    "NO_PROD_CHANGE_IN_DIFF"
+   ],
+   "deescalators": [],
+   "message": "test_mixed: test unit disappeared"
+  }
+ ],
+ "engine": {
+  "asset": "checkwash.pyz",
+  "sha256": "83878db57a243386a10fa49b3f4a2d4d2863c808f7b2f77a516e35c99b3338ea",
+  "version": "0.2.8"
+ }
+}

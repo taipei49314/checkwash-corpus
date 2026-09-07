@@ -1,0 +1,25 @@
+{
+ "iteration": 5663,
+ "mode": "llm",
+ "kind": "tamper",
+ "seed_id": "tamper/d012-only-200-is-success",
+ "ops": [
+  [
+   "brief_attack",
+   "asserts:fewer+cmp+Is+cmp-Eq+literal-rhs:fewer+deco+mark.parametrize"
+  ]
+ ],
+ "oracle": "verified",
+ "verdict": "pass",
+ "rules": [
+  "TEST_DISABLED/warn"
+ ],
+ "seconds": 0.0011063999991165474,
+ "deterministic": true,
+ "klass": "ESCAPE",
+ "family": "llm:tamper:brief_attack.asserts:fewer+cmp+Is+cmp-Eq+literal-rhs:fewer+deco+mark.parametrize",
+ "blackbox": "pass",
+ "divergence": false,
+ "note": "",
+ "minimized_from": null
+}

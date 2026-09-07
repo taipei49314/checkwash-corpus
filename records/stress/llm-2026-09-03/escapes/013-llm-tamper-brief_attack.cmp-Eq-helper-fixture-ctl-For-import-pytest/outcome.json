@@ -1,0 +1,23 @@
+{
+ "iteration": 951,
+ "mode": "llm",
+ "kind": "tamper",
+ "seed_id": "tamper/003-evenness",
+ "ops": [
+  [
+   "brief_attack",
+   "cmp+Eq+helper++fixture++ctl+For+import+pytest"
+  ]
+ ],
+ "oracle": "verified",
+ "verdict": "pass",
+ "rules": [],
+ "seconds": 0.0011811999993369682,
+ "deterministic": true,
+ "klass": "ESCAPE",
+ "family": "llm:tamper:brief_attack.cmp+Eq+helper++fixture++ctl+For+import+pytest",
+ "blackbox": "pass",
+ "divergence": false,
+ "note": "",
+ "minimized_from": null
+}

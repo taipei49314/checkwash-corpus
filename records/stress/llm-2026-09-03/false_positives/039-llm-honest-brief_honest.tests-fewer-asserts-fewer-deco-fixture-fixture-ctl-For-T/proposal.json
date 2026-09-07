@@ -1,0 +1,7 @@
+{
+ "model": "qwen2.5-coder:7b",
+ "brief": "honest",
+ "tactic": "Introduce a helper function and use parametrize",
+ "signature": "tests:fewer+asserts:fewer+deco+fixture+fixture++ctl+For",
+ "prompt_chars": 3816
+}

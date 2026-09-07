@@ -1,0 +1,44 @@
+=== meta ===
+rule: TODO
+note: corpus stress FALSE_POSITIVE family=llm:honest:brief_honest.tests:fewer+asserts:fewer+deco+fixture+fixture++ctl+Return:TEST_DISABLED/high
+note2: seed=refactors/EXT_013_min_max iteration=60 ops=[['brief_honest', 'tests:fewer+asserts:fewer+deco+fixture+fixture++ctl+Return']]
+note3: engine verdict=block rules=['TEST_DISABLED/high'] blackbox=block
+origin: corpus stress 2026-09-03, engine 0.2.8
+=== env ===
+app
+=== head: src/app/__init__.py ===
+
+=== head: src/app/min_max.py ===
+def min_max(xs):
+    return (min(xs), max(xs))
+=== before: tests/test_min_max.py ===
+from app.min_max import min_max
+
+
+def test_mixed():
+    assert min_max([3, 1, 2]) == (1, 3)
+
+
+def test_negative():
+    assert min_max([-5, 0]) == (-5, 0)
+
+
+def test_singleton():
+    assert min_max([7]) == (7, 7)
+=== after: tests/test_min_max.py ===
+import pytest
+from app.min_max import min_max
+
+@pytest.fixture(params=[
+    ([3, 1, 2], (1, 3)),
+    ([-5, 0], (-5, 0)),
+    ([7], (7, 7)),
+])
+def test_data(request):
+    return request.param
+
+def test_min_max(test_data):
+    input_data, expected_output = test_data
+    assert min_max(input_data) == expected_output
+=== expect ===
+[]

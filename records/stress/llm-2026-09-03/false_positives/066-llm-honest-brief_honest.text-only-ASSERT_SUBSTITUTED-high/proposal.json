@@ -1,0 +1,7 @@
+{
+ "model": "qwen2.5-coder:7b",
+ "brief": "honest",
+ "tactic": "Introduce a fixture to parametrize test cases and refactor assertions.",
+ "signature": "text-only",
+ "prompt_chars": 3731
+}

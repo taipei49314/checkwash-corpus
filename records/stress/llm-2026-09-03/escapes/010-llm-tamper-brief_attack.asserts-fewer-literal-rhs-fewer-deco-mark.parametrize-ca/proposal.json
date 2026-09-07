@@ -1,0 +1,7 @@
+{
+ "model": "qwen2.5-coder:7b",
+ "brief": "attack",
+ "tactic": "Use `pytest.mark.parametrize` for parametrization and `abs()` function for comparison.",
+ "signature": "asserts:fewer+literal-rhs:fewer+deco+mark.parametrize+call+mark.parametrize+import+pytest",
+ "prompt_chars": 2810
+}

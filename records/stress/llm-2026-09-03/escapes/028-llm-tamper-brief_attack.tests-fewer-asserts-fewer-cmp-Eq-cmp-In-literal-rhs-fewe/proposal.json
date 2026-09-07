@@ -1,0 +1,7 @@
+{
+ "model": "qwen2.5-coder:7b",
+ "brief": "attack",
+ "tactic": "Use `pytest.mark.parametrize` to test multiple scenarios and check for the presence of spaces.",
+ "signature": "tests:fewer+asserts:fewer+cmp-Eq+cmp-In+literal-rhs:fewer",
+ "prompt_chars": 3879
+}

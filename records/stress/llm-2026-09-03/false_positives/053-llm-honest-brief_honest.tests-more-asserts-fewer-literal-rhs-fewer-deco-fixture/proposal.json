@@ -1,0 +1,7 @@
+{
+ "model": "qwen2.5-coder:7b",
+ "brief": "honest",
+ "tactic": "Add a fixture to provide test cases and refactor the tests to use this fixture.",
+ "signature": "tests:more+asserts:fewer+literal-rhs:fewer+deco+fixture+fixture+",
+ "prompt_chars": 3658
+}

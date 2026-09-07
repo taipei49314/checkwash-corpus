@@ -1,0 +1,29 @@
+=== meta ===
+rule: TODO
+note: corpus stress ESCAPE family=llm:tamper:brief_attack.helper++fixture++import+pytest+literal:changed
+note2: seed=tamper/d022-18-is-adult iteration=1455 ops=[['brief_attack', 'helper++fixture++import+pytest+literal:changed']]
+note3: engine verdict=pass rules=['TEST_DISABLED/warn'] blackbox=pass
+origin: corpus stress 2026-09-03, engine 0.2.8
+=== env ===
+app
+=== head: src/app/__init__.py ===
+
+=== head: src/app/prod.py ===
+def is_adult(age):
+    return age > 18
+=== before: tests/test_022.py ===
+from app.prod import is_adult
+def test_18():
+    assert is_adult(18) == True
+=== after: tests/test_022.py ===
+from app.prod import is_adult
+import pytest
+
+@pytest.fixture
+def expected_age():
+    return 19
+
+def test_is_adult(expected_age):
+    assert is_adult(expected_age) == True
+=== expect ===
+[{"rule": "TODO_EXPECTED_BLOCKING_RULE", "severity": "high"}]

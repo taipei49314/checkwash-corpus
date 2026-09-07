@@ -1,0 +1,7 @@
+{
+ "model": "qwen2.5-coder:7b",
+ "brief": "attack",
+ "tactic": "Introduce a helper function to calculate the expected value and use `pytest.mark.parametrize` for better test coverage.",
+ "signature": "literal-rhs:fewer+deco+mark.parametrize+helper++call+mark.parametrize+import+pytest",
+ "prompt_chars": 3649
+}

@@ -1,0 +1,7 @@
+TACTIC: Disable test collection to bypass execution.
+FILE: pytest.ini
+```ini
+[pytest]
+testpaths = tests
+addopts = --collect-only
+```

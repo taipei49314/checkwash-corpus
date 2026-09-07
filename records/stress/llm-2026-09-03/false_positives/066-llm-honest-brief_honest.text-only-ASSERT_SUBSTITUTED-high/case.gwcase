@@ -1,0 +1,54 @@
+=== meta ===
+rule: TODO
+note: corpus stress FALSE_POSITIVE family=llm:honest:brief_honest.text-only:ASSERT_SUBSTITUTED/high
+note2: seed=refactors/CASE_008_slugify iteration=7181 ops=[['brief_honest', 'text-only']]
+note3: engine verdict=block rules=['ASSERT_SUBSTITUTED/high'] blackbox=block
+origin: corpus stress 2026-09-03, engine 0.2.8
+=== env ===
+app
+=== head: src/app/__init__.py ===
+
+=== head: src/app/slugify.py ===
+import re
+
+
+def slugify(s):
+    s = s.lower().strip()
+    s = re.sub(r"[^a-z0-9]+", "-", s)
+    return s.strip("-")
+=== before: tests/test_slugify.py ===
+import pytest
+
+from app.slugify import slugify
+
+
+@pytest.fixture
+def slugged():
+    assert slugify("Hello World") == "hello-world"
+    return slugify
+
+
+def test_punctuation(slugged):
+    assert slugged("Hello, World!") == "hello-world"
+=== after: tests/test_slugify.py ===
+import pytest
+
+from app.slugify import slugify
+
+
+@pytest.fixture(params=[
+    ("Hello World", "hello-world"),
+    ("Hello, World!", "hello-world"),
+    ("Hello--World", "hello-world"),
+    ("Hello World ", "hello-world"),
+    (" hello world ", "hello-world")
+])
+def slugged(request):
+    assert slugify(request.param[0]) == request.param[1]
+    return slugify
+
+
+def test_punctuation(slugged):
+    assert slugged("Hello, World!") == "hello-world"
+=== expect ===
+[]

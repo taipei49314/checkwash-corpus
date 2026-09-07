@@ -1,0 +1,64 @@
+{
+ "verdict": "pass",
+ "rules": [
+  "ASSERT_REMOVED/warn",
+  "ASSERT_SUBSTITUTED/warn"
+ ],
+ "seconds": 0.0017604000022402033,
+ "error": null,
+ "findings": [
+  {
+   "rule": "ASSERT_REMOVED",
+   "severity": "warn",
+   "path": "tests/test_parse_name.py",
+   "unit": "test_middle",
+   "fingerprint": "ASSERT_REMOVED/tests/test_parse_name.py/test_middle/0a38c5a0492f",
+   "escalators": [],
+   "deescalators": [
+    "SAME_UNIT_REWRITE"
+   ],
+   "message": "test_middle: assertion removed (strength EXACT_VALUE)"
+  },
+  {
+   "rule": "ASSERT_REMOVED",
+   "severity": "warn",
+   "path": "tests/test_parse_name.py",
+   "unit": "test_simple",
+   "fingerprint": "ASSERT_REMOVED/tests/test_parse_name.py/test_simple/3f42b4abc513",
+   "escalators": [],
+   "deescalators": [
+    "SAME_UNIT_REWRITE"
+   ],
+   "message": "test_simple: assertion removed (strength EXACT_VALUE)"
+  },
+  {
+   "rule": "ASSERT_SUBSTITUTED",
+   "severity": "warn",
+   "path": "tests/test_parse_name.py",
+   "unit": "test_middle",
+   "fingerprint": "ASSERT_SUBSTITUTED/tests/test_parse_name.py/test_middle/f7daf2b54c66",
+   "escalators": [],
+   "deescalators": [
+    "SAME_UNIT_REWRITE"
+   ],
+   "message": "test_middle: an assertion was replaced by an unrelated one of the same strength (got[\"first\"] -> got); the original assertion is gone and the strength lattice cannot see it"
+  },
+  {
+   "rule": "ASSERT_SUBSTITUTED",
+   "severity": "warn",
+   "path": "tests/test_parse_name.py",
+   "unit": "test_simple",
+   "fingerprint": "ASSERT_SUBSTITUTED/tests/test_parse_name.py/test_simple/c49a4c824e3b",
+   "escalators": [],
+   "deescalators": [
+    "SAME_UNIT_REWRITE"
+   ],
+   "message": "test_simple: an assertion was replaced by an unrelated one of the same strength (got[\"first\"] -> got); the original assertion is gone and the strength lattice cannot see it"
+  }
+ ],
+ "engine": {
+  "asset": "checkwash.pyz",
+  "sha256": "83878db57a243386a10fa49b3f4a2d4d2863c808f7b2f77a516e35c99b3338ea",
+  "version": "0.2.8"
+ }
+}

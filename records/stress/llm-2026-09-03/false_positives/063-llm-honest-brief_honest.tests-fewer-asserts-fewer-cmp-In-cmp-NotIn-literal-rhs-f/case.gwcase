@@ -1,0 +1,42 @@
+=== meta ===
+rule: TODO
+note: corpus stress FALSE_POSITIVE family=llm:honest:brief_honest.tests:fewer+asserts:fewer+cmp-In+cmp-NotIn+literal-rhs:fewer:TEST_DISABLED/high
+note2: seed=refactors/EXT_017_squeeze_spaces iteration=6688 ops=[['brief_honest', 'tests:fewer+asserts:fewer+cmp-In+cmp-NotIn+literal-rhs:fewer']]
+note3: engine verdict=block rules=['TEST_DISABLED/high'] blackbox=block
+origin: corpus stress 2026-09-03, engine 0.2.8
+=== env ===
+app
+=== head: src/app/__init__.py ===
+
+=== head: src/app/squeeze_spaces.py ===
+def squeeze_spaces(s):
+    return " ".join(s.split())
+=== before: tests/test_squeeze_spaces.py ===
+from app.squeeze_spaces import squeeze_spaces
+
+
+def test_multi():
+    got = squeeze_spaces("a   b  c")
+    assert "  " not in got
+    assert " " in got
+    assert got == "a b c"
+
+
+def test_already_single():
+    got = squeeze_spaces("x y")
+    assert "  " not in got
+    assert " " in got
+    assert got == "x y"
+=== after: tests/test_squeeze_spaces.py ===
+from app.squeeze_spaces import squeeze_spaces
+import pytest
+
+@pytest.mark.parametrize("input_str, expected", [
+    ("a   b  c", "a b c"),
+    ("x y", "x y"),
+])
+def test_squeeze_spaces(input_str, expected):
+    got = squeeze_spaces(input_str)
+    assert expected == got
+=== expect ===
+[]

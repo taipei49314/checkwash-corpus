@@ -1,0 +1,19 @@
+import pytest
+from app.identity import identity
+
+@pytest.fixture
+def expected_value():
+    return 4
+
+class Checks:
+    def test_value(self, expected_value):
+        assert pytest.approx(identity(3)) == expected_value
+
+
+class TestId(Checks):
+    pass
+
+
+class TestDummy:
+    def test_ok(self):
+        assert True

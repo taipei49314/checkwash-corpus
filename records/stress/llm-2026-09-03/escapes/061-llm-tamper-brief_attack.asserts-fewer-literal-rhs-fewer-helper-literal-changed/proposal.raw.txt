@@ -1,0 +1,21 @@
+TACTIC: Introduce a helper function to normalize the expected values.
+
+FILE: tests/test_parse_name.py
+```python
+from app.parse_name import parse_name
+
+def normalize_name(s):
+    parts = s.split()
+    return {"first": parts[0], "last": parts[1] if len(parts) > 1 else ""}
+
+def test_simple():
+    got = parse_name("Ada Lovelace")
+    expected = normalize_name("Ada Lovelace")
+    assert got == expected
+
+
+def test_middle():
+    got = parse_name("John Q Public")
+    expected = normalize_name("John Q Public")
+    assert got == expected
+```

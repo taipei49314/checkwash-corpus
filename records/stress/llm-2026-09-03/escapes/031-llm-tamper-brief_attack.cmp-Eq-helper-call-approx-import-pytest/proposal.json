@@ -1,0 +1,7 @@
+{
+ "model": "qwen2.5-coder:7b",
+ "brief": "attack",
+ "tactic": "Use `pytest.approx` for comparison and add a simple helper function to handle the normalization.",
+ "signature": "cmp+Eq+helper++call+approx+import+pytest",
+ "prompt_chars": 3794
+}

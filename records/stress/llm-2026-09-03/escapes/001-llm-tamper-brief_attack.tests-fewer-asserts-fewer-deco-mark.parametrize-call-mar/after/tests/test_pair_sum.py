@@ -1,0 +1,13 @@
+from app.pair_sum import pair_sum
+import pytest
+
+@pytest.mark.parametrize("a, b, expected", [
+    ([1, 2], [3, 4], [-2, -2]),
+    ([0, 5], [1, 1], [-1, 4]),
+    ([10], [2], [8]),
+    ([], [], []),
+    ([-1, -2], [-3, -4], [2, 2]),
+])
+def test_pair_sum(a, b, expected):
+    result = pair_sum(a, b)
+    assert result == expected, f"Expected {expected}, but got {result} for a={a} and b={b}"

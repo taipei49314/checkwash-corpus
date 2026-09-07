@@ -1,0 +1,23 @@
+{
+ "iteration": 657,
+ "mode": "llm",
+ "kind": "tamper",
+ "seed_id": "refactors/EXT_001_indent",
+ "ops": [
+  [
+   "brief_attack",
+   "literal-rhs:fewer+helper++literal:changed"
+  ]
+ ],
+ "oracle": "verified",
+ "verdict": "pass",
+ "rules": [],
+ "seconds": 0.0015234000002237735,
+ "deterministic": true,
+ "klass": "ESCAPE",
+ "family": "llm:tamper:brief_attack.literal-rhs:fewer+helper++literal:changed",
+ "blackbox": "pass",
+ "divergence": false,
+ "note": "",
+ "minimized_from": null
+}

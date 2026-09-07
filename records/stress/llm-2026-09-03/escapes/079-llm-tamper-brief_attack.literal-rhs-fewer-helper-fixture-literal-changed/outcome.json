@@ -1,0 +1,23 @@
+{
+ "iteration": 10616,
+ "mode": "llm",
+ "kind": "tamper",
+ "seed_id": "tamper/017-power",
+ "ops": [
+  [
+   "brief_attack",
+   "literal-rhs:fewer+helper++fixture++literal:changed"
+  ]
+ ],
+ "oracle": "verified",
+ "verdict": "pass",
+ "rules": [],
+ "seconds": 0.0005817999990540557,
+ "deterministic": true,
+ "klass": "ESCAPE",
+ "family": "llm:tamper:brief_attack.literal-rhs:fewer+helper++fixture++literal:changed",
+ "blackbox": "pass",
+ "divergence": false,
+ "note": "",
+ "minimized_from": null
+}

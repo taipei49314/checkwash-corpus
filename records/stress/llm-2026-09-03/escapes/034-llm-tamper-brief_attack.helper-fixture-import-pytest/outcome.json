@@ -1,0 +1,23 @@
+{
+ "iteration": 2098,
+ "mode": "llm",
+ "kind": "tamper",
+ "seed_id": "tamper/d020-adder-closure",
+ "ops": [
+  [
+   "brief_attack",
+   "helper++fixture++import+pytest"
+  ]
+ ],
+ "oracle": "verified",
+ "verdict": "pass",
+ "rules": [],
+ "seconds": 0.00083220000124129,
+ "deterministic": true,
+ "klass": "ESCAPE",
+ "family": "llm:tamper:brief_attack.helper++fixture++import+pytest",
+ "blackbox": "pass",
+ "divergence": false,
+ "note": "",
+ "minimized_from": null
+}

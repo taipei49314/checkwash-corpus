@@ -1,0 +1,21 @@
+import pytest
+from app.unique import unique
+
+@pytest.fixture(params=[
+    ([3, 1, 3, 2], [3, 1, 2]),
+    (["a", "b"], ["a", "b"]),
+    ([], []),
+    ([1, 1, 1, 1], [1]),
+    ([], []),
+])
+def test_cases(request):
+    return request.param
+
+def assert_unique_stable(xs, expected):
+    got = unique(xs)
+    assert got == expected
+    assert len(got) == len(set(got))
+
+def test_unique_stable(test_cases):
+    xs, expected = test_cases
+    assert_unique_stable(xs, expected)

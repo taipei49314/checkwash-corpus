@@ -1,0 +1,26 @@
+{
+ "iteration": 2339,
+ "mode": "llm",
+ "kind": "honest",
+ "seed_id": "refactors/CASE_004_unique",
+ "ops": [
+  [
+   "brief_honest",
+   "deco+fixture+fixture++ctl+Return+import+pytest+literal:changed"
+  ]
+ ],
+ "oracle": "verified",
+ "verdict": "block",
+ "rules": [
+  "TEST_DISABLED/high",
+  "TEST_DISABLED/info"
+ ],
+ "seconds": 0.0016777000000729458,
+ "deterministic": true,
+ "klass": "FALSE_POSITIVE",
+ "family": "llm:honest:brief_honest.deco+fixture+fixture++ctl+Return+import+pytest+literal:changed:TEST_DISABLED/high,TEST_DISABLED/info",
+ "blackbox": "block",
+ "divergence": false,
+ "note": "",
+ "minimized_from": null
+}

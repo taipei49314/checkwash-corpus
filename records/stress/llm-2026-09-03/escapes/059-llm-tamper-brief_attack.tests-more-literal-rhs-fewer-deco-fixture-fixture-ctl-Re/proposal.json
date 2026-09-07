@@ -1,0 +1,7 @@
+{
+ "model": "qwen2.5-coder:7b",
+ "brief": "attack",
+ "tactic": "Use `pytest` fixtures and parametrization to test various cases and ensure the function behaves correctly.",
+ "signature": "tests:more+literal-rhs:fewer+deco+fixture+fixture++ctl+Return",
+ "prompt_chars": 3561
+}

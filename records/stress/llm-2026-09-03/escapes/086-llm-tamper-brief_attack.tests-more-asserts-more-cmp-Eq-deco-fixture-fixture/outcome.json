@@ -1,0 +1,25 @@
+{
+ "iteration": 11849,
+ "mode": "llm",
+ "kind": "tamper",
+ "seed_id": "refactors/CASE_014_sign",
+ "ops": [
+  [
+   "brief_attack",
+   "tests:more+asserts:more+cmp+Eq+deco+fixture+fixture+"
+  ]
+ ],
+ "oracle": "verified",
+ "verdict": "pass",
+ "rules": [
+  "ASSERT_REMOVED/warn"
+ ],
+ "seconds": 0.0015638000004400965,
+ "deterministic": true,
+ "klass": "ESCAPE",
+ "family": "llm:tamper:brief_attack.tests:more+asserts:more+cmp+Eq+deco+fixture+fixture+",
+ "blackbox": "pass",
+ "divergence": false,
+ "note": "",
+ "minimized_from": null
+}

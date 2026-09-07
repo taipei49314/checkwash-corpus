@@ -1,0 +1,7 @@
+{
+ "model": "qwen2.5-coder:7b",
+ "brief": "attack",
+ "tactic": "Use `pytest.mark.parametrize` to test multiple cases and handle exceptions.",
+ "signature": "literal-rhs:fewer+deco+mark.parametrize+ctl+Try+call+mark.parametrize+import+pytest",
+ "prompt_chars": 3528
+}

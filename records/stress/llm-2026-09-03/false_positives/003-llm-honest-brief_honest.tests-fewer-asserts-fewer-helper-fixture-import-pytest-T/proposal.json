@@ -1,0 +1,7 @@
+{
+ "model": "qwen2.5-coder:7b",
+ "brief": "honest",
+ "tactic": "Refactor tests to use fixtures and parametrize",
+ "signature": "tests:fewer+asserts:fewer+helper++fixture++import+pytest",
+ "prompt_chars": 1773
+}

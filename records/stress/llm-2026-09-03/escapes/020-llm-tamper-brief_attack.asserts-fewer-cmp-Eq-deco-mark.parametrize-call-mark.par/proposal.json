@@ -1,0 +1,7 @@
+{
+ "model": "qwen2.5-coder:7b",
+ "brief": "attack",
+ "tactic": "Use `pytest.mark.parametrize` to provide multiple test cases and handle the expected values dynamically.",
+ "signature": "asserts:fewer+cmp+Eq+deco+mark.parametrize+call+mark.parametrize+import+pytest",
+ "prompt_chars": 3762
+}

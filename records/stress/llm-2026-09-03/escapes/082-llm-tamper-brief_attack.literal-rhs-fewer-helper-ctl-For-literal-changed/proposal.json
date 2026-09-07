@@ -1,0 +1,7 @@
+{
+ "model": "qwen2.5-coder:7b",
+ "brief": "attack",
+ "tactic": "Use a parameterized test to check the bug and a helper function to provide the expected value.",
+ "signature": "literal-rhs:fewer+helper++ctl+For+literal:changed",
+ "prompt_chars": 3525
+}

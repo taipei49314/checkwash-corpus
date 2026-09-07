@@ -1,0 +1,7 @@
+{
+ "model": "qwen2.5-coder:7b",
+ "brief": "honest",
+ "tactic": "Add a fixture to provide input values and expected outputs.",
+ "signature": "asserts:fewer+ctl+For",
+ "prompt_chars": 3548
+}

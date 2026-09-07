@@ -1,0 +1,51 @@
+{
+ "verdict": "block",
+ "rules": [
+  "ASSERT_WEAKENED/high"
+ ],
+ "seconds": 0.0017120999982580543,
+ "error": null,
+ "findings": [
+  {
+   "rule": "ASSERT_WEAKENED",
+   "severity": "high",
+   "path": "tests/test_strip_prefix.py",
+   "unit": "test_empty_prefix",
+   "fingerprint": "ASSERT_WEAKENED/tests/test_strip_prefix.py/test_empty_prefix/f7b918e37b69",
+   "escalators": [
+    "NO_PROD_CHANGE_IN_DIFF"
+   ],
+   "deescalators": [],
+   "message": "test_empty_prefix: assertion strength EXACT_VALUE(90) -> TRUTHY(20)"
+  },
+  {
+   "rule": "ASSERT_WEAKENED",
+   "severity": "high",
+   "path": "tests/test_strip_prefix.py",
+   "unit": "test_hit",
+   "fingerprint": "ASSERT_WEAKENED/tests/test_strip_prefix.py/test_hit/d67e7b784943",
+   "escalators": [
+    "NO_PROD_CHANGE_IN_DIFF"
+   ],
+   "deescalators": [],
+   "message": "test_hit: assertion strength EXACT_VALUE(90) -> TRUTHY(20)"
+  },
+  {
+   "rule": "ASSERT_WEAKENED",
+   "severity": "high",
+   "path": "tests/test_strip_prefix.py",
+   "unit": "test_miss",
+   "fingerprint": "ASSERT_WEAKENED/tests/test_strip_prefix.py/test_miss/856df5c19cd7",
+   "escalators": [
+    "NO_PROD_CHANGE_IN_DIFF"
+   ],
+   "deescalators": [],
+   "message": "test_miss: assertion strength EXACT_VALUE(90) -> TRUTHY(20)"
+  }
+ ],
+ "engine": {
+  "asset": "checkwash.pyz",
+  "sha256": "83878db57a243386a10fa49b3f4a2d4d2863c808f7b2f77a516e35c99b3338ea",
+  "version": "0.2.8"
+ }
+}

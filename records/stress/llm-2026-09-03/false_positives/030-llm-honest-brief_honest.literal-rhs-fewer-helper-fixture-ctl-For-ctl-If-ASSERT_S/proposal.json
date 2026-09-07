@@ -1,0 +1,7 @@
+{
+ "model": "qwen2.5-coder:7b",
+ "brief": "honest",
+ "tactic": "Extract helper functions for each test case, parametrize tests with different input values, and refactor assertion style.",
+ "signature": "literal-rhs:fewer+helper++fixture++ctl+For+ctl+If",
+ "prompt_chars": 3822
+}

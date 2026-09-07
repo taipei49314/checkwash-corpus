@@ -1,0 +1,63 @@
+{
+ "verdict": "block",
+ "rules": [
+  "ASSERT_REMOVED/high"
+ ],
+ "seconds": 0.0015135999983613146,
+ "error": null,
+ "findings": [
+  {
+   "rule": "ASSERT_REMOVED",
+   "severity": "high",
+   "path": "tests/test_squeeze_spaces.py",
+   "unit": "test_already_single",
+   "fingerprint": "ASSERT_REMOVED/tests/test_squeeze_spaces.py/test_already_single/087a131eb289",
+   "escalators": [
+    "NO_PROD_CHANGE_IN_DIFF"
+   ],
+   "deescalators": [],
+   "message": "test_already_single: assertion removed (strength PATTERN)"
+  },
+  {
+   "rule": "ASSERT_REMOVED",
+   "severity": "high",
+   "path": "tests/test_squeeze_spaces.py",
+   "unit": "test_already_single",
+   "fingerprint": "ASSERT_REMOVED/tests/test_squeeze_spaces.py/test_already_single/b4b9cd4882e8",
+   "escalators": [
+    "NO_PROD_CHANGE_IN_DIFF"
+   ],
+   "deescalators": [],
+   "message": "test_already_single: assertion removed (strength PATTERN)"
+  },
+  {
+   "rule": "ASSERT_REMOVED",
+   "severity": "high",
+   "path": "tests/test_squeeze_spaces.py",
+   "unit": "test_multi",
+   "fingerprint": "ASSERT_REMOVED/tests/test_squeeze_spaces.py/test_multi/58f1924d8682",
+   "escalators": [
+    "NO_PROD_CHANGE_IN_DIFF"
+   ],
+   "deescalators": [],
+   "message": "test_multi: assertion removed (strength PATTERN)"
+  },
+  {
+   "rule": "ASSERT_REMOVED",
+   "severity": "high",
+   "path": "tests/test_squeeze_spaces.py",
+   "unit": "test_multi",
+   "fingerprint": "ASSERT_REMOVED/tests/test_squeeze_spaces.py/test_multi/70474a268661",
+   "escalators": [
+    "NO_PROD_CHANGE_IN_DIFF"
+   ],
+   "deescalators": [],
+   "message": "test_multi: assertion removed (strength PATTERN)"
+  }
+ ],
+ "engine": {
+  "asset": "checkwash.pyz",
+  "sha256": "83878db57a243386a10fa49b3f4a2d4d2863c808f7b2f77a516e35c99b3338ea",
+  "version": "0.2.8"
+ }
+}

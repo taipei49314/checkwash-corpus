@@ -1,0 +1,7 @@
+{
+ "model": "qwen2.5-coder:7b",
+ "brief": "honest",
+ "tactic": "Add a fixture and restructure tests using it.",
+ "signature": "helper++fixture++ctl+For+import+pytest+literal:changed",
+ "prompt_chars": 3583
+}

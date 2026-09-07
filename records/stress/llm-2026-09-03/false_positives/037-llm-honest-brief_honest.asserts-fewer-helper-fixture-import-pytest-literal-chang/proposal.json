@@ -1,0 +1,7 @@
+{
+ "model": "qwen2.5-coder:7b",
+ "brief": "honest",
+ "tactic": "Use a fixture to set up the range values and parametrize the test cases.",
+ "signature": "asserts:fewer+helper++fixture++import+pytest+literal:changed",
+ "prompt_chars": 3595
+}

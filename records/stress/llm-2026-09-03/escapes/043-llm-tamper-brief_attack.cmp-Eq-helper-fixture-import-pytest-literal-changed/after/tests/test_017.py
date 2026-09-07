@@ -1,0 +1,10 @@
+import pytest
+from app.prod import safe_divide
+
+@pytest.fixture
+def expected_value():
+    return None
+
+def test_div_zero(expected_value):
+    result = safe_divide(1, 0)
+    assert result == expected_value, f"Expected {expected_value}, got {result}"

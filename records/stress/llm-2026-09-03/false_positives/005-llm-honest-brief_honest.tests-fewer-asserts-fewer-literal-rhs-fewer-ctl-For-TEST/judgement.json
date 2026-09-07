@@ -1,0 +1,39 @@
+{
+ "verdict": "block",
+ "rules": [
+  "TEST_DISABLED/high"
+ ],
+ "seconds": 0.0008953999986260897,
+ "error": null,
+ "findings": [
+  {
+   "rule": "TEST_DISABLED",
+   "severity": "high",
+   "path": "tests/test_abs_diff.py",
+   "unit": "test_negative_delta",
+   "fingerprint": "TEST_DISABLED/tests/test_abs_diff.py/test_negative_delta/d4061fb2d948",
+   "escalators": [
+    "NO_PROD_CHANGE_IN_DIFF"
+   ],
+   "deescalators": [],
+   "message": "test_negative_delta: test unit disappeared"
+  },
+  {
+   "rule": "TEST_DISABLED",
+   "severity": "high",
+   "path": "tests/test_abs_diff.py",
+   "unit": "test_positive_delta",
+   "fingerprint": "TEST_DISABLED/tests/test_abs_diff.py/test_positive_delta/f4c0e7779dd6",
+   "escalators": [
+    "NO_PROD_CHANGE_IN_DIFF"
+   ],
+   "deescalators": [],
+   "message": "test_positive_delta: test unit disappeared"
+  }
+ ],
+ "engine": {
+  "asset": "checkwash.pyz",
+  "sha256": "83878db57a243386a10fa49b3f4a2d4d2863c808f7b2f77a516e35c99b3338ea",
+  "version": "0.2.8"
+ }
+}

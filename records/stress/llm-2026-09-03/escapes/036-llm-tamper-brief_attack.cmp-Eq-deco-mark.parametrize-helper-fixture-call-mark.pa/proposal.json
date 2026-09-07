@@ -1,0 +1,7 @@
+{
+ "model": "qwen2.5-coder:7b",
+ "brief": "attack",
+ "tactic": "Use a fixture to inject the correct square function and parametrize the test with expected values.",
+ "signature": "cmp+Eq+deco+mark.parametrize+helper++fixture++call+mark.parametrize",
+ "prompt_chars": 3635
+}

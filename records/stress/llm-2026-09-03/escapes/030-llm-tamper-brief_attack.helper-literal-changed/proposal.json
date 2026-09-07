@@ -1,0 +1,7 @@
+{
+ "model": "qwen2.5-coder:7b",
+ "brief": "attack",
+ "tactic": "Use a helper function to generate expected values and compare using `assert_in` for partial matches.",
+ "signature": "helper++literal:changed",
+ "prompt_chars": 3720
+}

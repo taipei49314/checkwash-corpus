@@ -1,0 +1,7 @@
+{
+ "model": "qwen2.5-coder:7b",
+ "brief": "attack",
+ "tactic": "Use `pytest.mark.parametrize` to handle different cases.",
+ "signature": "tests:fewer+asserts:more+cmp+Eq+deco+mark.parametrize+call+mark.parametrize",
+ "prompt_chars": 3935
+}

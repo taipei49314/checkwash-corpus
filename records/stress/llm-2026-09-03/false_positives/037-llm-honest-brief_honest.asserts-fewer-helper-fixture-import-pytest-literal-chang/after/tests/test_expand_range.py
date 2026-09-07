@@ -1,0 +1,11 @@
+import pytest
+from app.expand_range import expand_range
+
+@pytest.fixture(params=[(1, 3), (5, 5), (-2, 2), (0, 0)])
+def range_params(request):
+    return request.param
+
+def test_spans(range_params):
+    start, end = range_params
+    expected = list(range(start, end + 1))
+    assert expand_range(start, end) == expected

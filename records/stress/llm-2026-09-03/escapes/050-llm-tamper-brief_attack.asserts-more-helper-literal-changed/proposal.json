@@ -1,0 +1,7 @@
+{
+ "model": "qwen2.5-coder:7b",
+ "brief": "attack",
+ "tactic": "Use pytest's `assert` statement and a custom function to compare anagrams.",
+ "signature": "asserts:more+helper++literal:changed",
+ "prompt_chars": 3757
+}

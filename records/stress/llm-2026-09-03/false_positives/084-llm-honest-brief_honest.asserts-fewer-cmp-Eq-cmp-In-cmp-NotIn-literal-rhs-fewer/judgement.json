@@ -1,0 +1,39 @@
+{
+ "verdict": "block",
+ "rules": [
+  "EXPECTED_VALUE_DERIVED/high"
+ ],
+ "seconds": 0.0016753999989305157,
+ "error": null,
+ "findings": [
+  {
+   "rule": "EXPECTED_VALUE_DERIVED",
+   "severity": "high",
+   "path": "tests/test_squeeze_spaces.py",
+   "unit": "test_already_single",
+   "fingerprint": "EXPECTED_VALUE_DERIVED/tests/test_squeeze_spaces.py/test_already_single/6be01d1e030a",
+   "escalators": [
+    "NO_PROD_CHANGE_IN_DIFF"
+   ],
+   "deescalators": [],
+   "message": "test_already_single: expected value 'x y' replaced by an expression computed from the subject's own input (got) — the test no longer states what the answer should be"
+  },
+  {
+   "rule": "EXPECTED_VALUE_DERIVED",
+   "severity": "high",
+   "path": "tests/test_squeeze_spaces.py",
+   "unit": "test_multi",
+   "fingerprint": "EXPECTED_VALUE_DERIVED/tests/test_squeeze_spaces.py/test_multi/2b94fb25cd20",
+   "escalators": [
+    "NO_PROD_CHANGE_IN_DIFF"
+   ],
+   "deescalators": [],
+   "message": "test_multi: expected value 'a b c' replaced by an expression computed from the subject's own input (got) — the test no longer states what the answer should be"
+  }
+ ],
+ "engine": {
+  "asset": "checkwash.pyz",
+  "sha256": "83878db57a243386a10fa49b3f4a2d4d2863c808f7b2f77a516e35c99b3338ea",
+  "version": "0.2.8"
+ }
+}

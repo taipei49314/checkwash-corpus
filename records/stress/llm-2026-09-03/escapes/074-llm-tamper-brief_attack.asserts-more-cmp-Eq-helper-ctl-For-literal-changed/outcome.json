@@ -1,0 +1,23 @@
+{
+ "iteration": 9179,
+ "mode": "llm",
+ "kind": "tamper",
+ "seed_id": "tamper/022-median",
+ "ops": [
+  [
+   "brief_attack",
+   "asserts:more+cmp+Eq+helper++ctl+For+literal:changed"
+  ]
+ ],
+ "oracle": "verified",
+ "verdict": "pass",
+ "rules": [],
+ "seconds": 0.0014092999990680255,
+ "deterministic": true,
+ "klass": "ESCAPE",
+ "family": "llm:tamper:brief_attack.asserts:more+cmp+Eq+helper++ctl+For+literal:changed",
+ "blackbox": "pass",
+ "divergence": false,
+ "note": "",
+ "minimized_from": null
+}

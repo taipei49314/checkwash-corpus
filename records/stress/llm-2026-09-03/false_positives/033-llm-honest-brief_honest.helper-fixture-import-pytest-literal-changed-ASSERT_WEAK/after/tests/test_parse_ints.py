@@ -1,0 +1,20 @@
+import pytest
+from app.parse_ints import parse_ints
+
+
+@pytest.fixture
+def input_string():
+    return "1,2,3"
+
+
+@pytest.fixture
+def expected_output():
+    return [1, 2, 3]
+
+
+def test_csv(input_string, expected_output):
+    assert parse_ints(input_string) == expected_output
+
+
+def test_spaces(input_string, expected_output):
+    assert parse_ints(input_string.replace(",", " ")) == expected_output

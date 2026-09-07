@@ -1,0 +1,7 @@
+{
+ "model": "qwen2.5-coder:7b",
+ "brief": "honest",
+ "tactic": "Extract a helper function and use `pytest.mark.parametrize`",
+ "signature": "deco+mark.parametrize+call+mark.parametrize+import+pytest+literal:changed",
+ "prompt_chars": 3562
+}

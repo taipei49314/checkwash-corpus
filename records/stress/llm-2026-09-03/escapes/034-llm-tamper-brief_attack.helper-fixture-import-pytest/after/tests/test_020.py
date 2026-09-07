@@ -1,0 +1,12 @@
+import pytest
+from app.prod import make_adder
+
+@pytest.fixture
+def modified_make_adder():
+    def modified_adder(n):
+        return lambda x: x + n
+    return modified_adder
+
+def test_adder(modified_make_adder):
+    adder = modified_make_adder(5)
+    assert adder(3) == 8

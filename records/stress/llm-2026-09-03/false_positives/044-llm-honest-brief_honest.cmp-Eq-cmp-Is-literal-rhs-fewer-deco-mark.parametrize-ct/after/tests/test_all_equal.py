@@ -1,0 +1,20 @@
+from app.all_equal import all_equal
+
+def test_all_equal():
+    cases = [
+        ([], True),
+        ([2, 2, 2], True),
+        ([1, 2], False),
+    ]
+    for xs, expected in cases:
+        assert all_equal(xs) == expected
+
+def test_all_equal_with_parametrize():
+    from pytest import mark
+    @mark.parametrize("xs, expected", [
+        ([], True),
+        ([2, 2, 2], True),
+        ([1, 2], False),
+    ])
+    def test(xs, expected):
+        assert all_equal(xs) == expected

@@ -1,0 +1,48 @@
+=== meta ===
+rule: TODO
+note: corpus stress FALSE_POSITIVE family=llm:honest:brief_honest.tests:fewer+helper++fixture++import+pytest+literal:changed:TEST_DISABLED/high
+note2: seed=refactors/CASE_011_anagram iteration=2755 ops=[['brief_honest', 'tests:fewer+helper++fixture++import+pytest+literal:changed']]
+note3: engine verdict=block rules=['TEST_DISABLED/high'] blackbox=block
+origin: corpus stress 2026-09-03, engine 0.2.8
+=== env ===
+app
+=== head: src/app/__init__.py ===
+
+=== head: src/app/anagram.py ===
+def is_anagram(a, b):
+    return sorted(a.lower()) == sorted(b.lower())
+=== before: tests/test_anagram.py ===
+from app.anagram import is_anagram
+
+
+def test_mixed_case():
+    if is_anagram("Listen", "Silent") is not True:
+        raise AssertionError("expected anagram")
+
+
+def test_negative():
+    if is_anagram("abc", "ab") is not False:
+        raise AssertionError("expected non-anagram")
+=== after: tests/test_anagram.py ===
+import pytest
+from app.anagram import is_anagram
+
+@pytest.fixture(params=[
+    ("Listen", "Silent", True),
+    ("abc", "ab", False),
+    ("hello", "hello", True),
+    ("Python", "Typhon", True),
+    ("Python", "Python!", False)
+])
+def anagram_cases(request):
+    return request.param
+
+def check_anagram(a, b, expected):
+    if is_anagram(a, b) != expected:
+        raise AssertionError(f"expected {expected}, got {not expected}")
+
+def test_anagram(anagram_cases):
+    a, b, expected = anagram_cases
+    check_anagram(a, b, expected)
+=== expect ===
+[]

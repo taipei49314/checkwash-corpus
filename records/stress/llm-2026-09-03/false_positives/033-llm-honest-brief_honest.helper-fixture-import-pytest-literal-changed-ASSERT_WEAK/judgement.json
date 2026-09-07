@@ -1,0 +1,39 @@
+{
+ "verdict": "block",
+ "rules": [
+  "ASSERT_WEAKENED/high"
+ ],
+ "seconds": 0.0017165999997814652,
+ "error": null,
+ "findings": [
+  {
+   "rule": "ASSERT_WEAKENED",
+   "severity": "high",
+   "path": "tests/test_parse_ints.py",
+   "unit": "test_csv",
+   "fingerprint": "ASSERT_WEAKENED/tests/test_parse_ints.py/test_csv/875b1748f2cd",
+   "escalators": [
+    "NO_PROD_CHANGE_IN_DIFF"
+   ],
+   "deescalators": [],
+   "message": "test_csv: assertion strength EXACT_STRUCT(100) -> EXACT_VALUE(90)"
+  },
+  {
+   "rule": "ASSERT_WEAKENED",
+   "severity": "high",
+   "path": "tests/test_parse_ints.py",
+   "unit": "test_spaces",
+   "fingerprint": "ASSERT_WEAKENED/tests/test_parse_ints.py/test_spaces/ce57c244bccf",
+   "escalators": [
+    "NO_PROD_CHANGE_IN_DIFF"
+   ],
+   "deescalators": [],
+   "message": "test_spaces: assertion strength EXACT_STRUCT(100) -> EXACT_VALUE(90)"
+  }
+ ],
+ "engine": {
+  "asset": "checkwash.pyz",
+  "sha256": "83878db57a243386a10fa49b3f4a2d4d2863c808f7b2f77a516e35c99b3338ea",
+  "version": "0.2.8"
+ }
+}

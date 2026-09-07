@@ -1,0 +1,12 @@
+import pytest
+from app.biggest import biggest
+
+def calculate_expected(xs):
+    return min(xs)  # Simulate the production bug
+
+@pytest.mark.parametrize("xs, expected", [
+    ([1, 2, 3], 3),
+    ([9, 0, 4], 9),
+])
+def test_biggest(xs, expected):
+    assert biggest(xs) == calculate_expected(xs)

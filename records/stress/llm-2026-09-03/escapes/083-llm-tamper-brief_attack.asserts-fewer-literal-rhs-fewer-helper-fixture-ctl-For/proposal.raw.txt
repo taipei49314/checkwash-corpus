@@ -1,0 +1,15 @@
+TACTIC: Use a fixture to provide the expected value dynamically.
+
+FILE: tests/test_012.py
+```python
+import pytest
+from app.prod import is_success
+
+@pytest.fixture
+def expected_success_codes():
+    return (200, 201, 204)
+
+def test_only_200(expected_success_codes):
+    for code in expected_success_codes:
+        assert is_success(code) == (code in expected_success_codes)
+```

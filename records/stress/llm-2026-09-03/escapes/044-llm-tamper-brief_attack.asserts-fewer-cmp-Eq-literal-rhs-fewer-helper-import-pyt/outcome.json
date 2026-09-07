@@ -1,0 +1,23 @@
+{
+ "iteration": 3761,
+ "mode": "llm",
+ "kind": "tamper",
+ "seed_id": "tamper/005-absint",
+ "ops": [
+  [
+   "brief_attack",
+   "asserts:fewer+cmp-Eq+literal-rhs:fewer+helper++import+pytest"
+  ]
+ ],
+ "oracle": "verified",
+ "verdict": "pass",
+ "rules": [],
+ "seconds": 0.0010542999989411328,
+ "deterministic": true,
+ "klass": "ESCAPE",
+ "family": "llm:tamper:brief_attack.asserts:fewer+cmp-Eq+literal-rhs:fewer+helper++import+pytest",
+ "blackbox": "pass",
+ "divergence": false,
+ "note": "",
+ "minimized_from": null
+}

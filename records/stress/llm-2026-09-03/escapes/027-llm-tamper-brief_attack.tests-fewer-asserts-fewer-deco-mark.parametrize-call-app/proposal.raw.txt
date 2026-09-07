@@ -1,0 +1,16 @@
+TACTIC: Use `pytest.mark.parametrize` to cover different scenarios and compare using `pytest.approx` for floating-point values.
+
+FILE: tests/test_min_max.py
+```python
+import pytest
+from app.min_max import min_max
+
+
+@pytest.mark.parametrize("xs, expected", [
+    ([3, 1, 2], (3, 1)),
+    ([-5, 0], (0, -5)),
+    ([7], (7, 7)),
+])
+def test_min_max(xs, expected):
+    assert min_max(xs) == pytest.approx(expected)
+```
