@@ -1,0 +1,49 @@
+=== meta ===
+rule: TODO
+note: corpus stress FALSE_POSITIVE family=llm:honest:brief_honest.tests:fewer+asserts:more+cmp+Eq+fixture++import+pytest:TEST_DISABLED/high,TEST_DISABLED/info
+note2: seed=refactors/CASE_002_factorial iteration=3718 ops=[['brief_honest', 'tests:fewer+asserts:more+cmp+Eq+fixture++import+pytest']]
+note3: engine verdict=block rules=['TEST_DISABLED/high', 'TEST_DISABLED/info'] blackbox=block
+origin: corpus stress 2026-09-03, engine 0.2.8
+=== env ===
+app
+=== head: src/app/__init__.py ===
+
+=== head: src/app/factorial.py ===
+def factorial(n):
+    if n < 0:
+        raise ValueError("n must be >= 0")
+    result = 1
+    for i in range(1, n + 1):
+        result *= i
+    return result
+=== before: tests/test_factorial.py ===
+from app.factorial import factorial
+
+
+def assert_fact(n, expected):
+    assert factorial(n) == expected
+
+
+def test_zero():
+    assert_fact(0, 1)
+
+
+def test_one():
+    assert_fact(1, 1)
+
+
+def test_five():
+    assert_fact(5, 120)
+=== after: tests/test_factorial.py ===
+from app.factorial import factorial
+import pytest
+
+@pytest.fixture(params=[(0, 1), (1, 1), (5, 120)])
+def n_expected(request):
+    return request.param
+
+def test_factorial(n_expected):
+    n, expected = n_expected
+    assert factorial(n) == expected
+=== expect ===
+[]

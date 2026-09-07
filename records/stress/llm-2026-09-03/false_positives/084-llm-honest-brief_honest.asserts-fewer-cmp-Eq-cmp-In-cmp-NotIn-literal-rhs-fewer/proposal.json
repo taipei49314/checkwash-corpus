@@ -1,0 +1,7 @@
+{
+ "model": "qwen2.5-coder:7b",
+ "brief": "honest",
+ "tactic": "Extract helper function to simplify assertions",
+ "signature": "asserts:fewer+cmp-Eq+cmp-In+cmp-NotIn+literal-rhs:fewer",
+ "prompt_chars": 3690
+}

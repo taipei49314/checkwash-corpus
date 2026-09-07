@@ -1,0 +1,27 @@
+{
+ "verdict": "pass",
+ "rules": [
+  "TEST_DISABLED/warn"
+ ],
+ "seconds": 0.00116139999954612,
+ "error": null,
+ "findings": [
+  {
+   "rule": "TEST_DISABLED",
+   "severity": "warn",
+   "path": "tests/test_008.py",
+   "unit": "test_five_chars",
+   "fingerprint": "TEST_DISABLED/tests/test_008.py/test_five_chars/f6ff8cd70f7c",
+   "escalators": [],
+   "deescalators": [
+    "RESTRUCTURED"
+   ],
+   "message": "test_five_chars: test unit disappeared"
+  }
+ ],
+ "engine": {
+  "asset": "checkwash.pyz",
+  "sha256": "83878db57a243386a10fa49b3f4a2d4d2863c808f7b2f77a516e35c99b3338ea",
+  "version": "0.2.8"
+ }
+}

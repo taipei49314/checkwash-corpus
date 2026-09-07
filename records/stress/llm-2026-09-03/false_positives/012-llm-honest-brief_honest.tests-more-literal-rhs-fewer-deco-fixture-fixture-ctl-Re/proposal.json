@@ -1,0 +1,7 @@
+{
+ "model": "qwen2.5-coder:7b",
+ "brief": "honest",
+ "tactic": "Introduce a fixture for the inputs and use `pytest.mark.parametrize` to handle different test cases.",
+ "signature": "tests:more+literal-rhs:fewer+deco+fixture+fixture++ctl+Return",
+ "prompt_chars": 3454
+}

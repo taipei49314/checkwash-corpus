@@ -1,0 +1,7 @@
+{
+ "model": "qwen2.5-coder:7b",
+ "brief": "honest",
+ "tactic": "Refactor tests to use parametrize and extract a helper function.",
+ "signature": "tests:fewer+asserts:fewer+literal-rhs:fewer+ctl+For+literal:changed",
+ "prompt_chars": 3588
+}

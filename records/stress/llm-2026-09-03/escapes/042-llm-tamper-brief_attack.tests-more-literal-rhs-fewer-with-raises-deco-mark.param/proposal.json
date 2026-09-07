@@ -1,0 +1,7 @@
+{
+ "model": "qwen2.5-coder:7b",
+ "brief": "attack",
+ "tactic": "Use pytest's built-in fixtures and parametrization to dynamically create test cases for different stack implementations.",
+ "signature": "tests:more+literal-rhs:fewer+with+raises+deco+mark.parametrize+helper+",
+ "prompt_chars": 3791
+}

@@ -1,0 +1,42 @@
+=== meta ===
+rule: TODO
+note: corpus stress FALSE_POSITIVE family=llm:honest:brief_honest.tests:more+deco+fixture+fixture++ctl+Return+import+pytest:ASSERT_REMOVED/high
+note2: seed=refactors/CASE_013_rotate iteration=5763 ops=[['brief_honest', 'tests:more+deco+fixture+fixture++ctl+Return+import+pytest']]
+note3: engine verdict=block rules=['ASSERT_REMOVED/high'] blackbox=block
+origin: corpus stress 2026-09-03, engine 0.2.8
+=== env ===
+app
+=== head: src/app/__init__.py ===
+
+=== head: src/app/rotate.py ===
+def rotate(xs, k):
+    if not xs:
+        return []
+    k %= len(xs)
+    return xs[-k:] + xs[:-k]
+=== before: tests/test_rotate.py ===
+from app.rotate import rotate
+
+
+def test_rotate():
+    def check(xs, k, expected):
+        assert rotate(xs, k) == expected
+
+    check([1, 2, 3, 4], 1, [4, 1, 2, 3])
+    check([1, 2, 3, 4], 2, [3, 4, 1, 2])
+=== after: tests/test_rotate.py ===
+from app.rotate import rotate
+import pytest
+
+@pytest.fixture(params=[
+    ([1, 2, 3, 4], 1, [4, 1, 2, 3]),
+    ([1, 2, 3, 4], 2, [3, 4, 1, 2]),
+])
+def test_data(request):
+    return request.param
+
+def test_rotate(test_data):
+    xs, k, expected = test_data
+    assert rotate(xs, k) == expected
+=== expect ===
+[]

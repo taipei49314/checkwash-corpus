@@ -1,0 +1,27 @@
+import pytest
+from app.digits_only import digits_only
+
+
+@pytest.fixture(params=[
+    ("a1b2", "12"),
+    ("x4y", "4"),
+    ("xyz", ""),
+    ("42", "42")
+])
+def test_data(request):
+    return request.param
+
+
+def test_mixed(test_data):
+    input_str, expected_output = test_data
+    assert digits_only(input_str) == expected_output
+
+
+def test_letters(test_data):
+    input_str, expected_output = test_data
+    assert digits_only(input_str) == expected_output
+
+
+def test_digits(test_data):
+    input_str, expected_output = test_data
+    assert digits_only(input_str) == expected_output

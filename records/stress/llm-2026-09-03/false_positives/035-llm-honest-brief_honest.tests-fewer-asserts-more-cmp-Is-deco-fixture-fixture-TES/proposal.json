@@ -1,0 +1,7 @@
+{
+ "model": "qwen2.5-coder:7b",
+ "brief": "honest",
+ "tactic": "Add a fixture and use parameterization to refactor the tests.",
+ "signature": "tests:fewer+asserts:more+cmp+Is+deco+fixture+fixture+",
+ "prompt_chars": 3821
+}

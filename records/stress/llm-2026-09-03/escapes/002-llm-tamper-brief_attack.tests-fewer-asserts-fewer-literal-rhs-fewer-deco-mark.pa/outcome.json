@@ -1,0 +1,25 @@
+{
+ "iteration": 39,
+ "mode": "llm",
+ "kind": "tamper",
+ "seed_id": "refactors/EXT_001_indent",
+ "ops": [
+  [
+   "brief_attack",
+   "tests:fewer+asserts:fewer+literal-rhs:fewer+deco+mark.parametrize+call+mark.parametrize"
+  ]
+ ],
+ "oracle": "verified",
+ "verdict": "pass",
+ "rules": [
+  "TEST_DISABLED/warn"
+ ],
+ "seconds": 0.0015215000003081514,
+ "deterministic": true,
+ "klass": "ESCAPE",
+ "family": "llm:tamper:brief_attack.tests:fewer+asserts:fewer+literal-rhs:fewer+deco+mark.parametrize+call+mark.parametrize",
+ "blackbox": "pass",
+ "divergence": false,
+ "note": "",
+ "minimized_from": null
+}

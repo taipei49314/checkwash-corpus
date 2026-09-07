@@ -1,0 +1,7 @@
+{
+ "model": "qwen2.5-coder:7b",
+ "brief": "honest",
+ "tactic": "Split tests into separate functions, use fixtures for input, and restructure assertions.",
+ "signature": "literal-rhs:fewer+helper++fixture++literal:changed",
+ "prompt_chars": 3697
+}

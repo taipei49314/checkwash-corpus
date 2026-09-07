@@ -1,0 +1,51 @@
+{
+ "verdict": "block",
+ "rules": [
+  "ASSERT_WEAKENED/high"
+ ],
+ "seconds": 0.0013657999988936353,
+ "error": null,
+ "findings": [
+  {
+   "rule": "ASSERT_WEAKENED",
+   "severity": "high",
+   "path": "tests/test_running_sum.py",
+   "unit": "test_empty",
+   "fingerprint": "ASSERT_WEAKENED/tests/test_running_sum.py/test_empty/e2d723329ac0",
+   "escalators": [
+    "NO_PROD_CHANGE_IN_DIFF"
+   ],
+   "deescalators": [],
+   "message": "test_empty: assertion strength EXACT_STRUCT(100) -> EXACT_VALUE(90)"
+  },
+  {
+   "rule": "ASSERT_WEAKENED",
+   "severity": "high",
+   "path": "tests/test_running_sum.py",
+   "unit": "test_singleton",
+   "fingerprint": "ASSERT_WEAKENED/tests/test_running_sum.py/test_singleton/09ab4ab12836",
+   "escalators": [
+    "NO_PROD_CHANGE_IN_DIFF"
+   ],
+   "deescalators": [],
+   "message": "test_singleton: assertion strength EXACT_STRUCT(100) -> EXACT_VALUE(90)"
+  },
+  {
+   "rule": "ASSERT_WEAKENED",
+   "severity": "high",
+   "path": "tests/test_running_sum.py",
+   "unit": "test_three",
+   "fingerprint": "ASSERT_WEAKENED/tests/test_running_sum.py/test_three/04758c95904c",
+   "escalators": [
+    "NO_PROD_CHANGE_IN_DIFF"
+   ],
+   "deescalators": [],
+   "message": "test_three: assertion strength EXACT_STRUCT(100) -> EXACT_VALUE(90)"
+  }
+ ],
+ "engine": {
+  "asset": "checkwash.pyz",
+  "sha256": "83878db57a243386a10fa49b3f4a2d4d2863c808f7b2f77a516e35c99b3338ea",
+  "version": "0.2.8"
+ }
+}

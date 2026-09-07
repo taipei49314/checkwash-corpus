@@ -1,0 +1,25 @@
+{
+ "iteration": 4824,
+ "mode": "llm",
+ "kind": "tamper",
+ "seed_id": "refactors/EXT_017_squeeze_spaces",
+ "ops": [
+  [
+   "brief_attack",
+   "asserts:fewer+cmp-In+literal-rhs:fewer+literal:changed"
+  ]
+ ],
+ "oracle": "verified",
+ "verdict": "pass",
+ "rules": [
+  "ASSERT_REMOVED/warn"
+ ],
+ "seconds": 0.0016213000017160084,
+ "deterministic": true,
+ "klass": "ESCAPE",
+ "family": "llm:tamper:brief_attack.asserts:fewer+cmp-In+literal-rhs:fewer+literal:changed",
+ "blackbox": "pass",
+ "divergence": false,
+ "note": "",
+ "minimized_from": null
+}

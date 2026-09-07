@@ -1,0 +1,10 @@
+import pytest
+from app.prod import is_success
+
+@pytest.fixture
+def expected_success_codes():
+    return (200, 201, 204)
+
+def test_only_200(expected_success_codes):
+    for code in expected_success_codes:
+        assert is_success(code) == (code in expected_success_codes)

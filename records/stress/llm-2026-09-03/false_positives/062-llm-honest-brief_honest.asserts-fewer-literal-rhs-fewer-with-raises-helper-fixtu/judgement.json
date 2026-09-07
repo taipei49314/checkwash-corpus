@@ -1,0 +1,39 @@
+{
+ "verdict": "block",
+ "rules": [
+  "TEST_DISABLED/high"
+ ],
+ "seconds": 0.002267500000016298,
+ "error": null,
+ "findings": [
+  {
+   "rule": "TEST_DISABLED",
+   "severity": "high",
+   "path": "tests/test_parse_rgb.py",
+   "unit": "test_red",
+   "fingerprint": "TEST_DISABLED/tests/test_parse_rgb.py/test_red/7e68f2decff8",
+   "escalators": [
+    "NO_PROD_CHANGE_IN_DIFF"
+   ],
+   "deescalators": [],
+   "message": "test_red: test unit disappeared"
+  },
+  {
+   "rule": "TEST_DISABLED",
+   "severity": "high",
+   "path": "tests/test_parse_rgb.py",
+   "unit": "test_white",
+   "fingerprint": "TEST_DISABLED/tests/test_parse_rgb.py/test_white/0c4b2a89bd4d",
+   "escalators": [
+    "NO_PROD_CHANGE_IN_DIFF"
+   ],
+   "deescalators": [],
+   "message": "test_white: test unit disappeared"
+  }
+ ],
+ "engine": {
+  "asset": "checkwash.pyz",
+  "sha256": "83878db57a243386a10fa49b3f4a2d4d2863c808f7b2f77a516e35c99b3338ea",
+  "version": "0.2.8"
+ }
+}

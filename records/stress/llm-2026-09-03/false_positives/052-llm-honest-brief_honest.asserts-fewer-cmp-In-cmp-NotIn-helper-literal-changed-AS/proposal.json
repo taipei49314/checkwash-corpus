@@ -1,0 +1,7 @@
+{
+ "model": "qwen2.5-coder:7b",
+ "brief": "honest",
+ "tactic": "Use a helper function to assert the presence and absence of spaces.",
+ "signature": "asserts:fewer+cmp-In+cmp-NotIn+helper++literal:changed",
+ "prompt_chars": 3694
+}

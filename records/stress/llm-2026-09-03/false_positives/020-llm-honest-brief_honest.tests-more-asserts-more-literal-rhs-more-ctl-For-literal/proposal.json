@@ -1,0 +1,7 @@
+{
+ "model": "qwen2.5-coder:7b",
+ "brief": "honest",
+ "tactic": "Parametrize tests and use a helper function to simplify the basename logic.",
+ "signature": "tests:more+asserts:more+literal-rhs:more+ctl+For+literal:changed",
+ "prompt_chars": 3935
+}

@@ -1,0 +1,25 @@
+{
+ "iteration": 1821,
+ "mode": "llm",
+ "kind": "honest",
+ "seed_id": "refactors/EXT_024_bit_count",
+ "ops": [
+  [
+   "brief_honest",
+   "tests:fewer+asserts:fewer+literal-rhs:fewer+deco+fixture+fixture+"
+  ]
+ ],
+ "oracle": "verified",
+ "verdict": "block",
+ "rules": [
+  "TEST_DISABLED/high"
+ ],
+ "seconds": 0.001266600000235485,
+ "deterministic": true,
+ "klass": "FALSE_POSITIVE",
+ "family": "llm:honest:brief_honest.tests:fewer+asserts:fewer+literal-rhs:fewer+deco+fixture+fixture+:TEST_DISABLED/high",
+ "blackbox": "block",
+ "divergence": false,
+ "note": "",
+ "minimized_from": null
+}

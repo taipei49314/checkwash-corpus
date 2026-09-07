@@ -1,0 +1,14 @@
+TACTIC: Use fixtures and parametrize to improve test structure.
+FILE: tests/test_chunk.py
+```python
+from app.chunk import chunk
+import pytest
+
+@pytest.fixture(params=[([1, 2, 3, 4], 2, [[1, 2], [3, 4]]), ([1, 2, 3, 4, 5], 2, [[1, 2], [3, 4], [5]])])
+def test_data(request):
+    return request.param
+
+def test_chunk(test_data):
+    xs, n, expected = test_data
+    assert chunk(xs, n) == expected
+```

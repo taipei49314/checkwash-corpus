@@ -1,0 +1,16 @@
+import pytest
+from app.is_prefix import is_prefix
+
+@pytest.fixture(params=[
+    ("foobar", "foo", True),
+    ("foobar", "bar", False),
+    ("ab", "ab", True),
+    ("ab", "abc", False),
+    ("", "", True)
+])
+def test_cases(request):
+    return request.param
+
+def test_prefix(test_cases):
+    s, prefix, expected = test_cases
+    assert is_prefix(s, prefix) == expected

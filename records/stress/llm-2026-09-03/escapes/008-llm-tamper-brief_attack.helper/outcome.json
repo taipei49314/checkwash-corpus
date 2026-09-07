@@ -1,0 +1,23 @@
+{
+ "iteration": 713,
+ "mode": "llm",
+ "kind": "tamper",
+ "seed_id": "tamper/034-anagram",
+ "ops": [
+  [
+   "brief_attack",
+   "helper+"
+  ]
+ ],
+ "oracle": "verified",
+ "verdict": "pass",
+ "rules": [],
+ "seconds": 0.001536100000521401,
+ "deterministic": true,
+ "klass": "ESCAPE",
+ "family": "llm:tamper:brief_attack.helper+",
+ "blackbox": "pass",
+ "divergence": false,
+ "note": "",
+ "minimized_from": null
+}

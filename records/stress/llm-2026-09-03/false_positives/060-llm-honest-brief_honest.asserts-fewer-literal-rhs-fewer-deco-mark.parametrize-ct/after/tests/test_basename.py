@@ -1,0 +1,17 @@
+from app.basename import basename
+import pytest
+
+def test_cases():
+    return [
+        ("a/b/c.txt", "c.txt"),
+        ("file", "file"),
+        ("dir/sub/", "sub"),
+    ]
+
+def test_basename(cases=test_cases()):
+    for path, expected in cases:
+        assert basename(path) == expected
+
+@pytest.mark.parametrize("path,expected", test_cases())
+def test_basename_param(path, expected):
+    assert basename(path) == expected

@@ -1,0 +1,7 @@
+{
+ "model": "qwen2.5-coder:7b",
+ "brief": "honest",
+ "tactic": "Refactor test functions to use `pytest.mark.parametrize` and simplify assertions.",
+ "signature": "tests:fewer+asserts:fewer+cmp-In+cmp-NotIn+literal-rhs:fewer",
+ "prompt_chars": 3724
+}

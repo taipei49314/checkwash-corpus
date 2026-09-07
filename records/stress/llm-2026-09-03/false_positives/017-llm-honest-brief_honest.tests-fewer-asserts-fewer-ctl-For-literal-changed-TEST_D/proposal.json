@@ -1,0 +1,7 @@
+{
+ "model": "qwen2.5-coder:7b",
+ "brief": "honest",
+ "tactic": "Parametrize tests, extract helper function",
+ "signature": "tests:fewer+asserts:fewer+ctl+For+literal:changed",
+ "prompt_chars": 3810
+}

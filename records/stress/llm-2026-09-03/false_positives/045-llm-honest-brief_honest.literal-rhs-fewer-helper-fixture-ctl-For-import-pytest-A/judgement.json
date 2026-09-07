@@ -1,0 +1,39 @@
+{
+ "verdict": "block",
+ "rules": [
+  "ASSERT_SUBSTITUTED/high"
+ ],
+ "seconds": 0.0012998999991395976,
+ "error": null,
+ "findings": [
+  {
+   "rule": "ASSERT_SUBSTITUTED",
+   "severity": "high",
+   "path": "tests/test_normalize.py",
+   "unit": "test_already_clean",
+   "fingerprint": "ASSERT_SUBSTITUTED/tests/test_normalize.py/test_already_clean/6cbeb9837784",
+   "escalators": [
+    "NO_PROD_CHANGE_IN_DIFF"
+   ],
+   "deescalators": [],
+   "message": "test_already_clean: an assertion was replaced by an unrelated one of the same strength (normalize(\"ok\") -> normalize(input_str)); the original assertion is gone and the strength lattice cannot see it"
+  },
+  {
+   "rule": "ASSERT_SUBSTITUTED",
+   "severity": "high",
+   "path": "tests/test_normalize.py",
+   "unit": "test_collapse_and_lower",
+   "fingerprint": "ASSERT_SUBSTITUTED/tests/test_normalize.py/test_collapse_and_lower/d1436d416a4d",
+   "escalators": [
+    "NO_PROD_CHANGE_IN_DIFF"
+   ],
+   "deescalators": [],
+   "message": "test_collapse_and_lower: an assertion was replaced by an unrelated one of the same strength (normalize(\"  Hello   WORLD  \") -> normalize(input_str)); the original assertion is gone and the strength lattice cannot see it"
+  }
+ ],
+ "engine": {
+  "asset": "checkwash.pyz",
+  "sha256": "83878db57a243386a10fa49b3f4a2d4d2863c808f7b2f77a516e35c99b3338ea",
+  "version": "0.2.8"
+ }
+}

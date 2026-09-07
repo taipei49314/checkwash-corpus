@@ -1,0 +1,13 @@
+from app.fill_none import fill_none
+
+def test_fill_none():
+    test_cases = [
+        ([1, None, 2], 0, [1, 0, 2]),
+        ([None], 0, [0]),
+        ([0, 1], 9, [0, 1]),
+    ]
+    for xs, default, expected in test_cases:
+        assert fill_none(xs, default) == expected
+
+def test_empty_list():
+    assert fill_none([], 0) == []

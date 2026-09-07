@@ -1,0 +1,7 @@
+{
+ "model": "qwen2.5-coder:7b",
+ "brief": "honest",
+ "tactic": "Use a fixture for test input and refactor assertion to use `assertEqual`",
+ "signature": "tests:fewer+asserts:fewer+cmp-Eq+literal-rhs:fewer+with+self.subTest",
+ "prompt_chars": 3636
+}

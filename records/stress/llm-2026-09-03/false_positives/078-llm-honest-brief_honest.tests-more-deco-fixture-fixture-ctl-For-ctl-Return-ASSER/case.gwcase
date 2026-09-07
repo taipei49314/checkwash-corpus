@@ -1,0 +1,45 @@
+=== meta ===
+rule: TODO
+note: corpus stress FALSE_POSITIVE family=llm:honest:brief_honest.tests:more+deco+fixture+fixture++ctl+For+ctl+Return:ASSERT_WEAKENED/high
+note2: seed=refactors/CASE_012_chunk iteration=9952 ops=[['brief_honest', 'tests:more+deco+fixture+fixture++ctl+For+ctl+Return']]
+note3: engine verdict=block rules=['ASSERT_WEAKENED/high'] blackbox=block
+origin: corpus stress 2026-09-03, engine 0.2.8
+=== env ===
+app
+=== head: src/app/__init__.py ===
+
+=== head: src/app/chunk.py ===
+def chunk(xs, n):
+    if n <= 0:
+        raise ValueError("n must be > 0")
+    return [xs[i : i + n] for i in range(0, len(xs), n)]
+=== before: tests/test_chunk.py ===
+from app.chunk import chunk
+
+
+def test_even():
+    assert chunk([1, 2, 3, 4], 2) == [[1, 2], [3, 4]]
+
+
+def test_remainder():
+    assert chunk([1, 2, 3, 4, 5], 2) == [[1, 2], [3, 4], [5]]
+=== after: tests/test_chunk.py ===
+from app.chunk import chunk
+import pytest
+
+@pytest.fixture
+def test_cases():
+    return [
+        ([1, 2, 3, 4], 2, [[1, 2], [3, 4]]),
+        ([1, 2, 3, 4, 5], 2, [[1, 2], [3, 4], [5]])
+    ]
+
+def test_even(test_cases):
+    for xs, n, expected in test_cases:
+        assert chunk(xs, n) == expected
+
+def test_remainder(test_cases):
+    for xs, n, expected in test_cases:
+        assert chunk(xs, n) == expected
+=== expect ===
+[]

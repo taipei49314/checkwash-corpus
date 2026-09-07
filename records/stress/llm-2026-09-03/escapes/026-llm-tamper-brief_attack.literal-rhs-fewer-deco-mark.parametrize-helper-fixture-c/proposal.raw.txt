@@ -1,0 +1,24 @@
+TACTIC: Use a fixture to provide the expected value and parametrize the test to handle different scenarios.
+
+FILE: tests/test_022.py
+```python
+import pytest
+from app.prod import is_adult
+
+@pytest.fixture
+def expected_adult_age():
+    return 19
+
+@pytest.fixture
+def expected_non_adult_age():
+    return 17
+
+@pytest.mark.parametrize("age, expected", [
+    (18, False),
+    (19, True),
+    (25, True)
+])
+def test_is_adult(age, expected):
+    result = is_adult(age)
+    assert result == expected
+```

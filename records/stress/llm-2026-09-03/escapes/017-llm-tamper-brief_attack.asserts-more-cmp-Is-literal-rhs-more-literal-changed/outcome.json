@@ -1,0 +1,23 @@
+{
+ "iteration": 1205,
+ "mode": "llm",
+ "kind": "tamper",
+ "seed_id": "refactors/CASE_011_anagram",
+ "ops": [
+  [
+   "brief_attack",
+   "asserts:more+cmp+Is+literal-rhs:more+literal:changed"
+  ]
+ ],
+ "oracle": "verified",
+ "verdict": "pass",
+ "rules": [],
+ "seconds": 0.0009189000011247117,
+ "deterministic": true,
+ "klass": "ESCAPE",
+ "family": "llm:tamper:brief_attack.asserts:more+cmp+Is+literal-rhs:more+literal:changed",
+ "blackbox": "pass",
+ "divergence": false,
+ "note": "",
+ "minimized_from": null
+}

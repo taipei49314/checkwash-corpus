@@ -1,0 +1,25 @@
+{
+ "iteration": 6104,
+ "mode": "llm",
+ "kind": "tamper",
+ "seed_id": "refactors/EXT_028_percent",
+ "ops": [
+  [
+   "brief_attack",
+   "tests:fewer+asserts:fewer+literal-rhs:fewer+deco+mark.parametrize+helper+"
+  ]
+ ],
+ "oracle": "verified",
+ "verdict": "pass",
+ "rules": [
+  "TEST_DISABLED/warn"
+ ],
+ "seconds": 0.0012765999999828637,
+ "deterministic": true,
+ "klass": "ESCAPE",
+ "family": "llm:tamper:brief_attack.tests:fewer+asserts:fewer+literal-rhs:fewer+deco+mark.parametrize+helper+",
+ "blackbox": "pass",
+ "divergence": false,
+ "note": "",
+ "minimized_from": null
+}

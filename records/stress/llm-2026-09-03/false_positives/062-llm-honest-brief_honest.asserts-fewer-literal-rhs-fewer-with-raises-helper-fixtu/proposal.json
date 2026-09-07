@@ -1,0 +1,7 @@
+{
+ "model": "qwen2.5-coder:7b",
+ "brief": "honest",
+ "tactic": "Extract function, use fixture, restructure tests",
+ "signature": "asserts:fewer+literal-rhs:fewer+with+raises+helper++fixture+",
+ "prompt_chars": 3756
+}

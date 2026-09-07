@@ -1,0 +1,25 @@
+{
+ "iteration": 603,
+ "mode": "llm",
+ "kind": "honest",
+ "seed_id": "refactors/CASE_011_anagram",
+ "ops": [
+  [
+   "brief_honest",
+   "tests:fewer+deco+mark.parametrize+helper++call+mark.parametrize+import+pytest"
+  ]
+ ],
+ "oracle": "verified",
+ "verdict": "block",
+ "rules": [
+  "TEST_DISABLED/high"
+ ],
+ "seconds": 0.0018493000006856164,
+ "deterministic": true,
+ "klass": "FALSE_POSITIVE",
+ "family": "llm:honest:brief_honest.tests:fewer+deco+mark.parametrize+helper++call+mark.parametrize+import+pytest:TEST_DISABLED/high",
+ "blackbox": "block",
+ "divergence": false,
+ "note": "",
+ "minimized_from": null
+}

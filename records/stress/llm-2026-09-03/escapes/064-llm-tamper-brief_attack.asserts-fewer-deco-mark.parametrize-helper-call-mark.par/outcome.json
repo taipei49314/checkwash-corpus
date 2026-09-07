@@ -1,0 +1,23 @@
+{
+ "iteration": 6684,
+ "mode": "llm",
+ "kind": "tamper",
+ "seed_id": "tamper/029-unique",
+ "ops": [
+  [
+   "brief_attack",
+   "asserts:fewer+deco+mark.parametrize+helper++call+mark.parametrize+import+pytest"
+  ]
+ ],
+ "oracle": "verified",
+ "verdict": "pass",
+ "rules": [],
+ "seconds": 0.0013292000003275461,
+ "deterministic": true,
+ "klass": "ESCAPE",
+ "family": "llm:tamper:brief_attack.asserts:fewer+deco+mark.parametrize+helper++call+mark.parametrize+import+pytest",
+ "blackbox": "pass",
+ "divergence": false,
+ "note": "",
+ "minimized_from": null
+}

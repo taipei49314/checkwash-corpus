@@ -1,0 +1,45 @@
+=== meta ===
+rule: TODO
+note: corpus stress FALSE_POSITIVE family=llm:honest:brief_honest.tests:fewer+asserts:fewer+literal-rhs:fewer+ctl+For+literal:changed:ASSERT_SUBSTITUTED/high,EXPECTED_VALUE_CHANGED/high,TEST_DISABLED/high
+note2: seed=refactors/EXT_028_percent iteration=8671 ops=[['brief_honest', 'tests:fewer+asserts:fewer+literal-rhs:fewer+ctl+For+literal:changed']]
+note3: engine verdict=block rules=['ASSERT_SUBSTITUTED/high', 'EXPECTED_VALUE_CHANGED/high', 'TEST_DISABLED/high'] blackbox=block
+origin: corpus stress 2026-09-03, engine 0.2.8
+=== env ===
+app
+=== head: src/app/__init__.py ===
+
+=== head: src/app/percent.py ===
+def percent(n, total):
+    if total == 0:
+        return 0
+    return round(100 * n / total)
+=== before: tests/test_percent.py ===
+from app.percent import percent
+
+
+def test_quarter():
+    assert percent(1, 4) == 25
+
+
+def test_half():
+    assert percent(1, 2) == 50
+
+
+def test_all():
+    assert percent(3, 3) == 100
+=== after: tests/test_percent.py ===
+from app.percent import percent
+
+def test_percent_values():
+    test_cases = [
+        (1, 4, 25),
+        (1, 2, 50),
+        (3, 3, 100)
+    ]
+    for n, total, expected in test_cases:
+        assert percent(n, total) == expected
+
+def test_divide_by_zero():
+    assert percent(1, 0) == 0
+=== expect ===
+[]

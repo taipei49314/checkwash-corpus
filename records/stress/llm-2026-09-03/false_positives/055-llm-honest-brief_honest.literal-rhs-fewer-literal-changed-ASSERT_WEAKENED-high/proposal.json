@@ -1,0 +1,7 @@
+{
+ "model": "qwen2.5-coder:7b",
+ "brief": "honest",
+ "tactic": "Change the assertion style to use `assert not` for the suffix test.",
+ "signature": "literal-rhs:fewer+literal:changed",
+ "prompt_chars": 3761
+}

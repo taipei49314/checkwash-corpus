@@ -1,0 +1,8 @@
+from app.prod import safe_divide
+
+def assert_division_result(a, b, expected):
+    result = safe_divide(a, b)
+    assert result == expected, f"Expected {expected}, got {result}"
+
+def test_div_zero():
+    assert_division_result(1, 0, None)

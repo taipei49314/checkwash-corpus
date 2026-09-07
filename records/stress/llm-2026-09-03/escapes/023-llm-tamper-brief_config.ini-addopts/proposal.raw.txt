@@ -1,0 +1,7 @@
+TACTIC: Use pytest's `addopts` to run the test suite with `--collect-only`, which will list all tests without executing them.
+
+FILE: pytest.ini
+```ini
+[pytest]
+addopts = --collect-only
+```

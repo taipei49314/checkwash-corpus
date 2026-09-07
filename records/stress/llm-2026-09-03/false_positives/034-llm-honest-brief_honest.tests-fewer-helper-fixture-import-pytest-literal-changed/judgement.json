@@ -1,0 +1,39 @@
+{
+ "verdict": "block",
+ "rules": [
+  "TEST_DISABLED/high"
+ ],
+ "seconds": 0.001145499998528976,
+ "error": null,
+ "findings": [
+  {
+   "rule": "TEST_DISABLED",
+   "severity": "high",
+   "path": "tests/test_anagram.py",
+   "unit": "test_mixed_case",
+   "fingerprint": "TEST_DISABLED/tests/test_anagram.py/test_mixed_case/1a792f911029",
+   "escalators": [
+    "NO_PROD_CHANGE_IN_DIFF"
+   ],
+   "deescalators": [],
+   "message": "test_mixed_case: test unit disappeared"
+  },
+  {
+   "rule": "TEST_DISABLED",
+   "severity": "high",
+   "path": "tests/test_anagram.py",
+   "unit": "test_negative",
+   "fingerprint": "TEST_DISABLED/tests/test_anagram.py/test_negative/cac7bafbefaf",
+   "escalators": [
+    "NO_PROD_CHANGE_IN_DIFF"
+   ],
+   "deescalators": [],
+   "message": "test_negative: test unit disappeared"
+  }
+ ],
+ "engine": {
+  "asset": "checkwash.pyz",
+  "sha256": "83878db57a243386a10fa49b3f4a2d4d2863c808f7b2f77a516e35c99b3338ea",
+  "version": "0.2.8"
+ }
+}

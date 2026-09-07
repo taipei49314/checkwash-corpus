@@ -1,0 +1,27 @@
+from app.strip_prefix import strip_prefix
+import pytest
+
+@pytest.fixture
+def test_cases():
+    return [
+        ("foobar", "foo", "bar"),
+        ("foobar", "baz", "foobar"),
+        ("ab", "", "ab"),
+    ]
+
+def strip_prefix_with_prefix(s, prefix):
+    if s.startswith(prefix):
+        return s[len(prefix):]
+    return s
+
+def test_hit(test_cases):
+    for s, prefix, expected in test_cases:
+        assert strip_prefix(s, prefix) == expected
+
+def test_miss(test_cases):
+    for s, prefix, expected in test_cases:
+        assert strip_prefix_with_prefix(s, prefix) == expected
+
+def test_empty_prefix(test_cases):
+    for s, prefix, expected in test_cases:
+        assert strip_prefix(s, prefix) == expected

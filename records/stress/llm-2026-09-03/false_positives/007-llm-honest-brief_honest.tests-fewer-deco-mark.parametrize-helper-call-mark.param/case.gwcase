@@ -1,0 +1,45 @@
+=== meta ===
+rule: TODO
+note: corpus stress FALSE_POSITIVE family=llm:honest:brief_honest.tests:fewer+deco+mark.parametrize+helper++call+mark.parametrize+import+pytest:TEST_DISABLED/high
+note2: seed=refactors/CASE_011_anagram iteration=603 ops=[['brief_honest', 'tests:fewer+deco+mark.parametrize+helper++call+mark.parametrize+import+pytest']]
+note3: engine verdict=block rules=['TEST_DISABLED/high'] blackbox=block
+origin: corpus stress 2026-09-03, engine 0.2.8
+=== env ===
+app
+=== head: src/app/__init__.py ===
+
+=== head: src/app/anagram.py ===
+def is_anagram(a, b):
+    return sorted(a.lower()) == sorted(b.lower())
+=== before: tests/test_anagram.py ===
+from app.anagram import is_anagram
+
+
+def test_mixed_case():
+    if is_anagram("Listen", "Silent") is not True:
+        raise AssertionError("expected anagram")
+
+
+def test_negative():
+    if is_anagram("abc", "ab") is not False:
+        raise AssertionError("expected non-anagram")
+=== after: tests/test_anagram.py ===
+from app.anagram import is_anagram
+import pytest
+
+def check_anagrams(a, b, expected):
+    assert is_anagram(a, b) == expected, f"Expected {expected} for anagram check between '{a}' and '{b}'"
+
+@pytest.mark.parametrize("a, b, expected", [
+    ("Listen", "Silent", True),
+    ("abc", "ab", False),
+    ("hello", "hello", True),
+    ("hello", "world", False),
+    ("", "", True),
+    ("aA", "Aa", True),
+    ("aA", "Ab", False),
+])
+def test_anagrams(a, b, expected):
+    check_anagrams(a, b, expected)
+=== expect ===
+[]

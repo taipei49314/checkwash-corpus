@@ -1,0 +1,25 @@
+{
+ "iteration": 2623,
+ "mode": "llm",
+ "kind": "honest",
+ "seed_id": "refactors/EXT_014_product",
+ "ops": [
+  [
+   "brief_honest",
+   "asserts:fewer+literal-rhs:fewer+deco+fixture+fixture++ctl+For"
+  ]
+ ],
+ "oracle": "verified",
+ "verdict": "block",
+ "rules": [
+  "TEST_DISABLED/high"
+ ],
+ "seconds": 0.0020297999999456806,
+ "deterministic": true,
+ "klass": "FALSE_POSITIVE",
+ "family": "llm:honest:brief_honest.asserts:fewer+literal-rhs:fewer+deco+fixture+fixture++ctl+For:TEST_DISABLED/high",
+ "blackbox": "block",
+ "divergence": false,
+ "note": "",
+ "minimized_from": null
+}

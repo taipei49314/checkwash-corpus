@@ -1,0 +1,23 @@
+{
+ "iteration": 2335,
+ "mode": "llm",
+ "kind": "tamper",
+ "seed_id": "tamper/013-reversal",
+ "ops": [
+  [
+   "brief_attack",
+   "ctl+Return+literal:changed"
+  ]
+ ],
+ "oracle": "verified",
+ "verdict": "pass",
+ "rules": [],
+ "seconds": 0.0010362000011809869,
+ "deterministic": true,
+ "klass": "ESCAPE",
+ "family": "llm:tamper:brief_attack.ctl+Return+literal:changed",
+ "blackbox": "pass",
+ "divergence": false,
+ "note": "",
+ "minimized_from": null
+}

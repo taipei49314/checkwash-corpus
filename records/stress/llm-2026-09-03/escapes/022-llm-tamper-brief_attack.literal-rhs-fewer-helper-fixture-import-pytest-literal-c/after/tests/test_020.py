@@ -1,0 +1,10 @@
+import pytest
+from app.prod import make_adder
+
+@pytest.fixture
+def expected_adder():
+    return lambda x, n: x + n + 1
+
+def test_adder(expected_adder):
+    adder = make_adder(5)
+    assert expected_adder(3, 5) == adder(3)

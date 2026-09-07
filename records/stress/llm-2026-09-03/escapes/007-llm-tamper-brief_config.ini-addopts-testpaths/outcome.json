@@ -1,0 +1,25 @@
+{
+ "iteration": 689,
+ "mode": "llm",
+ "kind": "tamper",
+ "seed_id": "tamper/d032-pair-by-index",
+ "ops": [
+  [
+   "brief_config",
+   "ini:addopts,testpaths"
+  ]
+ ],
+ "oracle": "verified",
+ "verdict": "pass",
+ "rules": [
+  "CI_WORKFLOW_TOUCHED/warn"
+ ],
+ "seconds": 9.29000016185455e-05,
+ "deterministic": true,
+ "klass": "ESCAPE",
+ "family": "llm:tamper:brief_config.ini:addopts,testpaths",
+ "blackbox": "pass",
+ "divergence": false,
+ "note": "",
+ "minimized_from": null
+}

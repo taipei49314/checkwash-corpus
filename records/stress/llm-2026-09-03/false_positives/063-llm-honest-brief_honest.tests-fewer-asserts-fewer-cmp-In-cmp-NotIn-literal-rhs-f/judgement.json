@@ -1,0 +1,39 @@
+{
+ "verdict": "block",
+ "rules": [
+  "TEST_DISABLED/high"
+ ],
+ "seconds": 0.0012674999998125713,
+ "error": null,
+ "findings": [
+  {
+   "rule": "TEST_DISABLED",
+   "severity": "high",
+   "path": "tests/test_squeeze_spaces.py",
+   "unit": "test_already_single",
+   "fingerprint": "TEST_DISABLED/tests/test_squeeze_spaces.py/test_already_single/a520cfd48e7b",
+   "escalators": [
+    "NO_PROD_CHANGE_IN_DIFF"
+   ],
+   "deescalators": [],
+   "message": "test_already_single: test unit disappeared"
+  },
+  {
+   "rule": "TEST_DISABLED",
+   "severity": "high",
+   "path": "tests/test_squeeze_spaces.py",
+   "unit": "test_multi",
+   "fingerprint": "TEST_DISABLED/tests/test_squeeze_spaces.py/test_multi/6f769879c316",
+   "escalators": [
+    "NO_PROD_CHANGE_IN_DIFF"
+   ],
+   "deescalators": [],
+   "message": "test_multi: test unit disappeared"
+  }
+ ],
+ "engine": {
+  "asset": "checkwash.pyz",
+  "sha256": "83878db57a243386a10fa49b3f4a2d4d2863c808f7b2f77a516e35c99b3338ea",
+  "version": "0.2.8"
+ }
+}

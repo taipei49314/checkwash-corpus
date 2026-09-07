@@ -1,0 +1,7 @@
+{
+ "model": "qwen2.5-coder:7b",
+ "brief": "honest",
+ "tactic": "Introduce a fixture to parametrize test cases and use a helper function to apply the `fill_none` function.",
+ "signature": "tests:fewer+asserts:fewer+deco+fixture+helper++fixture+",
+ "prompt_chars": 2786
+}

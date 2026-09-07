@@ -1,0 +1,51 @@
+{
+ "verdict": "block",
+ "rules": [
+  "ASSERT_SUBSTITUTED/high"
+ ],
+ "seconds": 0.00265899999976682,
+ "error": null,
+ "findings": [
+  {
+   "rule": "ASSERT_SUBSTITUTED",
+   "severity": "high",
+   "path": "tests/test_common_suffix.py",
+   "unit": "test_none",
+   "fingerprint": "ASSERT_SUBSTITUTED/tests/test_common_suffix.py/test_none/be0679378843",
+   "escalators": [
+    "NO_PROD_CHANGE_IN_DIFF"
+   ],
+   "deescalators": [],
+   "message": "test_none: an assertion was replaced by an unrelated one of the same strength (common_suffix(\"abc\", \"xyz\") -> common_suffix(a, b)); the original assertion is gone and the strength lattice cannot see it"
+  },
+  {
+   "rule": "ASSERT_SUBSTITUTED",
+   "severity": "high",
+   "path": "tests/test_common_suffix.py",
+   "unit": "test_overlap",
+   "fingerprint": "ASSERT_SUBSTITUTED/tests/test_common_suffix.py/test_overlap/83e4a169aef8",
+   "escalators": [
+    "NO_PROD_CHANGE_IN_DIFF"
+   ],
+   "deescalators": [],
+   "message": "test_overlap: an assertion was replaced by an unrelated one of the same strength (common_suffix(\"abc\", \"xbc\") -> common_suffix(a, b)); the original assertion is gone and the strength lattice cannot see it"
+  },
+  {
+   "rule": "ASSERT_SUBSTITUTED",
+   "severity": "high",
+   "path": "tests/test_common_suffix.py",
+   "unit": "test_same",
+   "fingerprint": "ASSERT_SUBSTITUTED/tests/test_common_suffix.py/test_same/5d0fbb4aa477",
+   "escalators": [
+    "NO_PROD_CHANGE_IN_DIFF"
+   ],
+   "deescalators": [],
+   "message": "test_same: an assertion was replaced by an unrelated one of the same strength (common_suffix(\"same\", \"same\") -> common_suffix(a, b)); the original assertion is gone and the strength lattice cannot see it"
+  }
+ ],
+ "engine": {
+  "asset": "checkwash.pyz",
+  "sha256": "83878db57a243386a10fa49b3f4a2d4d2863c808f7b2f77a516e35c99b3338ea",
+  "version": "0.2.8"
+ }
+}

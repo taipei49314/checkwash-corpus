@@ -1,0 +1,15 @@
+from app.running_sum import running_sum
+
+def assert_running_sum(xs, expected):
+    assert running_sum(xs) == expected
+
+def test_empty():
+    assert_running_sum([], [])
+
+
+def test_three():
+    assert_running_sum([1, 2, 3], [1, 3, 6])
+
+
+def test_singleton():
+    assert_running_sum([5], [5])

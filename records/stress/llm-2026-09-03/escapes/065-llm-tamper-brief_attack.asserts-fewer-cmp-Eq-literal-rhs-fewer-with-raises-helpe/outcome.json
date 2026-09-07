@@ -1,0 +1,23 @@
+{
+ "iteration": 6698,
+ "mode": "llm",
+ "kind": "tamper",
+ "seed_id": "tamper/d010-stack-is-lifo",
+ "ops": [
+  [
+   "brief_attack",
+   "asserts:fewer+cmp-Eq+literal-rhs:fewer+with+raises+helper+"
+  ]
+ ],
+ "oracle": "verified",
+ "verdict": "pass",
+ "rules": [],
+ "seconds": 0.0013847000009263866,
+ "deterministic": true,
+ "klass": "ESCAPE",
+ "family": "llm:tamper:brief_attack.asserts:fewer+cmp-Eq+literal-rhs:fewer+with+raises+helper+",
+ "blackbox": "pass",
+ "divergence": false,
+ "note": "",
+ "minimized_from": null
+}

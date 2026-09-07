@@ -1,0 +1,7 @@
+{
+ "model": "qwen2.5-coder:7b",
+ "brief": "attack",
+ "tactic": "Use `pytest.mark.parametrize` for better test coverage and `assert` with a clear message for readability.",
+ "signature": "tests:fewer+asserts:fewer+deco+mark.parametrize+call+mark.parametrize+import+pytest",
+ "prompt_chars": 1327
+}

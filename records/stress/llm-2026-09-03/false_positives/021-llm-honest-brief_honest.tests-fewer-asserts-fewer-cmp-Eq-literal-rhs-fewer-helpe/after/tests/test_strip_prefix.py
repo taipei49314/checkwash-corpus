@@ -1,0 +1,14 @@
+from app.strip_prefix import strip_prefix
+
+def strip_prefix_helper(s, prefix, expected):
+    result = strip_prefix(s, prefix)
+    assert result == expected, f"Expected {expected}, but got {result}"
+
+def test_strip_prefix():
+    test_cases = [
+        ("foobar", "foo", "bar"),
+        ("foobar", "baz", "foobar"),
+        ("ab", "", "ab"),
+    ]
+    for s, prefix, expected in test_cases:
+        strip_prefix_helper(s, prefix, expected)

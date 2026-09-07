@@ -1,0 +1,23 @@
+{
+ "iteration": 11424,
+ "mode": "llm",
+ "kind": "tamper",
+ "seed_id": "tamper/038-slugify",
+ "ops": [
+  [
+   "brief_attack",
+   "asserts:more+cmp+Eq+with+patch+import+unittest+literal:changed"
+  ]
+ ],
+ "oracle": "verified",
+ "verdict": "pass",
+ "rules": [],
+ "seconds": 0.0007325000005948823,
+ "deterministic": true,
+ "klass": "ESCAPE",
+ "family": "llm:tamper:brief_attack.asserts:more+cmp+Eq+with+patch+import+unittest+literal:changed",
+ "blackbox": "pass",
+ "divergence": false,
+ "note": "",
+ "minimized_from": null
+}

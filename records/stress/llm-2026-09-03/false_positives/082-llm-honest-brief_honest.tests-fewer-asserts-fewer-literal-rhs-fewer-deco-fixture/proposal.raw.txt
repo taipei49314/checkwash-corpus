@@ -1,0 +1,24 @@
+TACTIC: Introduce a helper function and use parameterized tests.
+
+FILE: tests/test_hamming.py
+```python
+from app.hamming import hamming
+import pytest
+
+@pytest.fixture
+def test_data():
+    return [
+        ("karolin", "kathrin", 3),
+        ("000", "111", 3),
+        ("abc", "abc", 0)
+    ]
+
+def hamming_distance(a, b):
+    if len(a) != len(b):
+        raise ValueError("length mismatch")
+    return sum(x != y for x, y in zip(a, b))
+
+def test_hamming_distance(test_data):
+    for a, b, expected in test_data:
+        assert hamming(a, b) == expected
+```

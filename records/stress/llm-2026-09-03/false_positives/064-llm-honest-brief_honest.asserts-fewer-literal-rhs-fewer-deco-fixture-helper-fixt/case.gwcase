@@ -1,0 +1,54 @@
+=== meta ===
+rule: TODO
+note: corpus stress FALSE_POSITIVE family=llm:honest:brief_honest.asserts:fewer+literal-rhs:fewer+deco+fixture+helper++fixture+:TEST_DISABLED/high
+note2: seed=refactors/EXT_005_rpad iteration=6745 ops=[['brief_honest', 'asserts:fewer+literal-rhs:fewer+deco+fixture+helper++fixture+']]
+note3: engine verdict=block rules=['TEST_DISABLED/high'] blackbox=block
+origin: corpus stress 2026-09-03, engine 0.2.8
+=== env ===
+app
+=== head: src/app/__init__.py ===
+
+=== head: src/app/rpad.py ===
+def rpad(s, width, fill=" "):
+    if len(s) >= width:
+        return s
+    return s + fill * (width - len(s))
+=== before: tests/test_rpad.py ===
+from app.rpad import rpad
+
+
+def test_short():
+    got = rpad("hi", 5, ".")
+    assert len(got) == 5
+    assert got.startswith("hi")
+    assert got == "hi..."
+
+
+def test_already_wide():
+    got = rpad("hello", 3, ".")
+    assert len(got) == 5
+    assert got.startswith("hello")
+    assert got == "hello"
+=== after: tests/test_rpad.py ===
+import pytest
+from app.rpad import rpad
+
+
+@pytest.fixture(params=[".", " ", "0"])
+def fill_char(request):
+    return request.param
+
+
+@pytest.fixture(params=["hi", "hello"])
+def test_string(request):
+    return request.param
+
+
+def test_rpad(fill_char, test_string):
+    width = len(test_string) + 3
+    got = rpad(test_string, width, fill_char)
+    assert len(got) == width
+    assert got.startswith(test_string)
+    assert got == test_string + fill_char * 3
+=== expect ===
+[]

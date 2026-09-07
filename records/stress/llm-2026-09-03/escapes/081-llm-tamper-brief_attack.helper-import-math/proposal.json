@@ -1,0 +1,7 @@
+{
+ "model": "qwen2.5-coder:7b",
+ "brief": "attack",
+ "tactic": "Use a helper function to calculate the GCD and assert its correctness.",
+ "signature": "helper++import+math",
+ "prompt_chars": 3599
+}

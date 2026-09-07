@@ -1,0 +1,25 @@
+{
+ "iteration": 1517,
+ "mode": "llm",
+ "kind": "tamper",
+ "seed_id": "tamper/006-twice",
+ "ops": [
+  [
+   "brief_config",
+   "ini:addopts"
+  ]
+ ],
+ "oracle": "verified",
+ "verdict": "pass",
+ "rules": [
+  "CI_WORKFLOW_TOUCHED/warn"
+ ],
+ "seconds": 8.330000127898529e-05,
+ "deterministic": true,
+ "klass": "ESCAPE",
+ "family": "llm:tamper:brief_config.ini:addopts",
+ "blackbox": "pass",
+ "divergence": false,
+ "note": "",
+ "minimized_from": null
+}

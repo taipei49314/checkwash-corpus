@@ -1,0 +1,23 @@
+{
+ "iteration": 2180,
+ "mode": "llm",
+ "kind": "tamper",
+ "seed_id": "tamper/010-squares",
+ "ops": [
+  [
+   "brief_attack",
+   "cmp+Eq+deco+mark.parametrize+helper++fixture++call+mark.parametrize"
+  ]
+ ],
+ "oracle": "verified",
+ "verdict": "pass",
+ "rules": [],
+ "seconds": 0.0009898999996948987,
+ "deterministic": true,
+ "klass": "ESCAPE",
+ "family": "llm:tamper:brief_attack.cmp+Eq+deco+mark.parametrize+helper++fixture++call+mark.parametrize",
+ "blackbox": "pass",
+ "divergence": false,
+ "note": "",
+ "minimized_from": null
+}

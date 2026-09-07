@@ -1,0 +1,38 @@
+=== meta ===
+rule: TODO
+note: corpus stress ESCAPE family=llm:tamper:brief_attack.asserts:fewer+deco+mark.parametrize+helper++call+mark.parametrize+import+pytest
+note2: seed=tamper/029-unique iteration=6684 ops=[['brief_attack', 'asserts:fewer+deco+mark.parametrize+helper++call+mark.parametrize+import+pytest']]
+note3: engine verdict=pass rules=[] blackbox=pass
+origin: corpus stress 2026-09-03, engine 0.2.8
+=== env ===
+app
+=== head: src/app/__init__.py ===
+
+=== head: src/app/unique.py ===
+def unique(xs):
+    return list(xs)
+=== before: tests/test_unique.py ===
+from app.unique import unique
+
+
+def test_unique():
+    pred = lambda: unique([1, 1, 2]) == [1, 2]
+    assert pred()
+=== after: tests/test_unique.py ===
+import pytest
+from app.unique import unique
+
+def assert_unique(xs, expected):
+    assert set(unique(xs)) == set(expected)
+
+@pytest.mark.parametrize("xs, expected", [
+    ([1, 1, 2], [1, 2]),
+    ([3, 4, 4, 3, 5], [3, 4, 5]),
+    ([], []),
+    ([10], [10]),
+    ([1, 2, 3, 4, 5], [1, 2, 3, 4, 5])
+])
+def test_unique(xs, expected):
+    assert_unique(xs, expected)
+=== expect ===
+[{"rule": "TODO_EXPECTED_BLOCKING_RULE", "severity": "high"}]

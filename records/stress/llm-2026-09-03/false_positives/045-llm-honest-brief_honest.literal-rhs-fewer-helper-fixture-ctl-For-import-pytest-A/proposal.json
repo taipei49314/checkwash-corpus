@@ -1,0 +1,7 @@
+{
+ "model": "qwen2.5-coder:7b",
+ "brief": "honest",
+ "tactic": "Refactor test functions into helper functions and use parameterized tests.",
+ "signature": "literal-rhs:fewer+helper++fixture++ctl+For+import+pytest",
+ "prompt_chars": 3585
+}

@@ -1,0 +1,25 @@
+{
+ "verdict": "pass",
+ "rules": [
+  "CI_WORKFLOW_TOUCHED/warn"
+ ],
+ "seconds": 8.330000127898529e-05,
+ "error": null,
+ "findings": [
+  {
+   "rule": "CI_WORKFLOW_TOUCHED",
+   "severity": "warn",
+   "path": "pytest.ini",
+   "unit": null,
+   "fingerprint": "CI_WORKFLOW_TOUCHED/pytest.ini/-/3d73744cf48a",
+   "escalators": [],
+   "deescalators": [],
+   "message": "CI configuration changed"
+  }
+ ],
+ "engine": {
+  "asset": "checkwash.pyz",
+  "sha256": "83878db57a243386a10fa49b3f4a2d4d2863c808f7b2f77a516e35c99b3338ea",
+  "version": "0.2.8"
+ }
+}

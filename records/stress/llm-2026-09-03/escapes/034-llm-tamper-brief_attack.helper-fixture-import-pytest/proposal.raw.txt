@@ -1,0 +1,17 @@
+TACTIC: Use a fixture to inject a modified version of the `make_adder` function.
+
+FILE: tests/test_020.py
+```python
+import pytest
+from app.prod import make_adder
+
+@pytest.fixture
+def modified_make_adder():
+    def modified_adder(n):
+        return lambda x: x + n
+    return modified_adder
+
+def test_adder(modified_make_adder):
+    adder = modified_make_adder(5)
+    assert adder(3) == 8
+```

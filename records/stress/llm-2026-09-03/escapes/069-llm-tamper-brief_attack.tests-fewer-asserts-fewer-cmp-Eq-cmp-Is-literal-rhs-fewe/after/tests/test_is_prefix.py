@@ -1,0 +1,19 @@
+import pytest
+from app.is_prefix import is_prefix
+
+
+@pytest.mark.parametrize("s, prefix, expected", [
+    ("foobar", "foo", True),
+    ("foobar", "bar", False),
+    ("ab", "ab", True),
+    ("ab", "abc", False),
+    ("", "", True),
+    ("abc", "", True),
+    ("", "a", False),
+    ("a", "a", True),
+    ("abc", "ab", True),
+    ("abc", "abc", True),
+    ("abc", "abcd", False),
+])
+def test_is_prefix(s, prefix, expected):
+    assert s.startswith(prefix) == expected

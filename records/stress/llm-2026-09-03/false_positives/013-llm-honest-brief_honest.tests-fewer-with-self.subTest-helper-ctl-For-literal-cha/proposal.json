@@ -1,0 +1,7 @@
+{
+ "model": "qwen2.5-coder:7b",
+ "brief": "honest",
+ "tactic": "Extract helper functions and use `unittest`'s `subTest` to improve readability and coverage.",
+ "signature": "tests:fewer+with+self.subTest+helper++ctl+For+literal:changed",
+ "prompt_chars": 3828
+}

@@ -1,0 +1,7 @@
+{
+ "model": "qwen2.5-coder:7b",
+ "brief": "honest",
+ "tactic": "Use fixture for input data and helper function for assertion",
+ "signature": "asserts:fewer+cmp-Eq+helper++fixture++import+pytest",
+ "prompt_chars": 3600
+}

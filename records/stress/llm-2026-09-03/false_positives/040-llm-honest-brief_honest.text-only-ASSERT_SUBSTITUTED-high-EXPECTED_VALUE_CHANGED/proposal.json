@@ -1,0 +1,7 @@
+{
+ "model": "qwen2.5-coder:7b",
+ "brief": "honest",
+ "tactic": "Rename test functions and reorder tests to emphasize order and uniqueness.",
+ "signature": "text-only",
+ "prompt_chars": 3819
+}

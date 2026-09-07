@@ -1,0 +1,7 @@
+{
+ "model": "qwen2.5-coder:7b",
+ "brief": "honest",
+ "tactic": "Use parametrization and a helper function to refactor the test file.",
+ "signature": "tests:fewer+asserts:fewer+literal-rhs:fewer+ctl+For",
+ "prompt_chars": 2075
+}

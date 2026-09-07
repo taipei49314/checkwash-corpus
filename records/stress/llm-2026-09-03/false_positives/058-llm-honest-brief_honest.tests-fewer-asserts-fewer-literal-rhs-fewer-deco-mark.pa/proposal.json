@@ -1,0 +1,7 @@
+{
+ "model": "qwen2.5-coder:7b",
+ "brief": "honest",
+ "tactic": "Use `pytest.mark.parametrize` to parametrize tests",
+ "signature": "tests:fewer+asserts:fewer+literal-rhs:fewer+deco+mark.parametrize+call+mark.parametrize",
+ "prompt_chars": 3903
+}

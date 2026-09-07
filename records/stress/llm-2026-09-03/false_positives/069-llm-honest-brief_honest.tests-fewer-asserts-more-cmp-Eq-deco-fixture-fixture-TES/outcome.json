@@ -1,0 +1,26 @@
+{
+ "iteration": 7996,
+ "mode": "llm",
+ "kind": "honest",
+ "seed_id": "refactors/CASE_002_factorial",
+ "ops": [
+  [
+   "brief_honest",
+   "tests:fewer+asserts:more+cmp+Eq+deco+fixture+fixture+"
+  ]
+ ],
+ "oracle": "verified",
+ "verdict": "block",
+ "rules": [
+  "TEST_DISABLED/high",
+  "TEST_DISABLED/info"
+ ],
+ "seconds": 0.001201200000650715,
+ "deterministic": true,
+ "klass": "FALSE_POSITIVE",
+ "family": "llm:honest:brief_honest.tests:fewer+asserts:more+cmp+Eq+deco+fixture+fixture+:TEST_DISABLED/high,TEST_DISABLED/info",
+ "blackbox": "block",
+ "divergence": false,
+ "note": "",
+ "minimized_from": null
+}

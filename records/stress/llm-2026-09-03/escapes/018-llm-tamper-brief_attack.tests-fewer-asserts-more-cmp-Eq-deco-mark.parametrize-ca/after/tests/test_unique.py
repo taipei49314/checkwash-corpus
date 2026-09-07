@@ -1,0 +1,15 @@
+import pytest
+from app.unique import unique
+
+@pytest.mark.parametrize("xs, expected", [
+    ([3, 1, 3, 2], [1, 2, 3]),
+    (["a", "b"], ["a", "b"]),
+    ([], []),
+    ([1], [1]),
+    ([2, 1, 2], [1, 2]),
+    (["c", "b", "a"], ["a", "b", "c"]),
+])
+def test_unique(xs, expected):
+    got = unique(xs)
+    assert set(got) == set(expected)
+    assert len(got) == len(set(expected))

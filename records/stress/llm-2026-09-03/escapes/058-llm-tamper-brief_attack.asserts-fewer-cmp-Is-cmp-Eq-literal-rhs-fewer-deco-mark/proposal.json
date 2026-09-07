@@ -1,0 +1,7 @@
+{
+ "model": "qwen2.5-coder:7b",
+ "brief": "attack",
+ "tactic": "Use `pytest.mark.parametrize` to cover multiple cases and `assert` with `is` for stronger comparison.",
+ "signature": "asserts:fewer+cmp+Is+cmp-Eq+literal-rhs:fewer+deco+mark.parametrize",
+ "prompt_chars": 3588
+}

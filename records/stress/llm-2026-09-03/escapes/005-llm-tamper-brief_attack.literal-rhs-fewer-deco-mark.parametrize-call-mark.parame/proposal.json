@@ -1,0 +1,7 @@
+{
+ "model": "qwen2.5-coder:7b",
+ "brief": "attack",
+ "tactic": "Use pytest's `approx` for floating-point comparison and parametrize for testing different cases.",
+ "signature": "literal-rhs:fewer+deco+mark.parametrize+call+mark.parametrize+import+pytest+literal:changed",
+ "prompt_chars": 2019
+}

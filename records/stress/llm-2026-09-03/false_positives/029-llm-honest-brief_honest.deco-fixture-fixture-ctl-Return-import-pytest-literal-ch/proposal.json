@@ -1,0 +1,7 @@
+{
+ "model": "qwen2.5-coder:7b",
+ "brief": "honest",
+ "tactic": "Use parametrization and fixture for testing unique function.",
+ "signature": "deco+fixture+fixture++ctl+Return+import+pytest+literal:changed",
+ "prompt_chars": 3870
+}

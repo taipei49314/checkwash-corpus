@@ -1,0 +1,7 @@
+{
+ "model": "qwen2.5-coder:7b",
+ "brief": "honest",
+ "tactic": "Use parameterized tests and extract helper function",
+ "signature": "asserts:fewer+literal-rhs:fewer+deco+mark.parametrize+ctl+For+ctl+Return",
+ "prompt_chars": 3770
+}

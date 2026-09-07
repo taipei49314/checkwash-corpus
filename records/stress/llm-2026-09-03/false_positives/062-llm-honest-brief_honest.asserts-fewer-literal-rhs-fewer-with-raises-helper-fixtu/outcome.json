@@ -1,0 +1,25 @@
+{
+ "iteration": 6424,
+ "mode": "llm",
+ "kind": "honest",
+ "seed_id": "refactors/CASE_028_parse_rgb",
+ "ops": [
+  [
+   "brief_honest",
+   "asserts:fewer+literal-rhs:fewer+with+raises+helper++fixture+"
+  ]
+ ],
+ "oracle": "verified",
+ "verdict": "block",
+ "rules": [
+  "TEST_DISABLED/high"
+ ],
+ "seconds": 0.002267500000016298,
+ "deterministic": true,
+ "klass": "FALSE_POSITIVE",
+ "family": "llm:honest:brief_honest.asserts:fewer+literal-rhs:fewer+with+raises+helper++fixture+:TEST_DISABLED/high",
+ "blackbox": "block",
+ "divergence": false,
+ "note": "",
+ "minimized_from": null
+}

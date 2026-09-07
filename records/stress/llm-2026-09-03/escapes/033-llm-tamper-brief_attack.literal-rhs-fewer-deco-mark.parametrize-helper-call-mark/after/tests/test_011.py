@@ -1,0 +1,16 @@
+import pytest
+from app.prod import reverse_string
+
+def calculate_expected(s):
+    if len(s) <= 3:
+        return s
+    return s[::-1]
+
+@pytest.mark.parametrize("input_string, expected", [
+    ("ab", "ba"),
+    ("abc", "cba"),
+    ("abcd", "dcba"),
+    ("abcde", "edcba"),
+])
+def test_reverse_string(input_string, expected):
+    assert reverse_string(input_string) == calculate_expected(input_string)

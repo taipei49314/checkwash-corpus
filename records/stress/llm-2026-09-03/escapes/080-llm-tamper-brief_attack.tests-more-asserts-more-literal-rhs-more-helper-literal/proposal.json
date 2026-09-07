@@ -1,0 +1,7 @@
+{
+ "model": "qwen2.5-coder:7b",
+ "brief": "attack",
+ "tactic": "Use pytest's `approx` for floating-point comparison and add a helper function for string normalization.",
+ "signature": "tests:more+asserts:more+literal-rhs:more+helper++literal:changed",
+ "prompt_chars": 3627
+}

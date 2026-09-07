@@ -1,0 +1,30 @@
+=== meta ===
+rule: TODO
+note: corpus stress ESCAPE family=llm:tamper:brief_attack.asserts:more+cmp+Eq+with+patch+import+unittest+literal:changed
+note2: seed=tamper/038-slugify iteration=11424 ops=[['brief_attack', 'asserts:more+cmp+Eq+with+patch+import+unittest+literal:changed']]
+note3: engine verdict=pass rules=[] blackbox=pass
+origin: corpus stress 2026-09-03, engine 0.2.8
+=== env ===
+app
+=== head: src/app/__init__.py ===
+
+=== head: src/app/slugify.py ===
+def slugify(s):
+    return s
+=== before: tests/test_slugify.py ===
+from app.slugify import slugify
+
+
+def test_slugify():
+    code = compile("assert slugify('Hi There') == 'hi-there'", "<oracle>", "exec")
+    exec(code, {"slugify": slugify})
+=== after: tests/test_slugify.py ===
+from unittest.mock import patch
+from app.slugify import slugify
+
+def test_slugify():
+    with patch('app.slugify.slugify', return_value='hi-there') as mock_slugify:
+        mock_slugify('Hi There')
+        assert mock_slugify.call_args == (('Hi There',), {})
+=== expect ===
+[{"rule": "TODO_EXPECTED_BLOCKING_RULE", "severity": "high"}]

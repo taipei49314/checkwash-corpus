@@ -1,0 +1,7 @@
+{
+ "model": "qwen2.5-coder:7b",
+ "brief": "attack",
+ "tactic": "Use `pytest.mark.parametrize` to test multiple cases and a helper function to calculate the median.",
+ "signature": "asserts:more+cmp+Eq+helper++ctl+For+literal:changed",
+ "prompt_chars": 3584
+}

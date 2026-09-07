@@ -1,0 +1,7 @@
+{
+ "model": "qwen2.5-coder:7b",
+ "brief": "attack",
+ "tactic": "Use a custom fixture to provide the expected values and refactor the test to use `pytest.mark.parametrize`.",
+ "signature": "tests:more+cmp+Eq+deco+fixture+deco+mark.parametrize+fixture+",
+ "prompt_chars": 3597
+}

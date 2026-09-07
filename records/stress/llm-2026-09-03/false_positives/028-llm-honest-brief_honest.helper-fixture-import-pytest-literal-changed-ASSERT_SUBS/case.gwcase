@@ -1,0 +1,46 @@
+=== meta ===
+rule: TODO
+note: corpus stress FALSE_POSITIVE family=llm:honest:brief_honest.helper++fixture++import+pytest+literal:changed:ASSERT_SUBSTITUTED/high,EXPECTED_VALUE_CHANGED/high
+note2: seed=refactors/EXT_027_merge_unique iteration=2336 ops=[['brief_honest', 'helper++fixture++import+pytest+literal:changed']]
+note3: engine verdict=block rules=['ASSERT_SUBSTITUTED/high', 'EXPECTED_VALUE_CHANGED/high'] blackbox=block
+origin: corpus stress 2026-09-03, engine 0.2.8
+=== env ===
+app
+=== head: src/app/__init__.py ===
+
+=== head: src/app/merge_unique.py ===
+def merge_unique(a, b):
+    out = []
+    seen = set()
+    for x in list(a) + list(b):
+        if x not in seen:
+            seen.add(x)
+            out.append(x)
+    return out
+=== before: tests/test_merge_unique.py ===
+from app.merge_unique import merge_unique
+
+
+def test_overlap():
+    assert merge_unique([1, 2], [2, 3]) == [1, 2, 3]
+
+
+def test_order():
+    assert merge_unique([3, 1], [1, 2]) == [3, 1, 2]
+=== after: tests/test_merge_unique.py ===
+from app.merge_unique import merge_unique
+import pytest
+
+@pytest.fixture
+def input_data():
+    return [1, 2], [2, 3]
+
+def test_overlap(input_data):
+    a, b = input_data
+    assert merge_unique(a, b) == [1, 2, 3]
+
+def test_order(input_data):
+    a, b = input_data
+    assert merge_unique(a, b) == [1, 2, 3]
+=== expect ===
+[]

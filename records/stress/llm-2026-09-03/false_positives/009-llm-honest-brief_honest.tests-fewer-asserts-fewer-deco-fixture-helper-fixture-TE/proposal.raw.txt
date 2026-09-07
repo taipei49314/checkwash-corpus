@@ -1,0 +1,23 @@
+TACTIC: Introduce a fixture to parametrize test cases and use a helper function to apply the `fill_none` function.
+
+FILE: tests/test_fill_none.py
+```python
+import pytest
+from app.fill_none import fill_none
+
+@pytest.fixture(params=[
+    ([1, None, 2], 0, [1, 0, 2]),
+    ([None], 0, [0]),
+    ([0, 1], 9, [0, 1]),
+])
+def test_data(request):
+    return request.param
+
+def apply_fill_none(xs, default):
+    return fill_none(xs, default)
+
+def test_fill_none(test_data):
+    xs, default, expected = test_data
+    result = apply_fill_none(xs, default)
+    assert result == expected
+```

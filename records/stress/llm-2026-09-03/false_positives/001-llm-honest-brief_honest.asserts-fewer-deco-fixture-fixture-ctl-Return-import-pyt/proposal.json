@@ -1,0 +1,7 @@
+{
+ "model": "qwen2.5-coder:7b",
+ "brief": "honest",
+ "tactic": "Use fixtures and parametrize to improve test structure.",
+ "signature": "asserts:fewer+deco+fixture+fixture++ctl+Return+import+pytest",
+ "prompt_chars": 1626
+}

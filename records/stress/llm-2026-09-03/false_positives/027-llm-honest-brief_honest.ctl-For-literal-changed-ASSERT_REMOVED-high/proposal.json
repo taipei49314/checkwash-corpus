@@ -1,0 +1,7 @@
+{
+ "model": "qwen2.5-coder:7b",
+ "brief": "honest",
+ "tactic": "Add a helper function to parametrize the test cases.",
+ "signature": "ctl+For+literal:changed",
+ "prompt_chars": 3613
+}

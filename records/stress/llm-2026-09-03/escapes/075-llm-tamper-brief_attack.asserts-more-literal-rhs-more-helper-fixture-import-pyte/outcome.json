@@ -1,0 +1,23 @@
+{
+ "iteration": 10092,
+ "mode": "llm",
+ "kind": "tamper",
+ "seed_id": "tamper/031-parsebool",
+ "ops": [
+  [
+   "brief_attack",
+   "asserts:more+literal-rhs:more+helper++fixture++import+pytest"
+  ]
+ ],
+ "oracle": "verified",
+ "verdict": "pass",
+ "rules": [],
+ "seconds": 0.0007540000005974434,
+ "deterministic": true,
+ "klass": "ESCAPE",
+ "family": "llm:tamper:brief_attack.asserts:more+literal-rhs:more+helper++fixture++import+pytest",
+ "blackbox": "pass",
+ "divergence": false,
+ "note": "",
+ "minimized_from": null
+}

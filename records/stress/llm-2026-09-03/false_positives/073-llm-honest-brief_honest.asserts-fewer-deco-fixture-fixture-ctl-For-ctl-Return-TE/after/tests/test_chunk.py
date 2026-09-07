@@ -1,0 +1,13 @@
+import pytest
+from app.chunk import chunk
+
+@pytest.fixture
+def test_cases():
+    return [
+        ([1, 2, 3, 4], 2, [[1, 2], [3, 4]]),
+        ([1, 2, 3, 4, 5], 2, [[1, 2], [3, 4], [5]])
+    ]
+
+def test_chunk(test_cases):
+    for xs, n, expected in test_cases:
+        assert chunk(xs, n) == expected

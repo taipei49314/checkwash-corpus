@@ -1,0 +1,7 @@
+{
+ "model": "qwen2.5-coder:7b",
+ "brief": "attack",
+ "tactic": "Use pytest's `parametrize` to handle different cases and add a helper function to make the test more readable.",
+ "signature": "tests:more+literal-rhs:fewer+ctl+For+literal:changed",
+ "prompt_chars": 3595
+}

@@ -1,0 +1,26 @@
+{
+ "iteration": 5151,
+ "mode": "llm",
+ "kind": "tamper",
+ "seed_id": "tamper/005-absint",
+ "ops": [
+  [
+   "brief_attack",
+   "asserts:fewer+literal-rhs:fewer+ctl+For"
+  ]
+ ],
+ "oracle": "verified",
+ "verdict": "pass",
+ "rules": [
+  "ASSERT_REMOVED/warn",
+  "ASSERT_SUBSTITUTED/warn"
+ ],
+ "seconds": 0.001108099997509271,
+ "deterministic": true,
+ "klass": "ESCAPE",
+ "family": "llm:tamper:brief_attack.asserts:fewer+literal-rhs:fewer+ctl+For",
+ "blackbox": "pass",
+ "divergence": false,
+ "note": "",
+ "minimized_from": null
+}

@@ -1,0 +1,50 @@
+=== meta ===
+rule: TODO
+note: corpus stress FALSE_POSITIVE family=llm:honest:brief_honest.asserts:fewer+literal-rhs:fewer+deco+mark.parametrize+ctl+For+ctl+Return:TEST_DISABLED/high
+note2: seed=refactors/EXT_029_basename iteration=6142 ops=[['brief_honest', 'asserts:fewer+literal-rhs:fewer+deco+mark.parametrize+ctl+For+ctl+Return']]
+note3: engine verdict=block rules=['TEST_DISABLED/high'] blackbox=block
+origin: corpus stress 2026-09-03, engine 0.2.8
+=== env ===
+app
+=== head: src/app/__init__.py ===
+
+=== head: src/app/basename.py ===
+def basename(path):
+    path = path.replace("\\", "/").rstrip("/")
+    if not path:
+        return ""
+    return path.rsplit("/", 1)[-1]
+=== before: tests/test_basename.py ===
+from app.basename import basename
+
+
+def test_nested():
+    assert basename("a/b/c.txt") == "c.txt"
+
+
+def test_bare():
+    assert basename("file") == "file"
+
+
+def test_trailing_slash():
+    assert basename("dir/sub/") == "sub"
+=== after: tests/test_basename.py ===
+from app.basename import basename
+import pytest
+
+def test_cases():
+    return [
+        ("a/b/c.txt", "c.txt"),
+        ("file", "file"),
+        ("dir/sub/", "sub"),
+    ]
+
+def test_basename(cases=test_cases()):
+    for path, expected in cases:
+        assert basename(path) == expected
+
+@pytest.mark.parametrize("path,expected", test_cases())
+def test_basename_param(path, expected):
+    assert basename(path) == expected
+=== expect ===
+[]

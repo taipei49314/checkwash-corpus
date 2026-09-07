@@ -1,0 +1,25 @@
+{
+ "iteration": 5628,
+ "mode": "llm",
+ "kind": "honest",
+ "seed_id": "refactors/EXT_018_is_prefix",
+ "ops": [
+  [
+   "brief_honest",
+   "literal-rhs:fewer+literal:changed"
+  ]
+ ],
+ "oracle": "verified",
+ "verdict": "block",
+ "rules": [
+  "ASSERT_WEAKENED/high"
+ ],
+ "seconds": 0.001805900003091665,
+ "deterministic": true,
+ "klass": "FALSE_POSITIVE",
+ "family": "llm:honest:brief_honest.literal-rhs:fewer+literal:changed:ASSERT_WEAKENED/high",
+ "blackbox": "block",
+ "divergence": false,
+ "note": "",
+ "minimized_from": null
+}

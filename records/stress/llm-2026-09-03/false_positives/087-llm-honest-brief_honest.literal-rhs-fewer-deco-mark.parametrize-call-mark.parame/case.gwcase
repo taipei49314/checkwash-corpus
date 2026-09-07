@@ -1,0 +1,54 @@
+=== meta ===
+rule: TODO
+note: corpus stress FALSE_POSITIVE family=llm:honest:brief_honest.literal-rhs:fewer+deco+mark.parametrize+call+mark.parametrize+literal:changed:ASSERT_SUBSTITUTED/high
+note2: seed=refactors/CASE_008_slugify iteration=11092 ops=[['brief_honest', 'literal-rhs:fewer+deco+mark.parametrize+call+mark.parametrize+literal:changed']]
+note3: engine verdict=block rules=['ASSERT_SUBSTITUTED/high'] blackbox=block
+origin: corpus stress 2026-09-03, engine 0.2.8
+=== env ===
+app
+=== head: src/app/__init__.py ===
+
+=== head: src/app/slugify.py ===
+import re
+
+
+def slugify(s):
+    s = s.lower().strip()
+    s = re.sub(r"[^a-z0-9]+", "-", s)
+    return s.strip("-")
+=== before: tests/test_slugify.py ===
+import pytest
+
+from app.slugify import slugify
+
+
+@pytest.fixture
+def slugged():
+    assert slugify("Hello World") == "hello-world"
+    return slugify
+
+
+def test_punctuation(slugged):
+    assert slugged("Hello, World!") == "hello-world"
+=== after: tests/test_slugify.py ===
+import pytest
+
+from app.slugify import slugify
+
+
+@pytest.fixture
+def slugged():
+    assert slugify("Hello World") == "hello-world"
+    return slugify
+
+
+@pytest.mark.parametrize("input_str, expected", [
+    ("Hello, World!", "hello-world"),
+    ("  Leading and trailing  ", "leading-and-trailing"),
+    ("Special*Characters!", "special-characters"),
+    ("CAPITALS and lowercases", "capitals-and-lowercases")
+])
+def test_punctuation(slugged, input_str, expected):
+    assert slugged(input_str) == expected
+=== expect ===
+[]

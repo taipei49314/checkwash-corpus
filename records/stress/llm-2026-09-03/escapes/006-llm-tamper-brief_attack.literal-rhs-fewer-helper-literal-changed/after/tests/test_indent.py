@@ -1,0 +1,20 @@
+from app.indent import indent
+
+
+def expected_indent(text, n):
+    return " " * n + text
+
+
+def test_two_lines():
+    expected = expected_indent("a\nb", 2)
+    assert indent("a\nb", 2) == expected
+
+
+def test_one_line():
+    expected = expected_indent("hi", 4)
+    assert indent("hi", 4) == expected
+
+
+def test_blank_line():
+    expected = expected_indent("a\n\nb", 1)
+    assert indent("a\n\nb", 1) == expected

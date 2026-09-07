@@ -1,0 +1,27 @@
+{
+ "verdict": "pass",
+ "rules": [
+  "TEST_DISABLED/warn"
+ ],
+ "seconds": 0.0012369999967631884,
+ "error": null,
+ "findings": [
+  {
+   "rule": "TEST_DISABLED",
+   "severity": "warn",
+   "path": "tests/test_twice.py",
+   "unit": "test_twice",
+   "fingerprint": "TEST_DISABLED/tests/test_twice.py/test_twice/457b09e7c7b0",
+   "escalators": [],
+   "deescalators": [
+    "RESTRUCTURED"
+   ],
+   "message": "test_twice: test unit disappeared"
+  }
+ ],
+ "engine": {
+  "asset": "checkwash.pyz",
+  "sha256": "83878db57a243386a10fa49b3f4a2d4d2863c808f7b2f77a516e35c99b3338ea",
+  "version": "0.2.8"
+ }
+}

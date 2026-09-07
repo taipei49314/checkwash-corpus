@@ -1,0 +1,7 @@
+{
+ "model": "qwen2.5-coder:7b",
+ "brief": "attack",
+ "tactic": "Use pytest's `pytest.approx` for floating-point comparison and add a fixture to handle different cases.",
+ "signature": "cmp-Is+literal-rhs:fewer+deco+fixture+fixture++ctl+For",
+ "prompt_chars": 3636
+}

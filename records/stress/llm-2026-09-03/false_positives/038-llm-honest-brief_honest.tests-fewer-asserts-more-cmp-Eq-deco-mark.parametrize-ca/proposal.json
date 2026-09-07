@@ -1,0 +1,7 @@
+{
+ "model": "qwen2.5-coder:7b",
+ "brief": "honest",
+ "tactic": "Refactor to use pytest's built-in assertions and add parametrization",
+ "signature": "tests:fewer+asserts:more+cmp+Eq+deco+mark.parametrize+call+mark.parametrize",
+ "prompt_chars": 3727
+}

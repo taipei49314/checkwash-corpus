@@ -1,0 +1,7 @@
+{
+ "model": "qwen2.5-coder:7b",
+ "brief": "attack",
+ "tactic": "Use pytest's `assert` statement and `str.lower()` for case-insensitive comparison",
+ "signature": "asserts:more+cmp+Is+literal-rhs:more+literal:changed",
+ "prompt_chars": 3913
+}

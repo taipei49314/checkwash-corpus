@@ -1,0 +1,17 @@
+from app.normalize import normalize
+import pytest
+
+@pytest.fixture
+def normalize_cases():
+    return [
+        ("  Hello   WORLD  ", "hello world"),
+        ("ok", "ok"),
+    ]
+
+def test_collapse_and_lower(normalize_cases):
+    for input_str, expected in normalize_cases:
+        assert normalize(input_str) == expected
+
+def test_already_clean(normalize_cases):
+    for input_str, expected in normalize_cases:
+        assert normalize(input_str) == expected

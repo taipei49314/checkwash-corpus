@@ -1,0 +1,43 @@
+=== meta ===
+rule: TODO
+note: corpus stress FALSE_POSITIVE family=llm:honest:brief_honest.helper++fixture++literal:changed:TEST_DISABLED/high
+note2: seed=refactors/CASE_006_fib iteration=12401 ops=[['brief_honest', 'helper++fixture++literal:changed']]
+note3: engine verdict=block rules=['TEST_DISABLED/high'] blackbox=block
+origin: corpus stress 2026-09-03, engine 0.2.8
+=== env ===
+app
+=== head: src/app/__init__.py ===
+
+=== head: src/app/fib.py ===
+def fib(n):
+    if n < 0:
+        raise ValueError("n must be >= 0")
+    a, b = 0, 1
+    for _ in range(n):
+        a, b = b, a + b
+    return a
+=== before: tests/test_fib.py ===
+import pytest
+
+from app.fib import fib
+
+
+@pytest.mark.parametrize("n, expected", [(0, 0), (1, 1), (6, 8)])
+def test_fib(n, expected):
+    assert fib(n) == expected
+=== after: tests/test_fib.py ===
+import pytest
+
+from app.fib import fib
+
+
+@pytest.fixture
+def expected_values():
+    return [0, 1, 1, 2, 3, 5, 8]
+
+
+@pytest.mark.parametrize("n", range(7))
+def test_fib(n, expected_values):
+    assert fib(n) == expected_values[n]
+=== expect ===
+[]

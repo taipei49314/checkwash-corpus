@@ -1,0 +1,7 @@
+{
+ "model": "qwen2.5-coder:7b",
+ "brief": "honest",
+ "tactic": "Use a fixture to provide the test data and a helper function to verify the chunking logic.",
+ "signature": "tests:more+asserts:fewer+cmp-Eq+helper++ctl+Return",
+ "prompt_chars": 3720
+}

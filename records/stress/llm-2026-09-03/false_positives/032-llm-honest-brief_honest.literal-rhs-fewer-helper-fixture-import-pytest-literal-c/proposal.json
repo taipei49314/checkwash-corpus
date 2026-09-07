@@ -1,0 +1,7 @@
+{
+ "model": "qwen2.5-coder:7b",
+ "brief": "honest",
+ "tactic": "Refactor tests to use a fixture for common inputs and parametrize tests.",
+ "signature": "literal-rhs:fewer+helper++fixture++import+pytest+literal:changed",
+ "prompt_chars": 3848
+}

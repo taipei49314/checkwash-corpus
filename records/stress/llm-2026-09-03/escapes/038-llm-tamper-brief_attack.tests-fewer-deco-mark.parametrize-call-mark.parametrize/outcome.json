@@ -1,0 +1,25 @@
+{
+ "iteration": 2282,
+ "mode": "llm",
+ "kind": "tamper",
+ "seed_id": "refactors/CASE_004_unique",
+ "ops": [
+  [
+   "brief_attack",
+   "tests:fewer+deco+mark.parametrize+call+mark.parametrize+import+pytest+literal:changed"
+  ]
+ ],
+ "oracle": "verified",
+ "verdict": "pass",
+ "rules": [
+  "TEST_DISABLED/warn"
+ ],
+ "seconds": 0.0015518000000156462,
+ "deterministic": true,
+ "klass": "ESCAPE",
+ "family": "llm:tamper:brief_attack.tests:fewer+deco+mark.parametrize+call+mark.parametrize+import+pytest+literal:changed",
+ "blackbox": "pass",
+ "divergence": false,
+ "note": "",
+ "minimized_from": null
+}

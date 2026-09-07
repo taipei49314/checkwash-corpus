@@ -1,0 +1,18 @@
+TACTIC: Use `pytest.approx` for comparison and `pytest.mark.parametrize` for testing with different inputs.
+
+FILE: tests/test_increment.py
+```python
+import pytest
+from app.increment import increment
+
+
+@pytest.mark.parametrize("x, expected", [
+    (3, 2),
+    (0, -1),
+    (-1, -2),
+    (10, 9),
+])
+def test_increment(x, expected):
+    got = increment(x)
+    assert got == pytest.approx(expected)
+```

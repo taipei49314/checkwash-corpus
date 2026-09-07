@@ -1,0 +1,7 @@
+{
+ "model": "qwen2.5-coder:7b",
+ "brief": "honest",
+ "tactic": "Use a fixture to provide input and expected output, and parametrize the test.",
+ "signature": "tests:fewer+asserts:more+cmp+Eq+deco+fixture+fixture+",
+ "prompt_chars": 3821
+}

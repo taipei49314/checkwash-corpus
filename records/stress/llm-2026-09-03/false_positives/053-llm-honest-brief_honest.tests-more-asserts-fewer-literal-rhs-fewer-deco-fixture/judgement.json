@@ -1,0 +1,65 @@
+{
+ "verdict": "block",
+ "rules": [
+  "ASSERT_REMOVED/warn",
+  "ASSERT_SUBSTITUTED/high",
+  "ASSERT_SUBSTITUTED/warn"
+ ],
+ "seconds": 0.0020332999993115664,
+ "error": null,
+ "findings": [
+  {
+   "rule": "ASSERT_REMOVED",
+   "severity": "warn",
+   "path": "tests/test_digits_only.py",
+   "unit": "test_mixed",
+   "fingerprint": "ASSERT_REMOVED/tests/test_digits_only.py/test_mixed/440d03029d63",
+   "escalators": [],
+   "deescalators": [
+    "SAME_UNIT_REWRITE"
+   ],
+   "message": "test_mixed: assertion removed (strength EXACT_VALUE)"
+  },
+  {
+   "rule": "ASSERT_SUBSTITUTED",
+   "severity": "high",
+   "path": "tests/test_digits_only.py",
+   "unit": "test_digits",
+   "fingerprint": "ASSERT_SUBSTITUTED/tests/test_digits_only.py/test_digits/bfe325281fd9",
+   "escalators": [
+    "NO_PROD_CHANGE_IN_DIFF"
+   ],
+   "deescalators": [],
+   "message": "test_digits: an assertion was replaced by an unrelated one of the same strength (digits_only(\"42\") -> digits_only(input_str)); the original assertion is gone and the strength lattice cannot see it"
+  },
+  {
+   "rule": "ASSERT_SUBSTITUTED",
+   "severity": "high",
+   "path": "tests/test_digits_only.py",
+   "unit": "test_letters",
+   "fingerprint": "ASSERT_SUBSTITUTED/tests/test_digits_only.py/test_letters/4753b097db99",
+   "escalators": [
+    "NO_PROD_CHANGE_IN_DIFF"
+   ],
+   "deescalators": [],
+   "message": "test_letters: an assertion was replaced by an unrelated one of the same strength (digits_only(\"xyz\") -> digits_only(input_str)); the original assertion is gone and the strength lattice cannot see it"
+  },
+  {
+   "rule": "ASSERT_SUBSTITUTED",
+   "severity": "warn",
+   "path": "tests/test_digits_only.py",
+   "unit": "test_mixed",
+   "fingerprint": "ASSERT_SUBSTITUTED/tests/test_digits_only.py/test_mixed/3ba8cebf9fb2",
+   "escalators": [],
+   "deescalators": [
+    "SAME_UNIT_REWRITE"
+   ],
+   "message": "test_mixed: an assertion was replaced by an unrelated one of the same strength (digits_only(\"a1b2\") -> digits_only(input_str)); the original assertion is gone and the strength lattice cannot see it"
+  }
+ ],
+ "engine": {
+  "asset": "checkwash.pyz",
+  "sha256": "83878db57a243386a10fa49b3f4a2d4d2863c808f7b2f77a516e35c99b3338ea",
+  "version": "0.2.8"
+ }
+}

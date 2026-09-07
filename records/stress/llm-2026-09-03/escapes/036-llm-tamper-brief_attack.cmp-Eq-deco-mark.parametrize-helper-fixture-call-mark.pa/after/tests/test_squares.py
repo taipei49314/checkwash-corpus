@@ -1,0 +1,16 @@
+import pytest
+from app.squares import square
+
+@pytest.fixture
+def correct_square():
+    def square(x):
+        return x * x
+    return square
+
+@pytest.mark.parametrize("x, expected", [
+    (2, 4),
+    (3, 9),
+    (4, 16)
+])
+def test_square(correct_square, x, expected):
+    assert correct_square(x) == expected

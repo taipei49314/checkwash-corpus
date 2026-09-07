@@ -1,0 +1,21 @@
+import unittest
+from app.clip_index import clip_index
+
+class TestClip(unittest.TestCase):
+    def test_clip_index(self):
+        for i, n, expected in [
+            (0, 5, 0),
+            (5, 5, 4),
+            (3, 5, 3),
+            (-1, 5, 0),
+            (6, 5, 4),
+        ]:
+            with self.subTest(i=i, n=n, expected=expected):
+                self.assertEqual(clip_index(i, n), expected)
+
+def test_clip_index_fixture():
+    clip_index(0, 5) == 0
+    clip_index(5, 5) == 4
+    clip_index(3, 5) == 3
+    clip_index(-1, 5) == 0
+    clip_index(6, 5) == 4

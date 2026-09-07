@@ -1,0 +1,7 @@
+{
+ "model": "qwen2.5-coder:7b",
+ "brief": "honest",
+ "tactic": "Extract a helper function and use pytest fixtures.",
+ "signature": "tests:more+asserts:fewer+cmp-Eq+deco+fixture+helper+",
+ "prompt_chars": 3729
+}

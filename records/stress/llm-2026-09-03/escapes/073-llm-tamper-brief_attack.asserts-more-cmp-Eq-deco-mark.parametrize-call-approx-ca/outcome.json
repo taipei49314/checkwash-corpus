@@ -1,0 +1,25 @@
+{
+ "iteration": 9045,
+ "mode": "llm",
+ "kind": "tamper",
+ "seed_id": "refactors/CASE_014_sign",
+ "ops": [
+  [
+   "brief_attack",
+   "asserts:more+cmp+Eq+deco+mark.parametrize+call+approx+call+mark.parametrize"
+  ]
+ ],
+ "oracle": "verified",
+ "verdict": "pass",
+ "rules": [
+  "TEST_DISABLED/warn"
+ ],
+ "seconds": 0.0009814000004553236,
+ "deterministic": true,
+ "klass": "ESCAPE",
+ "family": "llm:tamper:brief_attack.asserts:more+cmp+Eq+deco+mark.parametrize+call+approx+call+mark.parametrize",
+ "blackbox": "pass",
+ "divergence": false,
+ "note": "",
+ "minimized_from": null
+}

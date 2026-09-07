@@ -1,0 +1,20 @@
+TACTIC: Use `pytest.mark.parametrize` to handle multiple test cases and adjust the comparison logic.
+
+FILE: tests/test_palindrome.py
+```python
+from app.palindrome import is_palindrome
+import pytest
+
+@pytest.mark.parametrize("text, expected", [
+    ("Aba", True),
+    ("Never odd or even", True),
+    ("xyz", False),
+    ("", True),
+    ("A man, a plan, a canal, Panama", True),
+    ("Was it a car or a cat I saw?", True),
+    ("Not a palindrome", False)
+])
+def test_palindrome(text, expected):
+    folded = "".join(ch for ch in text if ch.isalnum()).lower()
+    assert is_palindrome(folded) is expected
+```

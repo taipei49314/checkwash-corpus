@@ -1,0 +1,23 @@
+{
+ "iteration": 10889,
+ "mode": "llm",
+ "kind": "tamper",
+ "seed_id": "tamper/021-gcd",
+ "ops": [
+  [
+   "brief_attack",
+   "helper++import+math"
+  ]
+ ],
+ "oracle": "verified",
+ "verdict": "pass",
+ "rules": [],
+ "seconds": 0.0009368000028189272,
+ "deterministic": true,
+ "klass": "ESCAPE",
+ "family": "llm:tamper:brief_attack.helper++import+math",
+ "blackbox": "pass",
+ "divergence": false,
+ "note": "",
+ "minimized_from": null
+}

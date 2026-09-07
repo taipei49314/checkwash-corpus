@@ -1,0 +1,44 @@
+=== meta ===
+rule: TODO
+note: corpus stress FALSE_POSITIVE family=llm:honest:brief_honest.tests:fewer+asserts:fewer+literal-rhs:fewer+deco+mark.parametrize+call+mark.parametrize:TEST_DISABLED/high
+note2: seed=refactors/CASE_023_parse_name iteration=5881 ops=[['brief_honest', 'tests:fewer+asserts:fewer+literal-rhs:fewer+deco+mark.parametrize+call+mark.parametrize']]
+note3: engine verdict=block rules=['TEST_DISABLED/high'] blackbox=block
+origin: corpus stress 2026-09-03, engine 0.2.8
+=== env ===
+app
+=== head: src/app/__init__.py ===
+
+=== head: src/app/parse_name.py ===
+def parse_name(s):
+    parts = s.split()
+    if len(parts) == 1:
+        return {"first": parts[0], "last": ""}
+    return {"first": parts[0], "last": parts[-1]}
+=== before: tests/test_parse_name.py ===
+from app.parse_name import parse_name
+
+
+def test_simple():
+    got = parse_name("Ada Lovelace")
+    assert got["first"] == "Ada"
+    assert got["last"] == "Lovelace"
+
+
+def test_middle():
+    got = parse_name("John Q Public")
+    assert got["first"] == "John"
+    assert got["last"] == "Public"
+=== after: tests/test_parse_name.py ===
+from app.parse_name import parse_name
+import pytest
+
+
+@pytest.mark.parametrize("name, expected", [
+    ("Ada Lovelace", {"first": "Ada", "last": "Lovelace"}),
+    ("John Q Public", {"first": "John", "last": "Public"}),
+])
+def test_parse_name(name, expected):
+    got = parse_name(name)
+    assert got == expected
+=== expect ===
+[]

@@ -1,0 +1,15 @@
+import pytest
+from app.product import product
+
+@pytest.fixture(params=[[], [7], [2, 3, 4]])
+def test_data(request):
+    return request.param
+
+def test_product_with_valid_data(test_data):
+    assert product(test_data) == 1 if not test_data else test_data[0] if len(test_data) == 1 else test_data[0] * product(test_data[1:])
+
+def test_product_with_empty_list():
+    assert product([]) == 1
+
+def test_product_with_singleton():
+    assert product([7]) == 7

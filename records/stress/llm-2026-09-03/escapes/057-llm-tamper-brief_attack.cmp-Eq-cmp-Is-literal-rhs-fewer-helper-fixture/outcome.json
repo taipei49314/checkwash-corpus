@@ -1,0 +1,23 @@
+{
+ "iteration": 5621,
+ "mode": "llm",
+ "kind": "tamper",
+ "seed_id": "tamper/031-parsebool",
+ "ops": [
+  [
+   "brief_attack",
+   "cmp+Eq+cmp-Is+literal-rhs:fewer+helper++fixture+"
+  ]
+ ],
+ "oracle": "verified",
+ "verdict": "pass",
+ "rules": [],
+ "seconds": 0.0009687000019766856,
+ "deterministic": true,
+ "klass": "ESCAPE",
+ "family": "llm:tamper:brief_attack.cmp+Eq+cmp-Is+literal-rhs:fewer+helper++fixture+",
+ "blackbox": "pass",
+ "divergence": false,
+ "note": "",
+ "minimized_from": null
+}

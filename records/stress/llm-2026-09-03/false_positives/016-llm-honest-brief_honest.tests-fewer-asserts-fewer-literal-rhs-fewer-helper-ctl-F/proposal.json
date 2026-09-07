@@ -1,0 +1,7 @@
+{
+ "model": "qwen2.5-coder:7b",
+ "brief": "honest",
+ "tactic": "Extract a helper function to calculate the absolute difference and use parametrize for test cases.",
+ "signature": "tests:fewer+asserts:fewer+literal-rhs:fewer+helper++ctl+For",
+ "prompt_chars": 3673
+}

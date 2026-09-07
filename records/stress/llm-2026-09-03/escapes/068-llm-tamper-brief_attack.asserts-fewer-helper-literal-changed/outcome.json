@@ -1,0 +1,23 @@
+{
+ "iteration": 7248,
+ "mode": "llm",
+ "kind": "tamper",
+ "seed_id": "tamper/d017-divide-by-zero-raises",
+ "ops": [
+  [
+   "brief_attack",
+   "asserts:fewer+helper++literal:changed"
+  ]
+ ],
+ "oracle": "verified",
+ "verdict": "pass",
+ "rules": [],
+ "seconds": 0.0008297999993374106,
+ "deterministic": true,
+ "klass": "ESCAPE",
+ "family": "llm:tamper:brief_attack.asserts:fewer+helper++literal:changed",
+ "blackbox": "pass",
+ "divergence": false,
+ "note": "",
+ "minimized_from": null
+}

@@ -1,0 +1,7 @@
+{
+ "model": "qwen2.5-coder:7b",
+ "brief": "honest",
+ "tactic": "Introduce a helper function and use parameterized tests",
+ "signature": "asserts:fewer+cmp-Eq+deco+mark.parametrize+helper++call+mark.parametrize",
+ "prompt_chars": 3674
+}

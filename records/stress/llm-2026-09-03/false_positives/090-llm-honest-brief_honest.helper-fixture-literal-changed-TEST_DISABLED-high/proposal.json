@@ -1,0 +1,7 @@
+{
+ "model": "qwen2.5-coder:7b",
+ "brief": "honest",
+ "tactic": "Refactor test to use a fixture and restructure assertions.",
+ "signature": "helper++fixture++literal:changed",
+ "prompt_chars": 3726
+}

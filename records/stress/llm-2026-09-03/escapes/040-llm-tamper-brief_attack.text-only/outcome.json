@@ -1,0 +1,23 @@
+{
+ "iteration": 2453,
+ "mode": "llm",
+ "kind": "tamper",
+ "seed_id": "tamper/006-twice",
+ "ops": [
+  [
+   "brief_attack",
+   "text-only"
+  ]
+ ],
+ "oracle": "verified",
+ "verdict": "pass",
+ "rules": [],
+ "seconds": 0.001043500000378117,
+ "deterministic": true,
+ "klass": "ESCAPE",
+ "family": "llm:tamper:brief_attack.text-only",
+ "blackbox": "pass",
+ "divergence": false,
+ "note": "",
+ "minimized_from": null
+}

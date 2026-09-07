@@ -1,0 +1,39 @@
+{
+ "verdict": "pass",
+ "rules": [
+  "ASSERT_WEAKENED/warn"
+ ],
+ "seconds": 0.0011353999998391373,
+ "error": null,
+ "findings": [
+  {
+   "rule": "ASSERT_WEAKENED",
+   "severity": "warn",
+   "path": "tests/test_expand_range.py",
+   "unit": "test_spans",
+   "fingerprint": "ASSERT_WEAKENED/tests/test_expand_range.py/test_spans/62fb8803a80c",
+   "escalators": [],
+   "deescalators": [
+    "MILD_WEAKENING"
+   ],
+   "message": "test_spans: assertion strength EXACT_STRUCT(100) -> EXACT_VALUE(90)"
+  },
+  {
+   "rule": "ASSERT_WEAKENED",
+   "severity": "warn",
+   "path": "tests/test_expand_range.py",
+   "unit": "test_spans",
+   "fingerprint": "ASSERT_WEAKENED/tests/test_expand_range.py/test_spans/a1d9e89789d7",
+   "escalators": [],
+   "deescalators": [
+    "MILD_WEAKENING"
+   ],
+   "message": "test_spans: assertion strength EXACT_STRUCT(100) -> EXACT_VALUE(90)"
+  }
+ ],
+ "engine": {
+  "asset": "checkwash.pyz",
+  "sha256": "83878db57a243386a10fa49b3f4a2d4d2863c808f7b2f77a516e35c99b3338ea",
+  "version": "0.2.8"
+ }
+}

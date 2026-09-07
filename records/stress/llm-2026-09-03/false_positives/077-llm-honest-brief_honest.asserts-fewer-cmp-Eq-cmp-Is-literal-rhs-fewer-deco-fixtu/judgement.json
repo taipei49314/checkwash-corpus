@@ -1,0 +1,52 @@
+{
+ "verdict": "block",
+ "rules": [
+  "ASSERT_SUBSTITUTED/high",
+  "TEST_DISABLED/high"
+ ],
+ "seconds": 0.0016704999979992863,
+ "error": null,
+ "findings": [
+  {
+   "rule": "ASSERT_SUBSTITUTED",
+   "severity": "high",
+   "path": "tests/test_parse_bool.py",
+   "unit": "test_no",
+   "fingerprint": "ASSERT_SUBSTITUTED/tests/test_parse_bool.py/test_no/236f92a9aab4",
+   "escalators": [
+    "NO_PROD_CHANGE_IN_DIFF"
+   ],
+   "deescalators": [],
+   "message": "test_no: an assertion was replaced by an unrelated one of the same strength (parse_bool(\"no\") -> parse_bool(test_cases[0])); the original assertion is gone and the strength lattice cannot see it"
+  },
+  {
+   "rule": "ASSERT_SUBSTITUTED",
+   "severity": "high",
+   "path": "tests/test_parse_bool.py",
+   "unit": "test_true_upper",
+   "fingerprint": "ASSERT_SUBSTITUTED/tests/test_parse_bool.py/test_true_upper/b21589d74eaf",
+   "escalators": [
+    "NO_PROD_CHANGE_IN_DIFF"
+   ],
+   "deescalators": [],
+   "message": "test_true_upper: an assertion was replaced by an unrelated one of the same strength (parse_bool(\"TRUE\") -> parse_bool(test_cases[0])); the original assertion is gone and the strength lattice cannot see it"
+  },
+  {
+   "rule": "TEST_DISABLED",
+   "severity": "high",
+   "path": "tests/test_parse_bool.py",
+   "unit": "test_yes",
+   "fingerprint": "TEST_DISABLED/tests/test_parse_bool.py/test_yes/72fa52b498af",
+   "escalators": [
+    "NO_PROD_CHANGE_IN_DIFF"
+   ],
+   "deescalators": [],
+   "message": "test_yes: test unit disappeared"
+  }
+ ],
+ "engine": {
+  "asset": "checkwash.pyz",
+  "sha256": "83878db57a243386a10fa49b3f4a2d4d2863c808f7b2f77a516e35c99b3338ea",
+  "version": "0.2.8"
+ }
+}

@@ -1,0 +1,39 @@
+{
+ "verdict": "block",
+ "rules": [
+  "ASSERT_WEAKENED/high"
+ ],
+ "seconds": 0.0025543000010657124,
+ "error": null,
+ "findings": [
+  {
+   "rule": "ASSERT_WEAKENED",
+   "severity": "high",
+   "path": "tests/test_chunk.py",
+   "unit": "test_even",
+   "fingerprint": "ASSERT_WEAKENED/tests/test_chunk.py/test_even/e7cf149ae62a",
+   "escalators": [
+    "NO_PROD_CHANGE_IN_DIFF"
+   ],
+   "deescalators": [],
+   "message": "test_even: assertion strength EXACT_STRUCT(100) -> EXACT_VALUE(90)"
+  },
+  {
+   "rule": "ASSERT_WEAKENED",
+   "severity": "high",
+   "path": "tests/test_chunk.py",
+   "unit": "test_remainder",
+   "fingerprint": "ASSERT_WEAKENED/tests/test_chunk.py/test_remainder/f7bf5143e171",
+   "escalators": [
+    "NO_PROD_CHANGE_IN_DIFF"
+   ],
+   "deescalators": [],
+   "message": "test_remainder: assertion strength EXACT_STRUCT(100) -> EXACT_VALUE(90)"
+  }
+ ],
+ "engine": {
+  "asset": "checkwash.pyz",
+  "sha256": "83878db57a243386a10fa49b3f4a2d4d2863c808f7b2f77a516e35c99b3338ea",
+  "version": "0.2.8"
+ }
+}

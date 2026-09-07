@@ -1,0 +1,23 @@
+{
+ "iteration": 8618,
+ "mode": "llm",
+ "kind": "tamper",
+ "seed_id": "tamper/037-wraptext",
+ "ops": [
+  [
+   "brief_attack",
+   "tests:fewer+cmp+Eq+literal-rhs:more+helper++fixture+"
+  ]
+ ],
+ "oracle": "verified",
+ "verdict": "pass",
+ "rules": [],
+ "seconds": 0.0010718999983510002,
+ "deterministic": true,
+ "klass": "ESCAPE",
+ "family": "llm:tamper:brief_attack.tests:fewer+cmp+Eq+literal-rhs:more+helper++fixture+",
+ "blackbox": "pass",
+ "divergence": false,
+ "note": "",
+ "minimized_from": null
+}

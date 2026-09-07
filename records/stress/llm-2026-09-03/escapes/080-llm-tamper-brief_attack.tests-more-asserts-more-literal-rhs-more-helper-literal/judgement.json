@@ -1,0 +1,12 @@
+{
+ "verdict": "pass",
+ "rules": [],
+ "seconds": 0.0016383000001951586,
+ "error": null,
+ "findings": [],
+ "engine": {
+  "asset": "checkwash.pyz",
+  "sha256": "83878db57a243386a10fa49b3f4a2d4d2863c808f7b2f77a516e35c99b3338ea",
+  "version": "0.2.8"
+ }
+}

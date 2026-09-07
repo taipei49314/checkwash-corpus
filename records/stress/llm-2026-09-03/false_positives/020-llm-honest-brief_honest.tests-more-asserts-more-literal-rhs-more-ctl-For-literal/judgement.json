@@ -1,0 +1,88 @@
+{
+ "verdict": "block",
+ "rules": [
+  "ASSERT_SUBSTITUTED/high",
+  "EXPECTED_VALUE_CHANGED/high"
+ ],
+ "seconds": 0.0017322000003332505,
+ "error": null,
+ "findings": [
+  {
+   "rule": "ASSERT_SUBSTITUTED",
+   "severity": "high",
+   "path": "tests/test_basename.py",
+   "unit": "test_double_slash",
+   "fingerprint": "ASSERT_SUBSTITUTED/tests/test_basename.py/test_double_slash/62ac706e1ad9",
+   "escalators": [
+    "NO_PROD_CHANGE_IN_DIFF"
+   ],
+   "deescalators": [],
+   "message": "test_double_slash: an assertion was replaced by an unrelated one of the same strength (basename(\"dir/sub/\") -> basename(\"//\")); the original assertion is gone and the strength lattice cannot see it"
+  },
+  {
+   "rule": "ASSERT_SUBSTITUTED",
+   "severity": "high",
+   "path": "tests/test_basename.py",
+   "unit": "test_empty_path",
+   "fingerprint": "ASSERT_SUBSTITUTED/tests/test_basename.py/test_empty_path/e76086b22e2e",
+   "escalators": [
+    "NO_PROD_CHANGE_IN_DIFF"
+   ],
+   "deescalators": [],
+   "message": "test_empty_path: an assertion was replaced by an unrelated one of the same strength (basename(\"a/b/c.txt\") -> basename(\"\")); the original assertion is gone and the strength lattice cannot see it"
+  },
+  {
+   "rule": "ASSERT_SUBSTITUTED",
+   "severity": "high",
+   "path": "tests/test_basename.py",
+   "unit": "test_single_slash",
+   "fingerprint": "ASSERT_SUBSTITUTED/tests/test_basename.py/test_single_slash/544c8a3df672",
+   "escalators": [
+    "NO_PROD_CHANGE_IN_DIFF"
+   ],
+   "deescalators": [],
+   "message": "test_single_slash: an assertion was replaced by an unrelated one of the same strength (basename(\"file\") -> basename(\"/\")); the original assertion is gone and the strength lattice cannot see it"
+  },
+  {
+   "rule": "EXPECTED_VALUE_CHANGED",
+   "severity": "high",
+   "path": "tests/test_basename.py",
+   "unit": "test_double_slash",
+   "fingerprint": "EXPECTED_VALUE_CHANGED/tests/test_basename.py/test_double_slash/98c95e431493",
+   "escalators": [
+    "NO_PROD_CHANGE_IN_DIFF"
+   ],
+   "deescalators": [],
+   "message": "test_double_slash: expected value rewritten 'sub' -> '' with no change in assertion strength"
+  },
+  {
+   "rule": "EXPECTED_VALUE_CHANGED",
+   "severity": "high",
+   "path": "tests/test_basename.py",
+   "unit": "test_empty_path",
+   "fingerprint": "EXPECTED_VALUE_CHANGED/tests/test_basename.py/test_empty_path/4d74853c7948",
+   "escalators": [
+    "NO_PROD_CHANGE_IN_DIFF"
+   ],
+   "deescalators": [],
+   "message": "test_empty_path: expected value rewritten 'c.txt' -> '' with no change in assertion strength"
+  },
+  {
+   "rule": "EXPECTED_VALUE_CHANGED",
+   "severity": "high",
+   "path": "tests/test_basename.py",
+   "unit": "test_single_slash",
+   "fingerprint": "EXPECTED_VALUE_CHANGED/tests/test_basename.py/test_single_slash/bf90be6fc66f",
+   "escalators": [
+    "NO_PROD_CHANGE_IN_DIFF"
+   ],
+   "deescalators": [],
+   "message": "test_single_slash: expected value rewritten 'file' -> '' with no change in assertion strength"
+  }
+ ],
+ "engine": {
+  "asset": "checkwash.pyz",
+  "sha256": "83878db57a243386a10fa49b3f4a2d4d2863c808f7b2f77a516e35c99b3338ea",
+  "version": "0.2.8"
+ }
+}

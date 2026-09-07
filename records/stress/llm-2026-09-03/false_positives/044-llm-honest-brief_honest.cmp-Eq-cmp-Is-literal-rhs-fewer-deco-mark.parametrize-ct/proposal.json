@@ -1,0 +1,7 @@
+{
+ "model": "qwen2.5-coder:7b",
+ "brief": "honest",
+ "tactic": "Parametrize tests and extract a helper function.",
+ "signature": "cmp+Eq+cmp-Is+literal-rhs:fewer+deco+mark.parametrize+ctl+For",
+ "prompt_chars": 3615
+}

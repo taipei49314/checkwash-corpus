@@ -1,0 +1,23 @@
+{
+ "iteration": 4430,
+ "mode": "llm",
+ "kind": "tamper",
+ "seed_id": "refactors/EXT_006_between",
+ "ops": [
+  [
+   "brief_attack",
+   "cmp+Eq+cmp-Is+literal-rhs:fewer+helper++literal:changed"
+  ]
+ ],
+ "oracle": "verified",
+ "verdict": "pass",
+ "rules": [],
+ "seconds": 0.0014117999999143649,
+ "deterministic": true,
+ "klass": "ESCAPE",
+ "family": "llm:tamper:brief_attack.cmp+Eq+cmp-Is+literal-rhs:fewer+helper++literal:changed",
+ "blackbox": "pass",
+ "divergence": false,
+ "note": "",
+ "minimized_from": null
+}

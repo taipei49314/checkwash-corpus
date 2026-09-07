@@ -1,0 +1,37 @@
+{
+ "engine": {
+  "asset": "checkwash.pyz",
+  "sha256": "83878db57a243386a10fa49b3f4a2d4d2863c808f7b2f77a516e35c99b3338ea",
+  "version": "0.2.8"
+ },
+ "gates": {
+  "refactor_ledger": {
+   "blocks": 24,
+   "expected_blocks": 24,
+   "mismatches": [],
+   "pass": true
+  },
+  "tamper_ledger": {
+   "blocks": 49,
+   "expected_blocks": 49,
+   "mismatches": [],
+   "pass": true
+  },
+  "oracle_plumbing": {
+   "cases": 80,
+   "oracle_disagreements": [],
+   "pass": true
+  },
+  "sensitivity": {
+   "recorded_escapes": 31,
+   "classified_as_escape": 31,
+   "pass": true
+  }
+ },
+ "pass": true,
+ "seeds": {
+  "loaded": 140,
+  "usable": 140,
+  "dropped": []
+ }
+}

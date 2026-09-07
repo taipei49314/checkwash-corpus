@@ -1,0 +1,15 @@
+from app.palindrome import is_palindrome
+
+
+def assert_pal(text, expected):
+    assert is_palindrome(text) is expected
+
+
+def test_palindromes():
+    test_cases = [
+        ("Aba", True),
+        ("Never odd or even", True),
+        ("xyz", False),
+    ]
+    for text, expected in test_cases:
+        assert_pal(text, expected)

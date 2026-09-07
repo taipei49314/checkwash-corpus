@@ -1,0 +1,23 @@
+{
+ "iteration": 851,
+ "mode": "llm",
+ "kind": "tamper",
+ "seed_id": "tamper/019-fibonacci",
+ "ops": [
+  [
+   "brief_attack",
+   "with+patch+import+unittest+literal:changed"
+  ]
+ ],
+ "oracle": "verified",
+ "verdict": "pass",
+ "rules": [],
+ "seconds": 0.0012456999993446516,
+ "deterministic": true,
+ "klass": "ESCAPE",
+ "family": "llm:tamper:brief_attack.with+patch+import+unittest+literal:changed",
+ "blackbox": "pass",
+ "divergence": false,
+ "note": "",
+ "minimized_from": null
+}

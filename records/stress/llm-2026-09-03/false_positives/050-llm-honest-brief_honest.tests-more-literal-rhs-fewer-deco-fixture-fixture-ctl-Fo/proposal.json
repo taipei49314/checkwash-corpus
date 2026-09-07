@@ -1,0 +1,7 @@
+{
+ "model": "qwen2.5-coder:7b",
+ "brief": "honest",
+ "tactic": "Rename functions and parameters, restructure test methods, and use fixtures.",
+ "signature": "tests:more+literal-rhs:fewer+deco+fixture+fixture++ctl+For",
+ "prompt_chars": 3832
+}

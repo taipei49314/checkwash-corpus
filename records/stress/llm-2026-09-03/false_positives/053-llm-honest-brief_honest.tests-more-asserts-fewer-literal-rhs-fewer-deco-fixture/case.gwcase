@@ -1,0 +1,58 @@
+=== meta ===
+rule: TODO
+note: corpus stress FALSE_POSITIVE family=llm:honest:brief_honest.tests:more+asserts:fewer+literal-rhs:fewer+deco+fixture+fixture+:ASSERT_REMOVED/warn,ASSERT_SUBSTITUTED/high,ASSERT_SUBSTITUTED/warn
+note2: seed=refactors/EXT_019_digits_only iteration=5141 ops=[['brief_honest', 'tests:more+asserts:fewer+literal-rhs:fewer+deco+fixture+fixture+']]
+note3: engine verdict=block rules=['ASSERT_REMOVED/warn', 'ASSERT_SUBSTITUTED/high', 'ASSERT_SUBSTITUTED/warn'] blackbox=block
+origin: corpus stress 2026-09-03, engine 0.2.8
+=== env ===
+app
+=== head: src/app/__init__.py ===
+
+=== head: src/app/digits_only.py ===
+def digits_only(s):
+    return "".join(ch for ch in s if ch.isdigit())
+=== before: tests/test_digits_only.py ===
+from app.digits_only import digits_only
+
+
+def test_mixed():
+    assert digits_only("a1b2") == "12"
+    assert digits_only("x4y") == "4"
+
+
+def test_letters():
+    assert digits_only("xyz") == ""
+
+
+def test_digits():
+    assert digits_only("42") == "42"
+=== after: tests/test_digits_only.py ===
+import pytest
+from app.digits_only import digits_only
+
+
+@pytest.fixture(params=[
+    ("a1b2", "12"),
+    ("x4y", "4"),
+    ("xyz", ""),
+    ("42", "42")
+])
+def test_data(request):
+    return request.param
+
+
+def test_mixed(test_data):
+    input_str, expected_output = test_data
+    assert digits_only(input_str) == expected_output
+
+
+def test_letters(test_data):
+    input_str, expected_output = test_data
+    assert digits_only(input_str) == expected_output
+
+
+def test_digits(test_data):
+    input_str, expected_output = test_data
+    assert digits_only(input_str) == expected_output
+=== expect ===
+[]

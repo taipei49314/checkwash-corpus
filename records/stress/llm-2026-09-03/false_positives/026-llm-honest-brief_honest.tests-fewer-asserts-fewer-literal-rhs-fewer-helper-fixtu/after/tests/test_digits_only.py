@@ -1,0 +1,12 @@
+import pytest
+from app.digits_only import digits_only
+
+
+@pytest.fixture(params=["a1b2", "x4y", "xyz", "42"])
+def input_string(request):
+    return request.param
+
+
+def test_digits_only(input_string):
+    expected = ''.join(ch for ch in input_string if ch.isdigit())
+    assert digits_only(input_string) == expected
