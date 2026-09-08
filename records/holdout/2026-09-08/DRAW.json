@@ -1,0 +1,205 @@
+{
+  "class": "held-out",
+  "corrections": [
+    {
+      "date": "2026-09-08",
+      "what": "The first computation of this draw used a 15-source frame and returned azure-cli, localstack, mlflow, salt, scrapy, transformers. That frame was wrong: the 2026-09-08 exploratory external evaluation had already swept six of its members on checkwash v0.3.2, run from a working directory outside every repository, so corpus.holdout.eligible could not see them. django, moto, poetry, pytest, scrapy and sentry-python were never eligible, and scrapy had been drawn. The frame is corrected to 9 by records/holdout/spent-elsewhere.json and the draw recomputed from it with the same pre-registered seed. The count was then reduced from six to four by the maintainer, because a frame of nine makes six close to spending the whole reserve and a held-out number goes stale under rule 4 whenever detector logic changes. Both decisions were taken before any sweep ran.",
+      "why_this_is_not_selection_on_outcome": "No sweep had run and no result existed for any candidate at either computation, so nothing about the engine's behaviour could have influenced the frame or the recomputation. The seed was fixed before both. This is a sampling-frame repair, not a re-roll."
+    }
+  ],
+  "drawn_on": "2026-09-08",
+  "eligibility": {
+    "excluded": {
+      "aiohttp": "spent by a field run (SPEC 10.1)",
+      "attrs": "wave wave0-published-fp is not held-out reserve",
+      "axios": "wave wave2-js-oracle is not held-out reserve",
+      "boto3": "a window of its history was swept (SPEC 10.1)",
+      "click": "wave wave0-published-fp is not held-out reserve",
+      "django": "swept by a measurement recorded elsewhere (SPEC 10.1)",
+      "express": "wave wave2-js-oracle is not held-out reserve",
+      "flask": "wave wave0-published-fp is not held-out reserve",
+      "httpx": "wave wave0-published-fp is not held-out reserve",
+      "moto": "swept by a measurement recorded elsewhere (SPEC 10.1)",
+      "pandas": "spent by a field run (SPEC 10.1)",
+      "poetry": "swept by a measurement recorded elsewhere (SPEC 10.1)",
+      "pytest": "swept by a measurement recorded elsewhere (SPEC 10.1)",
+      "rich": "wave wave0-published-fp is not held-out reserve",
+      "scrapy": "swept by a measurement recorded elsewhere (SPEC 10.1)",
+      "sentry-python": "swept by a measurement recorded elsewhere (SPEC 10.1)",
+      "sqlalchemy": "spent by a field run (SPEC 10.1)",
+      "starlette": "wave wave0-published-fp is not held-out reserve",
+      "typer": "a window of its history was swept (SPEC 10.1)",
+      "vitest": "wave wave2-js-oracle is not held-out reserve"
+    },
+    "harvested_pr_excerpts_note": "Every pool member has test-file excerpts under records/prs/ harvested on 2026-09-01. That does not disqualify them: SPEC section 10 was written 2026-09-02, after that harvest, and still declares the rest of wave1 unspent until the catalogue records otherwise; CATALOG.json records no spend. A harvest stores capped test-file patches and no verdict, so it is neither a swept window nor a blocked diff read while shaping a rule (SPEC 10.1). Recorded here because the reason must predate the number.",
+    "pool": [
+      "airflow",
+      "azure-cli",
+      "bokeh",
+      "great_expectations",
+      "localstack",
+      "mlflow",
+      "ray",
+      "salt",
+      "transformers"
+    ],
+    "reserve_after_this_draw": [
+      "airflow",
+      "azure-cli",
+      "great_expectations",
+      "localstack",
+      "salt"
+    ],
+    "rule": "wave1-mock-power members, minus ids named in any records/field-runs/ ledger, minus ids with a records/sweeps/<id>.json window, minus ids listed in records/holdout/spent-elsewhere.json, minus ids consumed by an earlier draw. Derived by corpus.holdout.eligible from what is on disk, not from a hand-kept list.",
+    "size_filter": "none. Clone depth is the catalogued wave1 clone_depth (400), which is what a 300-commit sweep needs. Filtering by repository size would bias the draw away from the large monorepos whose test culture wave0 lacks."
+  },
+  "engine": {
+    "asset": "checkwash.pyz",
+    "sha256": "b503d29fc916691136a2a63e0a762844e22930c57fc51e211c2ebdb4b34e8816",
+    "tag": "v0.3.2"
+  },
+  "engine_identity": "src/ is identical across v0.3.0, v0.3.1 and v0.3.2 except the version string in __init__.py and its echoes in doctor.py. No rule, credit, lattice value or alignment parameter differs, so this number belongs to the whole 0.3.x engine and SPEC 10.2 rule 4 does not stale it between those tags. It is the same engine that produced the in-sample 46/1800.",
+  "id": "holdout-2026-09-08",
+  "in_sample_comparator": {
+    "block_rate": "46/1800 = 2.56%",
+    "engine": "v0.3.0",
+    "false_positive_rate": "31/1800 = 1.72%",
+    "source": "checkwash benchmarks/RESULTS.md, swept 2026-09-07 from 4387097",
+    "swept_on": "2026-09-07"
+  },
+  "measurement": {
+    "clone_depth": 400,
+    "command": "python checkwash.pyz sweep <pinned_head> --limit 300 --repo <clone>",
+    "runs_on": "taipei49314/estate-consolidation self-hosted pool, runners labelled checkwash-sweep, by .github/workflows/run-holdout-sweep.yml. Not on a work machine."
+  },
+  "prediction": {
+    "anomaly_clause": "SPEC 10.2 rule 5: a held-out result better than 2.56% is an anomaly to explain -- window, repository shape, opaque share -- not a headline.",
+    "central_expectation": "about 4.5% (roughly 54 of 1200)",
+    "direction": "worse than the in-sample 46/1800 = 2.56%",
+    "interval": "3.0% to 8.0% (36 to 96 of 1200)",
+    "named_mechanisms": [
+      "checkwash#130: consolidating named tests into one parametrize / fixture(params=) / loop reads as TEST_DISABLED at high. transformers and ray refactor test suites this way constantly.",
+      "The row-86 residual: a project-local test base class whose assertions are custom helpers is not resolved. This produced the 8% outlier on black in the 2026-09-01 field run; transformers (TestCasePlus) and ray both carry one.",
+      "Skip-marker churn as TEST_DISABLED: transformers records 4073 skip sites and ray 1197, against a wave0 corpus that has almost none."
+    ],
+    "prior": "Every external measurement so far came out worse than the matching in-sample rate: 2026-08-07 by half a point, 2026-09-01 by more (70/2200 = 3.18% on greenwash v0.1.49), and the 2026-09-08 exploratory external evaluation reached 37/1000 = 3.7% on this very engine. That last one is not held-out -- all ten of its repositories were already catalogued -- but it is the closest prior this draw has.",
+    "why_this_pool_is_hard": "The corpus README states the six-repo set cannot see mocking or unittest dialect. This draw lands on both: patch sites run 301 (transformers) to 6316 (mlflow) against a wave0 median near 21, and transformers carries 24127 unittest asserts and 4073 skip sites where wave0 has almost none. Four sources also mean one repository moves the total by up to a quarter, so the per-repository column matters more than it would at six."
+  },
+  "selection": {
+    "count": 4,
+    "method": "uniform sample without replacement, sorted pool, random.Random(seed).sample",
+    "pool": [
+      "airflow",
+      "azure-cli",
+      "bokeh",
+      "great_expectations",
+      "localstack",
+      "mlflow",
+      "ray",
+      "salt",
+      "transformers"
+    ],
+    "seed": "4387097ad07994ef594dcc0c5f9e43d4475321e0",
+    "seed_provenance": "checkwash v0.3.0 release commit 4387097ad07994ef594dcc0c5f9e43d4475321e0. Public and dated 2026-09-07, before this draw, so it could not be chosen for its outcome. Anyone can recompute the drawn ids from the pool and this seed."
+  },
+  "sources": [
+    {
+      "census_counts": {
+        "approx_sites": 0,
+        "files_scanned": 2459,
+        "js_test_files": 0,
+        "patch_sites": 359,
+        "py_files": 1297,
+        "runner_files": 1,
+        "skip_sites": 26,
+        "unittest_asserts": 228
+      },
+      "census_revision": "9433727eebe1e69360299edbb46b197d55f0634d",
+      "default_branch": "branch-4.0",
+      "id": "bokeh",
+      "license": "BSD-3-Clause",
+      "owner_repo": "bokeh/bokeh",
+      "pinned_head": "df35f8d4bb02be21a9b12cedbf4f8f3b77835d69",
+      "remote": "https://github.com/bokeh/bokeh",
+      "test_paths": [
+        "tests/"
+      ]
+    },
+    {
+      "census_counts": {
+        "approx_sites": 137,
+        "files_scanned": 6509,
+        "js_test_files": 0,
+        "patch_sites": 6316,
+        "py_files": 2665,
+        "runner_files": 1,
+        "skip_sites": 263,
+        "unittest_asserts": 0
+      },
+      "census_revision": "89a0b7efc7f0fa31b76acb0a157930277ec3716f",
+      "default_branch": "master",
+      "id": "mlflow",
+      "license": "Apache-2.0",
+      "owner_repo": "mlflow/mlflow",
+      "pinned_head": "8a4f1a9a30c2b4aa1b377df75c6e279ba8d1c187",
+      "remote": "https://github.com/mlflow/mlflow",
+      "test_paths": [
+        "tests/"
+      ]
+    },
+    {
+      "census_counts": {
+        "approx_sites": 217,
+        "files_scanned": 5027,
+        "js_test_files": 0,
+        "patch_sites": 1688,
+        "py_files": 4800,
+        "runner_files": 1,
+        "skip_sites": 1197,
+        "unittest_asserts": 3177
+      },
+      "census_revision": "167681c2b2485fffc670ddd9edd40ed428854e01",
+      "default_branch": "master",
+      "id": "ray",
+      "license": "Apache-2.0",
+      "owner_repo": "ray-project/ray",
+      "pinned_head": "c3162dce8d064824293875c5d0bbfd76a54e04ce",
+      "remote": "https://github.com/ray-project/ray",
+      "test_paths": [
+        "python/ray/tests/",
+        "python/ray/data/tests/"
+      ]
+    },
+    {
+      "census_counts": {
+        "approx_sites": 221,
+        "files_scanned": 4819,
+        "js_test_files": 0,
+        "patch_sites": 301,
+        "py_files": 4819,
+        "runner_files": 1,
+        "skip_sites": 4073,
+        "unittest_asserts": 24127
+      },
+      "census_revision": "eed9b89292ce05ec68ed539db59b8e8d868cbf0c",
+      "default_branch": "main",
+      "id": "transformers",
+      "license": "Apache-2.0",
+      "owner_repo": "huggingface/transformers",
+      "pinned_head": "8eaf75f84e0ef68ccdaac14b739ace53a962bbee",
+      "remote": "https://github.com/huggingface/transformers",
+      "test_paths": [
+        "tests/"
+      ]
+    }
+  ],
+  "spent": false,
+  "spent_note": "SPEC 10.1: sweeping and publishing the raw block rate does not spend the set; opening the diffs does. This draw stops at the raw block rate, so these repositories stay held-out until an adjudication round is opened and flips this flag.",
+  "stop_point": "raw block rate only; adjudication not performed",
+  "window": {
+    "boundary": "the newest 300 non-merge commits reachable from pinned_head at draw time",
+    "commits_per_source": 300,
+    "merges": "excluded (rev-list --no-merges), matching records/sweeps",
+    "total_commits": 1200
+  }
+}

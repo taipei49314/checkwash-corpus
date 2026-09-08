@@ -5,6 +5,7 @@ from pathlib import Path
 from corpus.catalog import load_catalog, validate_raw
 from corpus.engine import PYZ_ASSETS
 from corpus.field_run import adj_path, iter_field_run_dirs, load_manifest, sweep_paths
+from corpus.holdout import validate_draws
 from corpus.jsonio import load
 from corpus.paths import catalog_path, census_path, repo_root
 
@@ -112,6 +113,7 @@ def validate(root: Path | None = None) -> list[str]:
                 errors.append(f"adjudication/{path.name}: bad category {cat!r}")
 
     errors.extend(_validate_field_runs(root))
+    errors.extend(validate_draws(root))
     return errors
 
 

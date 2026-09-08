@@ -87,6 +87,42 @@ def cmd_validate(args: argparse.Namespace) -> int:
     return 0
 
 
+def cmd_holdout(args: argparse.Namespace) -> int:
+    """Show the held-out reserve, or the ids a (pool, seed, count) draws.
+
+    Printing the pool is safe: SPEC 10.1 spends a set when its diffs are read,
+    not when its name is listed.
+    """
+    from corpus.holdout import draw, eligible, iter_draw_dirs, load_draw
+
+    root = Path(args.root).resolve() if args.root else repo_root()
+    pool, excluded = eligible(root)
+
+    for draw_dir in iter_draw_dirs(root):
+        record = load_draw(draw_dir)
+        ids = ", ".join(sorted(s["id"] for s in record.get("sources", [])))
+        spent = "spent" if record.get("spent") else "unspent"
+        print(f"{draw_dir.name:<12} {record.get('class', '?'):<9} {spent:<8} {ids}")
+
+    print(f"eligible reserve: {len(pool)}")
+    for source_id in pool:
+        print(f"  {source_id}")
+    if args.verbose:
+        for source_id, reason in sorted(excluded.items()):
+            print(f"  - {source_id}: {reason}")
+    if args.seed:
+        if args.count > len(pool):
+            print(
+                f"cannot draw {args.count} from a reserve of {len(pool)}",
+                file=sys.stderr,
+            )
+            return 2
+        ids = ", ".join(draw(pool, args.count, args.seed))
+        print(f"would draw from the current reserve (seed={args.seed}, count={args.count}): {ids}")
+        print("not a draw until it is recorded under records/holdout/<date>/ and merged")
+    return 0
+
+
 def cmd_fetch(args: argparse.Namespace) -> int:
     from corpus.fetch import fetch_many
 
@@ -214,6 +250,15 @@ def build_parser() -> argparse.ArgumentParser:
             action="store_true",
             help="also operate on include=false sources",
         )
+
+    ho = sub.add_parser(
+        "holdout",
+        help="the unspent held-out reserve, and what a (seed, count) would draw",
+    )
+    ho.add_argument("-v", "--verbose", action="store_true", help="also print why each id is excluded")
+    ho.add_argument("--seed", default=None, help="recompute a draw from this seed")
+    ho.add_argument("--count", type=int, default=6)
+    ho.set_defaults(func=cmd_holdout)
 
     fe = sub.add_parser("fetch", help="clone or update catalogued sources into clones/")
     add_select(fe)
