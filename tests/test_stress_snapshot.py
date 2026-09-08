@@ -62,6 +62,7 @@ def parity(engine, tmp_path, before, after, expected):
     payload = json.loads(proc.stdout)
     rules = sorted({f"{f['rule']}/{f['severity']}" for f in payload['findings'] if not f.get('allowlisted')})
     assert rules == judged.rules
+    return judged
 
 
 def test_first_party_patch_is_not_a_declared_third_party(engine, tmp_path):
@@ -77,9 +78,8 @@ def test_divide():
     parity(engine, tmp_path, before, after, 'block')
 
 
-@pytest.mark.parametrize('config,expected', [(b'[pytest]\n', 'pass'),
-                                           (b'[pytest]\npython_functions = never_*\n', 'block')])
-def test_unchanged_config_is_present_in_strict_snapshot(engine, tmp_path, config, expected):
+@pytest.mark.parametrize('config', [b'[pytest]\n', b'[pytest]\npython_functions = never_*\n'])
+def test_unchanged_config_is_present_in_strict_snapshot(engine, tmp_path, config):
     before = {'src/app/__init__.py': b'', 'src/app/prod.py': b'def double(x):\n    return x * 2\n',
               'pytest.ini': config,
               'tests/test_prod.py': b'''from app.prod import double
@@ -94,7 +94,10 @@ import pytest
 def test_double(x, expected):
     assert double(x) == expected
 '''}
-    parity(engine, tmp_path, before, after, expected)
+    judged = parity(engine, tmp_path, before, after, 'pass')
+    # Unsupported collection config withholds consolidation credit. The
+    # released detector reports a warn here; verdict equality alone misses it.
+    assert ('TEST_DISABLED/warn' in judged.rules) == (b'python_functions' in config)
 
 
 @pytest.mark.parametrize('kind,name,expected', [
