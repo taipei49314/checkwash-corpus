@@ -1,0 +1,54 @@
+{
+  "schema": "checkwash.heldout.raw_rate.v1",
+  "label": "held-out, engine v0.3.2, drawn 2026-09-08",
+  "draw_commit": "8573f14aefd52b6e96e30df8d27d253be8740201",
+  "engine": {
+    "asset": "checkwash.pyz",
+    "sha256": "b503d29fc916691136a2a63e0a762844e22930c57fc51e211c2ebdb4b34e8816",
+    "tag": "v0.3.2"
+  },
+  "commits_analysed": 1200,
+  "commits_blocked": 131,
+  "block_rate": 0.10916666666666666,
+  "engine_errors": 0,
+  "commits_touching_tests": 505,
+  "commits_with_opaque_prod_change": 402,
+  "spends_the_set": false,
+  "sources": [
+    {
+      "id": "bokeh",
+      "pinned_head": "df35f8d4bb02be21a9b12cedbf4f8f3b77835d69",
+      "commits": 300,
+      "blocked": 9,
+      "touching_tests": 85,
+      "opaque": 190
+    },
+    {
+      "id": "mlflow",
+      "pinned_head": "8a4f1a9a30c2b4aa1b377df75c6e279ba8d1c187",
+      "commits": 300,
+      "blocked": 59,
+      "touching_tests": 117,
+      "opaque": 79
+    },
+    {
+      "id": "ray",
+      "pinned_head": "c3162dce8d064824293875c5d0bbfd76a54e04ce",
+      "commits": 300,
+      "blocked": 15,
+      "touching_tests": 131,
+      "opaque": 110
+    },
+    {
+      "id": "transformers",
+      "pinned_head": "8eaf75f84e0ef68ccdaac14b739ace53a962bbee",
+      "commits": 300,
+      "blocked": 48,
+      "touching_tests": 172,
+      "opaque": 23
+    }
+  ],
+  "measurement_run": "34186864987",
+  "receipt_sha256": "c9069f18c28151fe273d2b7d253e790c5f86d4688988a078997481b9c08eeaaa",
+  "note": "Raw block rate only; no findings or diffs adjudicated. Not a false-positive rate or a rate for an engine candidate."
+}

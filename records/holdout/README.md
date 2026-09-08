@@ -39,6 +39,27 @@ At four sources the denominator is 1200 rather than the in-sample 1800, so the
 two are compared as rates. It also means one repository moves the total by up
 to a quarter: read the per-repository column, not only the headline.
 
+## Result: v0.3.2, drawn 2026-09-08
+
+The completed pool measurement analysed **1,200 / 1,200** frozen commits:
+**131 blocked (10.92%)**, zero engine errors. [Machine-readable counters](2026-09-08/RAW_RATE.json).
+
+| source | analysed | blocked | raw block rate |
+|---|---:|---:|---:|
+| bokeh | 300 | 9 | 3.00% |
+| mlflow | 300 | 59 | 19.67% |
+| ray | 300 | 15 | 5.00% |
+| transformers | 300 | 48 | 16.00% |
+
+505 commits touch tests; 402 have opaque production changes. These overlap
+and do not replace the denominator of 1,200. The observed 10.92% exceeds the
+pre-recorded 3–8% prediction interval; its cause has not been adjudicated.
+It is not a false-positive rate. No finding or diff was read for this
+closeout, so `spent: false` and the five-source reserve remain unchanged.
+
+This measurement belongs to the pinned v0.3.2 bytes. A candidate that changes
+detector or consolidation logic has no new held-out measurement from this run.
+
 ## Sweeps that happen somewhere else
 
 [`spent-elsewhere.json`](spent-elsewhere.json) records repositories a
