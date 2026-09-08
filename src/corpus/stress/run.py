@@ -236,7 +236,7 @@ class Runner:
         for name, sp in chain:
             self._cover(f"{mode}/{kind}/{name}/{sp}", "verified")
         twice = rng.random() < cfg.det_sample
-        judgement, det = self.judge(changes, head, seed.modules, twice=twice)
+        judgement, det = self.judge(changes, after_files, seed.modules, twice=twice)
         return self._classify(i, mode, kind, seed, chain, variant, changes, before_files, after_files, head, judgement, det)
 
     def _classify(self, i, mode, kind, seed, chain, variant, changes, before_files, after_files, head, judgement, det):
@@ -253,7 +253,7 @@ class Runner:
         elif kind == "honest" and judgement.verdict == "block":
             klass = "FALSE_POSITIVE"
         if det is None and klass in ("ESCAPE", "FALSE_POSITIVE"):
-            judgement, det = self.judge(changes, head, seed.modules, twice=True)
+            judgement, det = self.judge(changes, after_files, seed.modules, twice=True)
         family = ""
         minimized_from = None
         if klass in ("ESCAPE", "FALSE_POSITIVE"):
@@ -274,7 +274,7 @@ class Runner:
         out = Outcome(i, mode, kind, seed.id, ops, "verified", judgement.verdict, judgement.rules, judgement.seconds, det, klass, family, minimized_from=minimized_from)
         if judgement.seconds > cfg.perf_budget_s:
             with self.lock:
-                self.perf_suspects.append({"iteration": i, "seconds": judgement.seconds, "changes": changes, "head": head, "modules": sorted(seed.modules), "label": f"{mode}:{kind}:" + "+".join(f"{n}.{s}" for n, s in chain)})
+                self.perf_suspects.append({"iteration": i, "seconds": judgement.seconds, "changes": changes, "head": after_files, "modules": sorted(seed.modules), "label": f"{mode}:{kind}:" + "+".join(f"{n}.{s}" for n, s in chain)})
         if klass in ("ESCAPE", "FALSE_POSITIVE", "NONDET") or det is False:
             self._record_family(out, seed, variant, changes, before_files, after_files, head, judgement)
         return out
@@ -295,7 +295,7 @@ class Runner:
             changes, before_files, after_files = build_changes(seed, variant.tests, variant.extras, head)
             if not changes or self.verify(seed, kind, variant.tests, variant.extras) != "verified":
                 continue
-            judgement, _det = self.judge(changes, head, seed.modules, twice=False)
+            judgement, _det = self.judge(changes, after_files, seed.modules, twice=False)
             hit = (klass == "ESCAPE" and judgement.verdict not in ("block", "error")) or (
                 klass == "FALSE_POSITIVE" and judgement.verdict == "block"
             )
@@ -393,7 +393,7 @@ class Runner:
         with self.lock:
             self.llm_stats[f"brief/{brief}/verified"] += 1
         twice = rng.random() < cfg.det_sample
-        judgement, det = self.judge(changes, head, seed.modules, twice=twice)
+        judgement, det = self.judge(changes, after_files, seed.modules, twice=twice)
         out = self._classify(i, "llm", kind, seed, chain, variant, changes, before_files, after_files, head, judgement, det)
         out.note = f"brief={brief}; model={self._llm().name}; tactic={proposal.tactic}"
         if out.klass in ("ESCAPE", "FALSE_POSITIVE"):
@@ -414,7 +414,7 @@ class Runner:
         changes, before_files, after_files = build_changes(seed, tests, extras, head)
         ops = [["robust_inputs", sp]]
         if not changes:
-            judgement, det = self.judge([], head, seed.modules, twice=True)
+            judgement, det = self.judge([], after_files, seed.modules, twice=True)
             klass = "OK" if judgement.verdict != "error" and not judgement.findings else "CRASH"
             if judgement.verdict == "error":
                 klass = "CRASH"
@@ -426,7 +426,7 @@ class Runner:
                 self._record_family(out, seed, None, changes, before_files, after_files, head, judgement)
             return out
         self._cover(f"robust/robust/robust_inputs/{sp}", "applicable")
-        judgement, det = self.judge(changes, head, seed.modules, twice=True)
+        judgement, det = self.judge(changes, after_files, seed.modules, twice=True)
         budget = self.cfg.perf_budget_mega_s if sp == "mega_diff_300" else self.cfg.perf_budget_s
         if judgement.verdict == "error":
             klass, fam = "CRASH", "crash:" + (judgement.error or "").strip().split("\n")[0][:120]
@@ -439,7 +439,7 @@ class Runner:
         out = Outcome(i, "robust", "robust", seed.id, ops, "n/a", judgement.verdict, judgement.rules, judgement.seconds, det, klass, fam, note=(judgement.error or ""))
         if judgement.seconds > budget:
             with self.lock:
-                self.perf_suspects.append({"iteration": i, "seconds": judgement.seconds, "changes": changes, "head": head, "modules": sorted(seed.modules), "label": f"robust:{sp}"})
+                self.perf_suspects.append({"iteration": i, "seconds": judgement.seconds, "changes": changes, "head": after_files, "modules": sorted(seed.modules), "label": f"robust:{sp}"})
         if klass != "OK":
             self._record_family(out, seed, None, changes, before_files, after_files, head, judgement)
         return out
@@ -534,20 +534,21 @@ def verify_seeds(seeds: list[Seed], cfg: Config) -> tuple[list[Seed], list[dict]
     return kept, dropped
 
 
+def _tree(root: Path) -> dict[str, bytes]:
+    """All materialized files, including unchanged non-Python startup config."""
+    return {p.relative_to(root).as_posix(): p.read_bytes()
+            for p in sorted(root.rglob("*")) if p.is_file()}
+
+
 def _corpus_changes(before_root: Path, after_root: Path):
-    paths = sorted(
-        {str(p.relative_to(before_root)).replace("\\", "/") for p in before_root.rglob("*.py")}
-        | {str(p.relative_to(after_root)).replace("\\", "/") for p in after_root.rglob("*.py")}
-    )
-    changes = []
-    for path in paths:
-        b, a = before_root / path, after_root / path
-        changes.append((path, b.read_bytes() if b.exists() else None, a.read_bytes() if a.exists() else None))
-    return changes
+    before, after = _tree(before_root), _tree(after_root)
+    return [(path, before.get(path), after.get(path))
+            for path in sorted(before.keys() | after.keys())
+            if before.get(path) != after.get(path)]
 
 
 def _head(src: Path) -> dict[str, bytes]:
-    return {f"src/{str(p.relative_to(src)).replace(chr(92), '/')}": p.read_bytes() for p in src.rglob("*.py")}
+    return {f"src/{path}": data for path, data in _tree(src).items()}
 
 
 def calibrate(cfg: Config, engine: Engine) -> dict:
@@ -563,10 +564,10 @@ def calibrate(cfg: Config, engine: Engine) -> dict:
     for name, spec in sorted(expected.items()):
         case = ref / "cases" / name
         changes = _corpus_changes(case / "BEFORE", case / "AFTER")
-        j = engine.judge(changes, _head(case / "PROD-GOOD" / "src"), {"app"})
+        j = engine.judge(changes, {**_tree(case / "PROD-GOOD"), **_tree(case / "AFTER")}, {"app"})
         is_block = j.verdict == "block"
         blocks += int(is_block)
-        if is_block != bool(spec["blocks"]):
+        if j.verdict not in ("pass", "block") or is_block != bool(spec["blocks"]):
             mism.append({"case": name, "expected_block": spec["blocks"], "got": j.verdict, "rules": j.rules})
     result["gates"]["refactor_ledger"] = {"blocks": blocks, "expected_blocks": sum(1 for s in expected.values() if s["blocks"]), "mismatches": mism, "pass": not mism}
 
@@ -578,9 +579,9 @@ def calibrate(cfg: Config, engine: Engine) -> dict:
     for name, spec in sorted(expected_t.items()):
         case = tam / "cases" / name
         changes = _corpus_changes(case / "before", case / "after")
-        j = engine.judge(changes, _head(case / "src"), {"app"})
+        j = engine.judge(changes, {**_head(case / "src"), **_tree(case / "after")}, {"app"})
         want = spec["verdict"]
-        got = "block" if j.verdict == "block" else "pass"
+        got = j.verdict
         blocks_t += int(got == "block")
         if got != want:
             mism_t.append({"case": name, "expected": want, "got": j.verdict, "rules": j.rules})

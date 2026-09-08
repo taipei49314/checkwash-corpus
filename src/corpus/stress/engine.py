@@ -57,6 +57,7 @@ class Engine:
         from checkwash.contract import Contract  # noqa: E402
         from checkwash.engine import FileChange, analyze  # noqa: E402
         from checkwash.pyenv import known_baseline  # noqa: E402
+        from checkwash.gitio.snapshot import search_source_mapping  # noqa: E402
 
         origin = str(getattr(checkwash, "__file__", ""))
         if not origin.startswith(str(self.pyz)):
@@ -64,6 +65,7 @@ class Engine:
         self.version = getattr(checkwash, "__version__", "?")
         self._Config, self._Contract, self._FileChange, self._analyze = Config, Contract, FileChange, analyze
         self._baseline = known_baseline()
+        self._search_source_mapping = search_source_mapping
 
     def record(self) -> dict:
         return {"asset": self.pyz.name, "sha256": self.sha256, "version": self.version}
@@ -71,11 +73,17 @@ class Engine:
     def judge(
         self,
         changes: list[tuple[str, bytes | None, bytes | None]],
-        head: dict[str, bytes],
+        head: dict[str, bytes | None],
         modules: set[str],
         *,
         reverse: bool = False,
     ) -> Judgement:
+        """Judge a complete head tree (production, unchanged tests and config).
+
+        None entries represent deletions from build_changes. Never supply a
+        production-only tree: strict readers treat a missing path as absence.
+        """
+        snapshot = {path: data for path, data in head.items() if data is not None}
         fcs = []
         for path, before, after in (reversed(changes) if reverse else changes):
             status = "modified" if before is not None and after is not None else ("added" if after is not None else "deleted")
@@ -85,10 +93,11 @@ class Engine:
             _ir, findings, verdict = self._analyze(
                 fcs, self._Config(), self._Contract(), [], TODAY,
                 known_modules=self._baseline | set(modules),
-                head_reader=head.get,
-                head_searcher=lambda needles: [
-                    p for p, d in sorted(head.items()) if any(n.encode("utf-8") in d for n in needles)
-                ],
+                self_modules=set(modules),
+                head_reader=snapshot.get,
+                head_searcher=lambda needles: self._search_source_mapping(snapshot, needles),
+                root_reader=snapshot.get,
+                root_searcher=lambda needles: self._search_source_mapping(snapshot, needles),
             )
         except BaseException as exc:  # noqa: BLE001 - a crash is the finding
             if isinstance(exc, KeyboardInterrupt):
@@ -185,7 +194,8 @@ def blackbox_check(
         return None, f"git setup failed: {exc}"
     argv = [python or sys.executable, str(pyz), "check", "HEAD~1..HEAD", "--format", "json"]
     try:
-        proc = subprocess.run(argv, capture_output=True, cwd=str(root), timeout=timeout)
+        proc = subprocess.run(argv, capture_output=True, cwd=str(root), timeout=timeout,
+                              env=dict(os.environ, CHECKWASH_TODAY=TODAY.isoformat()))
     except subprocess.TimeoutExpired:
         return None, "cli timeout"
     if proc.returncode not in (0, 1, 2):
