@@ -1,10 +1,12 @@
 # Collaboration protocol (humans and coding agents)
 
-## Engine pin follows the checkwash release slot (estate T-57 D-4, 2026-09-03)
+## Engine pin follows an authorized checkwash release
 
-- Sweeps and stress runs use a Release `checkwash.pyz`, fetched once after each
-  checkwash release slot (weekly; the slot is defined in the estate PLAN). Do
-  not fetch or re-pin between slots.
+- Sweeps and stress runs use a published Release `checkwash.pyz`, fetched once
+  after an explicitly authorized checkwash release. The current estate PLAN
+  governs authorization; the automatic weekly slot was canceled by T-197.
+  T-229 authorizes v0.3.3 and its release-pin handoff once, then refreezes.
+  Do not fetch or re-pin between authorized releases.
 - `--allow-stale-engine` exists to measure an old version on purpose. It is not
   a way around a missing re-pin: if the guard in `src/corpus/stress/run.py`
   refuses, the slot's re-pin has not happened yet. Wait for it, or do it in
