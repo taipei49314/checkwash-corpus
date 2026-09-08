@@ -26,14 +26,18 @@ one after the fact.
 
 | date | class | sources | commits | engine | spent |
 |---|---|---|---|---|---|
-| [2026-09-08](2026-09-08/DRAW.json) | held-out | airflow, bokeh, localstack, mlflow, ray, transformers | 6 × 300 = 1800 | checkwash v0.3.2 | no — stops at the raw block rate |
+| [2026-09-08](2026-09-08/DRAW.json) | held-out | bokeh, mlflow, ray, transformers | 4 × 300 = 1200 | checkwash v0.3.2 | no — stops at the raw block rate |
 
-The 2026-09-08 draw is the first under SPEC section 10.2 rule 2. Its
-denominator matches the in-sample 46/1800 on purpose, so the two rates
-compare without converting either one. **Three sources are left in reserve**
-(azure-cli, great_expectations, salt), and a held-out number goes stale under
-rule 4 whenever detector logic changes — so the reserve is worth spending
-deliberately, not on the next convenient question.
+The 2026-09-08 draw is the first under SPEC section 10.2 rule 2. It was
+recomputed twice before any sweep ran: once because the frame was wrong (see
+below), and once because the maintainer cut the count from six to four. Against
+a frame of nine, six would have left almost nothing, and a held-out number goes
+stale under rule 4 whenever detector logic changes — so **five sources stay in
+reserve** (airflow, azure-cli, great_expectations, localstack, salt).
+
+At four sources the denominator is 1200 rather than the in-sample 1800, so the
+two are compared as rates. It also means one repository moves the total by up
+to a quarter: read the per-repository column, not only the headline.
 
 ## Sweeps that happen somewhere else
 

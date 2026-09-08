@@ -3,7 +3,7 @@
   "corrections": [
     {
       "date": "2026-09-08",
-      "what": "The first computation of this draw used a 15-source frame and returned azure-cli, localstack, mlflow, salt, scrapy, transformers. That frame was wrong: the 2026-09-08 exploratory external evaluation had already swept six of its members on checkwash v0.3.2, run from a working directory outside every repository, so corpus.holdout.eligible could not see them. django, moto, poetry, pytest, scrapy and sentry-python were never eligible, and scrapy had been drawn. The frame is corrected to 9 by records/holdout/spent-elsewhere.json and the draw recomputed from it with the same pre-registered seed.",
+      "what": "The first computation of this draw used a 15-source frame and returned azure-cli, localstack, mlflow, salt, scrapy, transformers. That frame was wrong: the 2026-09-08 exploratory external evaluation had already swept six of its members on checkwash v0.3.2, run from a working directory outside every repository, so corpus.holdout.eligible could not see them. django, moto, poetry, pytest, scrapy and sentry-python were never eligible, and scrapy had been drawn. The frame is corrected to 9 by records/holdout/spent-elsewhere.json and the draw recomputed from it with the same pre-registered seed. The count was then reduced from six to four by the maintainer, because a frame of nine makes six close to spending the whole reserve and a held-out number goes stale under rule 4 whenever detector logic changes. Both decisions were taken before any sweep ran.",
       "why_this_is_not_selection_on_outcome": "No sweep had run and no result existed for any candidate at either computation, so nothing about the engine's behaviour could have influenced the frame or the recomputation. The seed was fixed before both. This is a sampling-frame repair, not a re-roll."
     }
   ],
@@ -44,8 +44,10 @@
       "transformers"
     ],
     "reserve_after_this_draw": [
+      "airflow",
       "azure-cli",
       "great_expectations",
+      "localstack",
       "salt"
     ],
     "rule": "wave1-mock-power members, minus ids named in any records/field-runs/ ledger, minus ids with a records/sweeps/<id>.json window, minus ids listed in records/holdout/spent-elsewhere.json, minus ids consumed by an earlier draw. Derived by corpus.holdout.eligible from what is on disk, not from a hand-kept list.",
@@ -72,19 +74,19 @@
   },
   "prediction": {
     "anomaly_clause": "SPEC 10.2 rule 5: a held-out result better than 2.56% is an anomaly to explain -- window, repository shape, opaque share -- not a headline.",
-    "central_expectation": "about 4.5% (roughly 80 of 1800)",
+    "central_expectation": "about 4.5% (roughly 54 of 1200)",
     "direction": "worse than the in-sample 46/1800 = 2.56%",
-    "interval": "3.0% to 8.0% (54 to 144 of 1800)",
+    "interval": "3.0% to 8.0% (36 to 96 of 1200)",
     "named_mechanisms": [
-      "checkwash#130: consolidating named tests into one parametrize / fixture(params=) / loop reads as TEST_DISABLED at high. transformers, airflow and ray refactor test suites this way constantly.",
-      "The row-86 residual: a project-local test base class whose assertions are custom helpers is not resolved. This produced the 8% outlier on black in the 2026-09-01 field run; transformers (TestCasePlus), airflow and ray each carry one.",
-      "Skip-marker churn as TEST_DISABLED: transformers records 4073 skip sites against a wave0 corpus that has almost none."
+      "checkwash#130: consolidating named tests into one parametrize / fixture(params=) / loop reads as TEST_DISABLED at high. transformers and ray refactor test suites this way constantly.",
+      "The row-86 residual: a project-local test base class whose assertions are custom helpers is not resolved. This produced the 8% outlier on black in the 2026-09-01 field run; transformers (TestCasePlus) and ray both carry one.",
+      "Skip-marker churn as TEST_DISABLED: transformers records 4073 skip sites and ray 1197, against a wave0 corpus that has almost none."
     ],
     "prior": "Every external measurement so far came out worse than the matching in-sample rate: 2026-08-07 by half a point, 2026-09-01 by more (70/2200 = 3.18% on greenwash v0.1.49), and the 2026-09-08 exploratory external evaluation reached 37/1000 = 3.7% on this very engine. That last one is not held-out -- all ten of its repositories were already catalogued -- but it is the closest prior this draw has.",
-    "why_this_pool_is_hard": "The corpus README states the six-repo set cannot see mocking, unittest dialect or JS/TS oracles. This draw lands on all three: patch sites run 169 (bokeh) to 6316 (mlflow) against a wave0 median near 21, and transformers alone carries 24127 unittest asserts and 4073 skip sites."
+    "why_this_pool_is_hard": "The corpus README states the six-repo set cannot see mocking or unittest dialect. This draw lands on both: patch sites run 301 (transformers) to 6316 (mlflow) against a wave0 median near 21, and transformers carries 24127 unittest asserts and 4073 skip sites where wave0 has almost none. Four sources also mean one repository moves the total by up to a quarter, so the per-repository column matters more than it would at six."
   },
   "selection": {
-    "count": 6,
+    "count": 4,
     "method": "uniform sample without replacement, sorted pool, random.Random(seed).sample",
     "pool": [
       "airflow",
@@ -98,32 +100,9 @@
       "transformers"
     ],
     "seed": "4387097ad07994ef594dcc0c5f9e43d4475321e0",
-    "seed_provenance": "checkwash v0.3.0 release commit 4387097ad07994ef594dcc0c5f9e43d4475321e0. Public and dated 2026-09-07, before this draw, so it could not be chosen for its outcome. Anyone can recompute the six ids from the pool and this seed."
+    "seed_provenance": "checkwash v0.3.0 release commit 4387097ad07994ef594dcc0c5f9e43d4475321e0. Public and dated 2026-09-07, before this draw, so it could not be chosen for its outcome. Anyone can recompute the drawn ids from the pool and this seed."
   },
   "sources": [
-    {
-      "census_counts": {
-        "approx_sites": 8,
-        "files_scanned": 8970,
-        "js_test_files": 0,
-        "patch_sites": 16282,
-        "py_files": 7809,
-        "runner_files": 2,
-        "skip_sites": 488,
-        "unittest_asserts": 0
-      },
-      "census_revision": "c951918e0f5ceace7d4683440f2adf5344977eac",
-      "default_branch": "main",
-      "id": "airflow",
-      "license": "Apache-2.0",
-      "owner_repo": "apache/airflow",
-      "pinned_head": "31117014f3c5a8cd4d4acd4223309eb344e21981",
-      "remote": "https://github.com/apache/airflow",
-      "test_paths": [
-        "airflow-core/tests/",
-        "tests/"
-      ]
-    },
     {
       "census_counts": {
         "approx_sites": 0,
@@ -148,28 +127,6 @@
     },
     {
       "census_counts": {
-        "approx_sites": 17,
-        "files_scanned": 1969,
-        "js_test_files": 0,
-        "patch_sites": 322,
-        "py_files": 1942,
-        "runner_files": 52,
-        "skip_sites": 409,
-        "unittest_asserts": 40
-      },
-      "census_revision": "8b9a79f05846835cf4dff63ab7eefdde9df83783",
-      "default_branch": "main",
-      "id": "localstack",
-      "license": "Apache-2.0",
-      "owner_repo": "localstack/localstack",
-      "pinned_head": "8b9a79f05846835cf4dff63ab7eefdde9df83783",
-      "remote": "https://github.com/localstack/localstack",
-      "test_paths": [
-        "tests/"
-      ]
-    },
-    {
-      "census_counts": {
         "approx_sites": 137,
         "files_scanned": 6509,
         "js_test_files": 0,
@@ -184,7 +141,7 @@
       "id": "mlflow",
       "license": "Apache-2.0",
       "owner_repo": "mlflow/mlflow",
-      "pinned_head": "1246a5c8baf81dce7fe06fa83f4cad873411e9fe",
+      "pinned_head": "8a4f1a9a30c2b4aa1b377df75c6e279ba8d1c187",
       "remote": "https://github.com/mlflow/mlflow",
       "test_paths": [
         "tests/"
@@ -243,6 +200,6 @@
     "boundary": "the newest 300 non-merge commits reachable from pinned_head at draw time",
     "commits_per_source": 300,
     "merges": "excluded (rev-list --no-merges), matching records/sweeps",
-    "total_commits": 1800
+    "total_commits": 1200
   }
 }

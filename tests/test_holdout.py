@@ -42,11 +42,11 @@ def test_every_recorded_draw_is_labelled_and_reproducible() -> None:
         assert draw(selection["pool"], len(ids), selection["seed"]) == ids
 
 
-def test_the_2026_09_08_draw_pins_a_1800_commit_window() -> None:
+def test_the_2026_09_08_draw_pins_a_1200_commit_window() -> None:
     record = load_draw(repo_root() / "records" / "holdout" / "2026-09-08")
-    assert record["window"]["total_commits"] == 1800
+    assert record["window"]["total_commits"] == 1200
     assert record["window"]["commits_per_source"] == 300
-    assert len(record["sources"]) == 6
+    assert len(record["sources"]) == 4
     assert record["spent"] is False
     for source in record["sources"]:
         head = source["pinned_head"]
@@ -58,6 +58,16 @@ def test_prediction_states_a_direction_before_the_sweep() -> None:
     prediction = record["prediction"]
     assert "worse" in prediction["direction"]
     assert prediction["named_mechanisms"], "rule 5 wants a falsifiable mechanism"
+
+
+def test_the_draw_records_why_it_was_recomputed() -> None:
+    # The frame was corrected and the count reduced after the first computation.
+    # Both happened before any sweep; the record keeps them rather than hiding them.
+    record = load_draw(repo_root() / "records" / "holdout" / "2026-09-08")
+    corrections = record["corrections"]
+    assert corrections, "a recomputed draw must say so"
+    assert "scrapy" in corrections[0]["what"]
+    assert corrections[0]["why_this_is_not_selection_on_outcome"]
 
 
 def test_eligibility_excludes_wave0_field_runs_and_swept_windows() -> None:
