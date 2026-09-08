@@ -1,0 +1,38 @@
+{
+  "entries": [
+    {
+      "evidence": "estate-consolidation evidence/T-227/batch2-manifest.json and evidence/T-227-pool-external-sweeps.md; report external-evaluation-2026-09-08-batch2 (10 repos, 1000 non-merge commits, 37 blocked, 0 engine errors)",
+      "ids": [
+        "aiohttp",
+        "boto3",
+        "django",
+        "moto",
+        "poetry",
+        "pytest",
+        "scrapy",
+        "sentry-python",
+        "sqlalchemy",
+        "typer"
+      ],
+      "measured_on": "2026-09-08",
+      "reason": "swept during development by the exploratory external evaluation on checkwash v0.3.2, and its findings were read",
+      "run": "external-evaluation-2026-09-08-batch2"
+    },
+    {
+      "evidence": "report public-repo-scan-2026-09-08 (6 repos, 600 non-merge commits, 26 blocked, 0 engine errors)",
+      "ids": [
+        "attrs",
+        "click",
+        "flask",
+        "httpx",
+        "rich",
+        "starlette"
+      ],
+      "measured_on": "2026-09-08",
+      "reason": "same exploratory external evaluation, first batch; these are wave0 and were already in-sample since 2026-07-30",
+      "run": "public-repo-scan-2026-09-08"
+    }
+  ],
+  "schema": "holdout.spent-elsewhere.v1",
+  "why": "SPEC 10.1 defines a held-out repository as one no engine version has swept during development. corpus.holdout.eligible can only see this repository, so a sweep recorded somewhere else is invisible to it. The 2026-09-08 exploratory external evaluation ran on checkwash v0.3.2 from a working directory outside every repository, and its per-repository manifests live in the private estate repository. Without this file the eligibility arithmetic would have called six already-swept repositories held-out. Anything measured outside this repository is listed here, with the evidence that says where."
+}

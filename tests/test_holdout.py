@@ -11,6 +11,7 @@ from corpus.holdout import (
     field_run_ids,
     iter_draw_dirs,
     load_draw,
+    spent_elsewhere_ids,
     swept_ids,
     validate_draws,
 )
@@ -68,10 +69,24 @@ def test_eligibility_excludes_wave0_field_runs_and_swept_windows() -> None:
     assert wave0.isdisjoint(pool)
     assert field_run_ids(root).isdisjoint(pool)
     assert swept_ids(root).isdisjoint(pool)
+    assert spent_elsewhere_ids(root).isdisjoint(pool)
     for source_id in ("aiohttp", "pandas", "sqlalchemy"):
         assert "field run" in excluded[source_id]
     for source_id in ("boto3", "typer"):
         assert "swept" in excluded[source_id]
+
+
+def test_a_sweep_recorded_outside_this_repo_disqualifies() -> None:
+    # The 2026-09-08 exploratory external evaluation ran from a working directory
+    # outside every repository. Nothing under records/sweeps or records/field-runs
+    # names it, so eligibility has to read spent-elsewhere.json or it will call six
+    # already-swept repositories held-out (which the first draw did).
+    root = repo_root()
+    pool, excluded = eligible(root)
+    for source_id in ("django", "moto", "poetry", "pytest", "scrapy", "sentry-python"):
+        assert source_id not in pool
+        assert "elsewhere" in excluded[source_id]
+    assert spent_elsewhere_ids(root) >= {"aiohttp", "scrapy", "typer"}
 
 
 def test_a_drawn_source_cannot_be_drawn_again(tmp_path: Path) -> None:

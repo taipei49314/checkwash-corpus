@@ -1,5 +1,12 @@
 {
   "class": "held-out",
+  "corrections": [
+    {
+      "date": "2026-09-08",
+      "what": "The first computation of this draw used a 15-source frame and returned azure-cli, localstack, mlflow, salt, scrapy, transformers. That frame was wrong: the 2026-09-08 exploratory external evaluation had already swept six of its members on checkwash v0.3.2, run from a working directory outside every repository, so corpus.holdout.eligible could not see them. django, moto, poetry, pytest, scrapy and sentry-python were never eligible, and scrapy had been drawn. The frame is corrected to 9 by records/holdout/spent-elsewhere.json and the draw recomputed from it with the same pre-registered seed.",
+      "why_this_is_not_selection_on_outcome": "No sweep had run and no result existed for any candidate at either computation, so nothing about the engine's behaviour could have influenced the frame or the recomputation. The seed was fixed before both. This is a sampling-frame repair, not a re-roll."
+    }
+  ],
   "drawn_on": "2026-09-08",
   "eligibility": {
     "excluded": {
@@ -8,11 +15,17 @@
       "axios": "wave wave2-js-oracle is not held-out reserve",
       "boto3": "a window of its history was swept (SPEC 10.1)",
       "click": "wave wave0-published-fp is not held-out reserve",
+      "django": "swept by a measurement recorded elsewhere (SPEC 10.1)",
       "express": "wave wave2-js-oracle is not held-out reserve",
       "flask": "wave wave0-published-fp is not held-out reserve",
       "httpx": "wave wave0-published-fp is not held-out reserve",
+      "moto": "swept by a measurement recorded elsewhere (SPEC 10.1)",
       "pandas": "spent by a field run (SPEC 10.1)",
+      "poetry": "swept by a measurement recorded elsewhere (SPEC 10.1)",
+      "pytest": "swept by a measurement recorded elsewhere (SPEC 10.1)",
       "rich": "wave wave0-published-fp is not held-out reserve",
+      "scrapy": "swept by a measurement recorded elsewhere (SPEC 10.1)",
+      "sentry-python": "swept by a measurement recorded elsewhere (SPEC 10.1)",
       "sqlalchemy": "spent by a field run (SPEC 10.1)",
       "starlette": "wave wave0-published-fp is not held-out reserve",
       "typer": "a window of its history was swept (SPEC 10.1)",
@@ -23,20 +36,19 @@
       "airflow",
       "azure-cli",
       "bokeh",
-      "django",
       "great_expectations",
       "localstack",
       "mlflow",
-      "moto",
-      "poetry",
-      "pytest",
       "ray",
       "salt",
-      "scrapy",
-      "sentry-python",
       "transformers"
     ],
-    "rule": "wave1-mock-power members, minus ids named in any records/field-runs/ ledger, minus ids with a records/sweeps/<id>.json window, minus ids consumed by an earlier draw. Derived by corpus.holdout.eligible from what is on disk, not from a hand-kept list.",
+    "reserve_after_this_draw": [
+      "azure-cli",
+      "great_expectations",
+      "salt"
+    ],
+    "rule": "wave1-mock-power members, minus ids named in any records/field-runs/ ledger, minus ids with a records/sweeps/<id>.json window, minus ids listed in records/holdout/spent-elsewhere.json, minus ids consumed by an earlier draw. Derived by corpus.holdout.eligible from what is on disk, not from a hand-kept list.",
     "size_filter": "none. Clone depth is the catalogued wave1 clone_depth (400), which is what a 300-commit sweep needs. Filtering by repository size would bias the draw away from the large monorepos whose test culture wave0 lacks."
   },
   "engine": {
@@ -56,7 +68,7 @@
   "measurement": {
     "clone_depth": 400,
     "command": "python checkwash.pyz sweep <pinned_head> --limit 300 --repo <clone>",
-    "runs_on": "taipei49314/estate-consolidation self-hosted pool, runners labelled checkwash-sweep. Not on a work machine."
+    "runs_on": "taipei49314/estate-consolidation self-hosted pool, runners labelled checkwash-sweep, by .github/workflows/run-holdout-sweep.yml. Not on a work machine."
   },
   "prediction": {
     "anomaly_clause": "SPEC 10.2 rule 5: a held-out result better than 2.56% is an anomaly to explain -- window, repository shape, opaque share -- not a headline.",
@@ -64,12 +76,12 @@
     "direction": "worse than the in-sample 46/1800 = 2.56%",
     "interval": "3.0% to 8.0% (54 to 144 of 1800)",
     "named_mechanisms": [
-      "checkwash#130: consolidating named tests into one parametrize / fixture(params=) / loop reads as TEST_DISABLED at high. transformers and salt refactor test suites this way constantly.",
-      "The row-86 residual: a project-local test base class whose assertions are custom helpers is not resolved. This produced the 8% outlier on black in the 2026-09-01 field run, and transformers (TestCasePlus), salt (TestCase mixins) and azure-cli (ScenarioTest) all have one.",
-      "Skip-marker churn as TEST_DISABLED: transformers records 4073 skip sites and salt 1954, against a wave0 corpus that has almost none."
+      "checkwash#130: consolidating named tests into one parametrize / fixture(params=) / loop reads as TEST_DISABLED at high. transformers, airflow and ray refactor test suites this way constantly.",
+      "The row-86 residual: a project-local test base class whose assertions are custom helpers is not resolved. This produced the 8% outlier on black in the 2026-09-01 field run; transformers (TestCasePlus), airflow and ray each carry one.",
+      "Skip-marker churn as TEST_DISABLED: transformers records 4073 skip sites against a wave0 corpus that has almost none."
     ],
-    "prior": "Both held-out measurements so far came out worse than in-sample: 2026-08-07 by half a point, 2026-09-01 by more (70/2200 = 3.18% out-of-sample on greenwash v0.1.49 against a 2.33% in-sample rate).",
-    "why_this_pool_is_hard": "The corpus README states the six-repo set cannot see mocking, unittest dialect or JS/TS oracles. This draw lands on all six with high mock and unittest power: patch sites run 152 (scrapy) to 6316 (mlflow) against a wave0 median near 21, and transformers alone carries 24127 unittest asserts."
+    "prior": "Every external measurement so far came out worse than the matching in-sample rate: 2026-08-07 by half a point, 2026-09-01 by more (70/2200 = 3.18% on greenwash v0.1.49), and the 2026-09-08 exploratory external evaluation reached 37/1000 = 3.7% on this very engine. That last one is not held-out -- all ten of its repositories were already catalogued -- but it is the closest prior this draw has.",
+    "why_this_pool_is_hard": "The corpus README states the six-repo set cannot see mocking, unittest dialect or JS/TS oracles. This draw lands on all three: patch sites run 169 (bokeh) to 6316 (mlflow) against a wave0 median near 21, and transformers alone carries 24127 unittest asserts and 4073 skip sites."
   },
   "selection": {
     "count": 6,
@@ -78,17 +90,11 @@
       "airflow",
       "azure-cli",
       "bokeh",
-      "django",
       "great_expectations",
       "localstack",
       "mlflow",
-      "moto",
-      "poetry",
-      "pytest",
       "ray",
       "salt",
-      "scrapy",
-      "sentry-python",
       "transformers"
     ],
     "seed": "4387097ad07994ef594dcc0c5f9e43d4475321e0",
@@ -97,25 +103,47 @@
   "sources": [
     {
       "census_counts": {
-        "approx_sites": 2,
-        "files_scanned": 5228,
+        "approx_sites": 8,
+        "files_scanned": 8970,
         "js_test_files": 0,
-        "patch_sites": 1503,
-        "py_files": 5220,
-        "runner_files": 1,
-        "skip_sites": 233,
-        "unittest_asserts": 11276
+        "patch_sites": 16282,
+        "py_files": 7809,
+        "runner_files": 2,
+        "skip_sites": 488,
+        "unittest_asserts": 0
       },
-      "census_revision": "65d72b8042d67062377690c38a88c09f99f9b38b",
-      "default_branch": "dev",
-      "id": "azure-cli",
-      "license": "MIT",
-      "owner_repo": "Azure/azure-cli",
-      "pinned_head": "e18686969e7c31a020f0c51bb2679ed60da38552",
-      "remote": "https://github.com/Azure/azure-cli",
+      "census_revision": "c951918e0f5ceace7d4683440f2adf5344977eac",
+      "default_branch": "main",
+      "id": "airflow",
+      "license": "Apache-2.0",
+      "owner_repo": "apache/airflow",
+      "pinned_head": "31117014f3c5a8cd4d4acd4223309eb344e21981",
+      "remote": "https://github.com/apache/airflow",
       "test_paths": [
-        "src/azure-cli-core/",
-        "src/azure-cli/azure/cli/command_modules/"
+        "airflow-core/tests/",
+        "tests/"
+      ]
+    },
+    {
+      "census_counts": {
+        "approx_sites": 0,
+        "files_scanned": 2459,
+        "js_test_files": 0,
+        "patch_sites": 359,
+        "py_files": 1297,
+        "runner_files": 1,
+        "skip_sites": 26,
+        "unittest_asserts": 228
+      },
+      "census_revision": "9433727eebe1e69360299edbb46b197d55f0634d",
+      "default_branch": "branch-4.0",
+      "id": "bokeh",
+      "license": "BSD-3-Clause",
+      "owner_repo": "bokeh/bokeh",
+      "pinned_head": "df35f8d4bb02be21a9b12cedbf4f8f3b77835d69",
+      "remote": "https://github.com/bokeh/bokeh",
+      "test_paths": [
+        "tests/"
       ]
     },
     {
@@ -164,46 +192,25 @@
     },
     {
       "census_counts": {
-        "approx_sites": 0,
-        "files_scanned": 3031,
+        "approx_sites": 217,
+        "files_scanned": 5027,
         "js_test_files": 0,
-        "patch_sites": 3079,
-        "py_files": 3022,
-        "runner_files": 2,
-        "skip_sites": 1954,
-        "unittest_asserts": 4912
-      },
-      "census_revision": "621251a7376f114e8a67eea323c637a94cefc917",
-      "default_branch": "master",
-      "id": "salt",
-      "license": "Apache-2.0",
-      "owner_repo": "saltstack/salt",
-      "pinned_head": "621251a7376f114e8a67eea323c637a94cefc917",
-      "remote": "https://github.com/saltstack/salt",
-      "test_paths": [
-        "tests/"
-      ]
-    },
-    {
-      "census_counts": {
-        "approx_sites": 1,
-        "files_scanned": 485,
-        "js_test_files": 0,
-        "patch_sites": 152,
-        "py_files": 485,
+        "patch_sites": 1688,
+        "py_files": 4800,
         "runner_files": 1,
-        "skip_sites": 49,
-        "unittest_asserts": 156
+        "skip_sites": 1197,
+        "unittest_asserts": 3177
       },
-      "census_revision": "53eb8d60bcd0160633f6513478f958ed5a457363",
+      "census_revision": "167681c2b2485fffc670ddd9edd40ed428854e01",
       "default_branch": "master",
-      "id": "scrapy",
-      "license": "BSD-3-Clause",
-      "owner_repo": "scrapy/scrapy",
-      "pinned_head": "544f4d2d52377c7a5d6e12b51e219a310ec1b43d",
-      "remote": "https://github.com/scrapy/scrapy",
+      "id": "ray",
+      "license": "Apache-2.0",
+      "owner_repo": "ray-project/ray",
+      "pinned_head": "c3162dce8d064824293875c5d0bbfd76a54e04ce",
+      "remote": "https://github.com/ray-project/ray",
       "test_paths": [
-        "tests/"
+        "python/ray/tests/",
+        "python/ray/data/tests/"
       ]
     },
     {

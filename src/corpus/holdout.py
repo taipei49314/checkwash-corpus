@@ -22,6 +22,7 @@ from corpus.jsonio import load
 from corpus.paths import repo_root
 
 DRAW_NAME = "DRAW.json"
+SPENT_ELSEWHERE_NAME = "spent-elsewhere.json"
 HELD_OUT = "held-out"
 IN_SAMPLE = "in-sample"
 
@@ -75,6 +76,25 @@ def field_run_ids(root: Path) -> set[str]:
     return ids
 
 
+def spent_elsewhere_ids(root: Path) -> set[str]:
+    """Ids a measurement outside this repository already swept.
+
+    SPEC 10.1 calls a repository held-out only while no engine version has swept
+    it during development. A sweep run from somewhere else -- the 2026-09-08
+    exploratory external evaluation ran from a working directory outside every
+    repository -- leaves no trace here, so it is written down explicitly and the
+    eligibility arithmetic reads it like any other record.
+    """
+    path = holdout_root(root) / SPENT_ELSEWHERE_NAME
+    if not path.is_file():
+        return set()
+    ids: set[str] = set()
+    for entry in load(path).get("entries", []):
+        if isinstance(entry, dict):
+            ids.update(str(i) for i in entry.get("ids", []))
+    return ids
+
+
 def drawn_ids(root: Path) -> set[str]:
     """Ids consumed by an earlier draw. SPEC 10.2 rule 2 bars re-drawing."""
     ids: set[str] = set()
@@ -96,6 +116,7 @@ def eligible(root: Path | None = None, catalog=None) -> tuple[list[str], dict[st
     swept = swept_ids(root)
     field = field_run_ids(root)
     already = drawn_ids(root)
+    elsewhere = spent_elsewhere_ids(root)
 
     keep: list[str] = []
     excluded: dict[str, str] = {}
@@ -108,6 +129,8 @@ def eligible(root: Path | None = None, catalog=None) -> tuple[list[str], dict[st
             excluded[source.id] = "a window of its history was swept (SPEC 10.1)"
         elif source.id in already:
             excluded[source.id] = "consumed by an earlier draw (SPEC 10.2 rule 2)"
+        elif source.id in elsewhere:
+            excluded[source.id] = "swept by a measurement recorded elsewhere (SPEC 10.1)"
         else:
             keep.append(source.id)
     return sorted(keep), excluded
