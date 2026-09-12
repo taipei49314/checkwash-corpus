@@ -11,6 +11,7 @@ from __future__ import annotations
 
 import datetime
 import hashlib
+import inspect
 import json
 import os
 import subprocess
@@ -21,6 +22,25 @@ from dataclasses import dataclass, field
 from pathlib import Path
 
 TODAY = datetime.date(2026, 1, 1)
+
+
+def _inventory_callbacks(analyze, snapshot):
+    """Use the complete-inventory API when the pinned engine exposes it.
+
+    Released engines without this additive API retain their original call.
+    A text search cannot certify inventory: empty package files and non-Python
+    controls must reach the newer provider-resolution model too.
+    """
+    parameters = inspect.signature(analyze).parameters
+    supported = {"root_path_lister", "root_batch_reader"} & parameters.keys()
+    if not supported:
+        return {}
+    if len(supported) != 2:
+        raise RuntimeError("pinned engine exposes an incomplete snapshot inventory API")
+    return {
+        "root_path_lister": lambda: sorted(snapshot),
+        "root_batch_reader": lambda paths: {path: snapshot.get(path) for path in paths},
+    }
 
 
 @dataclass
@@ -98,6 +118,7 @@ class Engine:
                 head_searcher=lambda needles: self._search_source_mapping(snapshot, needles),
                 root_reader=snapshot.get,
                 root_searcher=lambda needles: self._search_source_mapping(snapshot, needles),
+                **_inventory_callbacks(self._analyze, snapshot),
             )
         except BaseException as exc:  # noqa: BLE001 - a crash is the finding
             if isinstance(exc, KeyboardInterrupt):
