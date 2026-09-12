@@ -27,7 +27,7 @@ jobs:
       - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4.4.0
         with:
           repository: taipei49314/checkwash
-          ref: 498064f095bd892550a917219798b3f44c42ccef # v0.3.3
+          ref: 23fce200561ae4a95e46539ed9e668088591d1c1 # v0.3.4
           path: checkwash
           persist-credentials: false
       - uses: actions/setup-python@a26af69be951a213d495a4c3e4e4022e16d87065 # v5.6.0
@@ -39,10 +39,10 @@ jobs:
       - name: verify released engine and source
         id: verify_release
         run: |
-          test "$(git -C ../checkwash rev-parse HEAD)" = "498064f095bd892550a917219798b3f44c42ccef"
+          test "$(git -C ../checkwash rev-parse HEAD)" = "23fce200561ae4a95e46539ed9e668088591d1c1"
           curl --fail --location --proto '=https' --proto-redir '=https' --silent --show-error --retry 3 --connect-timeout 15 --max-time 120 \
-            --output checkwash.pyz https://github.com/taipei49314/checkwash/releases/download/v0.3.3/checkwash.pyz
-          printf '%s  %s\n' '583de5a186662c4f4c550e5d712eb9af7647c7b0af4dbbe21864c8f10f451007' 'checkwash.pyz' | sha256sum --check --strict
+            --output checkwash.pyz https://github.com/taipei49314/checkwash/releases/download/v0.3.4/checkwash.pyz
+          printf '%s  %s\n' 'ae7f9f2c166828c2428a1dfca02095fd705eb3683a4855cecdb523560769ffce' 'checkwash.pyz' | sha256sum --check --strict
       # Engine permits one pin per interpreter. These disjoint invocations
       # cover the entire original suite without relaxing that pin guard.
       - name: test released engine suite
