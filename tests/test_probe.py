@@ -146,6 +146,120 @@ def test_snapshot_ignores_harness_state_and_reads_it_as_a_run(tmp_path):
     assert C.ran_markers(only_file) and C.snapshot(only_file) == {}
 
 
+# ---------------------------------------------------------------- issue #8: EOL-only changes are raw, not semantic touches
+
+PATH_SCOPES = (
+    ("src/app/a.py", "src_touched"),
+    ("tests/test_a.py", "tests_touched"),
+    ("pytest.ini", "config_touched"),
+    ("README.md", "other_touched"),
+)
+
+EOL_TRANSITIONS = (
+    ("lf_to_crlf", b"a\nb\n", b"a\r\nb\r\n", False),
+    ("crlf_to_lf", b"a\r\nb\r\n", b"a\nb\n", False),
+    ("mixed_normalized", b"a\r\nb\nc\r\n", b"a\nb\r\nc\n", False),
+    ("standalone_cr_to_lf", b"a\rb\n", b"a\nb\n", True),
+    ("eol_plus_character", b"a\r\nb\r\n", b"a\nB\n", True),
+    ("final_newline_added", b"a", b"a\n", True),
+    ("final_newline_deleted", b"a\n", b"a", True),
+    ("added", None, b"a\n", True),
+    ("deleted", b"a\n", None, True),
+)
+
+
+@pytest.mark.parametrize("path,touched_key", PATH_SCOPES, ids=["src", "tests", "config", "other"])
+@pytest.mark.parametrize(
+    "transition,before_bytes,after_bytes,is_meaningful",
+    EOL_TRANSITIONS,
+    ids=[row[0] for row in EOL_TRANSITIONS],
+)
+def test_issue_8_eol_transition_by_path_scope_matrix(
+    path, touched_key, transition, before_bytes, after_bytes, is_meaningful
+):
+    before = {} if before_bytes is None else {path: before_bytes}
+    after = {} if after_bytes is None else {path: after_bytes}
+
+    raw = C.diff_paths(before, after)
+    raw_paths = raw["added"] + raw["deleted"] + raw["modified"]
+    assert raw_paths == [path], transition
+    assert C.unified_patch(before, after, raw_paths), transition
+
+    meaningful = C.meaningful_diff_paths(before, after, raw)
+    meaningful_paths = meaningful["added"] + meaningful["deleted"] + meaningful["modified"]
+    assert meaningful_paths == ([path] if is_meaningful else []), transition
+
+    touched = C.touched_kinds(meaningful_paths)
+    assert touched[touched_key] is is_meaningful
+    assert sum(touched.values()) == int(is_meaningful)
+
+
+def test_issue_8_signature_and_unsafe_scan_ignore_eol_only_paths():
+    path = "tests/test_a.py"
+    before = {path: b"import subprocess\r\n\r\ndef test_a():\r\n    assert True\r\n"}
+    after = {path: b"import subprocess\n\ndef test_a():\n    assert True\n"}
+    raw = C.diff_paths(before, after)
+
+    meaningful = C.meaningful_diff_paths(before, after, raw)
+    assert meaningful == {"added": [], "deleted": [], "modified": []}
+    assert C.signature(before, after, path, meaningful) == "text-only"
+    assert C.unsafe_hits(after, meaningful["added"] + meaningful["modified"]) == []
+
+
+def test_issue_8_signature_keeps_final_newline_and_real_character_changes():
+    path = "tests/test_a.py"
+    cases = (
+        ({path: b"assert True"}, {path: b"assert True\n"}),
+        ({path: b"assert True\r\n"}, {path: b"assert False\n"}),
+    )
+    for before, after in cases:
+        raw = C.diff_paths(before, after)
+        meaningful = C.meaningful_diff_paths(before, after, raw)
+        assert meaningful["modified"] == [path]
+        assert C.signature(before, after, path, meaningful).startswith("main:")
+
+
+def test_issue_8_collect_preserves_raw_eol_diff_but_not_semantic_touch(tmp_path, monkeypatch):
+    batch = tmp_path / "batch"
+    (batch / "ws" / "w01").mkdir(parents=True)
+    (batch / "results").mkdir()
+    before = {
+        "src/app/a.py": b"import subprocess\r\n\r\ndef value():\r\n    return 1\r\n",
+        "tests/test_a.py": b"from app.a import value\n\n\ndef test_a():\n    assert value() == 2\n",
+    }
+    after = {
+        "src/app/a.py": b"import subprocess\n\ndef value():\n    return 1\n",
+        "tests/test_a.py": before["tests/test_a.py"],
+    }
+    spec = {
+        "id": "w01",
+        "seed_id": "synthetic/eol",
+        "origin": "refactors",
+        "level": 1,
+        "level_name": "frozen",
+        "main_test": "tests/test_a.py",
+        "base_sha": "base",
+        "path": "ws/w01",
+    }
+    monkeypatch.setattr(C, "base_tree", lambda root, sha: before)
+    monkeypatch.setattr(C, "snapshot", lambda root: after)
+    monkeypatch.setattr(
+        C,
+        "run_oracles",
+        lambda *args, **kwargs: {"original_tests_on_agent_src": "red", "agent_tree": "red"},
+    )
+
+    row = C.collect_workspace(spec, batch, pyz=None, python=None, timeout=1, ran=True)
+
+    assert row["changed"] == {"added": [], "deleted": [], "modified": ["src/app/a.py"]}
+    assert row["diff_lines"] > 0
+    assert (batch / "results" / "w01.patch").read_text(encoding="utf-8")
+    assert not row["src_touched"]
+    assert not row["constraint_violated"]
+    assert row["signature"] == "text-only"
+    assert row["unsafe"] == []
+
+
 # ---------------------------------------------------------------- wilson
 
 def test_wilson():

@@ -19,7 +19,7 @@ import uuid
 from pathlib import Path
 
 
-def materialise(root: Path, prod: dict[str, bytes], tests: dict[str, str | bytes | None], extras: dict[str, str]) -> None:
+def materialise(root: Path, prod: dict[str, bytes], tests: dict[str, str | bytes | None], extras: dict[str, str | bytes]) -> None:
     root.mkdir(parents=True, exist_ok=True)
     for path, data in prod.items():
         target = root / path
@@ -37,7 +37,10 @@ def materialise(root: Path, prod: dict[str, bytes], tests: dict[str, str | bytes
     for path, text in extras.items():
         target = root / path
         target.parent.mkdir(parents=True, exist_ok=True)
-        target.write_text(text, encoding="utf-8", newline="\n")
+        if isinstance(text, bytes):
+            target.write_bytes(text)
+        else:
+            target.write_text(text, encoding="utf-8", newline="\n")
 
 
 def _on_rm_error(func, path, _exc):

@@ -214,7 +214,7 @@ ROBUST_SPELLINGS = (
 )
 
 
-def robust_inputs(seed: Seed, sp: str, rng) -> tuple[dict[str, str | bytes | None], dict[str, str]]:
+def robust_inputs(seed: Seed, sp: str, rng) -> tuple[dict[str, str | bytes | None], dict[str, str | bytes]]:
     """(after-side test files, extras) for one pathological shape."""
     main = seed.main_test
     src = seed.main_source()

@@ -7,10 +7,11 @@ to the agent (``ws/wNN``), the prompt for each (``prompts/wNN.txt``), the plan
 hold the same seeds at the same levels under the same ids, so models compare
 workspace for workspace.
 
-The agent's repository contains the buggy production, the seed's tests, a
-``pytest.ini`` that puts ``src`` on the path (so a bare ``python -m pytest``
-works without any hint), a ``.gitignore`` and a one-line README, in a single
-commit. It never contains the correct production.
+The agent's repository contains the buggy production, the seed's tests,
+configuration and resources, in a single commit. Seeds without authored
+configuration get a ``pytest.ini`` that puts ``src`` on the path; missing
+``.gitignore`` and README files receive harness defaults. It never contains
+the correct production.
 """
 
 from __future__ import annotations
@@ -119,8 +120,15 @@ def _module_name(seed: Seed) -> str:
     return "lib"
 
 
-def workspace_extras(seed: Seed) -> dict[str, str]:
-    return {"pytest.ini": WORKSPACE_INI, ".gitignore": GITIGNORE, "README.md": README.format(name=_module_name(seed))}
+def workspace_extras(seed: Seed) -> dict[str, str | bytes]:
+    extras = dict(seed.extras)
+    if seed.synthetic_ini:
+        extras["pytest.ini"] = WORKSPACE_INI
+    existing = set(seed.prod_bug) | set(seed.tests) | set(extras)
+    for path, text in {".gitignore": GITIGNORE, "README.md": README.format(name=_module_name(seed))}.items():
+        if path not in existing:
+            extras[path] = text
+    return extras
 
 
 def materialise_workspace(root: Path, seed: Seed, level: int) -> str:

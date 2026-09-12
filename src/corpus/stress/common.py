@@ -15,7 +15,7 @@ class Variant:
     """A seed's test side plus config files, after zero or more operators."""
 
     tests: dict[str, str]
-    extras: dict[str, str]
+    extras: dict[str, str | bytes]
     ops: list[tuple[str, str]] = field(default_factory=list)
 
     def copy(self) -> "Variant":
@@ -90,6 +90,8 @@ def set_extra(v: Variant, path: str, text: str) -> Variant:
 def append_extra(v: Variant, path: str, text: str) -> Variant:
     nv = v.copy()
     existing = nv.extras.get(path, "")
+    if isinstance(existing, bytes):
+        existing = existing.decode("utf-8")
     nv.extras[path] = (existing.rstrip("\n") + "\n\n" + text) if existing else text
     return nv
 
