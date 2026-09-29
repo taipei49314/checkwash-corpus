@@ -36,9 +36,9 @@ part of this branch; its [arithmetic correction](docs/T88_CORRECTION_2026-09-12.
 The report in #9 does not include its raw run directories; its provenance
 limits still apply.
 
-CI checks the tools against the released CheckWash v0.3.4 `checkwash.pyz` and
-source ([`.github/workflows/ci.yml`](.github/workflows/ci.yml)). The latest
-CheckWash release is v0.4.2; the pin moves only with an authorized re-pin
+CI checks the tools against the released CheckWash v0.4.2 `checkwash.pyz` and
+source ([`.github/workflows/ci.yml`](.github/workflows/ci.yml)), the latest
+release as of 2026-09-29. The pin moves only with an authorized re-pin
 (see [AGENTS.md](AGENTS.md)).
 
 ## Published historical measurements
@@ -136,8 +136,8 @@ repository before it counts.
 ```bash
 # Gates against recorded truth — the refactor and tamper ledgers read from the
 # checkwash checkout's benchmarks/*/expected.json, replayed case-for-case (at
-# the v0.3.4 CI pin: refactor 4/60 and tamper 52/80 blocked), the pytest oracle
-# agreeing on all 80 tamper cases, the recorded escapes (28 at v0.3.4)
+# the v0.4.2 CI pin: refactor 4/60 and tamper 54/80 blocked), the pytest oracle
+# agreeing on all 80 tamper cases, the recorded escapes (26 at v0.4.2)
 # classified as escapes. Fails closed; `run` refuses without a passing record.
 python -m corpus stress calibrate --engine checkwash.pyz --checkwash ../checkwash
 
