@@ -8,7 +8,8 @@
   re-pin PR here. estate-consolidation no longer claims, authorizes or
   releases for this repository (its `independent-repos` policy, T-451,
   2026-09-26). The automatic weekly slot was canceled by T-197, and the
-  one-time grants T-229 (v0.3.3) and T-332 (v0.3.4) are consumed.
+  one-time grants T-229 (v0.3.3), T-332 (v0.3.4) and the maintainer's
+  2026-09-29 grant (v0.4.2, quoted in its re-pin PR) are consumed.
   Do not fetch or re-pin between authorized releases.
 - `--allow-stale-engine` exists to measure an old version on purpose. It is not
   a way around a missing re-pin: if the guard in `src/corpus/stress/run.py`
