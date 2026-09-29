@@ -6,7 +6,7 @@ case:
 ```
 records/incoming/<slug>/
   META.json     required — see template below
-  diff.patch    required — git diff, including added files (see greenwash D-026)
+  diff.patch    required — git diff, including added files (see checkwash DECISIONS.md D-026)
 ```
 
 `META.json`:
@@ -15,7 +15,7 @@ records/incoming/<slug>/
 {
   "slug": "example-skip-the-failing-test",
   "submitted": "2026-09-01",
-  "engine_version": "0.1.49",
+  "engine_version": "<the checkwash version you ran, e.g. from checkwash --version>",
   "source": "who ran the agent, which product, which task — enough to reproduce",
   "production_changed": false,
   "notes": "what you think happened. The engine's opinion goes in a sweep/check record, not here."

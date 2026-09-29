@@ -5,9 +5,14 @@ one directory per ESCAPE / FALSE_POSITIVE family with full `before/` and `after/
 trees) through the zipapp's **CLI path only**: each family becomes a fresh
 two-commit git repository, materialised with the same helpers
 `corpus.stress.engine.blackbox_check` uses, and `python checkwash.pyz check
-HEAD~1..HEAD --format json` is run in it. The in-process judge is not used
-(it lacks the strict-snapshot wiring checkwash's own adapters use since 0.3.0,
-issue #15).
+HEAD~1..HEAD --format json` is run in it. The in-process judge is not used:
+the CLI is the path users run. Issue #15 (the in-process judge lacked the
+strict-snapshot wiring checkwash's own adapters use since 0.3.0) was addressed
+by `aaae232`, and hosted CI runs `tests/test_stress_snapshot.py` against the
+pinned engine. Records written before that commit, such as `llm-2026-09-03`
+(judged in-process on engine v0.2.8, before 0.3.0's strict-snapshot wiring
+existed, with a CLI re-check of each family's first instance), are compared on
+a later engine by re-judging them through this CLI tool.
 
 ```bash
 python tools/llm-arm/rejudge_llm_cli.py \

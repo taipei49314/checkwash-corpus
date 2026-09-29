@@ -10,7 +10,7 @@ never committed. See [SPEC.md](SPEC.md).
 
 | You want to… | Read first |
 |---|---|
-| Use Checkwash on your own changes | [Checkwash v0.2.13 public launch and first use](https://github.com/taipei49314/checkwash/blob/main/docs/releases/v0.2.13-public-launch.md) — installation, release assets, verification and limits |
+| Use Checkwash on your own changes | [Checkwash v0.4.2 release guide](https://github.com/taipei49314/checkwash/blob/main/docs/releases/v0.4.2-public-launch.md) — installation checks, versions, first use and limits |
 | Understand this measurement repository | [SPEC.md](SPEC.md) for the record contract, then [REPORT.md](REPORT.md) for the dated historical measurements |
 | Understand the separate verifier research harness | [smallestlie](https://github.com/taipei49314/smallestlie) — its scope, authorization and documentation |
 
@@ -18,18 +18,28 @@ The tools below maintain the corpus. Installing them is not required to use
 Checkwash. Read a report's date, engine pin and data-availability limits before
 using its numbers.
 
-## Public status (2026-09-06)
+## Public status (2026-09-29)
 
-This navigation update uses the records from
-[`12c079f`](https://github.com/taipei49314/checkwash-corpus/tree/12c079fc686648490a2c94720cf8a64724308a1c)
-(2026-09-03) as its baseline. Catalogs, historical sweeps and harvested records are published here.
-The next changes are public but still under review:
-[cross-model report #9](https://github.com/taipei49314/checkwash-corpus/pull/9),
-[signature classification #10](https://github.com/taipei49314/checkwash-corpus/pull/10),
+Checked against the default branch at
+[`fe2cd1c`](https://github.com/taipei49314/checkwash-corpus/tree/fe2cd1c588587c7eaa01e433c7cf3c797504358e)
+(2026-09-12). Catalogs, historical sweeps, harvested records, the
+[`llm-2026-09-03` stress record](records/stress/llm-2026-09-03/REPORT.md) and the
+[2026-09-08 held-out draw with its v0.3.2 raw block rate](records/holdout/README.md)
+are published here. Of the four changes listed as under review on 2026-09-06,
+the [separate harness observation #12](https://github.com/taipei49314/checkwash-corpus/pull/12)
+is merged ([Chassis arm](#chassis-arm-silent-suite-vs-ci_green)), and the patches of
+[signature classification #10](https://github.com/taipei49314/checkwash-corpus/pull/10) and
 [line-ending classification #11](https://github.com/taipei49314/checkwash-corpus/pull/11)
-and [separate harness observation #12](https://github.com/taipei49314/checkwash-corpus/pull/12).
-They are not part of this default-branch snapshot. The report in #9 does not
-include its raw run directories; its provenance limits still apply.
+reached this branch as `c9f6a73` and `ff6dd1c`. Only the
+[cross-model report #9](https://github.com/taipei49314/checkwash-corpus/pull/9) is not
+part of this branch; its [arithmetic correction](docs/T88_CORRECTION_2026-09-12.md) is.
+The report in #9 does not include its raw run directories; its provenance
+limits still apply.
+
+CI checks the tools against the released CheckWash v0.3.4 `checkwash.pyz` and
+source ([`.github/workflows/ci.yml`](.github/workflows/ci.yml)). The latest
+CheckWash release is v0.4.2; the pin moves only with an authorized re-pin
+(see [AGENTS.md](AGENTS.md)).
 
 ## Published historical measurements
 
@@ -40,7 +50,11 @@ Historical snapshot (2026-09-01): [REPORT.md](REPORT.md) — wave 0 on Release
 `checkwash.pyz` v0.2.8 still 42/1800 at the published pins; field-run
 `external-2026-09-01` is a separate copied ledger (74/2300 on v0.1.49
 `greenwash.pyz`, not a v0.2.8 number).
-These are historical observations, not a fresh v0.2.13 sweep.
+These are historical observations; the wave-0 records here stay at v0.2.8 and
+have not been re-recorded in this repository. CheckWash's own
+[README](https://github.com/taipei49314/checkwash/blob/main/README.md#measured-not-asserted)
+reports the same six-repository window at 46/1800 on v0.3.0 (swept 2026-09-07,
+in-sample).
 
 ```
 $ python -m corpus status
@@ -120,8 +134,10 @@ recorded finding is re-run through the zipapp CLI on a real two-commit
 repository before it counts.
 
 ```bash
-# Gates against recorded truth — refactor 24/60 and tamper 49/80 case-for-case,
-# the pytest oracle agreeing on all 80 tamper cases, the 31 recorded escapes
+# Gates against recorded truth — the refactor and tamper ledgers read from the
+# checkwash checkout's benchmarks/*/expected.json, replayed case-for-case (at
+# the v0.3.4 CI pin: refactor 4/60 and tamper 52/80 blocked), the pytest oracle
+# agreeing on all 80 tamper cases, the recorded escapes (28 at v0.3.4)
 # classified as escapes. Fails closed; `run` refuses without a passing record.
 python -m corpus stress calibrate --engine checkwash.pyz --checkwash ../checkwash
 

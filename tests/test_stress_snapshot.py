@@ -1,6 +1,6 @@
 """The stress adapter must judge the same complete tree as the released CLI.
 
-Engine integration runs are opt-in with CORPUS_TEST_ENGINE_PYZ on the pool;
+Engine integration runs are opt-in with CORPUS_TEST_ENGINE_PYZ (hosted CI sets it);
 no engine is downloaded or repinned by these tests.
 """
 
@@ -45,7 +45,7 @@ def test_calibration_inventory_includes_non_python_config(tmp_path):
 def engine():
     path = os.environ.get('CORPUS_TEST_ENGINE_PYZ')
     if not path:
-        pytest.skip('pool integration requires CORPUS_TEST_ENGINE_PYZ')
+        pytest.skip('engine integration requires CORPUS_TEST_ENGINE_PYZ')
     return Engine(Path(path))
 
 
@@ -108,7 +108,7 @@ def test_double(x, expected):
 def test_reported_calibration_divergences(engine, tmp_path, kind, name, expected):
     root = os.environ.get('CORPUS_TEST_CHECKWASH_ROOT')
     if not root:
-        pytest.skip('pool integration requires CORPUS_TEST_CHECKWASH_ROOT')
+        pytest.skip('engine integration requires CORPUS_TEST_CHECKWASH_ROOT')
     case = Path(root) / 'benchmarks' / kind / 'cases' / name
     if kind == 'refactors':
         prod, old, new = _tree(case / 'PROD-GOOD'), _tree(case / 'BEFORE'), _tree(case / 'AFTER')
