@@ -5,9 +5,9 @@ For every family directory under ``<record>/escapes`` and ``<record>/false_posit
 materialises ``before/`` then ``after/`` as the two commits of a fresh git repository exactly
 as ``corpus.stress.engine.blackbox_check`` does (the same ``_git`` / ``_write`` helpers, the
 same ``python <pyz> check HEAD~1..HEAD --format json`` command, the same exit-code fallback)
-and records the verdict and the findings the CLI prints. Nothing is judged in-process: the
-harness's in-process judge lacks the strict-snapshot wiring checkwash's own adapters use
-since 0.3.0 (corpus issue #15), so only the CLI path is the user path.
+and records the verdict and the findings the CLI prints. Nothing is judged in-process: only
+the CLI path is the user path. (The missing strict-snapshot wiring of corpus issue #15 was
+addressed by aaae232; records made before it carry in-process verdicts from the old wiring.)
 
 Outputs, under ``--out``:
 
