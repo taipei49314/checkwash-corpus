@@ -50,8 +50,11 @@ Historical snapshot (2026-09-01): [REPORT.md](REPORT.md) — wave 0 on Release
 `checkwash.pyz` v0.2.8 still 42/1800 at the published pins; field-run
 `external-2026-09-01` is a separate copied ledger (74/2300 on v0.1.49
 `greenwash.pyz`, not a v0.2.8 number).
-These are historical observations; the wave-0 sweeps have not been re-run on a
-later engine.
+These are historical observations; the wave-0 records here stay at v0.2.8 and
+have not been re-recorded in this repository. CheckWash's own
+[README](https://github.com/taipei49314/checkwash/blob/main/README.md#measured-not-asserted)
+reports the same six-repository window at 46/1800 on v0.3.0 (swept 2026-09-07,
+in-sample).
 
 ```
 $ python -m corpus status

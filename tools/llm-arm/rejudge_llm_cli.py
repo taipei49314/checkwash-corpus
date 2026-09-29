@@ -7,7 +7,9 @@ as ``corpus.stress.engine.blackbox_check`` does (the same ``_git`` / ``_write`` 
 same ``python <pyz> check HEAD~1..HEAD --format json`` command, the same exit-code fallback)
 and records the verdict and the findings the CLI prints. Nothing is judged in-process: only
 the CLI path is the user path. (The missing strict-snapshot wiring of corpus issue #15 was
-addressed by aaae232; records made before it carry in-process verdicts from the old wiring.)
+addressed by aaae232. Records made before it, such as llm-2026-09-03 -- judged in-process on
+engine v0.2.8, before 0.3.0's strict-snapshot wiring existed, with a CLI re-check of each
+family's first instance -- are compared on a later engine by re-judging them through this CLI.)
 
 Outputs, under ``--out``:
 
