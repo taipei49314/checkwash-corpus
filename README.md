@@ -10,7 +10,7 @@ never committed. See [SPEC.md](SPEC.md).
 
 | You want to… | Read first |
 |---|---|
-| Use Checkwash on your own changes | [Checkwash v0.4.2 release guide](https://github.com/taipei49314/checkwash/blob/main/docs/releases/v0.4.2-public-launch.md) — installation checks, versions, first use and limits |
+| Use Checkwash on your own changes | [Checkwash v0.5.0 release guide](https://github.com/taipei49314/checkwash/blob/main/docs/releases/v0.5.0-public-launch.md) — installation checks, versions, first use and limits |
 | Understand this measurement repository | [SPEC.md](SPEC.md) for the record contract, then [REPORT.md](REPORT.md) for the dated historical measurements |
 | Understand the separate verifier research harness | [smallestlie](https://github.com/taipei49314/smallestlie) — its scope, authorization and documentation |
 
@@ -36,9 +36,9 @@ part of this branch; its [arithmetic correction](docs/T88_CORRECTION_2026-09-12.
 The report in #9 does not include its raw run directories; its provenance
 limits still apply.
 
-CI checks the tools against the released CheckWash v0.4.2 `checkwash.pyz` and
+CI checks the tools against the released CheckWash v0.5.0 `checkwash.pyz` and
 source ([`.github/workflows/ci.yml`](.github/workflows/ci.yml)), the latest
-release as of 2026-09-29. The pin moves only with an authorized re-pin
+release as of 2026-10-01. The pin moves only with an authorized re-pin
 (see [AGENTS.md](AGENTS.md)).
 
 ## Published historical measurements
@@ -136,8 +136,8 @@ repository before it counts.
 ```bash
 # Gates against recorded truth — the refactor and tamper ledgers read from the
 # checkwash checkout's benchmarks/*/expected.json, replayed case-for-case (at
-# the v0.4.2 CI pin: refactor 4/60 and tamper 54/80 blocked), the pytest oracle
-# agreeing on all 80 tamper cases, the recorded escapes (26 at v0.4.2)
+# the v0.5.0 CI pin: refactor 4/60 and tamper 54/80 blocked), the pytest oracle
+# agreeing on all 80 tamper cases, the recorded escapes (26 at v0.5.0)
 # classified as escapes. Fails closed; `run` refuses without a passing record.
 python -m corpus stress calibrate --engine checkwash.pyz --checkwash ../checkwash
 
